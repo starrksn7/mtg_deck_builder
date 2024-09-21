@@ -22,11 +22,6 @@ public class CardController {
         return cardDao.searchForCardByName(name);
     }
 
-    @GetMapping(path="/getFromUri")
-    public String getCardsFromUri(String uri) throws IOException {
-        return cardDao.getCardsFromUri(uri);
-    }
-
     @GetMapping(path="/searchByIdentityAndType")
     public List<Card> findCardByType(String identity, String type) throws UnsupportedEncodingException{
         return cardDao.findCardByIdentityAndType(identity, type);
