@@ -28,6 +28,7 @@ public class JdbcCardDao implements CardDao{
     public List<Card> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?unique=prints&q=" + encodedName;
+        System.out.println(uri);
         try {
             String searchResults = getCardsFromUri(uri);
 

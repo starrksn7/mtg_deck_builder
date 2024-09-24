@@ -3,18 +3,21 @@ import axios from 'axios';
 export default function SearchByName(){
 
     const searchResults = async () => {
+        let response;
         await axios({
-            method: 'GET',
-            url: 'card/searchByName',
-            headers: {},
-            data: {
+            method: 'get',
+            url: 'http://localhost:8080/card/searchByName',
+            params: {
                 name: 'Prosper, Tome-Bound'
             }
-        })
+        });
+        
+        return response
     }
-    console.log("searchResults")
-    console.log(searchResults)
-    const data = searchResults.data;
+
+  
+    const { data } = searchResults();
+
     console.log(data);
     data.forEach(card => {
         return (
