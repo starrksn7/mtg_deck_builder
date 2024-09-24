@@ -2,6 +2,7 @@ package org.deck_builder.controller;
 
 import org.deck_builder.model.Card;
 import org.deck_builder.dao.CardDao;
+import org.deck_builder.model.CardSearchDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -18,8 +19,8 @@ public class CardController {
         this.cardDao = cardDao;
     }
     @GetMapping(path="/searchByName")
-    public List<Card> searchForCardByName(String name) throws UnsupportedEncodingException {
-        return cardDao.searchForCardByName(name);
+    public List<Card> searchForCardByName(@RequestBody Card card) throws UnsupportedEncodingException {
+        return cardDao.searchForCardByName(card.getName());
     }
 
     @GetMapping(path="/searchByIdentityAndType")
