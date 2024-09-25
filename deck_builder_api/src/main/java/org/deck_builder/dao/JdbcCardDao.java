@@ -31,7 +31,7 @@ public class JdbcCardDao implements CardDao{
         System.out.println(uri);
         try {
             String searchResults = getCardsFromUri(uri);
-
+            System.out.println(parseSearchResults(searchResults));
             return parseSearchResults(searchResults);
 
         } catch (IOException e) {
