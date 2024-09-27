@@ -28,10 +28,8 @@ public class JdbcCardDao implements CardDao{
     public List<Card> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?unique=prints&q=" + encodedName;
-        System.out.println(uri);
         try {
             String searchResults = getCardsFromUri(uri);
-            System.out.println(parseSearchResults(searchResults));
             return parseSearchResults(searchResults);
 
         } catch (IOException e) {
@@ -83,7 +81,6 @@ public class JdbcCardDao implements CardDao{
     //So black is just b and red to be r.  The colors variable for black and red should be br not rakdos
     public List<Card> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
         String uri = scryfallUrl + "/cards/search?q=c%3" + colors + "+mv%3D" + manaCost;
-        System.out.println(uri);
         try {
             String searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
@@ -184,18 +181,22 @@ public class JdbcCardDao implements CardDao{
             }
         }
 
-        Card card = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
-        return card;
+        return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
     public List<Card> parseSearchResults(String searchResults){
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
-        ArrayList<Card> result = new ArrayList<>();
+        ArrayList<Card> result = new ArrayList<Card>();
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
+//            System.out.println("jsonCards value");
+//            System.out.println(jsonCards.get(i));
+//            System.out.println("mapped result turned into a string");
+//            System.out.println(mapResultToCard(tempObj).toString());
+            System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj));
         }
 
