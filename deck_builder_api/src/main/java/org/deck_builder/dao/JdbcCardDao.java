@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.deck_builder.model.Card;
+import org.json.simple.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -188,16 +189,18 @@ public class JdbcCardDao implements CardDao{
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
-        ArrayList<Card> result = new ArrayList<Card>();
+        ArrayList<JSONObject> result = new ArrayList<>();
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
-//            System.out.println("jsonCards value");
+            JSONObject newObj = new JSONObject();
+            tempObj.get("id") != null ? newObj.put("scryfallId", tempObj.get("scryfall_id")) : newObj.put("scryfallId", null);
+ //            System.out.println("jsonCards value");
 //            System.out.println(jsonCards.get(i));
 //            System.out.println("mapped result turned into a string");
 //            System.out.println(mapResultToCard(tempObj).toString());
             System.out.println(mapResultToCard(tempObj).toJsonString());
-            result.add(mapResultToCard(tempObj));
+
         }
 
         return result;
