@@ -26,7 +26,7 @@ public class JdbcCardDao implements CardDao{
         this.jdbcTemplate = jdbcTemplate;
     }
     String scryfallUrl = "https://api.scryfall.com";
-    public List<Card> searchForCardByName(String name) throws UnsupportedEncodingException {
+    public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?unique=prints&q=" + encodedName;
         try {
@@ -62,7 +62,7 @@ public class JdbcCardDao implements CardDao{
     }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
-    public List<Card> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException{
+    public List<String> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException{
         String encodedIdentity = "id%3A" + identity;
         String encodedType = "t%3A" + type;
         String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType;
@@ -80,7 +80,7 @@ public class JdbcCardDao implements CardDao{
     //
     //Unlike other functions, the scryfall api needs the colors variable to be one string, but not be the name for the identity
     //So black is just b and red to be r.  The colors variable for black and red should be br not rakdos
-    public List<Card> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
+    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
         String uri = scryfallUrl + "/cards/search?q=c%3" + colors + "+mv%3D" + manaCost;
         try {
             String searchResults = getCardsFromUri(uri);
@@ -90,7 +90,7 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public List<Card> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException {
+    public List<String> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException {
         String uri= scryfallUrl + "cards/search?q=";
         try {
             for(int i = 0; i < keywords.size(); i++){
@@ -108,7 +108,7 @@ public class JdbcCardDao implements CardDao{
     }
     //The colors variable going into this should be a single compact string of all of the single letter color identifiers
     //i.e. blue and white = 'uw'
-    public List<Card> getCardsByColors(String colorIdentity) throws UnsupportedEncodingException {
+    public List<String> getCardsByColors(String colorIdentity) throws UnsupportedEncodingException {
         String uri = scryfallUrl + "cards/search?q=3%A" + colorIdentity;
         try {
             String searchResults = getCardsFromUri(uri);
@@ -120,7 +120,7 @@ public class JdbcCardDao implements CardDao{
 
     //This string requires the single color, if applcable, spelled out, or the term for the combination of colors
     // like rakdos, esper or bant to go through
-    public List<Card> getCardsByColorIdentity(String colors) throws UnsupportedEncodingException {
+    public List<String> getCardsByColorIdentity(String colors) throws UnsupportedEncodingException {
         String uri = scryfallUrl + "cards/search?q=id<%3D" + colors;
         try {
             String searchResults = getCardsFromUri(uri);
@@ -185,22 +185,21 @@ public class JdbcCardDao implements CardDao{
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
-    public List<Card> parseSearchResults(String searchResults){
+    public List<String> parseSearchResults(String searchResults){
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
-        ArrayList<JSONObject> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
             JSONObject newObj = new JSONObject();
-            tempObj.get("id") != null ? newObj.put("scryfallId", tempObj.get("scryfall_id")) : newObj.put("scryfallId", null);
- //            System.out.println("jsonCards value");
+            //            System.out.println("jsonCards value");
 //            System.out.println(jsonCards.get(i));
 //            System.out.println("mapped result turned into a string");
 //            System.out.println(mapResultToCard(tempObj).toString());
             System.out.println(mapResultToCard(tempObj).toJsonString());
-
+            result.add(mapResultToCard(tempObj).toJsonString());
         }
 
         return result;

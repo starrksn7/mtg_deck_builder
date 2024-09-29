@@ -10,21 +10,21 @@ import java.util.List;
 
 
 public interface CardDao {
-    List<Card> searchForCardByName(String name) throws UnsupportedEncodingException;
+    List<String> searchForCardByName(String name) throws UnsupportedEncodingException;
 
     String getCardsFromUri(String uri) throws IOException;
 
     Card mapResultToCard(JsonObject result);
 
-    List<Card> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException;
+    List<String> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException;
 
-    List<Card> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException;
+    List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException;
 
-    List<Card> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException;
+    List<String> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException;
 
-    List<Card> getCardsByColors(String colors) throws UnsupportedEncodingException;
+    List<String> getCardsByColors(String colors) throws UnsupportedEncodingException;
 
-    List<Card> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException;
+    List<String> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException;
 
     boolean addCardToDb(Card card);
 

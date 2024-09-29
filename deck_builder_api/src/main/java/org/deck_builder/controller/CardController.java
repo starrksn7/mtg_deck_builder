@@ -19,32 +19,32 @@ public class CardController {
         this.cardDao = cardDao;
     }
     @GetMapping(path="/searchByName")
-    public List<Card> searchForCardByName(CardSearchDTO cardDTO) throws UnsupportedEncodingException {
+    public List<String> searchForCardByName(CardSearchDTO cardDTO) throws UnsupportedEncodingException {
         return cardDao.searchForCardByName(cardDTO.getName());
     }
 
     @GetMapping(path="/searchByIdentityAndType")
-    public List<Card> findCardByType(String identity, String type) throws UnsupportedEncodingException{
+    public List<String> findCardByType(String identity, String type) throws UnsupportedEncodingException{
         return cardDao.findCardByIdentityAndType(identity, type);
     }
 
     @GetMapping(path="/searchByColorAndCost")
-    public List<Card> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
+    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
         return cardDao.getCardByColorAndCost(colors, manaCost);
     }
 
     @GetMapping(path="/searchByKeyword")
-    public List<Card> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException{
+    public List<String> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException{
         return cardDao.getCardByKeyword(keywords);
     }
 
     @GetMapping(path="/searchByColors")
-    public List<Card> getCardsByColors(String colors) throws UnsupportedEncodingException{
+    public List<String> getCardsByColors(String colors) throws UnsupportedEncodingException{
         return cardDao.getCardsByColors(colors);
     }
 
     @GetMapping(path="/searchByColorIdentity")
-    public List<Card> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException {
+    public List<String> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException {
         return cardDao.getCardsByColorIdentity(colorIdentity);
     }
 
