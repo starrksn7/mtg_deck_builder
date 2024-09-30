@@ -5,7 +5,7 @@ export default function SearchByName(){
     const searchResults = async () => {
         let response;
         await axios({
-            method: 'get',
+            method: 'post',
             url: 'http://localhost:8080/card/searchByName',
             params: {
                 name: 'Prosper, Tome-Bound'
