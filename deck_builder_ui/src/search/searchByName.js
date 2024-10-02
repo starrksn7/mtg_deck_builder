@@ -1,28 +1,28 @@
 import axios from 'axios';
 
-export default function SearchByName(){
+export default async function SearchByName(){
 
     const searchResults = async () => {
         let response;
-        await axios({
-            method: 'post',
-            url: 'http://localhost:8080/card/searchByName',
-            params: {
-                name: 'Prosper, Tome-Bound'
+        axios.post('http://localhost:8080/card/searchByName', {
+                params: {
+                    name: 'Prosper, Tome-Bound'
             }
-        });
-        
+        }); 
+        console.log("response in the searchResults function", response)
         return response
     }
 
   
-    const { data } = searchResults();
-
-    console.log(data);
+    const data = await searchResults();
+    // console.log(data)
+    const [parsedResults] = JSON.parse(data);
+    // console.log(parsedResults);
     data.forEach(card => {
+        let object = JSON.parse(card)
         return (
             <div>
-                {card}
+                {object}
             </div>
         )
     })

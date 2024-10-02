@@ -19,8 +19,9 @@ public class CardController {
         this.cardDao = cardDao;
     }
     @PostMapping(path="/searchByName")
-    public List<String> searchForCardByName(CardSearchDTO cardDTO) throws UnsupportedEncodingException {
-        return cardDao.searchForCardByName(cardDTO.getName());
+    public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
+        System.out.println(name);
+        return cardDao.searchForCardByName(name);
     }
 
     @GetMapping(path="/searchByIdentityAndType")
