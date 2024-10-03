@@ -1,18 +1,23 @@
 import axios from 'axios';
 
 export default async function SearchByName(){
-
+    const params = {
+        name: "Prosper, Tome-Bound"
+    }
     const searchResults = async () => {
         let response;
-        axios.post('http://localhost:8080/card/searchByName', {
-                params: {
-                    name: 'Prosper, Tome-Bound'
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/card/searchByName', 
+            data: params,
+            headers: {
+                'Content-Type': 'application/json'
             }
         }); 
+        
         console.log("response in the searchResults function", response)
         return response
     }
-
   
     const data = await searchResults();
     // console.log(data)
