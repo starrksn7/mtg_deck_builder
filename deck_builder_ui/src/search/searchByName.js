@@ -5,29 +5,35 @@ export default async function SearchByName(){
         name: "Prosper, Tome-Bound"
     }
     const searchResults = async () => {
-        let response;
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/card/searchByName', 
-            data: params,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        axios.post('http://localhost:8080/card/searchByName', params)
+        .then((res) => {
+            let resultsArray = [];
+            let data = res.data;
+            // console.log(data)
+            data.forEach(entry => {
+                entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
+                console.log("entry after the regex")
+                console.log(entry)
+                resultsArray.push(JSON.parse(entry));
+            })
+            console.log(resultsArray)
         }); 
-        
-        console.log("response in the searchResults function", response)
-        return response
     }
   
     const data = await searchResults();
-    // console.log(data)
-    const [parsedResults] = JSON.parse(data);
-    // console.log(parsedResults);
+
     data.forEach(card => {
-        let object = JSON.parse(card)
         return (
             <div>
-                {object}
+                <div>
+                    {card.name}
+                </div>
+                <div>
+                    {card.mana_cost}
+                </div>
+                <div>
+                    <img href={card.image_link} alt="small pic for searched card"/>
+                </div>
             </div>
         )
     })
