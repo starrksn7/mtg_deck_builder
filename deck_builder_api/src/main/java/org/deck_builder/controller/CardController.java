@@ -20,7 +20,6 @@ public class CardController {
     }
     @PostMapping(path="/searchByName")
     public List<String> searchForCardByName(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        System.out.println(jsonBody);
         return cardDao.searchForCardByName(jsonBody.getName());
     }
 

@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <div>Whatever I want goes here</div>
-      {SearchByName()}
     </div>
   );
 }
