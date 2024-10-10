@@ -1,41 +1,54 @@
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-export default async function SearchByName(){
+
+export async function SearchByName(){
+
+    const [searchResults, setSearchResults] = useState();
     const params = {
         name: "Prosper, Tome-Bound"
     }
-    const searchResults = async () => {
-        axios.post('http://localhost:8080/card/searchByName', params)
+    const cardSearch = async () => {
+        let resultsArray = [];
+        await axios.post('http://localhost:8080/card/searchByName', params)
         .then((res) => {
-            let resultsArray = [];
             let data = res.data;
             // console.log(data)
             data.forEach(entry => {
                 entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
-                console.log("entry after the regex")
-                console.log(entry)
                 resultsArray.push(JSON.parse(entry));
             })
-            console.log(resultsArray)
         }); 
+        return resultsArray;
     }
   
-    const data = await searchResults();
+    const data = await cardSearch();
+    console.log("data =")
+    console.log(data)
+    useEffect(() => {
+        if(data) setSearchResults(data);
+    }, [data])
 
-    data.forEach(card => {
-        return (
-            <div>
+    if(searchResults) {
+        console.log("searchResults =")
+        console.log(searchResults)
+        searchResults.map(card => {
+            console.log(card.name)
+            return (
                 <div>
-                    {card.name}
+                    <div>
+                        {card.name}
+                    </div>
+                    <div>
+                        {card.mana_cost}
+                    </div>
+                    <div>
+                        <img href={card.image_link} alt="small pic for searched card"/>
+                    </div>
                 </div>
-                <div>
-                    {card.mana_cost}
-                </div>
-                <div>
-                    <img href={card.image_link} alt="small pic for searched card"/>
-                </div>
-            </div>
-        )
-    })
-    
+            )
+        })
+    } else {
+        return <div>What the hell happened here</div>
+    }
 }
