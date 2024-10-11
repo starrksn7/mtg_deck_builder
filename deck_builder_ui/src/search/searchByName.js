@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-export async function SearchByName(){
+export function SearchByName(){
 
     const [searchResults, setSearchResults] = useState();
     const params = {
@@ -19,36 +19,25 @@ export async function SearchByName(){
                 resultsArray.push(JSON.parse(entry));
             })
         }); 
-        return resultsArray;
+        setSearchResults(resultsArray);
     }
   
-    const data = await cardSearch();
-    console.log("data =")
-    console.log(data)
     useEffect(() => {
-        if(data) setSearchResults(data);
-    }, [data])
-
-    if(searchResults) {
-        console.log("searchResults =")
-        console.log(searchResults)
-        searchResults.map(card => {
-            console.log(card.name)
-            return (
-                <div>
-                    <div>
-                        {card.name}
+        if(searchResults) cardSearch();
+    }, [searchResults])
+    console.log(searchResults)
+    return (
+        <div>
+            {searchResults.length > 0 && searchResults.map((card) => {
+                return (
+                    <div key={card.image_link}>
+                        <div>
+                            {card.name}
+                        </div>
+                        <img href={card.image_link} alt='alt text'/>
                     </div>
-                    <div>
-                        {card.mana_cost}
-                    </div>
-                    <div>
-                        <img href={card.image_link} alt="small pic for searched card"/>
-                    </div>
-                </div>
-            )
-        })
-    } else {
-        return <div>What the hell happened here</div>
-    }
+                )
+            })}
+        </div>
+    )
 }
