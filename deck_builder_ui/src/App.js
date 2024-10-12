@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import { SearchByName, Words } from './search/searchByName';
+import { SearchByName } from './search/searchByName';
 
 function App() {
   return (
