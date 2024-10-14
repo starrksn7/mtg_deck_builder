@@ -4,15 +4,22 @@ import { useState, useEffect } from 'react';
 export function SearchByName(){
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
 
-    const params = {
-        name: "Prosper, Tome-Bound"
+    // const params = {
+    //     name: "Prosper, Tome-Bound"
+    // }
+
+    const handleChange = (e) => {
+        setSearchInput(e.target.value)
     }
 
-    const cardSearch = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('handle submit fired')
         let resultsArray = [];
         try{
-            const res =  await axios.post('http://localhost:8080/card/searchByName', params)
+            const res =  await axios.post('http://localhost:8080/card/searchByName', {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
                 entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
@@ -23,15 +30,16 @@ export function SearchByName(){
             console.log("Error fetching data: ", error)
         }
         setSearchResults(resultsArray);
+        setShowResults(true);
     }
   
-    useEffect(() => {
-        const fetchData = async () => {
-            await cardSearch();
-            setShowResults(true)
-        }
-        fetchData();
-    }, [])
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await cardSearch();
+    //         setShowResults(true)
+    //     }
+    //     fetchData();
+    // }, [])
     
     const cards = (searchResults) => {
         if(searchResults.length) {
@@ -47,6 +55,16 @@ export function SearchByName(){
 
     return (
         <div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Search here"
+                    onChange={handleChange}
+                    value={searchInput}
+                />
+            </form>
+
+            <button type="submit">Search</button>
             {showResults && cards(searchResults)}
         </div>
     )
