@@ -11,7 +11,6 @@ export function SearchByName(){
     // }
 
     const handleChange = (e) => {
-        console.log("handle change went off")
         setSearchInput(e.target.value)
     }
 
@@ -24,24 +23,16 @@ export function SearchByName(){
             let data = res.data;
             data.forEach(entry => {
                 entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
+                resultsArray.push(JSON.parse(entry));
             })
-            const uniqueNamedEntries = data.reduce((accumulator, current) => {
-                const names = new Set(accumulator.map(item => item.name));
-                if (!names.has(current.name)) {
-                  accumulator.push(current);
-                }
-                return accumulator;
-              }, []);
-
-            setSearchResults(data);
             console.log("Results array", resultsArray)           
         } catch (error){
             console.log("Error fetching data: ", error)
         }
-
+        setSearchResults(resultsArray);
         setShowResults(true);
     }
-  
+
     // useEffect(() => {
     //     const fetchData = async () => {
     //         await cardSearch();
@@ -49,7 +40,7 @@ export function SearchByName(){
     //     }
     //     fetchData();
     // }, [])
-    
+
     const cards = (searchResults) => {
         if(searchResults.length) {
             return searchResults.map((card, index) => (
@@ -77,5 +68,4 @@ export function SearchByName(){
             {showResults && cards(searchResults)}
         </div>
     )
-
 }
