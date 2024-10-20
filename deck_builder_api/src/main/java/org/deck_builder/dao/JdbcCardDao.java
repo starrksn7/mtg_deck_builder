@@ -14,9 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @Component
 public class JdbcCardDao implements CardDao{
@@ -200,6 +198,21 @@ public class JdbcCardDao implements CardDao{
 //            System.out.println(mapResultToCard(tempObj).toString());
             System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj).toJsonString());
+            List<Card> finalResults = removeDuplicatesByName(result);
+        }
+
+        return result;
+    }
+
+    public List<Card> removeDuplicatesByName(List<Card> searchResults) {
+        Set<String> seenNames = new HashSet<>();
+        List<Card> result = new ArrayList<>();
+
+        for (Card card : searchResults) {
+            if (!seenNames.contains(card.getName())) {
+                seenNames.add(card.getName());
+                result.add(card);
+            }
         }
 
         return result;
