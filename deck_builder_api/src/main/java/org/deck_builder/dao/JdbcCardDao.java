@@ -191,26 +191,23 @@ public class JdbcCardDao implements CardDao{
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
-            JSONObject newObj = new JSONObject();
-            //            System.out.println("jsonCards value");
-//            System.out.println(jsonCards.get(i));
-//            System.out.println("mapped result turned into a string");
-//            System.out.println(mapResultToCard(tempObj).toString());
+
             System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj).toJsonString());
-            List<Card> finalResults = removeDuplicatesByName(result);
         }
 
-        return result;
+        return removeDuplicatesByName(result);
     }
 
-    public List<Card> removeDuplicatesByName(List<Card> searchResults) {
+    public List<String> removeDuplicatesByName(List<String> searchResults) {
         Set<String> seenNames = new HashSet<>();
-        List<Card> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
-        for (Card card : searchResults) {
-            if (!seenNames.contains(card.getName())) {
-                seenNames.add(card.getName());
+        for (String card : searchResults) {
+            JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
+            String cardName = jsonObject.get("name").getAsString();
+            if (!seenNames.contains(cardName)) {
+                seenNames.add(cardName);
                 result.add(card);
             }
         }
