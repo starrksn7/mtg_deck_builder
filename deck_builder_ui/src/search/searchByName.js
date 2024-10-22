@@ -16,7 +16,6 @@ export function SearchByName(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('handle submit fired')
         let resultsArray = [];
         try{
             const res =  await axios.post('http://localhost:8080/card/searchByName', {name: searchInput})
@@ -62,9 +61,10 @@ export function SearchByName(){
                     onChange={handleChange}
                     value={searchInput}
                 />
+                <button type="submit">Search</button>
             </form>
 
-            <button type="submit">Search</button>
+            
             {showResults && cards(searchResults)}
         </div>
     )

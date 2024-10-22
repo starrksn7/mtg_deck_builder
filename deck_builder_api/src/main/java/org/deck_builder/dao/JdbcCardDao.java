@@ -191,8 +191,6 @@ public class JdbcCardDao implements CardDao{
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
-
-            System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj).toJsonString());
         }
 
