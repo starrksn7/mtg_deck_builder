@@ -3,6 +3,7 @@ package org.deck_builder.dao;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.json.simple.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +29,7 @@ public class JdbcCardDao implements CardDao{
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?unique=prints&q=" + encodedName;
         try {
+            System.out.println(uri);
             String searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
 
@@ -183,7 +185,7 @@ public class JdbcCardDao implements CardDao{
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
-    public List<String> parseSearchResults(String searchResults){
+    public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
@@ -191,26 +193,32 @@ public class JdbcCardDao implements CardDao{
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
+//            System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj).toJsonString());
         }
 
         return removeDuplicatesByName(result);
     }
 
-    public List<String> removeDuplicatesByName(List<String> searchResults) {
-        Set<String> seenNames = new HashSet<>();
-        List<String> result = new ArrayList<>();
+    public List<String> removeDuplicatesByName(List<String> searchResults) throws MalformedJsonException {
+        try {
+            Set<String> seenNames = new HashSet<>();
+            List<String> result = new ArrayList<>();
 
-        for (String card : searchResults) {
-            JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
-            String cardName = jsonObject.get("name").getAsString();
-            if (!seenNames.contains(cardName)) {
-                seenNames.add(cardName);
-                result.add(card);
+            for (String card : searchResults) {
+                JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
+                String cardName = jsonObject.get("name").getAsString();
+                System.out.println("cardName = " + cardName);
+                if (!seenNames.contains(cardName)) {
+                    seenNames.add(cardName);
+                    result.add(card);
+                }
             }
-        }
 
-        return result;
+            return result;
+        } catch (Exception error){
+            throw error;
+        }
     }
 
 }
