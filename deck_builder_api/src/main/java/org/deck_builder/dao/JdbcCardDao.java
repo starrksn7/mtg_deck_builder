@@ -27,7 +27,7 @@ public class JdbcCardDao implements CardDao{
     String scryfallUrl = "https://api.scryfall.com";
     public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
-        String uri = scryfallUrl + "/cards/search?unique=prints&q=" + encodedName;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedName;
         try {
             System.out.println(uri);
             String searchResults = getCardsFromUri(uri);
@@ -207,11 +207,13 @@ public class JdbcCardDao implements CardDao{
 
             for (String card : searchResults) {
                 JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
-                String cardName = jsonObject.get("name").getAsString();
-                System.out.println("cardName = " + cardName);
-                if (!seenNames.contains(cardName)) {
-                    seenNames.add(cardName);
-                    result.add(card);
+                if(jsonObject.get("name") != null){
+                    String cardName = jsonObject.get("name").getAsString();
+                    System.out.println("cardName = " + cardName);
+                    if (!seenNames.contains(cardName)) {
+                        seenNames.add(cardName);
+                        result.add(card);
+                    }
                 }
             }
 

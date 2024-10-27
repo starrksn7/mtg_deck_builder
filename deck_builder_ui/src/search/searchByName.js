@@ -18,6 +18,7 @@ export function SearchByName(){
         e.preventDefault();
         let resultsArray = [];
         try{
+            console.log({name: searchInput})
             const res =  await axios.post('http://localhost:8080/card/searchByName', {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
