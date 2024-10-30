@@ -157,7 +157,12 @@ public class JdbcCardDao implements CardDao{
         String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
         String type = result.get("type_line").getAsString();
         String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+        //regex to remove the line breaks
         oracleText = oracleText.replaceAll("\\n", " ");
+        //regex to remove the escaping slashes
+        oracleText = oracleText.replaceAll("\\\\", "");
+        //regex to change double quotes to single quotes
+        oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
         JsonArray colors = (JsonArray) result.get("colors");
         String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
         if(colors != null) {
@@ -202,7 +207,7 @@ public class JdbcCardDao implements CardDao{
 
     public List<String> removeDuplicatesByName(List<String> searchResults) throws MalformedJsonException {
         try {
-            System.out.println(searchResults);
+//            System.out.println(searchResults);
             Set<String> seenNames = new HashSet<>();
             List<String> result = new ArrayList<>();
 
@@ -212,7 +217,7 @@ public class JdbcCardDao implements CardDao{
                     String cardName = jsonObject.get("name").getAsString();
 //                    System.out.println(card);
 //                    System.out.println(jsonObject);
-//                    System.out.println("cardName = " + cardName);
+                    System.out.println("cardName = " + cardName);
                     if (!seenNames.contains(cardName)) {
                         seenNames.add(cardName);
                         result.add(card);
