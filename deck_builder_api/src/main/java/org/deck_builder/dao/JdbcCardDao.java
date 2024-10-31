@@ -29,7 +29,7 @@ public class JdbcCardDao implements CardDao{
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?q=" + encodedName;
         try {
-            System.out.println(uri);
+//            System.out.println(uri);
             String searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
 
@@ -151,6 +151,8 @@ public class JdbcCardDao implements CardDao{
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String name = result.get("name") != null ? result.get("name").getAsString() : null;
+        //regex to replace double quotes with single quotes
+        name = name.replaceAll("\"(.*?)\"", "'$1'");
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
         JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
         String imageLink = uris != null ? uris.get("small").getAsString() : "";
@@ -198,7 +200,6 @@ public class JdbcCardDao implements CardDao{
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
-//            System.out.println(mapResultToCard(tempObj).toJsonString());
             result.add(mapResultToCard(tempObj).toJsonString());
         }
 
@@ -207,7 +208,6 @@ public class JdbcCardDao implements CardDao{
 
     public List<String> removeDuplicatesByName(List<String> searchResults) throws MalformedJsonException {
         try {
-//            System.out.println(searchResults);
             Set<String> seenNames = new HashSet<>();
             List<String> result = new ArrayList<>();
 
@@ -215,9 +215,6 @@ public class JdbcCardDao implements CardDao{
                 JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
                 if(jsonObject.get("name") != null){
                     String cardName = jsonObject.get("name").getAsString();
-//                    System.out.println(card);
-//                    System.out.println(jsonObject);
-                    System.out.println("cardName = " + cardName);
                     if (!seenNames.contains(cardName)) {
                         seenNames.add(cardName);
                         result.add(card);
