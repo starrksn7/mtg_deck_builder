@@ -29,7 +29,7 @@ public class JdbcCardDao implements CardDao{
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?q=" + encodedName;
         try {
-//            System.out.println(uri);
+            System.out.println(uri);
             String searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
 
@@ -39,7 +39,6 @@ public class JdbcCardDao implements CardDao{
     }
 
     public String getCardsFromUri(String uri) throws IOException {
-        List<Card> list = new ArrayList<>();
 
         URL expansionsListUrl = new URL(uri);
         HttpURLConnection conn = (HttpURLConnection) expansionsListUrl.openConnection();
