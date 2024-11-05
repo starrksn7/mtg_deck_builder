@@ -5,19 +5,45 @@ export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
+    const [searchType, setSearchType] = useState('');
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
     }
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         let resultsArray = [];
         try{
             console.log({name: searchInput})
-            const res =  await axios.post('http://localhost:8080/card/searchByName', {name: searchInput})
+            let searchUrl = '';
+            
+            switch(searchType) {
+                case (1):
+                    searchUrl = 'http://localhost:8080/card/searchByName';
+                    break;
+                case (2):
+                    searchUrl = 'http://localhost:8080/card//searchByIdentityAndType'
+                    break;
+                case (3):
+                    searchUrl = 'http://localhost:8080/card/searchByColorAndCost'
+                    break;
+                case (4):
+                    searchUrl = 'http://localhost:8080/card/searchByKeyword'
+                    break;
+                case (5):
+                    searchUrl = 'http://localhost:8080/card/searchByColors'
+                    break;
+                case (6):
+                    searchUrl = 'http://localhost:8080/card/searchByColorIdentity'
+                    break;
+                default:
+                    searchUrl = ''
+            }
+            const res =  await axios.post(searchUrl, {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
+                //TODO: test if this regex is needed.  I'm running something similar in the api to remove line breaks and double quotes
                 entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
                 resultsArray.push(JSON.parse(entry));
             })
