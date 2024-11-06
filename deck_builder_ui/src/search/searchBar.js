@@ -85,6 +85,30 @@ export function SearchBar(){
                     value={searchInput}
                 />
                 <button type="submit">Search</button>
+                <label>
+                    <input type='radio' value='searchByName' checked={searchType === 1} />
+                    Search By Name
+                </label>
+                <label>
+                    <input type='radio' value='searchByIdentityAndType' checked={searchType === 2} />
+                    Search By Identity and Type
+                </label>
+                <label>
+                    <input type='radio' value='searchByColorAndCost' checked={searchType === 3} />
+                    Search By Color and Cost
+                </label>
+                <label>
+                    <input type='radio' value='searchByKeyword' checked={searchType === 4} />
+                    Search By Keyword
+                </label>
+                <label>
+                    <input type='radio' value='searchByColors' checked={searchType === 5} />
+                    Search By Colors
+                </label>
+                <label>
+                    <input type='radio' value='searchByColorIdentity' checked={searchType === 6} />
+                    Search By Color Identity
+                </label>
             </form>
 
             
