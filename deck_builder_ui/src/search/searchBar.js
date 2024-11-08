@@ -55,14 +55,12 @@ export function SearchBar(){
         setShowResults(true);
     }
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         await cardSearch();
-    //         setShowResults(true)
-    //     }
-    //     fetchData();
-    // }, [])
-
+   const handleSearchChange = (event) => {
+    console.log(event.target)
+        let { value } = event.target
+        setSearchType(value)
+   }
+console.log("searchType = ", searchType)
     const cards = (searchResults) => {
         if(searchResults.length) {
             return searchResults.map((card, index) => (
@@ -86,27 +84,27 @@ export function SearchBar(){
                 />
                 <button type="submit">Search</button>
                 <label>
-                    <input type='radio' value='searchByName' checked="checked" name="searchType" />
+                    <input type='radio' checked="checked" name="searchType" value='1' onChange={handleSearchChange}/>
                     Search By Name
                 </label>
                 <label>
-                    <input type='radio' value='searchByIdentityAndType' name="searchType" />
+                    <input type='radio' name="searchType" value='2' onChange={handleSearchChange}/>
                     Search By Identity and Type
                 </label>
                 <label>
-                    <input type='radio' value='searchByColorAndCost' name="searchType" />
+                    <input type='radio' name="searchType" value='3' onChange={handleSearchChange}/>
                     Search By Color and Cost
                 </label>
                 <label>
-                    <input type='radio' value='searchByKeyword' name="searchType" />
+                    <input type='radio' name="searchType" value='4' onChange={handleSearchChange}/>
                     Search By Keyword
                 </label>
                 <label>
-                    <input type='radio' value='searchByColors' name="searchType" />
+                    <input type='radio' name="searchType" value='5' onChange={handleSearchChange}/>
                     Search By Colors
                 </label>
                 <label>
-                    <input type='radio' value='searchByColorIdentity' name="searchType" />
+                    <input type='radio' name="searchType" value='6' onChange={handleSearchChange}/>
                     Search By Color Identity
                 </label>
             </form>
