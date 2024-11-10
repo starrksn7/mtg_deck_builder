@@ -23,7 +23,7 @@ export function SearchBar(){
                     searchUrl = 'http://localhost:8080/card/searchByName';
                     break;
                 case (2):
-                    searchUrl = 'http://localhost:8080/card//searchByIdentityAndType'
+                    searchUrl = 'http://localhost:8080/card/searchByIdentityAndType'
                     break;
                 case (3):
                     searchUrl = 'http://localhost:8080/card/searchByColorAndCost'
@@ -84,7 +84,7 @@ console.log("searchType = ", searchType)
                 />
                 <button type="submit">Search</button>
                 <label>
-                    <input type='radio' checked="checked" name="searchType" value='1' onChange={handleSearchChange}/>
+                    <input type='radio' name="searchType" value='1' onChange={handleSearchChange}/>
                     Search By Name
                 </label>
                 <label>
