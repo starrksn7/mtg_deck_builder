@@ -67,6 +67,7 @@ console.log("searchType = ", searchType)
                     <div key={index}>
                         <div>{card.name}</div>
                         <img src={card.image_link} alt='alternate text'/>
+                        <button type="submit">Add to Deck</button>
                     </div>
             ))
         }
