@@ -60,14 +60,22 @@ export function SearchBar(){
         let { value } = event.target
         setSearchType(value)
    }
-console.log("searchType = ", searchType)
+
+   const addToDeck = async (e) => {
+        e.preventDefault();
+        const res = await axios.post('http://localhost:8080/decks/add', { deckId, card })
+
+   }
+   
     const cards = (searchResults) => {
         if(searchResults.length) {
             return searchResults.map((card, index) => (
                     <div key={index}>
                         <div>{card.name}</div>
                         <img src={card.image_link} alt='alternate text'/>
-                        <button type="submit">Add to Deck</button>
+                        <form onSubmit={addToDeck}>
+                            <button type="submit">Add to Deck</button>
+                        </form>
                     </div>
             ))
         }
