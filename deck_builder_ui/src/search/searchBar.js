@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [searchType, setSearchType] = useState('');
+    const deckId = useParams();
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
@@ -63,8 +65,10 @@ export function SearchBar(){
 
    const addToDeck = async (e) => {
         e.preventDefault();
+        const card = e.target;
         const res = await axios.post('http://localhost:8080/decks/add', { deckId, card })
-
+        if(res) console.log("added card to deck. Need to find a better notification than this")
+        else console.log("Couldn't add the card to deck, for some reason")
    }
    
     const cards = (searchResults) => {
