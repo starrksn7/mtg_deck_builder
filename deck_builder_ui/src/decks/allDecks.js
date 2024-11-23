@@ -12,4 +12,15 @@ export function AllDecks() {
         if(data) setDeckList(data)
         else console.log("The list of decks for this user could not be found")
     }
+
+    const showDecks = (deckList) => {
+        if(deckList.length){
+            return deckList.map((deck, index) => {
+                <div key={index}>
+                    <div>{deck.deckName}</div>
+                    <div>{deck.commander}</div>
+                </div>
+            })
+        }
+    }
 }
