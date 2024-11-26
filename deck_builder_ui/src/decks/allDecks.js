@@ -17,7 +17,9 @@ export function AllDecks() {
         if(deckList.length){
             return deckList.map((deck, index) => {
                 <div key={index}>
-                    <div>{deck.deckName}</div>
+                    <Link to={`/decks/${deck.deckId}`}>
+                        <div>{deck.deckName}</div>
+                    </Link>
                     <div>{deck.commander}</div>
                 </div>
             })
