@@ -193,9 +193,19 @@ public class JdbcCardDao implements CardDao{
 
     public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
-        JsonArray jsonCards = (JsonArray) jsonObject.get("data");
+//        JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
-        ArrayList<String> result = new ArrayList<>();
+        int pageNumber = 2;
+        ArrayList<JsonArray> result = new ArrayList<>();
+        while(true){
+            JsonArray jsonCards = (JsonArray) jsonObject.get("data");
+            result.add(jsonCards);
+            boolean hasMore  = jsonObject.get("has_more") != null;
+            if (!hasMore) {
+                break;
+            }
+            pageNumber++;
+        }
 
         for(int i = 0; i < jsonCards.size(); i+=1){
             JsonObject tempObj = (JsonObject) jsonCards.get(i);
@@ -226,5 +236,4 @@ public class JdbcCardDao implements CardDao{
             throw error;
         }
     }
-
 }
