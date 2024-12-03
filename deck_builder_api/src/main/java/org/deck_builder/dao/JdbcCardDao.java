@@ -192,6 +192,12 @@ public class JdbcCardDao implements CardDao{
     }
 
     public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
+        //Writing some psuedo code to figure out what I need to do to paginate results
+        //I need to check a value in the results, either has_more or next_page? Need to figure that out
+        //If that value is present, add the original results to a list and then call the getCardsFromURI
+        //method. This will all need to be in a loop so that it keeps recurring until the value I'm watching
+        //is null. Once that happens, I can begin to parse the results that are in the list, adding each
+        //individual card to the result list.
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
