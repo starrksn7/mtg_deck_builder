@@ -192,7 +192,7 @@ public class JdbcCardDao implements CardDao{
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
-    public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
+    public List<String> parseSearchResults(String searchResults) throws IOException {
         //Writing some psuedo code to figure out what I need to do to paginate results
         //I need to check the has_more value exists in the results before the data array. has_more is a single boolean
         //If that value is present, add the original results to a list and then call the getCardsFromURI
@@ -208,7 +208,11 @@ public class JdbcCardDao implements CardDao{
             dataSets.add((JsonArray) jsonObject.get("data"));
             
             while(true){
-
+                String nextUri = jsonObject.get("next_page").getAsString();
+                searchResults = getCardsFromUri(nextUri);
+                JsonObject newJsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
+                JsonArray newJsonCards = (JsonArray) newJsonObject.get("data");
+                dataSets.add((JsonArray) newJsonObject.get("data"));
             }
         } else {
             for(int i = 0; i < jsonCards.size(); i+=1){
