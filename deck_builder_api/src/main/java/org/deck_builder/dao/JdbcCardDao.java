@@ -201,23 +201,27 @@ public class JdbcCardDao implements CardDao{
         //individual card to the result list.
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
-
+        ArrayList<JsonArray> dataSets = new ArrayList<>();
+        dataSets.add(jsonCards);
         ArrayList<String> result = new ArrayList<>();
         if(jsonObject.get("has_more") != null){
-            ArrayList<JsonArray> dataSets = new ArrayList<>();
-            dataSets.add((JsonArray) jsonObject.get("data"));
             
             while(true){
                 String nextUri = jsonObject.get("next_page").getAsString();
                 searchResults = getCardsFromUri(nextUri);
                 JsonObject newJsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
                 JsonArray newJsonCards = (JsonArray) newJsonObject.get("data");
-                dataSets.add((JsonArray) newJsonObject.get("data"));
+                dataSets.add(newJsonCards);
+                if(newJsonObject.get("has_more") == null){
+                    break;
+                }
             }
         } else {
-            for(int i = 0; i < jsonCards.size(); i+=1){
-                JsonObject tempObj = (JsonObject) jsonCards.get(i);
-                result.add(mapResultToCard(tempObj).toJsonString());
+            for(JsonArray cardList : dataSets){
+                for(int i = 0; i < jsonCards.size(); i++){
+                    JsonObject tempObj = (JsonObject) cardList.get(i);
+                    result.add(mapResultToCard(tempObj).toJsonString());
+                }
             }
         }
 
