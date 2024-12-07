@@ -39,10 +39,10 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public String getCardsFromUri(String uri) throws IOException {
-
-        URL expansionsListUrl = new URL(uri);
-        HttpURLConnection conn = (HttpURLConnection) expansionsListUrl.openConnection();
+    public List<String> getCardsFromUri(String uri) throws IOException {
+        List<String> dataSets = new ArrayList<>();
+        URL scryfallUrl = new URL(uri);
+        HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
         conn.setRequestMethod("GET");
         conn.connect();
 
@@ -51,14 +51,25 @@ public class JdbcCardDao implements CardDao{
             throw new RuntimeException("HttpResponseCode: " + responsecode);
         }
 
-        StringBuilder body = new StringBuilder();
-        Scanner scanner = new Scanner(expansionsListUrl.openStream());
+        Scanner scanner = new Scanner(scryfallUrl.openStream());
+        while(true){
+            StringBuilder body = new StringBuilder();
+            while (scanner.hasNext()) {
+                body.append(scanner.nextLine());
+            }
+            dataSets.add(String.valueOf(body));
+            JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
 
-        while (scanner.hasNext()) {
-            body.append(scanner.nextLine());
+            if(jsonObject.get("has_more") == null){
+                break;
+            }
+
+            scryfallUrl = new URL(jsonObject.get("next_page").getAsString());
+            scanner = new Scanner(scryfallUrl.openStream());
         }
+
         scanner.close();
-        return String.valueOf(body);
+        return String.valueOf(datasets);
     }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
@@ -192,39 +203,16 @@ public class JdbcCardDao implements CardDao{
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
-    public List<String> parseSearchResults(String searchResults) throws IOException {
-        //Writing some psuedo code to figure out what I need to do to paginate results
-        //I need to check the has_more value exists in the results before the data array. has_more is a single boolean
-        //If that value is present, add the original results to a list and then call the getCardsFromURI
-        //method using the value of the next_page key. This will all need to be in a loop so that it keeps recurring until the value I'm watching
-        //is null. Once that happens, I can begin to parse the results that are in the list, adding each
-        //individual card to the result list.
+    public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
         JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
         JsonArray jsonCards = (JsonArray) jsonObject.get("data");
-        ArrayList<JsonArray> dataSets = new ArrayList<>();
-        dataSets.add(jsonCards);
-        ArrayList<String> result = new ArrayList<>();
-        if(jsonObject.get("has_more") != null){
-            
-            while(true){
-                String nextUri = jsonObject.get("next_page").getAsString();
-                searchResults = getCardsFromUri(nextUri);
-                JsonObject newJsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
-                JsonArray newJsonCards = (JsonArray) newJsonObject.get("data");
-                dataSets.add(newJsonCards);
-                if(newJsonObject.get("has_more") == null){
-                    break;
-                }
-            }
-        } else {
-            for(JsonArray cardList : dataSets){
-                for(int i = 0; i < jsonCards.size(); i++){
-                    JsonObject tempObj = (JsonObject) cardList.get(i);
-                    result.add(mapResultToCard(tempObj).toJsonString());
-                }
-            }
-        }
 
+        ArrayList<String> result = new ArrayList<>();
+
+        for(int i = 0; i < jsonCards.size(); i+=1){
+            JsonObject tempObj = (JsonObject) jsonCards.get(i);
+            result.add(mapResultToCard(tempObj).toJsonString());
+        }
         return removeDuplicatesByName(result);
     }
 
@@ -249,17 +237,4 @@ public class JdbcCardDao implements CardDao{
             throw error;
         }
     }
-    //original parseSearchResults function before I started working on pagination
-//    public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
-//        JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
-//        JsonArray jsonCards = (JsonArray) jsonObject.get("data");
-//
-//        ArrayList<String> result = new ArrayList<>();
-//
-//        for(int i = 0; i < jsonCards.size(); i+=1){
-//            JsonObject tempObj = (JsonObject) jsonCards.get(i);
-//            result.add(mapResultToCard(tempObj).toJsonString());
-//        }
-//        return removeDuplicatesByName(result);
-//    }
 }
