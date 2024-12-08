@@ -30,7 +30,7 @@ public class JdbcCardDao implements CardDao{
         String uri = scryfallUrl + "/cards/search?q=" + encodedName;
         try {
             System.out.println(uri);
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             System.out.println(searchResults);
             return parseSearchResults(searchResults);
 
@@ -69,7 +69,7 @@ public class JdbcCardDao implements CardDao{
         }
 
         scanner.close();
-        return String.valueOf(datasets);
+        return dataSets;
     }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
@@ -203,16 +203,18 @@ public class JdbcCardDao implements CardDao{
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
-    public List<String> parseSearchResults(String searchResults) throws MalformedJsonException{
-        JsonObject jsonObject = new JsonParser().parse(searchResults).getAsJsonObject();
-        JsonArray jsonCards = (JsonArray) jsonObject.get("data");
-
+    public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException{
         ArrayList<String> result = new ArrayList<>();
+        for(String dataSet : searchResults){
+            JsonObject jsonObject = new JsonParser().parse(dataSet).getAsJsonObject();
+            JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
-        for(int i = 0; i < jsonCards.size(); i+=1){
-            JsonObject tempObj = (JsonObject) jsonCards.get(i);
-            result.add(mapResultToCard(tempObj).toJsonString());
+            for(int i = 0; i < jsonCards.size(); i+=1){
+                JsonObject tempObj = (JsonObject) jsonCards.get(i);
+                result.add(mapResultToCard(tempObj).toJsonString());
+            }
         }
+
         return removeDuplicatesByName(result);
     }
 
