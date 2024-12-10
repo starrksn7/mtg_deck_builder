@@ -78,7 +78,7 @@ public class JdbcCardDao implements CardDao{
         String encodedType = "t%3A" + type;
         String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType;
         try {
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -94,7 +94,7 @@ public class JdbcCardDao implements CardDao{
     public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
         String uri = scryfallUrl + "/cards/search?q=c%3" + colors + "+mv%3D" + manaCost;
         try {
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -111,7 +111,7 @@ public class JdbcCardDao implements CardDao{
                     uri += keywords.get(i) + "+";
                 }
             }
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -122,7 +122,7 @@ public class JdbcCardDao implements CardDao{
     public List<String> getCardsByColors(String colorIdentity) throws UnsupportedEncodingException {
         String uri = scryfallUrl + "cards/search?q=3%A" + colorIdentity;
         try {
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e){
             throw new RuntimeException(e);
@@ -134,7 +134,7 @@ public class JdbcCardDao implements CardDao{
     public List<String> getCardsByColorIdentity(String colors) throws UnsupportedEncodingException {
         String uri = scryfallUrl + "cards/search?q=id<%3D" + colors;
         try {
-            String searchResults = getCardsFromUri(uri);
+            List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e){
             throw new RuntimeException(e);
