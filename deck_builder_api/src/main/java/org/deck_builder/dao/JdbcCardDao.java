@@ -60,7 +60,7 @@ public class JdbcCardDao implements CardDao{
             dataSets.add(String.valueOf(body));
             JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
 
-            if(jsonObject.get("has_more") == null){
+            if(!jsonObject.get("has_more").getAsBoolean()){
                 break;
             }
 
