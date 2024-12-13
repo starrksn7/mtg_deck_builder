@@ -14,9 +14,11 @@ export function SearchBar(){
     }
     
     const handleSubmit = async (e) => {
+        console.log("The handle submit fired")
         e.preventDefault();
         let resultsArray = [];
         try{
+            console.log("searchInput")
             console.log({name: searchInput})
             let searchUrl = '';
             
@@ -42,6 +44,7 @@ export function SearchBar(){
                 default:
                     searchUrl = ''
             }
+            console.log("searchUrl = " + searchUrl)
             const res =  await axios.post(searchUrl, {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
