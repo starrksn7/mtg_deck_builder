@@ -14,37 +14,33 @@ export function SearchBar(){
     }
     
     const handleSubmit = async (e) => {
-        console.log("The handle submit fired")
         e.preventDefault();
         let resultsArray = [];
         try{
-            console.log("searchInput")
-            console.log({name: searchInput})
             let searchUrl = '';
             
             switch(searchType) {
-                case (1):
+                case ('1'):
                     searchUrl = 'http://localhost:8080/card/searchByName';
                     break;
-                case (2):
+                case ('2'):
                     searchUrl = 'http://localhost:8080/card/searchByIdentityAndType'
                     break;
-                case (3):
+                case ('3'):
                     searchUrl = 'http://localhost:8080/card/searchByColorAndCost'
                     break;
-                case (4):
+                case ('4'):
                     searchUrl = 'http://localhost:8080/card/searchByKeyword'
                     break;
-                case (5):
+                case ('5'):
                     searchUrl = 'http://localhost:8080/card/searchByColors'
                     break;
-                case (6):
+                case ('6'):
                     searchUrl = 'http://localhost:8080/card/searchByColorIdentity'
                     break;
                 default:
                     searchUrl = ''
             }
-            console.log("searchUrl = " + searchUrl)
             const res =  await axios.post(searchUrl, {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
@@ -61,7 +57,6 @@ export function SearchBar(){
     }
 
    const handleSearchChange = (event) => {
-    console.log(event.target)
         let { value } = event.target
         setSearchType(value)
    }
