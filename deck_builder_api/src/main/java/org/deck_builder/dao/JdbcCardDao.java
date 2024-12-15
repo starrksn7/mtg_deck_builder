@@ -40,36 +40,43 @@ public class JdbcCardDao implements CardDao{
     }
 
     public List<String> getCardsFromUri(String uri) throws IOException {
-        List<String> dataSets = new ArrayList<>();
-        URL scryfallUrl = new URL(uri);
-        HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
+        try {
+            List<String> dataSets = new ArrayList<>();
+            URL scryfallUrl = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
 
-        int responsecode = conn.getResponseCode();
-        if (responsecode != 200) {
-            throw new RuntimeException("HttpResponseCode: " + responsecode);
-        }
-
-        Scanner scanner = new Scanner(scryfallUrl.openStream());
-        while(true){
-            StringBuilder body = new StringBuilder();
-            while (scanner.hasNext()) {
-                body.append(scanner.nextLine());
-            }
-            dataSets.add(String.valueOf(body));
-            JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
-
-            if(!jsonObject.get("has_more").getAsBoolean()){
-                break;
+            int responsecode = conn.getResponseCode();
+            if (responsecode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responsecode);
             }
 
-            scryfallUrl = new URL(jsonObject.get("next_page").getAsString());
-            scanner = new Scanner(scryfallUrl.openStream());
+            Scanner scanner = new Scanner(scryfallUrl.openStream());
+            while(true){
+                StringBuilder body = new StringBuilder();
+                while (scanner.hasNext()) {
+                    body.append(scanner.nextLine());
+                }
+                dataSets.add(String.valueOf(body));
+                JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
+
+                if(!jsonObject.get("has_more").getAsBoolean()){
+                    break;
+                }
+
+                scryfallUrl = new URL(jsonObject.get("next_page").getAsString());
+                scanner = new Scanner(scryfallUrl.openStream());
+            }
+
+            scanner.close();
+            return dataSets;
+        } catch (IOException e) {
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("No results were returned");
+            return errorMessage;
         }
 
-        scanner.close();
-        return dataSets;
     }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
