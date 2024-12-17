@@ -31,7 +31,9 @@ public class JdbcCardDao implements CardDao{
         try {
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
-            System.out.println(searchResults);
+            if(searchResults.get(0).equals("No cards found")){
+                return searchResults;
+            }
             return parseSearchResults(searchResults);
 
         } catch (IOException e) {
@@ -73,7 +75,7 @@ public class JdbcCardDao implements CardDao{
             return dataSets;
         } catch (IOException e) {
             List<String> errorMessage = new ArrayList<>();
-            errorMessage.add("No results were returned");
+            errorMessage.add("No cards found");
             return errorMessage;
         }
 

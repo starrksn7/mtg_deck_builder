@@ -44,8 +44,6 @@ export function SearchBar(){
             const res =  await axios.post(searchUrl, {name: searchInput})
             let data = res.data;
             data.forEach(entry => {
-                //TODO: test if this regex is needed.  I'm running something similar in the api to remove line breaks and double quotes
-                entry = entry.replace(/\\|\n/g, (match) => match === '\n' ? ' ' : '');
                 resultsArray.push(JSON.parse(entry));
             })
             console.log("Results array", resultsArray)           
@@ -70,7 +68,9 @@ export function SearchBar(){
    }
    
     const cards = (searchResults) => {
-        if(searchResults.length) {
+        console.log("search results coming...")
+        console.log(searchResults);
+        if(searchResults.length > 0) {
             return searchResults.map((card, index) => (
                     <div key={index}>
                         <div>{card.name}</div>
@@ -80,6 +80,12 @@ export function SearchBar(){
                         </form>
                     </div>
             ))
+        } else {
+            return (
+                <div>
+                    No results found for that search term
+                </div>
+            )
         }
         return null
     }
