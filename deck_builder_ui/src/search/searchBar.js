@@ -7,6 +7,9 @@ export function SearchBar(){
     const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [searchType, setSearchType] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [resultsStart, setResultsStart] = useState(0);
+    const [resultsEnd, setResultsEnd] = useState(24);
     const deckId = useParams();
 
     const handleChange = (e) => {
@@ -66,10 +69,15 @@ export function SearchBar(){
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
+
+   const handlePageChange = (page) => {
+        setCurrentPage(page);
+        //need to figure out this calculation to get the right range of 25 results
+        setResultsStart();
+        setResultsEnd();
+   }
    
-    const cards = (searchResults) => {
-        console.log("search results coming...")
-        console.log(searchResults);
+    const cards = (searchResults, page) => {
         if(searchResults.length > 0) {
             return searchResults.map((card, index) => (
                     <div key={index}>
@@ -127,7 +135,7 @@ export function SearchBar(){
             </form>
 
             
-            {showResults && cards(searchResults)}
+            {showResults && cards(searchResults, currentPage)}
         </div>
     )
 }

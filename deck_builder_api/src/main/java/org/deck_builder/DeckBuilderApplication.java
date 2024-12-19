@@ -15,8 +15,8 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Add pagination to search results, instead of returning all of them at once
- * 2. Set an active deck so all cards added to a deck go to that
- * 3. Verify functionality of all other ways to search for cards
- * 4. View a deck page
+ * 2. Verify functionality of all other ways to search for cards
+ * 3. View a deck page
+ * 4.   Set an active deck so all cards added to a deck go to that
  * 5. Login
  */
