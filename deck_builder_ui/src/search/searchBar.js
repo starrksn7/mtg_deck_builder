@@ -7,9 +7,6 @@ export function SearchBar(){
     const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [searchType, setSearchType] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [resultsStart, setResultsStart] = useState(0);
-    const [resultsEnd, setResultsEnd] = useState(24);
     const deckId = useParams();
 
     const handleChange = (e) => {
@@ -68,13 +65,6 @@ export function SearchBar(){
         const res = await axios.post('http://localhost:8080/decks/add', { deckId, card })
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
-   }
-
-   const handlePageChange = (page) => {
-        setCurrentPage(page);
-        //need to figure out this calculation to get the right range of 25 results
-        setResultsStart();
-        setResultsEnd();
    }
    
     const cards = (searchResults, page) => {
