@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Pagination } from './pagination';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -70,13 +71,17 @@ export function SearchBar(){
     const cards = (searchResults, page) => {
         if(searchResults.length > 0) {
             return searchResults.map((card, index) => (
-                    <div key={index}>
-                        <div>{card.name}</div>
-                        <img src={card.image_link} alt='alternate text'/>
-                        <form onSubmit={addToDeck}>
-                            <button type="submit">Add to Deck</button>
-                        </form>
+                    <div>
+                        <div key={index}>
+                            <div>{card.name}</div>
+                            <img src={card.image_link} alt='alternate text'/>
+                            <form onSubmit={addToDeck}>
+                                <button type="submit">Add to Deck</button>
+                            </form>
+                            <Pagination totalResults={searchResults.length} />
+                        </div>  
                     </div>
+
             ))
         } else {
             return (
