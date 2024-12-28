@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Pagination } from './pagination';
+import { DisplayResults } from './displayResults';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -60,39 +61,6 @@ export function SearchBar(){
         setSearchType(value)
    }
 
-   const addToDeck = async (e) => {
-        e.preventDefault();
-        const card = e.target;
-        const res = await axios.post('http://localhost:8080/decks/add', { deckId, card })
-        if(res) console.log("added card to deck. Need to find a better notification than this")
-        else console.log("Couldn't add the card to deck, for some reason")
-   }
-   
-    const cards = (searchResults, page) => {
-        if(searchResults.length > 0) {
-            return searchResults.map((card, index) => (
-                    <div>
-                        <div key={index}>
-                            <div>{card.name}</div>
-                            <img src={card.image_link} alt='alternate text'/>
-                            <form onSubmit={addToDeck}>
-                                <button type="submit">Add to Deck</button>
-                            </form>
-                            <Pagination totalResults={searchResults.length} />
-                        </div>  
-                    </div>
-
-            ))
-        } else {
-            return (
-                <div>
-                    No results found for that search term
-                </div>
-            )
-        }
-        return null
-    }
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -129,8 +97,9 @@ export function SearchBar(){
                 </label>
             </form>
 
-            
-            {showResults && cards(searchResults, currentPage)}
+            {searchResults && 
+                <DisplayResults results={searchResults} deckId={deckId}/>
+            }
         </div>
     )
 }
