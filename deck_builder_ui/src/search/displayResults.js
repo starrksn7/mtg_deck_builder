@@ -2,6 +2,8 @@ import React from "react"
 import axios from 'axios'
 
 export const DisplayResults = ({searchResults, deckId}) => {
+    console.log("searchResults in displayResults = ")
+    console.log(searchResults)
 
     const addToDeck = async (e) => {
         e.preventDefault();
@@ -14,9 +16,11 @@ export const DisplayResults = ({searchResults, deckId}) => {
     if(searchResults) {
         return searchResults.map((card, index) => (
                 <div>
-                    <div key={index}>
-                        <div>{card.name}</div>
+                    <div key={card.scryfall_url}>
                         <img src={card.image_link} alt='alternate text'/>
+                        <div>{card.name}</div>
+                        <div>Type: {card.type}</div>
+                        <div>{card.oracle_text}</div>
                         <form onSubmit={addToDeck}>
                             <button type="submit">Add to Deck</button>
                         </form>

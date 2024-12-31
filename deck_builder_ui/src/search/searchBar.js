@@ -48,7 +48,7 @@ export function SearchBar(){
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
             })
-            console.log("Results array", resultsArray)           
+            // console.log("Results array", resultsArray)           
         } catch (error){
             console.log("Error fetching data: ", error)
         }
@@ -98,7 +98,7 @@ export function SearchBar(){
             </form>
 
             {searchResults && 
-                <DisplayResults results={searchResults} deckId={deckId}/>
+                <DisplayResults searchResults={searchResults} deckId={deckId}/>
             }
         </div>
     )
