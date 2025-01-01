@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Pagination } from './pagination';
 import { DisplayResults } from './displayResults';
 
 export function SearchBar(){
@@ -98,8 +97,7 @@ export function SearchBar(){
             </form>
 
             {searchResults && 
-                <DisplayResults searchResults={searchResults} deckId={deckId}/>
-            }
+                <DisplayResults searchResults={searchResults} deckId={deckId}/>             }
         </div>
     )
 }

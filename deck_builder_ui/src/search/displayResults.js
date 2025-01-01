@@ -15,8 +15,8 @@ export const DisplayResults = ({searchResults, deckId}) => {
 
     if(searchResults) {
         return searchResults.map((card, index) => (
-                <div>
-                    <div key={card.scryfall_url}>
+                <div key={index}>
+                    <div>
                         <img src={card.image_link} alt='alternate text'/>
                         <div>{card.name}</div>
                         <div>Type: {card.type}</div>

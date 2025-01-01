@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export  const Pagination = ({ totalResults, paginate }) => {
+export  const Pagination = ({ totalResults, paginate,  }) => {
     const pages = [];
 
     for(let i = 1; i <= Math.ceil(totalResults / 25); i++){
@@ -9,15 +9,15 @@ export  const Pagination = ({ totalResults, paginate }) => {
 
     return (
         <nav>
-            <ul className="pagination">
+            <div className="pagination">
             {pages.map(number => (
-                <li key={number} className="page-item">
+                <div key={number} className="page-item">
                 <button onClick={() => paginate(number)} className="page-link">
                     {number}
                 </button>
-                </li>
+                </div>
             ))}
-            </ul>
+            </div>
       </nav>
     )
 }
