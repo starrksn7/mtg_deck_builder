@@ -14,9 +14,13 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Add pagination to search results, instead of returning all of them at once
- * 2. Verify functionality of all other ways to search for cards
- * 3. View a deck page
- * 4.   Set an active deck so all cards added to a deck go to that
- * 5. Login
+ * 1. Verify functionality of all other ways to search for cards
+ * 2. Create a page to view a deck
+ * 3. Incorporate some check that verifies if the deck is legal or not
+ * 4. Set an active deck so all cards added to a deck go to that
+ * 5. Verify function that adds card to deck
+ * 6. Login capabilities
+ * 7. Style the pages
+ * 8. Figure out how to insert game symbols instead of the info that comes from scryfall, like the
+ *    tap signs or color symbols
  */

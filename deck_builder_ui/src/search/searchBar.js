@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
+import { Pagination } from './pagination';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -9,6 +10,11 @@ export function SearchBar(){
     const [searchInput, setSearchInput] = useState('');
     const [searchType, setSearchType] = useState('');
     const deckId = useParams();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage, setCardsPerPage] = useState(25);
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
@@ -51,6 +57,7 @@ export function SearchBar(){
         } catch (error){
             console.log("Error fetching data: ", error)
         }
+        setCurrentPage(1);
         setSearchResults(resultsArray);
         setShowResults(true);
     }
@@ -96,8 +103,17 @@ export function SearchBar(){
                 </label>
             </form>
 
-            {searchResults && 
-                <DisplayResults searchResults={searchResults} deckId={deckId}/>             }
+            {searchResults && (
+                <div> 
+                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId}/>         
+                    <Pagination 
+                        cardsPerPage={cardsPerPage}
+                        totalResults={searchResults.length}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
+                </div>
+                )}
         </div>
     )
 }
