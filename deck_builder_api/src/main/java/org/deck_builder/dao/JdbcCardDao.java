@@ -49,9 +49,9 @@ public class JdbcCardDao implements CardDao{
             conn.setRequestMethod("GET");
             conn.connect();
 
-            int responsecode = conn.getResponseCode();
-            if (responsecode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responsecode);
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+//                throw new RuntimeException("HttpResponseCode: " + responseCode);
             }
 
             Scanner scanner = new Scanner(scryfallUrl.openStream());
@@ -73,7 +73,12 @@ public class JdbcCardDao implements CardDao{
 
             scanner.close();
             return dataSets;
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
+            /*
+            When there is no search results, it causes an error and goes to this catch
+            I need to make the data returned below into good json and have the rest of my
+            functions check for that before sending the response to the ui
+             */
             List<String> errorMessage = new ArrayList<>();
             errorMessage.add("No cards found");
             return errorMessage;
