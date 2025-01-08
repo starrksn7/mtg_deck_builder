@@ -32,7 +32,12 @@ public class JdbcCardDao implements CardDao{
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
             if(searchResults.get(0).equals("No cards found")){
-                return searchResults;
+                //failed searches return an array that's just [No cards found]
+                JsonObject object = new JsonObject();
+                object.addProperty("error", "No cards found");
+                List<String> failedSearch = new ArrayList<>();
+                failedSearch.add(object.toString());
+                return failedSearch;
             }
             return parseSearchResults(searchResults);
 
@@ -50,8 +55,8 @@ public class JdbcCardDao implements CardDao{
             conn.connect();
 
             int responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-//                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            if (responseCode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
             }
 
             Scanner scanner = new Scanner(scryfallUrl.openStream());
