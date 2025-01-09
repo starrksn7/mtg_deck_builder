@@ -13,25 +13,25 @@ export const DisplayResults = ({searchResults, deckId}) => {
         else console.log("Couldn't add the card to deck, for some reason")
    }
 
-    if(searchResults) {
-        return searchResults.map((card, index) => (
-                <div key={index}>
-                    <div>
-                        <img src={card.image_link} alt='alternate text'/>
-                        <div>{card.name}</div>
-                        <div>Type: {card.type}</div>
-                        <div>{card.oracle_text}</div>
-                        <form onSubmit={addToDeck}>
-                            <button type="submit">Add to Deck</button>
-                        </form>
-                    </div>  
-                </div>
-        ))
-    } else {
+    if(searchResults[0]?.error) {
         return (
             <div>
                 No results found for that search term
             </div>
         )
+    } else {
+        return searchResults.map((card, index) => (
+            <div key={index}>
+                <div>
+                    <img src={card.image_link} alt='alternate text'/>
+                    <div>{card.name}</div>
+                    <div>Type: {card.type}</div>
+                    <div>{card.oracle_text}</div>
+                    <form onSubmit={addToDeck}>
+                        <button type="submit">Add to Deck</button>
+                    </form>
+                </div>  
+            </div>
+    ))
     }
 }
