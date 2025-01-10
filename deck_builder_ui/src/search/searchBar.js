@@ -15,7 +15,7 @@ export function SearchBar(){
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
-
+    const [isError, setIsError] = useState(false);
     const handleChange = (e) => {
         setSearchInput(e.target.value)
     }
@@ -105,12 +105,13 @@ export function SearchBar(){
 
             {searchResults && (
                 <div> 
-                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId}/>         
+                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
                     <Pagination 
                         cardsPerPage={cardsPerPage}
                         totalResults={searchResults.length}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
+                        isError={isError}
                     />
                 </div>
                 )}

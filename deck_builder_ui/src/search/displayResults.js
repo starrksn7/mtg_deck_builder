@@ -1,7 +1,7 @@
 import React from "react"
 import axios from 'axios'
 
-export const DisplayResults = ({searchResults, deckId}) => {
+export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     console.log("searchResults in displayResults = ")
     console.log(searchResults)
 
@@ -14,6 +14,7 @@ export const DisplayResults = ({searchResults, deckId}) => {
    }
 
     if(searchResults[0]?.error) {
+        setIsError(true)
         return (
             <div>
                 No results found for that search term
