@@ -27,7 +27,7 @@ public class JdbcCardDao implements CardDao{
     String scryfallUrl = "https://api.scryfall.com";
     public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
-        String uri = scryfallUrl + "/cards/search?q=" + encodedName;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedName + "&unique=cards";
         try {
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
@@ -234,7 +234,7 @@ public class JdbcCardDao implements CardDao{
             }
         }
 
-        return removeDuplicatesByName(result);
+        return result;
     }
 
     public List<String> removeDuplicatesByName(List<String> searchResults) throws MalformedJsonException {

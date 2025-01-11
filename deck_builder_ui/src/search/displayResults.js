@@ -21,6 +21,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
             </div>
         )
     } else {
+        setIsError(false)
         return searchResults.map((card, index) => (
             <div key={index}>
                 <div>

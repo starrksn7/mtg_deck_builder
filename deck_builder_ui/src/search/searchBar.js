@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
 import { Pagination } from './pagination';
+import { Loader } from './loader';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -16,12 +17,15 @@ export function SearchBar(){
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
     const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleChange = (e) => {
         setSearchInput(e.target.value)
     }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         let resultsArray = [];
         try{
             let searchUrl = '';
@@ -60,6 +64,7 @@ export function SearchBar(){
         setCurrentPage(1);
         setSearchResults(resultsArray);
         setShowResults(true);
+        setIsLoading(false);
     }
 
    const handleSearchChange = (event) => {
@@ -102,7 +107,7 @@ export function SearchBar(){
                     Search By Color Identity
                 </label>
             </form>
-
+            {isLoading ? <Loader /> : <div>
             {searchResults && (
                 <div> 
                     <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
@@ -115,6 +120,8 @@ export function SearchBar(){
                     />
                 </div>
                 )}
+                </div>
+            }
         </div>
     )
 }
