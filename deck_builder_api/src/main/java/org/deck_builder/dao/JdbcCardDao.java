@@ -21,13 +21,15 @@ import java.util.*;
 public class JdbcCardDao implements CardDao{
     private final JdbcTemplate jdbcTemplate;
 
+
     public JdbcCardDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
-    String scryfallUrl = "https://api.scryfall.com";
+    private final String scryfallUrl = "https://api.scryfall.com";
+    private final String uniqueOnly = "&unique=cards";
     public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
-        String uri = scryfallUrl + "/cards/search?q=" + encodedName + "&unique=cards";
+        String uri = scryfallUrl + "/cards/search?q=" + encodedName + uniqueOnly;
         try {
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
@@ -95,7 +97,7 @@ public class JdbcCardDao implements CardDao{
     public List<String> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException{
         String encodedIdentity = "id%3A" + identity;
         String encodedType = "t%3A" + type;
-        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + uniqueOnly;
         try {
             List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);

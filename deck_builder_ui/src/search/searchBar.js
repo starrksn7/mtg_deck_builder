@@ -106,6 +106,137 @@ export function SearchBar(){
                     <input type='radio' name="searchType" value='6' onChange={handleSearchChange}/>
                     Search By Color Identity
                 </label>
+                {searchType === '2' ? <div>
+                    Select The color you want to view
+                    <label>
+                        <input type='radio' name="searchType" value='black' onChange={handleSearchChange}/>
+                        Black
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='blue' onChange={handleSearchChange}/>
+                        Blue
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='green' onChange={handleSearchChange}/>
+                        Green
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='red' onChange={handleSearchChange}/>
+                        Red
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='white' onChange={handleSearchChange}/>
+                        White
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='azorius' onChange={handleSearchChange}/>
+                        Azorius
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='boros' onChange={handleSearchChange}/>
+                        Boros
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='dimir' onChange={handleSearchChange}/>
+                        Dimir
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='golgari' onChange={handleSearchChange}/>
+                        Golgari
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='gruul' onChange={handleSearchChange}/>
+                        Gruul
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='izzet' onChange={handleSearchChange}/>
+                        Izzet
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='orzhov' onChange={handleSearchChange}/>
+                        Orzhov
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='rakdos' onChange={handleSearchChange}/>
+                        Rakdos
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='selesnya' onChange={handleSearchChange}/>
+                        Selesnya
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='simic' onChange={handleSearchChange}/>
+                        Simic
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='abzan' onChange={handleSearchChange}/>
+                        Abzan
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='bant' onChange={handleSearchChange}/>
+                        Bant
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='esper' onChange={handleSearchChange}/>
+                        Esper
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='grixis' onChange={handleSearchChange}/>
+                        Grixis
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='jeskai' onChange={handleSearchChange}/>
+                        Jeskai
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='jund' onChange={handleSearchChange}/>
+                        Jund
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='mardu' onChange={handleSearchChange}/>
+                        Mardu
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='naya' onChange={handleSearchChange}/>
+                        Naya
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='sultai' onChange={handleSearchChange}/>
+                        Sultai
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='temur' onChange={handleSearchChange}/>
+                        Temur
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='glint' onChange={handleSearchChange}/>
+                        Glint
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='dune' onChange={handleSearchChange}/>
+                        Dune
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='ink' onChange={handleSearchChange}/>
+                        Ink
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='witch' onChange={handleSearchChange}/>
+                        Witch
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='yore' onChange={handleSearchChange}/>
+                        Yore
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='wurbg' onChange={handleSearchChange}/>
+                        WURBG
+                    </label>
+                    <label>
+                        <input type='radio' name="searchType" value='colorless' onChange={handleSearchChange}/>
+                        Colorless
+                    </label>
+                </div> : <div></div>}
             </form>
             {isLoading ? <Loader /> : <div>
             {searchResults && (
