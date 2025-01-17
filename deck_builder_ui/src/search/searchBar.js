@@ -18,6 +18,7 @@ export function SearchBar(){
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [colorType, setColorType] = useState('');
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
@@ -72,6 +73,11 @@ export function SearchBar(){
         setSearchType(value)
    }
 
+   const handleColorChange = (event) => {
+        let { value } = event.target;
+        setColorType(value);
+   }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -109,131 +115,131 @@ export function SearchBar(){
                 {searchType === '2' ? <div>
                     Select The color you want to view
                     <label>
-                        <input type='radio' name="searchType" value='black' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='black' onChange={handleColorChange}/>
                         Black
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='blue' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='blue' onChange={handleColorChange}/>
                         Blue
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='green' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='green' onChange={handleColorChange}/>
                         Green
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='red' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='red' onChange={handleColorChange}/>
                         Red
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='white' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='white' onChange={handleColorChange}/>
                         White
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='azorius' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='azorius' onChange={handleColorChange}/>
                         Azorius
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='boros' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='boros' onChange={handleColorChange}/>
                         Boros
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='dimir' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='dimir' onChange={handleColorChange}/>
                         Dimir
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='golgari' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='golgari' onChange={handleColorChange}/>
                         Golgari
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='gruul' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='gruul' onChange={handleColorChange}/>
                         Gruul
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='izzet' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='izzet' onChange={handleColorChange}/>
                         Izzet
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='orzhov' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='orzhov' onChange={handleColorChange}/>
                         Orzhov
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='rakdos' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='rakdos' onChange={handleColorChange}/>
                         Rakdos
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='selesnya' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='selesnya' onChange={handleColorChange}/>
                         Selesnya
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='simic' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='simic' onChange={handleColorChange}/>
                         Simic
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='abzan' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='abzan' onChange={handleColorChange}/>
                         Abzan
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='bant' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='bant' onChange={handleColorChange}/>
                         Bant
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='esper' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='esper' onChange={handleColorChange}/>
                         Esper
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='grixis' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='grixis' onChange={handleColorChange}/>
                         Grixis
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='jeskai' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='jeskai' onChange={handleColorChange}/>
                         Jeskai
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='jund' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='jund' onChange={handleColorChange}/>
                         Jund
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='mardu' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='mardu' onChange={handleColorChange}/>
                         Mardu
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='naya' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='naya' onChange={handleColorChange}/>
                         Naya
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='sultai' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='sultai' onChange={handleColorChange}/>
                         Sultai
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='temur' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='temur' onChange={handleColorChange}/>
                         Temur
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='glint' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='glint' onChange={handleColorChange}/>
                         Glint
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='dune' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='dune' onChange={handleColorChange}/>
                         Dune
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='ink' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='ink' onChange={handleColorChange}/>
                         Ink
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='witch' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='witch' onChange={handleColorChange}/>
                         Witch
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='yore' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='yore' onChange={handleColorChange}/>
                         Yore
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='wurbg' onChange={handleSearchChange}/>
-                        WURBG
+                        <input type='radio' name="searchType" value='wurbg' onChange={handleColorChange}/>
+                        WUBRG
                     </label>
                     <label>
-                        <input type='radio' name="searchType" value='colorless' onChange={handleSearchChange}/>
+                        <input type='radio' name="searchType" value='colorless' onChange={handleColorChange}/>
                         Colorless
                     </label>
                 </div> : <div></div>}
