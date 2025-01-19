@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
 import { Pagination } from './pagination';
 import { Loader } from './loader';
+import { RenderColorOptions } from './renderColorOptions';
+import { RenderTypeOptions } from './renderTypeOptions';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -24,7 +26,6 @@ export function SearchBar(){
     const handleChange = (e) => {
         setSearchInput(e.target.value)
     }
-    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -83,16 +84,6 @@ export function SearchBar(){
         setSearchType(value)
    }
 
-   const handleColorChange = (event) => {
-        let { value } = event.target;
-        setColorIdentity(value);
-   }
-
-   const handleCardTypeChange = (event) => {
-        let { value } = event.target;
-        setCardType(value);
-   }
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -128,172 +119,8 @@ export function SearchBar(){
                     Search By Color Identity
                 </label>
                 {searchType === '2' ? <div>
-                <div>
-                    Select The Color Identity
-                    <label>
-                        <input type='radio' name="identitySelect" value='black' onChange={handleColorChange}/>
-                        Black
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='blue' onChange={handleColorChange}/>
-                        Blue
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='green' onChange={handleColorChange}/>
-                        Green
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='red' onChange={handleColorChange}/>
-                        Red
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='white' onChange={handleColorChange}/>
-                        White
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='azorius' onChange={handleColorChange}/>
-                        Azorius
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='boros' onChange={handleColorChange}/>
-                        Boros
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='dimir' onChange={handleColorChange}/>
-                        Dimir
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='golgari' onChange={handleColorChange}/>
-                        Golgari
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='gruul' onChange={handleColorChange}/>
-                        Gruul
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='izzet' onChange={handleColorChange}/>
-                        Izzet
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='orzhov' onChange={handleColorChange}/>
-                        Orzhov
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='rakdos' onChange={handleColorChange}/>
-                        Rakdos
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='selesnya' onChange={handleColorChange}/>
-                        Selesnya
-                    </label>
-                    <label>
-                        <input type='radio' name="sidentitySelect" value='simic' onChange={handleColorChange}/>
-                        Simic
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='abzan' onChange={handleColorChange}/>
-                        Abzan
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='bant' onChange={handleColorChange}/>
-                        Bant
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='esper' onChange={handleColorChange}/>
-                        Esper
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='grixis' onChange={handleColorChange}/>
-                        Grixis
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='jeskai' onChange={handleColorChange}/>
-                        Jeskai
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='jund' onChange={handleColorChange}/>
-                        Jund
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='mardu' onChange={handleColorChange}/>
-                        Mardu
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='naya' onChange={handleColorChange}/>
-                        Naya
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='sultai' onChange={handleColorChange}/>
-                        Sultai
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='temur' onChange={handleColorChange}/>
-                        Temur
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='glint' onChange={handleColorChange}/>
-                        Glint
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='dune' onChange={handleColorChange}/>
-                        Dune
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='ink' onChange={handleColorChange}/>
-                        Ink
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='witch' onChange={handleColorChange}/>
-                        Witch
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='yore' onChange={handleColorChange}/>
-                        Yore
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='wurbg' onChange={handleColorChange}/>
-                        WUBRG
-                    </label>
-                    <label>
-                        <input type='radio' name="identitySelect" value='colorless' onChange={handleColorChange}/>
-                        Colorless
-                    </label>
-                </div>
-                <div>
-                    Select The Card Type
-                    <label>
-                        <input type='radio' name="cardType" value='artifact' onChange={handleCardTypeChange}/>
-                        Artifact
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='battle' onChange={handleCardTypeChange}/>
-                        Battle
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='creature' onChange={handleCardTypeChange}/>
-                        Creature
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='enchantment' onChange={handleCardTypeChange}/>
-                        Enchantment
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='instant' onChange={handleCardTypeChange}/>
-                        Instant
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='land' onChange={handleCardTypeChange}/>
-                        Land
-                    </label>
-                    <label>
-                        <input type='radio' name="cardType" value='planeswalker' onChange={handleCardTypeChange}/>
-                        Planeswalker
-                    </label>
-                    <label>
-                        <input type='radio' name="searchType" value='sorcery' onChange={handleCardTypeChange}/>
-                        Sorcery
-                    </label>
-                </div>
+                    <RenderColorOptions setColorIdentity={setColorIdentity}/>
+                    <RenderTypeOptions setCardType={setCardType}/>
                 </div> : <div></div>}
             </form>
             {isLoading ? <Loader /> : <div>
