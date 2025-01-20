@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export  const Pagination = ({ cardsPerPage, totalResults, currentPage, setCurrentPage, isError }) => {
     const pages = [];

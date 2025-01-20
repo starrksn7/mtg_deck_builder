@@ -1,7 +1,5 @@
 import './App.css';
 import { SearchBar } from './search/searchBar';
-import { Pagination } from './search/pagination';
-import { useState } from 'react';
 
 
 function App() {

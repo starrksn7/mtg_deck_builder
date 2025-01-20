@@ -63,6 +63,9 @@ export function SearchBar(){
                     break;
                 case ('2'):
                     res = await axios.post(searchUrl, {identity: colorIdentity, type: cardType})
+                    break;
+                default:
+                    res = null;
             }
             
             let data = res.data;
