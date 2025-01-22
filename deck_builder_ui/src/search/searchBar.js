@@ -62,7 +62,8 @@ export function SearchBar(){
                     res = await axios.post(searchUrl, {name: searchInput});
                     break;
                 case ('2'):
-                    res = await axios.post(searchUrl, {identity: colorIdentity, type: cardType})
+                    console.log("sending request to search type 2")
+                    res = await axios.post(searchUrl, {colorIdentity: colorIdentity, type: cardType})
                     break;
                 default:
                     res = null;

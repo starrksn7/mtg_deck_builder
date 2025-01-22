@@ -23,9 +23,9 @@ public class CardController {
         return cardDao.searchForCardByName(jsonBody.getName());
     }
 
-    @GetMapping(path="/searchByIdentityAndType")
-    public List<String> findCardByType(String identity, String type) throws UnsupportedEncodingException{
-        return cardDao.findCardByIdentityAndType(identity, type);
+    @PostMapping(path="/searchByIdentityAndType")
+    public List<String> findCardByType(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
+        return cardDao.findCardByIdentityAndType(jsonBody.getColorIdentity(), jsonBody.getType());
     }
 
     @GetMapping(path="/searchByColorAndCost")

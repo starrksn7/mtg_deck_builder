@@ -23,7 +23,7 @@ public class CardSearchDTO {
     @NotEmpty
     private String[] colors;
     @NotEmpty
-    private String[] colorIdentity;
+    private String colorIdentity;
     @NotEmpty
     private String[] keywords;
 
@@ -99,11 +99,11 @@ public class CardSearchDTO {
         this.colors = colors;
     }
 
-    public String[] getColorIdentity() {
+    public String getColorIdentity() {
         return colorIdentity;
     }
 
-    public void setColorIdentity(String[] colorIdentity) {
+    public void setColorIdentity(String colorIdentity) {
         this.colorIdentity = colorIdentity;
     }
 

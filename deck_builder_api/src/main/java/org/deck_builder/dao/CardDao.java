@@ -16,7 +16,7 @@ public interface CardDao {
 
     Card mapResultToCard(JsonObject result);
 
-    List<String> findCardByIdentityAndType(String identity, String type) throws UnsupportedEncodingException;
+    List<String> findCardByIdentityAndType(String colorIdentity, String type) throws UnsupportedEncodingException;
 
     List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException;
 
