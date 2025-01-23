@@ -130,10 +130,10 @@ export const RenderColorOptions = ({setColorIdentity}) => {
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='wurbg' onChange={handleColorChange}/>
-                WUBRG
+                WURBG
             </label>
             <label>
-                <input type='radio' name="identitySelect" value='colorless' onChange={handleColorChange}/>
+                <input type='radio' name="identitySelect" value='c' onChange={handleColorChange}/>
                 Colorless
             </label>
         </div>
