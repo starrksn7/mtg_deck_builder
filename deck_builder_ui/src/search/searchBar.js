@@ -73,7 +73,14 @@ export function SearchBar(){
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
             })
-            // console.log("Results array", resultsArray)           
+
+            if(searchType === '2'){
+                console.log("searchIinput = ", searchInput)
+                resultsArray = resultsArray.filter((entry) => {
+                    return entry.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) || 
+                    entry.oracle_text.toLowerCase().includes(searchInput.toLowerCase());
+                })
+            }
         } catch (error){
             console.log("Error fetching data: ", error)
         }
