@@ -21,7 +21,7 @@ public class CardSearchDTO {
     @NotEmpty
     private String oracleText;
     @NotEmpty
-    private String[] colors;
+    private String colors;
     @NotEmpty
     private String colorIdentity;
     @NotEmpty
@@ -91,11 +91,11 @@ public class CardSearchDTO {
         this.oracleText = oracleText;
     }
 
-    public String[] getColors() {
+    public String getColors() {
         return colors;
     }
 
-    public void setColors(String[] colors) {
+    public void setColors(String colors) {
         this.colors = colors;
     }
 
