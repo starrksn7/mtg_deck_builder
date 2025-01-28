@@ -65,11 +65,11 @@ export function SearchBar(){
                     res = await axios.post(searchUrl, {colorIdentity: colorIdentity, type: cardType})
                     break;
                 case ('3'):
-                    res = await axios.post(searchUrl, {color: colorIdentity, cost: searchInput})
+                    res = await axios.post(searchUrl, {colors: colorIdentity, manaCost: searchInput})
                 default:
                     res = null;
             }
-            
+            console.log(res)
             let data = res.data;
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
@@ -95,7 +95,7 @@ export function SearchBar(){
         let { value } = event.target
         setSearchType(value)
    }
-
+   
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -133,6 +133,9 @@ export function SearchBar(){
                 {searchType === '2' ? <div>
                     <RenderColorOptions setColorIdentity={setColorIdentity}/>
                     <RenderTypeOptions setCardType={setCardType}/>
+                </div> : <div></div>}
+                {searchType === '3' ? <div>
+                    <RenderColorOptions setColorIdentity={setColorIdentity} />
                 </div> : <div></div>}
             </form>
             {isLoading ? <Loader /> : <div>
