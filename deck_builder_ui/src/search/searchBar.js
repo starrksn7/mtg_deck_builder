@@ -66,10 +66,11 @@ export function SearchBar(){
                     break;
                 case ('3'):
                     res = await axios.post(searchUrl, {colors: colorIdentity, manaCost: searchInput})
+                    break;
                 default:
                     res = null;
             }
-            console.log(res)
+ 
             let data = res.data;
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
