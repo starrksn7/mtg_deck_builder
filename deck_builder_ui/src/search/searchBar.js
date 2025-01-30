@@ -32,16 +32,20 @@ export function SearchBar(){
         let resultsArray = [];
         try{
             let searchUrl = '';
+            let res;
             
             switch(searchType) {
                 case ('1'):
                     searchUrl = 'http://localhost:8080/card/searchByName';
+                    res = await axios.post(searchUrl, {name: searchInput});
                     break;
                 case ('2'):
-                    searchUrl = 'http://localhost:8080/card/searchByIdentityAndType'
+                    searchUrl = 'http://localhost:8080/card/searchByIdentityAndType';
+                    res = await axios.post(searchUrl, {colorIdentity: colorIdentity, type: cardType});
                     break;
                 case ('3'):
-                    searchUrl = 'http://localhost:8080/card/searchByColorAndCost'
+                    searchUrl = 'http://localhost:8080/card/searchByColorAndCost';
+                    res = await axios.post(searchUrl, {colors: colorIdentity, manaCost: searchInput});
                     break;
                 case ('4'):
                     searchUrl = 'http://localhost:8080/card/searchByKeyword'
@@ -54,21 +58,6 @@ export function SearchBar(){
                     break;
                 default:
                     searchUrl = ''
-            }
-            let res;
-            
-            switch(searchType){
-                case ('1'):
-                    res = await axios.post(searchUrl, {name: searchInput});
-                    break;
-                case ('2'):
-                    res = await axios.post(searchUrl, {colorIdentity: colorIdentity, type: cardType})
-                    break;
-                case ('3'):
-                    res = await axios.post(searchUrl, {colors: colorIdentity, manaCost: searchInput})
-                    break;
-                default:
-                    res = null;
             }
  
             let data = res.data;
