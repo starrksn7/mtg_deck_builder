@@ -140,16 +140,9 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public List<String> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException {
+    public List<String> getCardByKeyword(String keyword) throws UnsupportedEncodingException {
         String uri= scryfallUrl + "cards/search?q=";
         try {
-            for(int i = 0; i < keywords.size(); i++){
-                if(i == keywords.size() - 1){
-                    uri += keywords.get(i);
-                } else {
-                    uri += keywords.get(i) + "+";
-                }
-            }
             List<String> searchResults = getCardsFromUri(uri);
             return parseSearchResults(searchResults);
         } catch (IOException e) {

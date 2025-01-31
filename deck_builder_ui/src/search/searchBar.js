@@ -49,6 +49,7 @@ export function SearchBar(){
                     break;
                 case ('4'):
                     searchUrl = 'http://localhost:8080/card/searchByKeyword'
+                    res = await axios.post(searchUrl)
                     break;
                 case ('5'):
                     searchUrl = 'http://localhost:8080/card/searchByColors'

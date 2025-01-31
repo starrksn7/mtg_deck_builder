@@ -34,8 +34,8 @@ public class CardController {
     }
 
     @GetMapping(path="/searchByKeyword")
-    public List<String> getCardByKeyword(List<String> keywords) throws UnsupportedEncodingException{
-        return cardDao.getCardByKeyword(keywords);
+    public List<String> getCardByKeyword(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
+        return cardDao.getCardByKeyword(jsonBody.getKeyword());
     }
 
     @GetMapping(path="/searchByColors")

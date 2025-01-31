@@ -25,7 +25,7 @@ public class CardSearchDTO {
     @NotEmpty
     private String colorIdentity;
     @NotEmpty
-    private String[] keywords;
+    private String keyword;
 
     public int getId() {
         return id;
@@ -107,11 +107,11 @@ public class CardSearchDTO {
         this.colorIdentity = colorIdentity;
     }
 
-    public String[] getKeywords() {
-        return keywords;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setKeywords(String[] keywords) {
-        this.keywords = keywords;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }
