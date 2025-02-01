@@ -140,7 +140,7 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public List<String> getCardByKeyword(String keyword) throws UnsupportedEncodingException {
+    public List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException {
         String uri= scryfallUrl + "cards/search?q=";
         try {
             List<String> searchResults = getCardsFromUri(uri);

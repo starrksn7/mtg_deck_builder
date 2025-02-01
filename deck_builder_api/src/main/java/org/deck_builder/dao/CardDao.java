@@ -20,7 +20,7 @@ public interface CardDao {
 
     List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException;
 
-    List<String> getCardByKeyword(String keyword) throws UnsupportedEncodingException;
+    List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException;
 
     List<String> getCardsByColors(String colors) throws UnsupportedEncodingException;
 

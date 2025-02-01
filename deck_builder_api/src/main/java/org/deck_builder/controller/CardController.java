@@ -33,9 +33,9 @@ public class CardController {
         return cardDao.getCardByColorAndCost(jsonBody.getColors(), jsonBody.getManaCost());
     }
 
-    @GetMapping(path="/searchByKeyword")
+    @GetMapping(path="/searchByKeywordAndColors")
     public List<String> getCardByKeyword(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardDao.getCardByKeyword(jsonBody.getKeyword());
+        return cardDao.getCardByKeywordAndColors(jsonBody.getKeyword(), jsonBody.getColors());
     }
 
     @GetMapping(path="/searchByColors")
