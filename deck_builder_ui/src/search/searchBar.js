@@ -111,7 +111,7 @@ export function SearchBar(){
                 </label>
                 <label>
                     <input type='radio' name="searchType" value='4' onChange={handleSearchChange}/>
-                    Search By Keyword
+                    Search By Keyword and Colors
                 </label>
                 <label>
                     <input type='radio' name="searchType" value='5' onChange={handleSearchChange}/>
@@ -125,7 +125,7 @@ export function SearchBar(){
                     <RenderColorOptions setColorIdentity={setColorIdentity}/>
                     <RenderTypeOptions setCardType={setCardType}/>
                 </div> : <div></div>}
-                {searchType === '3' ? <div>
+                {searchType === '3' || searchType === '4' ? <div>
                     <RenderColorOptions setColorIdentity={setColorIdentity} />
                 </div> : <div></div>}
             </form>

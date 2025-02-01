@@ -141,9 +141,18 @@ public class JdbcCardDao implements CardDao{
     }
 
     public List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException {
-        String uri= scryfallUrl + "cards/search?q=";
+        String uri= scryfallUrl + "/cards/search?q=kw%3A" + keyword + "+c%3A" + colors;
+        System.out.println(uri);
         try {
             List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                //failed searches return an array that's just [No cards found]
+                JsonObject object = new JsonObject();
+                object.addProperty("error", "No cards found");
+                List<String> failedSearch = new ArrayList<>();
+                failedSearch.add(object.toString());
+                return failedSearch;
+            }
             return parseSearchResults(searchResults);
         } catch (IOException e) {
             throw new RuntimeException(e);
