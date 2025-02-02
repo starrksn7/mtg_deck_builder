@@ -33,13 +33,9 @@ public class JdbcCardDao implements CardDao{
         try {
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
+            //failed searches return an array that's just [No cards found]
             if(searchResults.get(0).equals("No cards found")){
-                //failed searches return an array that's just [No cards found]
-                JsonObject object = new JsonObject();
-                object.addProperty("error", "No cards found");
-                List<String> failedSearch = new ArrayList<>();
-                failedSearch.add(object.toString());
-                return failedSearch;
+                return failedSearch();
             }
             return parseSearchResults(searchResults);
 
@@ -102,12 +98,7 @@ public class JdbcCardDao implements CardDao{
         try {
             List<String> searchResults = getCardsFromUri(uri);
             if(searchResults.get(0).equals("No cards found")){
-                //failed searches return an array that's just [No cards found]
-                JsonObject object = new JsonObject();
-                object.addProperty("error", "No cards found");
-                List<String> failedSearch = new ArrayList<>();
-                failedSearch.add(object.toString());
-                return failedSearch;
+                return failedSearch();
             }
             return parseSearchResults(searchResults);
         } catch (IOException e) {
@@ -127,12 +118,7 @@ public class JdbcCardDao implements CardDao{
         try {
             List<String> searchResults = getCardsFromUri(uri);
             if(searchResults.get(0).equals("No cards found")){
-                //failed searches return an array that's just [No cards found]
-                JsonObject object = new JsonObject();
-                object.addProperty("error", "No cards found");
-                List<String> failedSearch = new ArrayList<>();
-                failedSearch.add(object.toString());
-                return failedSearch;
+                return failedSearch();
             }
             return parseSearchResults(searchResults);
         } catch (IOException e) {
@@ -146,12 +132,7 @@ public class JdbcCardDao implements CardDao{
         try {
             List<String> searchResults = getCardsFromUri(uri);
             if(searchResults.get(0).equals("No cards found")){
-                //failed searches return an array that's just [No cards found]
-                JsonObject object = new JsonObject();
-                object.addProperty("error", "No cards found");
-                List<String> failedSearch = new ArrayList<>();
-                failedSearch.add(object.toString());
-                return failedSearch;
+                return failedSearch();
             }
             return parseSearchResults(searchResults);
         } catch (IOException e) {
@@ -164,6 +145,9 @@ public class JdbcCardDao implements CardDao{
         String uri = scryfallUrl + "cards/search?q=3%A" + colorIdentity;
         try {
             List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
             return parseSearchResults(searchResults);
         } catch (IOException e){
             throw new RuntimeException(e);
@@ -176,6 +160,9 @@ public class JdbcCardDao implements CardDao{
         String uri = scryfallUrl + "cards/search?q=id<%3D" + colors;
         try {
             List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
             return parseSearchResults(searchResults);
         } catch (IOException e){
             throw new RuntimeException(e);
@@ -279,5 +266,13 @@ public class JdbcCardDao implements CardDao{
         } catch (Exception error){
             throw error;
         }
+    }
+
+    public List<String> failedSearch(){
+        JsonObject object = new JsonObject();
+        object.addProperty("error", "No cards found");
+        List<String> failedSearch = new ArrayList<>();
+        failedSearch.add(object.toString());
+        return failedSearch;
     }
 }
