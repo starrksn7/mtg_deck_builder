@@ -27,6 +27,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
                 <div>
                     <img src={card.image_link} alt='alternate text'/>
                     <div>{card.name}</div>
+                    <div>{card.mana_cost}</div>
                     <div>Type: {card.type}</div>
                     <div>{card.oracle_text}</div>
                     <form onSubmit={addToDeck}>

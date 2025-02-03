@@ -22,10 +22,6 @@ public interface CardDao {
 
     List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException;
 
-    List<String> getCardsByColors(String colors) throws UnsupportedEncodingException;
-
-    List<String> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException;
-
     boolean addCardToDb(Card card);
 
     SqlRowSet getFromDb(String scryfallId);

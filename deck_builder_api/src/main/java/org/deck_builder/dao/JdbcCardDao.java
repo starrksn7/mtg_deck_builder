@@ -139,35 +139,6 @@ public class JdbcCardDao implements CardDao{
             throw new RuntimeException(e);
         }
     }
-    //The colors variable going into this should be a single compact string of all of the single letter color identifiers
-    //i.e. blue and white = 'uw'
-    public List<String> getCardsByColors(String colorIdentity) throws UnsupportedEncodingException {
-        String uri = scryfallUrl + "cards/search?q=3%A" + colorIdentity;
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    //This string requires the single color, if applcable, spelled out, or the term for the combination of colors
-    // like rakdos, esper or bant to go through
-    public List<String> getCardsByColorIdentity(String colors) throws UnsupportedEncodingException {
-        String uri = scryfallUrl + "cards/search?q=id<%3D" + colors;
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-    }
 
     public boolean addCardToDb(Card card){
         SqlRowSet getResults = getFromDb(card.getScryfallId());

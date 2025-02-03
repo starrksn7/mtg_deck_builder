@@ -51,12 +51,6 @@ export function SearchBar(){
                     searchUrl = 'http://localhost:8080/card/searchByKeywordAndColors'
                     res = await axios.post(searchUrl, {keyword: searchInput, colors: colorIdentity})
                     break;
-                case ('5'):
-                    searchUrl = 'http://localhost:8080/card/searchByColors'
-                    break;
-                case ('6'):
-                    searchUrl = 'http://localhost:8080/card/searchByColorIdentity'
-                    break;
                 default:
                     searchUrl = ''
             }
@@ -112,14 +106,6 @@ export function SearchBar(){
                 <label>
                     <input type='radio' name="searchType" value='4' onChange={handleSearchChange}/>
                     Search By Keyword and Colors
-                </label>
-                <label>
-                    <input type='radio' name="searchType" value='5' onChange={handleSearchChange}/>
-                    Search By Colors
-                </label>
-                <label>
-                    <input type='radio' name="searchType" value='6' onChange={handleSearchChange}/>
-                    Search By Color Identity
                 </label>
                 {searchType === '2' ? <div>
                     <RenderColorOptions setColorIdentity={setColorIdentity}/>

@@ -38,16 +38,6 @@ public class CardController {
         return cardDao.getCardByKeywordAndColors(jsonBody.getKeyword(), jsonBody.getColors());
     }
 
-    @GetMapping(path="/searchByColors")
-    public List<String> getCardsByColors(String colors) throws UnsupportedEncodingException{
-        return cardDao.getCardsByColors(colors);
-    }
-
-    @GetMapping(path="/searchByColorIdentity")
-    public List<String> getCardsByColorIdentity(String colorIdentity) throws UnsupportedEncodingException {
-        return cardDao.getCardsByColorIdentity(colorIdentity);
-    }
-
     @PostMapping(path="/addToDb")
     public boolean addCardToDb(Card card){
         return cardDao.addCardToDb(card);
