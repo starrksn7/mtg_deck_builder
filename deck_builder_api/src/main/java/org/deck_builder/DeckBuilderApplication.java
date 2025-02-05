@@ -14,11 +14,11 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Verify functionality of all other ways to search for cards
+ * 1. Verify function that adds card to deck
  * 2. Create a page to view a deck
  * 3. Incorporate some check that verifies if the deck is legal or not
  * 4. Set an active deck so all cards added to a deck go to that
- * 5. Verify function that adds card to deck
+ * 5. Replace all text symbols with their image counterparts
  * 6. Login capabilities
  * 7. Style the pages
  * 8. Figure out how to insert game symbols instead of the info that comes from scryfall, like the
