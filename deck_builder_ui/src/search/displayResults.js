@@ -1,5 +1,7 @@
 import React from "react"
 import axios from 'axios'
+import { replaceTextWithManaSymbols } from "../helperFunctions"
+
 
 export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     console.log("searchResults in displayResults = ")
@@ -27,9 +29,9 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
                 <div>
                     <img src={card.image_link} alt='alternate text'/>
                     <div>{card.name}</div>
-                    <div>{card.mana_cost}</div>
+                    <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
                     <div>Type: {card.type}</div>
-                    <div>{card.oracle_text}</div>
+                    <div>{replaceTextWithManaSymbols(card.oracle_text)}</div>
                     <form onSubmit={addToDeck}>
                         <button type="submit">Add to Deck</button>
                     </form>

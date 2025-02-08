@@ -1,5 +1,6 @@
 import './App.css';
 import { SearchBar } from './search/searchBar';
+import 'mana-font/css/mana.css'
 
 
 function App() {

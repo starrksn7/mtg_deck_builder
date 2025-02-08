@@ -1,20 +1,10 @@
-export const replaceTextWithManaSymbols = (text) => {
-    const symbolMap = {
-        "{B}": "",
-        "{G}": "",
-        "{R}": "",
-        "{U}": "",
-        "{W}": "",
-        "{W}": "",
-        //Need to verify the other text replacing symbols and find the symbols to save here
-    }
 
-    //Will need to add more to the regex to match other symbols that I need to replace too
-    return text.replace(/{[WUBRGC]}/g, (match) => {
-        const imagePath = manaSymbols[match];
-        if (imagePath) {
-          return `<img src="${imagePath}" alt="${match} mana" />`;
-        }
-        return match;
-      });
-}
+
+export const replaceTextWithManaSymbols = (text) => {
+    // Example: Replace mana codes with symbols using a simple string replacement
+    return text.replace(/{R}/g, '<i class="ms ms-r"></i>')  
+               .replace(/{G}/g, '<i class="ms ms-g"></i>') 
+               .replace(/{U}/g, '<i class="ms ms-u"></i>') 
+               .replace(/{W}/g, '<i class="ms ms-w"></i>')
+               .replace(/{B}/g, '<i class="ms ms-b"></i>');
+};
