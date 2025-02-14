@@ -52,4 +52,7 @@ export const replaceTextWithManaSymbols = (text) => {
                .replace(/{R\/G\/P}/g, '<i class="ms ms-rgp ms-cost ms-shadow"></i>')
                .replace(/{G\/W\/P}/g, '<i class="ms ms-gwp ms-cost ms-shadow"></i>')
                .replace(/{G\/U\/P}/g, '<i class="ms ms-gup ms-cost ms-shadow"></i>')
+               .replace(/{T}/g, '<i class="ms ms-tap ms-cost ms-shadow"></i>')
+               .replace(/{Q}/g, '<i class="ms ms-untap ms-cost"></i>')
+               .replace(/{CHAOS}/g, '<i class="ms ms-chaos"></i>')
 };
