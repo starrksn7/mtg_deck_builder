@@ -31,7 +31,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
                     <div>{card.name}</div>
                     <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
                     <div>Type: {card.type}</div>
-                    <div>{replaceTextWithManaSymbols(card.oracle_text)}</div>
+                    <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
                     <form onSubmit={addToDeck}>
                         <button type="submit">Add to Deck</button>
                     </form>
