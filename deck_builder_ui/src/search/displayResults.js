@@ -10,7 +10,9 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     const addToDeck = async (e) => {
         e.preventDefault();
         const card = e.target;
-        const res = await axios.post('http://localhost:8080/decks/add', { deckId, card })
+        console.log("target card = ")
+        console.log(card)
+        const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, cardId: card.scyfallId })
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }

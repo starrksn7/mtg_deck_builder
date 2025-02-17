@@ -37,6 +37,7 @@ public class JdbcCardDao implements CardDao{
             if(searchResults.get(0).equals("No cards found")){
                 return failedSearch();
             }
+            System.out.println(parseSearchResults(searchResults));
             return parseSearchResults(searchResults);
 
         } catch (IOException e) {
@@ -198,7 +199,7 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-
+        System.out.println(scryfallId);
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 
@@ -215,28 +216,6 @@ public class JdbcCardDao implements CardDao{
         }
 
         return result;
-    }
-
-    public List<String> removeDuplicatesByName(List<String> searchResults) throws MalformedJsonException {
-        try {
-            Set<String> seenNames = new HashSet<>();
-            List<String> result = new ArrayList<>();
-
-            for (String card : searchResults) {
-                JsonObject jsonObject = new JsonParser().parse(card).getAsJsonObject();
-                if(jsonObject.get("name") != null){
-                    String cardName = jsonObject.get("name").getAsString();
-                    if (!seenNames.contains(cardName)) {
-                        seenNames.add(cardName);
-                        result.add(card);
-                    }
-                }
-            }
-
-            return result;
-        } catch (Exception error){
-            throw error;
-        }
     }
 
     public List<String> failedSearch(){

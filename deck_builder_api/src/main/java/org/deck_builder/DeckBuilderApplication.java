@@ -18,9 +18,6 @@ public class DeckBuilderApplication {
  * 2. Create a page to view a deck
  * 3. Incorporate some check that verifies if the deck is legal or not
  * 4. Set an active deck so all cards added to a deck go to that
- * 5. Replace all text symbols with their image counterparts
- * 6. Login capabilities
- * 7. Style the pages
- * 8. Figure out how to insert game symbols instead of the info that comes from scryfall, like the
- *    tap signs or color symbols
+ * 5. Login capabilities
+ * 6. Style the pages
  */

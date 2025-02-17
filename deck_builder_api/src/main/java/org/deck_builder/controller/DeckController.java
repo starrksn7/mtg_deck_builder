@@ -2,6 +2,7 @@ package org.deck_builder.controller;
 
 import org.deck_builder.model.Deck;
 import org.deck_builder.dao.DeckDao;
+import org.deck_builder.model.DeckDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class DeckController {
     }
 
     @PostMapping(path="/add")
-    public boolean addCardToDeck(int deckId, int cardId){
-        return deckDao.addCardToDeck(deckId, cardId);
+    public boolean addCardToDeck(DeckDTO deckDTO){
+        return deckDao.addCardToDeck(deckDTO.getDeckId(), deckDTO.getCardId());
     }
 
     @PutMapping(path="/update")
@@ -42,8 +43,8 @@ public class DeckController {
     }
 
     @GetMapping(path="/search")
-    public List<Deck> searchForDeckByName(String name){
-        return deckDao.searchForDeckByName(name);
+    public List<Deck> searchForDeckByName(String deckName){
+        return deckDao.searchForDeckByName(deckName);
     }
 
     @DeleteMapping(path="/remove")

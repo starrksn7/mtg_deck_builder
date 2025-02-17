@@ -76,4 +76,6 @@ export const replaceTextWithManaSymbols = (text) => {
                .replace(/{S}/g, '<i class="ms ms-s ms-cost ms-shadow"></i>')
                .replace(/\{100\}/g, '<i class="ms ms-100 ms-cost ms-shadow"></i>')
                .replace(/\{1000000\}/g, '<i class="ms ms-1000000 ms-cost ms-shadow"></i>')
+               .replace(/{HW}/g, '<i class="ms ms-w ms-half ms-cost"></i>')
+               .replace(/{HR}/g, '<i class="ms ms-r ms-half ms-cost"></i>')
 };

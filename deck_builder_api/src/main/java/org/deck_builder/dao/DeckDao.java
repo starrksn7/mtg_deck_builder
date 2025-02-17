@@ -11,7 +11,7 @@ public interface DeckDao {
 
     Deck getDeckById(int id);
 
-    boolean addCardToDeck(int deckId, int cardId);
+    boolean addCardToDeck(int deckId, String cardId);
 
     boolean removeCardFromDeck(int deckId, int cardId);
 
