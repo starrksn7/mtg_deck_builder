@@ -7,12 +7,14 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     console.log("searchResults in displayResults = ")
     console.log(searchResults)
 
-    const addToDeck = async (e) => {
-        e.preventDefault();
-        const card = e.target;
+    const addToDeck = async (card) => {
+        // e.preventDefault();
+        // const card = e.target;
+        // console.log("e =")
+        // console.log(e)
         console.log("target card = ")
         console.log(card)
-        const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, cardId: card.scyfallId })
+        const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, scryfallId: card.scyfallId })
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
@@ -34,9 +36,9 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
                     <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
                     <div>Type: {card.type}</div>
                     <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
-                    <form onSubmit={addToDeck}>
-                        <button type="submit">Add to Deck</button>
-                    </form>
+                    {/* <form onSubmit={addToDeck}> */}
+                        <button type="submit" onClick={() => addToDeck(card)}>Add to Deck</button>
+                    {/* </form> */}
                 </div>  
             </div>
     ))

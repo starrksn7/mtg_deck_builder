@@ -12,7 +12,7 @@ public class DeckDTO {
     @NotEmpty
     String username;
     @NotEmpty
-    String cardId;
+    String scryfallId;
 
     public int getDeckId() {
         return deckId;
@@ -46,12 +46,12 @@ public class DeckDTO {
         this.username = username;
     }
 
-    public String getCardId() {
-        return cardId;
+    public String getScrfallId() {
+        return scryfallId;
     }
 
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
+    public void setScryfallId(String cardId) {
+        this.scryfallId = cardId;
     }
 
 }
