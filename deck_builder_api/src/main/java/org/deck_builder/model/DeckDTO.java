@@ -46,7 +46,7 @@ public class DeckDTO {
         this.username = username;
     }
 
-    public String getScrfallId() {
+    public String getScryfallId() {
         return scryfallId;
     }
 

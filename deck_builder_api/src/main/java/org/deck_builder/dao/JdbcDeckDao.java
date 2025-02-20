@@ -85,9 +85,10 @@ public class JdbcDeckDao implements DeckDao{
         }
     }
 
-    public boolean addCardToDeck(int deckId, String cardId){
+    public boolean addCardToDeck(int deckId, String scryfallId){
         String sql = "INSERT INTO deck_cards (deck_id, card_id) VALUES (?, ?);";
-        return jdbcTemplate.update(sql, deckId, cardId) == 1;
+
+        return jdbcTemplate.update(sql, deckId, scryfallId) == 1;
     }
 
     public boolean removeCardFromDeck(int deckId, int cardId){
