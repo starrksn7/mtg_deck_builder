@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users, decks, cards, deck_cards, users_decks CASCADE;
 
-DROP SEQUENCE IF EXISTS seq_user_id, seq_deck_id, seq_card_id CASCADE;
+DROP SEQUENCE IF EXISTS seq_user_id, seq_deck_id CASCADE;
 
 CREATE SEQUENCE seq_user_id
 	INCREMENT BY 1
@@ -30,7 +30,7 @@ CREATE TABLE decks (
 );
 
 CREATE TABLE cards (
-	card_id int NOT NULL,
+	scryfall_id varchar(50) NOT NULL,
 	card_name varchar(50) NOT NULL,
 	scryfall_link varchar(100) NOT NULL,
 	image_link varchar(100) NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE cards (
 	colors varchar(15),
 	color_identity varchar(15),
 	keywords varchar(100),
-	CONSTRAINT PK_cards PRIMARY KEY (card_id)
+	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 
 CREATE TABLE deck_cards (
 	deck_id int NOT NULL,
-	card_id int NOT NULL,
+	scryfall_id varchar(50) NOT NULL,
 	CONSTRAINT FK_deck_cards_decks FOREIGN KEY (deck_id) REFERENCES decks (deck_id),
-	CONSTRAINT FK_deck_cards_card FOREIGN KEY (card_id) REFERENCES cards (card_id)
+	CONSTRAINT FK_deck_cards_card FOREIGN KEY (scryfall_id) REFERENCES cards (scryfall_id)
 );
 
 CREATE TABLE users_decks (
