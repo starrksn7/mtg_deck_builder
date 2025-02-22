@@ -199,7 +199,6 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-        System.out.println(scryfallId);
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
     }
 

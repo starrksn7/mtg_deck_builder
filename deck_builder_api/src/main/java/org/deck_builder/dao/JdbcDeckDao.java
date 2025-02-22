@@ -86,7 +86,19 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean addCardToDeck(int deckId, String scryfallId){
-        String sql = "INSERT INTO deck_cards (deck_id, card_id) VALUES (?, ?);";
+        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, scryfallId);
+        System.out.println("result = ");
+        System.out.println(result);
+
+        if(!result.next()){
+            //need to ping the scryfall api and get the card info, parse it, and then use that
+            //info to insert into the database
+            String insert = "INSERT INTO cards ";
+        }
+
+        String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
 
         return jdbcTemplate.update(sql, deckId, scryfallId) == 1;
     }
