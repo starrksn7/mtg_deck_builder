@@ -13,6 +13,9 @@ public class DeckDTO {
     String username;
     @NotEmpty
     String scryfallId;
+    @NotEmpty
+    CardSearchDTO cardDto;
+
 
     public int getDeckId() {
         return deckId;
@@ -53,5 +56,9 @@ public class DeckDTO {
     public void setScryfallId(String cardId) {
         this.scryfallId = cardId;
     }
+
+    public CardSearchDTO getCardDto(){ return cardDto; }
+
+    public void setCardDto(CardSearchDTO cardDto){ this.cardDto = cardDto};
 
 }

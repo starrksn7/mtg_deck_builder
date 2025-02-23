@@ -1,5 +1,6 @@
 package org.deck_builder.dao;
 
+import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 import org.deck_builder.model.exceptions.DeckNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -85,22 +86,25 @@ public class JdbcDeckDao implements DeckDao{
         }
     }
 
-    public boolean addCardToDeck(int deckId, String scryfallId){
+    public boolean addCardToDeck(int deckId, CardSearchDTO cardDto){
         String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
 
-        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, scryfallId);
-        System.out.println("result = ");
-        System.out.println(result);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
 
         if(!result.next()){
             //need to ping the scryfall api and get the card info, parse it, and then use that
             //info to insert into the database
-            String insert = "INSERT INTO cards ";
+            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
+                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
+                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
+                    cardDto.getKeyword());
         }
 
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
 
-        return jdbcTemplate.update(sql, deckId, scryfallId) == 1;
+        return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
     public boolean removeCardFromDeck(int deckId, int cardId){
