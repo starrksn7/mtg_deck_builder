@@ -34,7 +34,7 @@ public class DeckController {
 
     @PostMapping(path="/add")
     public boolean addCardToDeck(@RequestBody DeckDTO jsonBody){
-        return deckDao.addCardToDeck(jsonBody.getDeckId(), jsonBody.getScryfallId());
+        return deckDao.addCardToDeck(jsonBody.getDeckId(), jsonBody.getCardDto());
     }
 
     @PutMapping(path="/update")

@@ -59,6 +59,6 @@ public class DeckDTO {
 
     public CardSearchDTO getCardDto(){ return cardDto; }
 
-    public void setCardDto(CardSearchDTO cardDto){ this.cardDto = cardDto};
+    public void setCardDto(CardSearchDTO cardDto){ this.cardDto = cardDto;};
 
 }

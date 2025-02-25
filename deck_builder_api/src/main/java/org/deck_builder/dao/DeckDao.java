@@ -1,6 +1,7 @@
 package org.deck_builder.dao;
 
 
+import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface DeckDao {
 
     Deck getDeckById(int id);
 
-    boolean addCardToDeck(int deckId, String scryfallId);
+    boolean addCardToDeck(int deckId, CardSearchDTO cardDto);
 
     boolean removeCardFromDeck(int deckId, int cardId);
 

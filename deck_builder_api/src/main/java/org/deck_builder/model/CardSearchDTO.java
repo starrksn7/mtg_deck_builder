@@ -114,4 +114,19 @@ public class CardSearchDTO {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
+    @Override
+    public String toString(){
+        return "{\"scryfallId\": \"" + scryfallId +
+                "\", \"name\": \"" + name +
+                "\", \"scryfallUrl\": \"" + scryfallURL +
+                "\", \"name\": \"" + imageLink +
+                "\", \"type\": \"" + type +
+                "\", \"manaCost\": \"" + manaCost +
+                "\", \"oracleText\": \"" + oracleText +
+                "\", \"colors\": \"" + colors +
+                "\", \"colorIdentity\": \"" + colorIdentity +
+                "\", \"keywords\": \"" + keyword +
+                "\"}";
+    }
 }
