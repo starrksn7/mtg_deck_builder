@@ -117,16 +117,16 @@ public class CardSearchDTO {
 
     @Override
     public String toString(){
-        return "{\"scryfallId\": \"" + scryfallId +
-                "\", \"name\": \"" + name +
-                "\", \"scryfallUrl\": \"" + scryfallURL +
-                "\", \"name\": \"" + imageLink +
-                "\", \"type\": \"" + type +
-                "\", \"manaCost\": \"" + manaCost +
-                "\", \"oracleText\": \"" + oracleText +
-                "\", \"colors\": \"" + colors +
-                "\", \"colorIdentity\": \"" + colorIdentity +
-                "\", \"keywords\": \"" + keyword +
+        return "{\"scryfallId\": \"" + this.scryfallId +
+                "\", \"name\": \"" + this.name +
+                "\", \"scryfallUrl\": \"" + this.scryfallURL +
+                "\", \"name\": \"" + this.imageLink +
+                "\", \"type\": \"" + this.type +
+                "\", \"manaCost\": \"" + this.manaCost +
+                "\", \"oracleText\": \"" + this.oracleText +
+                "\", \"colors\": \"" + this.colors +
+                "\", \"colorIdentity\": \"" + this.colorIdentity +
+                "\", \"keywords\": \"" + this.keyword +
                 "\"}";
     }
 }
