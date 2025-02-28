@@ -14,10 +14,9 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Verify function that adds card to deck
- * 2. Create a page to view a deck
- * 3. Incorporate some check that verifies if the deck is legal or not
- * 4. Set an active deck so all cards added to a deck go to that
- * 5. Login capabilities
- * 6. Style the pages
+ * 1. Create a page to view a deck
+ * 2. Incorporate some check that verifies if the deck is legal or not
+ * 3. Set an active deck so all cards added to a deck go to that
+ * 4. Login capabilities
+ * 5. Style the pages
  */
