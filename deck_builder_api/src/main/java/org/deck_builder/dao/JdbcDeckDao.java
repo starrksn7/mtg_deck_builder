@@ -18,9 +18,23 @@ public class JdbcDeckDao implements DeckDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean createDeck(int userId, String deckName, String commander){
-        String deckInsert = "INSERT INTO decks (deck_name, commander) VALUES (?, ?) RETURNING deck_id;";
-        int deckId = jdbcTemplate.update(deckInsert, deckName, commander);
+    public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
+        //check to see if the commander is in the card table or not
+        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
+
+        if(!result.next()){
+            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
+                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
+                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
+                    cardDto.getKeyword());
+        }
+
+        String deckInsert = "INSERT INTO decks (deck_name, commander, scryfall_id) VALUES (?, ?) RETURNING deck_id;";
+        int deckId = jdbcTemplate.update(deckInsert, deckName, cardDto.getName(), cardDto.getScryfallId());
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
         return true;
@@ -92,8 +106,6 @@ public class JdbcDeckDao implements DeckDao{
         SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
 
         if(!result.next()){
-            //need to ping the scryfall api and get the card info, parse it, and then use that
-            //info to insert into the database
             String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
                     "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 

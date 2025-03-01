@@ -26,6 +26,7 @@ CREATE TABLE decks (
 	deck_id int NOT NULL DEFAULT nextval('seq_deck_id'),
 	deck_name varchar(200) NOT NULL,
 	commander varchar(50) NOT NULL,
+	scryfall_id varchar(50) NOT NULL,
 	CONSTRAINT PK_decks PRIMARY KEY (deck_id)
 );
 
