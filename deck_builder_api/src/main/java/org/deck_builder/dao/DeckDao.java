@@ -18,9 +18,11 @@ public interface DeckDao {
 
     boolean updateDeck(int id, String deckName, String commander);
 
-    boolean createDeck(int userId, String deckName, String commander);
+    boolean createDeck(int userId, String deckName, CardSearchDTO cardDto);
 
     boolean deleteDeck(int deckId);
 
     List<Deck> searchForDeckByName(String deckName);
+
+    void checkForCard(CardSearchDTO cardDto);
 }

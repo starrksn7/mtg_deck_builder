@@ -1,5 +1,6 @@
 package org.deck_builder.controller;
 
+import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 import org.deck_builder.dao.DeckDao;
 import org.deck_builder.model.DeckDTO;
@@ -28,8 +29,8 @@ public class DeckController {
     }
 
     @PostMapping(path="/create")
-    public boolean createDeck(int userId, String deckName, String commander){
-        return deckDao.createDeck(userId, deckName, commander);
+    public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
+        return deckDao.createDeck(userId, deckName, cardDto);
     }
 
     @PostMapping(path="/add")

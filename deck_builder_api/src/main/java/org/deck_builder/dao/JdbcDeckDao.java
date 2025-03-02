@@ -19,20 +19,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
-        //check to see if the commander is in the card table or not
-        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
-
-        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
-
-        if(!result.next()){
-            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
-                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
-                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
-                    cardDto.getKeyword());
-        }
-
+        checkForCard(cardDto);
         String deckInsert = "INSERT INTO decks (deck_name, commander, scryfall_id) VALUES (?, ?) RETURNING deck_id;";
         int deckId = jdbcTemplate.update(deckInsert, deckName, cardDto.getName(), cardDto.getScryfallId());
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
@@ -101,18 +88,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean addCardToDeck(int deckId, CardSearchDTO cardDto){
-        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
-
-        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
-
-        if(!result.next()){
-            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
-                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
-                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
-                    cardDto.getKeyword());
-        }
+        checkForCard(cardDto);
 
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
 
@@ -129,5 +105,20 @@ public class JdbcDeckDao implements DeckDao{
         deck.setDeckName(row.getString("deck_name"));
         deck.setCommander(row.getString("commander"));
         return deck;
+    }
+
+    public void checkForCard(CardSearchDTO cardDto){
+        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
+
+        if(!result.next()){
+            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
+                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
+                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
+                    cardDto.getKeyword());
+        }
     }
 }
