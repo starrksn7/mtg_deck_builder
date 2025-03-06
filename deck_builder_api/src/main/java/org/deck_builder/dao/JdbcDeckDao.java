@@ -46,12 +46,13 @@ public class JdbcDeckDao implements DeckDao{
         return decks;
     }
 
-    public List<Deck> findDecksByUser(String username){
-        String sql = "SELECT deck_name, commander FROM decks d " +
+    public List<Deck> findDecksByUser(int id){
+        System.out.println("find deck by user was triggered!");
+        String sql = "SELECT deck_name, commander, scryfall_id FROM decks d " +
                 "JOIN users_decks ud ON ud.deck_id = d.deck_id " +
                 "JOIN users u ON u.user_id = ud.user_id " +
-                "WHERE u.username = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+                "WHERE u.user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         List<Deck> decks = new ArrayList<>();
 
         while(results.next()){

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DeckDao {
 
-    List<Deck> findDecksByUser(String username);
+    List<Deck> findDecksByUser(int id);
 
     Deck getDeckById(int id);
 

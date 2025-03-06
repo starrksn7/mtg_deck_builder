@@ -1,18 +1,22 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export function AllDecks() {
     const [deckList, setDeckList] = useState('')
 
     const getAllDecks = () => {
-        const res = axios.get('http://localhost:8080/decks')
+        const res = axios.post('http://localhost:8080/decks', { id: 1 })
 
         let data = res.data
-
+        console.log(data)
         if(data) setDeckList(data)
         else console.log("The list of decks for this user could not be found")
     }
+    
+    useEffect(() => {
+        getAllDecks();
+    }, [])
 
     const showDecks = (deckList) => {
         if(deckList.length){

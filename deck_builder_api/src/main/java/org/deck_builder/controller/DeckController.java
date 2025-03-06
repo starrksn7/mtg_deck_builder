@@ -18,9 +18,9 @@ public class DeckController {
         this.deckDao = deckDao;
     }
 
-    @GetMapping(path = "")
-    public List<Deck> findDecksByUser(String username){
-        return deckDao.findDecksByUser(username);
+    @PostMapping(path = "")
+    public List<Deck> findDecksByUser(int id){
+        return deckDao.findDecksByUser(id);
     }
 
     @GetMapping(path="/get_by_id")
