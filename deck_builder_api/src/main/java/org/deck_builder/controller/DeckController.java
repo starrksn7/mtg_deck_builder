@@ -19,7 +19,7 @@ public class DeckController {
     }
 
     @PostMapping(path = "")
-    public List<Deck> findDecksByUser(int id){
+    public List<Deck> findDecksByUser(@RequestBody int id){
         return deckDao.findDecksByUser(id);
     }
 

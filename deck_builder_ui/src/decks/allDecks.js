@@ -15,6 +15,7 @@ export function AllDecks() {
     }
     
     useEffect(() => {
+        console.log("XXXXXXXXXXXXXXXXXXX")
         getAllDecks();
     }, [])
 
