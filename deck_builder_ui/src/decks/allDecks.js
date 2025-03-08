@@ -5,18 +5,24 @@ import { Link } from 'react-router-dom'
 export function AllDecks() {
     const [deckList, setDeckList] = useState('')
 
-    const getAllDecks = () => {
-        const res = axios.post('http://localhost:8080/decks', { id: 1 })
+    // const getAllDecks = () => {
 
-        let data = res.data
-        console.log(data)
-        if(data) setDeckList(data)
-        else console.log("The list of decks for this user could not be found")
-    }
+    //     let data = res.data
+    //     console.log(data)
+    //     if(data) setDeckList(data)
+    //     else console.log("The list of decks for this user could not be found")
+    // }
     
     useEffect(() => {
         console.log("XXXXXXXXXXXXXXXXXXX")
-        getAllDecks();
+        const res = axios.post('http://localhost:8080/decks?id=1')
+            .then((res) => {
+                console.log("res = ")
+                console.log(res)
+                setDeckList(res.data);
+            })
+        console.log(res);
+
     }, [])
 
     const showDecks = (deckList) => {

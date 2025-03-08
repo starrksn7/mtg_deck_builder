@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/decks")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class DeckController {
     private DeckDao deckDao;
 
@@ -18,8 +18,10 @@ public class DeckController {
         this.deckDao = deckDao;
     }
 
-    @PostMapping(path = "")
-    public List<Deck> findDecksByUser(@RequestBody int id){
+    @GetMapping(path = "/")
+    public List<Deck> findDecksByUser(@RequestParam int id){
+        System.out.println("XXXXXX find decks was called");
+
         return deckDao.findDecksByUser(id);
     }
 
