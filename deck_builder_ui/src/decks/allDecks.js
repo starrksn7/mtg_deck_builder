@@ -15,26 +15,31 @@ export function AllDecks() {
     
     useEffect(() => {
         console.log("XXXXXXXXXXXXXXXXXXX")
-        const res = axios.post('http://localhost:8080/decks?id=1')
+        const res = axios.get('http://localhost:8080/decks?id=1')
             .then((res) => {
-                console.log("res = ")
-                console.log(res)
-                setDeckList(res.data);
+                let data = res.data
+                let resultsArray = [];
+                data.forEach(entry => {
+                    resultsArray.push(entry);
+                    console.log(entry)
+                })
+                setDeckList(resultsArray);
+                console.log("decklist  in the .then = ")
+                console.log(deckList)
             })
-        console.log(res);
-
+        console.log("decklist after the .then = ")
+        console.log(deckList)
     }, [])
 
-    const showDecks = (deckList) => {
-        if(deckList.length){
-            return deckList.map((deck, index) => {
-                <div key={index}>
-                    <Link to={`/decks/${deck.deckId}`}>
-                        <div>{deck.deckName}</div>
-                    </Link>
-                    <div>{deck.commander}</div>
-                </div>
-            })
-        }
+
+    if(deckList) {
+        return deckList.map((deck, index) => {
+            <div key={index}>
+                <Link to={`/decks/${deck.deckId}`}>
+                    <div>{deck.deckName}</div>
+                </Link>
+                <div>{deck.commander}</div>
+            </div>
+        })
     }
 }
