@@ -48,7 +48,7 @@ public class JdbcDeckDao implements DeckDao{
 
     public List<Deck> findDecksByUser(int id){
         System.out.println("find deck by user was triggered!");
-        String sql = "SELECT deck_name, commander, scryfall_id FROM decks d " +
+        String sql = "SELECT deck_name, commander, d.deck_id, scryfall_id FROM decks d " +
                 "JOIN users_decks ud ON ud.deck_id = d.deck_id " +
                 "JOIN users u ON u.user_id = ud.user_id " +
                 "WHERE u.user_id = ?;";
@@ -105,6 +105,8 @@ public class JdbcDeckDao implements DeckDao{
         Deck deck = new Deck();
         deck.setDeckName(row.getString("deck_name"));
         deck.setCommander(row.getString("commander"));
+        deck.setDeckId(row.getInt("deck_id"));
+        deck.setCommanderScryfallId(row.getString("scryfall_id"));
         return deck;
     }
 
