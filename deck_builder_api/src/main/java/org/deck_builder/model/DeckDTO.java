@@ -12,8 +12,6 @@ public class DeckDTO {
     @NotEmpty
     String username;
     @NotEmpty
-    String scryfallId;
-    @NotEmpty
     CardSearchDTO cardDto;
 
 
@@ -47,14 +45,6 @@ public class DeckDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getScryfallId() {
-        return scryfallId;
-    }
-
-    public void setScryfallId(String cardId) {
-        this.scryfallId = cardId;
     }
 
     public CardSearchDTO getCardDto(){ return cardDto; }

@@ -27,6 +27,9 @@ public class CardSearchDTO {
     @NotEmpty
     private String keyword;
 
+    @NotEmpty
+    private boolean isPartner;
+
     public int getId() {
         return id;
     }
@@ -113,6 +116,14 @@ public class CardSearchDTO {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public boolean getIsPartner() {
+        return isPartner;
+    }
+
+    public void setIsPartner(boolean isPartner) {
+        this.isPartner = isPartner;
     }
 
     @Override

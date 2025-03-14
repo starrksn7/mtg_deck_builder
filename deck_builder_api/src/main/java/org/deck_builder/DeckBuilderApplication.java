@@ -19,4 +19,6 @@ public class DeckBuilderApplication {
  * 3. Set an active deck so all cards added to a deck go to that
  * 4. Login capabilities
  * 5. Style the pages
+ * 6. Figure out a way to handle multiple commander, possibilities, like partner and background
+ * 7. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
  */

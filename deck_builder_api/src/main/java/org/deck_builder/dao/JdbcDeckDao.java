@@ -20,8 +20,8 @@ public class JdbcDeckDao implements DeckDao{
 
     public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
         checkForCard(cardDto);
-        String deckInsert = "INSERT INTO decks (deck_name, commander, scryfall_id) VALUES (?, ?) RETURNING deck_id;";
-        int deckId = jdbcTemplate.update(deckInsert, deckName, cardDto.getName(), cardDto.getScryfallId());
+        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner) VALUES (?, ?, ?) RETURNING deck_id;";
+        int deckId = jdbcTemplate.update(deckInsert, deckName, cardDto.getName(), cardDto.getIsPartner());
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
         return true;
@@ -47,6 +47,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Deck> findDecksByUser(int id){
+        //need to update this to pull scryfall_id from card table
         System.out.println("find deck by user was triggered!");
         String sql = "SELECT deck_name, commander, d.deck_id, scryfall_id FROM decks d " +
                 "JOIN users_decks ud ON ud.deck_id = d.deck_id " +
