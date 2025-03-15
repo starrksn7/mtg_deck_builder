@@ -49,10 +49,11 @@ public class JdbcDeckDao implements DeckDao{
     public List<Deck> findDecksByUser(int id){
         //need to update this to pull scryfall_id from card table
         System.out.println("find deck by user was triggered!");
+        System.out.println(id);
         String sql = "SELECT d.deck_name, d.commander, d.deck_id, c.scryfall_id, c.image_link FROM decks d " +
                 "JOIN users_decks ud ON ud.deck_id = d.deck_id " +
                 "JOIN users u ON u.user_id = ud.user_id " +
-                "JOIN decks_cards dc ON d.deck_id = dc.dekc_id " +
+                "JOIN deck_cards dc ON d.deck_id = dc.deck_id " +
                 "JOIN cards c ON c.scryfall_id = dc.scryfall_id " +
                 "WHERE u.user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
@@ -61,6 +62,7 @@ public class JdbcDeckDao implements DeckDao{
         while(results.next()){
             decks.add(mapRowToDeck(results));
         }
+        System.out.println(decks.toString());
         return decks;
     }
 
