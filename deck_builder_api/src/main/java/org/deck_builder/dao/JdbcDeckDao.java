@@ -112,6 +112,7 @@ public class JdbcDeckDao implements DeckDao{
         deck.setCommander(row.getString("commander"));
         deck.setDeckId(row.getInt("deck_id"));
         deck.setCommanderScryfallId(row.getString("scryfall_id"));
+        deck.setImageLink(row.getString("image_link"));
         return deck;
     }
 
