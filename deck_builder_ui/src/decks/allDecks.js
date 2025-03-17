@@ -19,12 +19,13 @@ export function AllDecks() {
 
     if(deckList) {
         return deckList.map((deck, index) => {
+            console.log("image link = ", deck.image_link)
             return (
                 <div key={index}>
                     <Link to={`/decks/${deck.deckId}`}>
-                        <img src={deck.image_link} alt='alternate text'/>
-                        <div>{deck.deckName}</div>
-                        <div>{deck.commander}</div>
+                        <img src={deck.imageLink} alt='alternate text'/>
+                        <div>Deck Name: {deck.deckName}</div>
+                        <div>Commander: {deck.commander}</div>
                     </Link>
                 </div>
             )
