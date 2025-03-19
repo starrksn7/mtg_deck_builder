@@ -10,7 +10,8 @@ function App() {
       <div>Whatever I want goes here</div>
       <SearchBar />
       <Routes>
-        <Route path="/decks/:userId" element={<AllDecks />} />
+        <Route path="/decks/:deckId" element={<AllDecks />} />
+        <Route path="/users/:userId" element={<AllDecks />} />
       </Routes>
     </div>
   );

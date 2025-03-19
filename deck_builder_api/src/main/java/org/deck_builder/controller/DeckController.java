@@ -20,8 +20,6 @@ public class DeckController {
 
     @GetMapping(path = "")
     public List<Deck> findDecksByUser(@RequestParam int id){
-        System.out.println("XXXXXX find decks was called");
-
         return deckDao.findDecksByUser(id);
     }
 

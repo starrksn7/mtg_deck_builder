@@ -47,9 +47,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Deck> findDecksByUser(int id){
-        //need to update this to pull scryfall_id from card table
-        System.out.println("find deck by user was triggered!");
-        System.out.println(id);
         String sql = "SELECT d.deck_name, d.commander, d.deck_id, c.scryfall_id, c.image_link FROM decks d " +
                 "JOIN users_decks ud ON ud.deck_id = d.deck_id " +
                 "JOIN users u ON u.user_id = ud.user_id " +
