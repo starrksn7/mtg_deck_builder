@@ -6,7 +6,7 @@ export function AllDecks() {
     const [deckList, setDeckList] = useState('')
     
     useEffect(() => {
-        const res = axios.get('http://localhost:8080/decks?id=1')
+        const res = axios.get('http://localhost:8080/users?userId=1')
             .then((res) => {
                 let data = res.data
                 let resultsArray = [];
@@ -19,7 +19,6 @@ export function AllDecks() {
 
     if(deckList) {
         return deckList.map((deck, index) => {
-            console.log("image link = ", deck.image_link)
             return (
                 <div key={index}>
                     <Link to={`/decks/${deck.deckId}`}>

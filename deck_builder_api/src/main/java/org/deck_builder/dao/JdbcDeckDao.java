@@ -7,11 +7,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+
 import java.util.ArrayList;
 import java.util.List;
 @Component
 public class JdbcDeckDao implements DeckDao{
-
+    private JdbcCardDao jdbcCardDao;
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcDeckDao(JdbcTemplate jdbcTemplate){
@@ -63,11 +64,16 @@ public class JdbcDeckDao implements DeckDao{
         return decks;
     }
 
-    public Deck getDeckById(int id){
-        String sql = "SELECT deck_name, commander FROM decks WHERE deck_id = ?";
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
+    public Deck getDeckById(int deckId){
+        String sql = "SELECT scryfall_id, card_name, scryfall_link, image_link, mana_cost, card_type, " +
+                "oracle_text, colors, color_identity, keywords " +
+                "FROM cards c " +
+                "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
+                "WHERE dc.deck_id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
 
         if(result.next()){
+            //Need to get this switched to mapRowToCard, since I'm returning a deck of individual cards
             return mapRowToDeck(result);
         } else {
             throw new DeckNotFoundException();
