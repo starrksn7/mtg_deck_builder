@@ -1,5 +1,6 @@
 package org.deck_builder.dao;
 
+import org.deck_builder.model.Card;
 import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 import org.deck_builder.model.exceptions.DeckNotFoundException;
@@ -64,20 +65,22 @@ public class JdbcDeckDao implements DeckDao{
         return decks;
     }
 
-    public Deck getDeckById(int deckId){
+    public List<Card> getDeckById(int deckId){
         String sql = "SELECT scryfall_id, card_name, scryfall_link, image_link, mana_cost, card_type, " +
                 "oracle_text, colors, color_identity, keywords " +
                 "FROM cards c " +
                 "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
                 "WHERE dc.deck_id = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
-
+        List<Card> deckList = new ArrayList<>();
         if(result.next()){
             //Need to get this switched to mapRowToCard, since I'm returning a deck of individual cards
-            return mapRowToDeck(result);
+            deckList.add(mapRowToCard(result));
         } else {
             throw new DeckNotFoundException();
         }
+
+        return deckList;
     }
 
     public boolean updateDeck(int id, String deckName, String commander){
@@ -117,6 +120,25 @@ public class JdbcDeckDao implements DeckDao{
         deck.setCommanderScryfallId(row.getString("scryfall_id"));
         deck.setImageLink(row.getString("image_link"));
         return deck;
+    }
+
+    private Card mapRowToCard(SqlRowSet row){
+        Card card = new Card();
+        card.setScryfallId(row.getString("scryfall_id"));
+        card.setName(row.getString("card_name"));
+        card.setScryfallURL(row.getString("scryfall_link"));
+        card.setImageLink(row.getString("image_link"));
+        card.setManaCost(row.getString("mana_cost"));
+        card.setType(row.getString("card_type"));
+        card.setOracleText(row.getString("oracle_text"));
+        String colors = row.getString("colors");
+        card.setColors(colors.split(","));
+        String colorIdentity = row.getString("color_identity");
+        card.setColorIdentity(colorIdentity.split(","));
+        String keywords = row.getString("keywords");
+        card.setKeywords(keywords.split(","));
+
+        return card;
     }
 
     public void checkForCard(CardSearchDTO cardDto){

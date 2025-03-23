@@ -1,6 +1,7 @@
 package org.deck_builder.dao;
 
 
+import org.deck_builder.model.Card;
 import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 
@@ -10,7 +11,7 @@ public interface DeckDao {
 
     List<Deck> findDecksByUser(int id);
 
-    Deck getDeckById(int id);
+    List<Card> getDeckById(int deckId);
 
     boolean addCardToDeck(int deckId, CardSearchDTO cardDto);
 
