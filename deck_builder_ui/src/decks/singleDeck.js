@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { replaceTextWithManaSymbols } from '../helperFunctions'
 
 export function SingleDeck() {
     const [cardList, setCardList] = useState('')
@@ -16,17 +17,17 @@ export function SingleDeck() {
                 setCardList(resultsArray);
             })
     }, [])
-
+    console.log(cardList)
     if(cardList) {
         return cardList.map((card, index) => {
             return (
                 <div key={index}>
                     <div>
-                        <img src={card.image_link} alt='alternate text'/>
+                        <img src={card.imageLink} alt='alternate text'/>
                         <div>{card.name}</div>
-                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
+                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }} ></div>
                         <div>Type: {card.type}</div>
-                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
+                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }} ></div>
                         {/* <form onSubmit={addToDeck}> */}
                             {/* <button type="submit" onClick={() => addToDeck(card)}>Add to Deck</button> */}
                         {/* </form> */}

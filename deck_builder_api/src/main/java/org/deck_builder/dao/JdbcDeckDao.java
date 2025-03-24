@@ -66,7 +66,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Card> getDeckById(int deckId){
-        String sql = "SELECT scryfall_id, card_name, scryfall_link, image_link, mana_cost, card_type, " +
+        String sql = "SELECT c.scryfall_id, card_name, scryfall_link, image_link, mana_cost, card_type, " +
                 "oracle_text, colors, color_identity, keywords " +
                 "FROM cards c " +
                 "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
@@ -74,7 +74,6 @@ public class JdbcDeckDao implements DeckDao{
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
         if(result.next()){
-            //Need to get this switched to mapRowToCard, since I'm returning a deck of individual cards
             deckList.add(mapRowToCard(result));
         } else {
             throw new DeckNotFoundException();
@@ -137,7 +136,10 @@ public class JdbcDeckDao implements DeckDao{
         card.setColorIdentity(colorIdentity.split(","));
         String keywords = row.getString("keywords");
         card.setKeywords(keywords.split(","));
-
+        System.out.println(row.getString("image_link"));
+        System.out.println(card.getImageLink());
+        System.out.println(card.getName());
+        System.out.println(card.getScryfallId());
         return card;
     }
 

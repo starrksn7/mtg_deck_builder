@@ -1,5 +1,6 @@
 package org.deck_builder.controller;
 
+import org.deck_builder.model.Card;
 import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 import org.deck_builder.dao.DeckDao;
@@ -19,7 +20,7 @@ public class DeckController {
     }
 
     @GetMapping(path="")
-    public Deck getDeckById(@RequestParam int deckId){
+    public List<Card> getDeckById(@RequestParam int deckId){
         return deckDao.getDeckById(deckId);
     }
 
