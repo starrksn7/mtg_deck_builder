@@ -17,6 +17,11 @@ public class UserController {
     private UserDao userDao;
     private DeckDao deckDao;
 
+    private UserController(UserDao userDao, DeckDao deckDao){
+        this.userDao = userDao;
+        this.deckDao = deckDao;
+    }
+
     @PutMapping(path="/update")
     public User updateUserProfile(int userId, UserDTO updatedUser){
         return userDao.updateUserProfile(userId, updatedUser);

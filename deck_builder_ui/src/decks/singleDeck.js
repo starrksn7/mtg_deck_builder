@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { replaceTextWithManaSymbols } from '../helperFunctions'
 
 export function SingleDeck() {
@@ -17,7 +16,7 @@ export function SingleDeck() {
                 setCardList(resultsArray);
             })
     }, [])
-    console.log(cardList)
+
     if(cardList) {
         return cardList.map((card, index) => {
             return (

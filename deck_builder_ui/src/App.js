@@ -12,7 +12,7 @@ function App() {
       <SearchBar />
       <Routes>
         <Route path="/decks/:deckId" element={<SingleDeck />} />
-        <Route path="/users/:userId" element={<AllDecks />} />
+        <Route path="/user/:userId" element={<AllDecks />} />
       </Routes>
     </div>
   );

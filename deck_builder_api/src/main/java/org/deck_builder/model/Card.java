@@ -80,7 +80,7 @@ public class Card {
         return imageLink;
     }
 
-    public void setImageLink(String image) {
+    public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
     }
 
