@@ -14,11 +14,10 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Create a page to view a deck
- * 2. Incorporate some check that verifies if the deck is legal or not
- * 3. Set an active deck so all cards added to a deck go to that
- * 4. Login capabilities
- * 5. Style the pages
- * 6. Figure out a way to handle multiple commander, possibilities, like partner and background
- * 7. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
+ * 1. Incorporate some check that verifies if the deck is legal or not
+ * 2. Set an active deck so all cards added to a deck go to that
+ * 3. Login capabilities
+ * 4. Style the pages
+ * 5. Figure out a way to handle multiple commander, possibilities, like partner and background
+ * 6. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
  */
