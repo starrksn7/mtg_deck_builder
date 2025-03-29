@@ -27,9 +27,10 @@ public class JdbcCardDao implements CardDao{
     }
     private final String scryfallUrl = "https://api.scryfall.com";
     private final String uniqueOnly = "&unique=cards";
+    private final String commanderLegal = "+format%3Acommander";
     public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
         String encodedName = URLEncoder.encode(name, "UTF-8");
-        String uri = scryfallUrl + "/cards/search?q=" + encodedName + "+format%3Acommander" + uniqueOnly ;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedName + commanderLegal + uniqueOnly ;
         try {
             System.out.println(uri);
             List<String> searchResults = getCardsFromUri(uri);
@@ -94,7 +95,7 @@ public class JdbcCardDao implements CardDao{
     public List<String> findCardByIdentityAndType(String colorIdentity, String type) throws UnsupportedEncodingException{
         String encodedIdentity = "id%3A" + colorIdentity;
         String encodedType = "t%3A" + type;
-        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + uniqueOnly;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
         System.out.println(uri);
         try {
             List<String> searchResults = getCardsFromUri(uri);
@@ -114,7 +115,7 @@ public class JdbcCardDao implements CardDao{
     //Unlike other functions, the scryfall api needs the colors variable to be one string, but not be the name for the identity
     //So black is just b and red to be r.  The colors variable for black and red should be br not rakdos
     public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
-        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + uniqueOnly;
+        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + commanderLegal + uniqueOnly;
         System.out.println(uri);
         try {
             List<String> searchResults = getCardsFromUri(uri);
@@ -128,7 +129,7 @@ public class JdbcCardDao implements CardDao{
     }
 
     public List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException {
-        String uri= scryfallUrl + "/cards/search?q=kw%3A" + keyword + "+c%3A" + colors;
+        String uri= scryfallUrl + "/cards/search?q=kw%3A" + keyword + "+c%3A" + colors + commanderLegal + uniqueOnly;
         System.out.println(uri);
         try {
             List<String> searchResults = getCardsFromUri(uri);
