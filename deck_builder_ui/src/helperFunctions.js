@@ -79,3 +79,33 @@ export const replaceTextWithManaSymbols = (text) => {
                .replace(/{HW}/g, '<i class="ms ms-w ms-half ms-cost"></i>')
                .replace(/{HR}/g, '<i class="ms ms-r ms-half ms-cost"></i>')
 };
+
+export const isDeckLegal = (cardList) => {
+    let deckMap = Map();
+
+    let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp",
+            "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
+        "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight"]
+
+    cardList.forEach((card) => {
+        let isListed = deckMap.get(card.name)
+
+        if(!isListed){
+            deckMap.set(card.name, 1)
+        } else {
+            deckMap.set(card.name, (deckMap.get(card.name) + 1));
+        }
+    })
+
+    deckMap.forEach((value, key, map) => {
+        if(value > 1){
+            let cardFound = permittedDuplicateCards.indexOf(key)
+
+            if(cardFound != 1){
+                return false;
+            }
+        }
+    })
+
+    return true;
+}
