@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { replaceTextWithManaSymbols } from '../helperFunctions'
+import { isDeckLegal } from '../helperFunctions'
 
 export function SingleDeck() {
     const [cardList, setCardList] = useState('')
+    const [isLegal, setIsLegal] = useState('')
     
     useEffect(() => {
         const res = axios.get('http://localhost:8080/decks?deckId=1')
@@ -17,7 +19,15 @@ export function SingleDeck() {
             })
     }, [])
 
+
     if(cardList) {
+        setIsLegal(isDeckLegal(cardList))
+
+        //need to figure out a way to list what is illegal about the deck if isLegal isn't true
+        if (!isLegal) {
+            return <div>Deck is not legal. Please check your deck contents.</div>;
+        }
+
         return cardList.map((card, index) => {
             return (
                 <div key={index}>
