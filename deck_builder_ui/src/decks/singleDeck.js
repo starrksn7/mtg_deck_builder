@@ -6,6 +6,7 @@ import { isDeckLegal } from '../helperFunctions'
 export function SingleDeck() {
     const [cardList, setCardList] = useState('')
     const [isLegal, setIsLegal] = useState('')
+    const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([])
     
     useEffect(() => {
         const res = axios.get('http://localhost:8080/decks?deckId=1')
@@ -21,11 +22,20 @@ export function SingleDeck() {
 
 
     if(cardList) {
-        setIsLegal(isDeckLegal(cardList))
+        setDuplicatedCardsArray(isDeckLegal(cardList))
+        duplicatedCardsArray.length > 0 ? setIsLegal(false) : setIsLegal(true)
 
         //need to figure out a way to list what is illegal about the deck if isLegal isn't true
         if (!isLegal) {
-            return <div>Deck is not legal. Please check your deck contents.</div>;
+            return (
+            <div>
+                <div>Deck is not legal. Please check your deck contents.</div>
+                {duplicatedCardsArray.map((item, index) => (
+                    <div key={index}>{item}</div>
+                ))}
+            </div>
+
+        );
         }
 
         return cardList.map((card, index) => {

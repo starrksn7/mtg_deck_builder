@@ -87,6 +87,8 @@ export const isDeckLegal = (cardList) => {
             "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
         "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight"]
 
+    let cardsDuplicated = [];
+
     cardList.forEach((card) => {
         let isListed = deckMap.get(card.name)
 
@@ -102,10 +104,10 @@ export const isDeckLegal = (cardList) => {
             let cardFound = permittedDuplicateCards.indexOf(key)
 
             if(cardFound != 1){
-                return false;
+                cardsDuplicated.push(key);
             }
         }
     })
 
-    return true;
+    return cardsDuplicated;
 }
