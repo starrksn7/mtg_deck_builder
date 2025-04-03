@@ -81,7 +81,7 @@ export const replaceTextWithManaSymbols = (text) => {
 };
 
 export const isDeckLegal = (cardList) => {
-    let deckMap = Map();
+    let deckMap = new Map();
 
     let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp",
             "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",

@@ -17,19 +17,21 @@ export function SingleDeck() {
                     resultsArray.push(entry);
                 })
                 setCardList(resultsArray);
+
+                setDuplicatedCardsArray(isDeckLegal(cardList))
+                duplicatedCardsArray.length > 0 ? setIsLegal(false) : setIsLegal(true)
             })
+
+
     }, [])
 
 
     if(cardList) {
-        setDuplicatedCardsArray(isDeckLegal(cardList))
-        duplicatedCardsArray.length > 0 ? setIsLegal(false) : setIsLegal(true)
-
         //need to figure out a way to list what is illegal about the deck if isLegal isn't true
         if (!isLegal) {
             return (
             <div>
-                <div>Deck is not legal. Please check your deck contents.</div>
+                <div>Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.</div>
                 {duplicatedCardsArray.map((item, index) => (
                     <div key={index}>{item}</div>
                 ))}
