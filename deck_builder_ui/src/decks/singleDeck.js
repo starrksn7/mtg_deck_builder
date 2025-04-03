@@ -18,13 +18,12 @@ export function SingleDeck() {
                 })
                 setCardList(resultsArray);
 
-                setDuplicatedCardsArray(isDeckLegal(cardList))
+                setDuplicatedCardsArray(isDeckLegal(resultsArray))
                 duplicatedCardsArray.length > 0 ? setIsLegal(false) : setIsLegal(true)
             })
 
 
     }, [])
-
 
     if(cardList) {
         //need to figure out a way to list what is illegal about the deck if isLegal isn't true
