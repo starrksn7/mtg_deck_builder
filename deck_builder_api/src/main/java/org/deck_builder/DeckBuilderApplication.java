@@ -20,4 +20,8 @@ public class DeckBuilderApplication {
  * 4. Style the pages
  * 5. Figure out a way to handle multiple commander, possibilities, like partner and background
  * 6. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
+ * 7. Fix issue where decks page displays just the commander and the users page displays a list of cards
+ *    that should be in the deck
+ * 8. Function that was checking if a card was in the card table and adding it or not did not work,
+ *    permitted duplicates to be added.
  */
