@@ -24,36 +24,33 @@ export function SingleDeck() {
 
 
     }, [])
-
-    if(cardList) {
-        //need to figure out a way to list what is illegal about the deck if isLegal isn't true
-        if (!isLegal) {
-            return (
+  
+    if (cardList) {
+        return (
             <div>
-                <div>Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.</div>
-                {duplicatedCardsArray.map((item, index) => (
-                    <div key={index}>{item}</div>
-                ))}
-            </div>
-
-        );
-        }
-
-        return cardList.map((card, index) => {
-            return (
-                <div key={index}>
+                {!isLegal && (
                     <div>
-                        <img src={card.imageLink} alt='alternate text'/>
-                        <div>{card.name}</div>
-                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }} ></div>
-                        <div>Type: {card.type}</div>
-                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }} ></div>
-                        {/* <form onSubmit={addToDeck}> */}
-                            {/* <button type="submit" onClick={() => addToDeck(card)}>Add to Deck</button> */}
-                        {/* </form> */}
-                    </div>  
+                        <div>Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.</div>
+                        {duplicatedCardsArray.map((item, index) => (
+                            <div key={index}>{item}</div>
+                        ))}
+                    </div>
+                )}
+    
+                <div>
+                    {cardList.map((card, index) => (
+                        <div key={index}>
+                            <div>
+                                <img src={card.imageLink} alt={card.name} />
+                                <div>{card.name}</div>
+                                <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
+                                <div>Type: {card.type}</div>
+                                <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            )
-        })
-    }
+            </div>
+        );
+    }    
 }

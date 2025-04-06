@@ -54,7 +54,7 @@ public class JdbcDeckDao implements DeckDao{
                 "JOIN users u ON u.user_id = ud.user_id " +
                 "JOIN deck_cards dc ON d.deck_id = dc.deck_id " +
                 "JOIN cards c ON c.scryfall_id = dc.scryfall_id " +
-                "WHERE u.user_id = ?;";
+                "WHERE u.user_id = ? AND d.commander = c.card_name;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         List<Deck> decks = new ArrayList<>();
 
@@ -73,9 +73,11 @@ public class JdbcDeckDao implements DeckDao{
                 "WHERE dc.deck_id = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
-        if(result.next()){
+        while(result.next()){
             deckList.add(mapRowToCard(result));
-        } else {
+        }
+
+        if(deckList.isEmpty()) {
             throw new DeckNotFoundException();
         }
 
