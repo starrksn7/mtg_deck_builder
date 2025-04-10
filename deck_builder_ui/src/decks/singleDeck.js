@@ -24,6 +24,11 @@ export function SingleDeck() {
 
 
     }, [])
+
+    const deleteFromDeck = async (card) => {
+        const res = axios.post('http://localhost:8080/remove', { deckId: 1, cardId: card.scryfall_id })
+        if(res) console.log(`${card.name} removed from deck successfully`)
+    }
   
     if (cardList) {
         return (
@@ -46,6 +51,7 @@ export function SingleDeck() {
                                 <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
                                 <div>Type: {card.type}</div>
                                 <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
+                                <button type="submit" onClick={() => deleteFromDeck(card)}>Remove From Deck</button>
                             </div>
                         </div>
                     ))}
