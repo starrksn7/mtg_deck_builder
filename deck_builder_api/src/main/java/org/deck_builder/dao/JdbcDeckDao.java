@@ -109,7 +109,16 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean removeCardFromDeck(int deckId, int cardId){
-        String sql = "DELETE FROM deck_cards WHERE deck_id = ? AND card_id = ?;";
+        String sql = "WITH to_delete AS (\n" +
+                "  SELECT ctid\n" +
+                "  FROM deck_cards\n" +
+                "  WHERE deck_id = ? AND scryfall_id = ?\n" +
+                "  LIMIT 1\n" +
+                ")\n" +
+                "DELETE FROM deck_cards\n" +
+                "WHERE ctid IN (SELECT ctid FROM to_delete);";
+
+
         return jdbcTemplate.update(sql, deckId, cardId) == 1;
     }
 

@@ -17,7 +17,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         let cardObject = {
             scryfallId: card.scryfallId,
             name: card.name,
-            scryfallURL: card.image_link,
+            scryfallURL: card.scryfall_url,
             imageLink: card.image_link,
             type: card.type,
             oracleText: card.oracle_text,
