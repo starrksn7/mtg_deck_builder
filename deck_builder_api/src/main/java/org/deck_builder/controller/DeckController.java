@@ -45,7 +45,7 @@ public class DeckController {
     }
 
     @DeleteMapping(path="/remove")
-    public boolean removeCardFromDeck(int deckId, int cardId){
+    public boolean removeCardFromDeck(@RequestBody int deckId, int cardId){
         return deckDao.removeCardFromDeck(deckId, cardId);
     }
 
