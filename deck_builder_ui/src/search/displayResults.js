@@ -1,6 +1,6 @@
 import React from "react"
 import axios from 'axios'
-import { replaceTextWithManaSymbols } from "../helperFunctions"
+import { replaceTextWithManaSymbols, createCardObject } from "../helperFunctions"
 
 
 export const DisplayResults = ({searchResults, deckId, setIsError}) => {
@@ -14,18 +14,8 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         // console.log(e)
         console.log("target card = ")
         console.log(card)
-        let cardObject = {
-            scryfallId: card.scryfallId,
-            name: card.name,
-            scryfallURL: card.scryfall_url,
-            imageLink: card.image_link,
-            type: card.type,
-            oracleText: card.oracle_text,
-            manaCost: card.mana_cost,
-            colors: card.colors,
-            colorIdentity: card.color_identity,
-            keyword: card.keywords
-        }
+        let cardObject = createCardObject(card)
+        
         const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, cardDto: cardObject})
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")

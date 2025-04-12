@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols } from '../helperFunctions'
-import { isDeckLegal } from '../helperFunctions'
+import { createCardObject, replaceTextWithManaSymbols, isDeckLegal } from '../helperFunctions'
 
 export function SingleDeck() {
     const [cardList, setCardList] = useState('')
@@ -26,10 +25,13 @@ export function SingleDeck() {
     }, [])
 
     const deleteFromDeck = async (card) => {
-        const res = axios.delete('http://localhost:8080/decks/remove', { deckId: 1, cardId: card.scryfall_id })
+        let cardObject = createCardObject(card)
+        console.log(cardObject)
+        const res = await axios.delete('http://localhost:8080/decks/remove', { deckId: 1, cardDto: cardObject })
         if(res) console.log(`${card.name} removed from deck successfully`)
     }
   console.log(isLegal)
+  console.log(cardList)
     if (cardList) {
         return (
             <div>

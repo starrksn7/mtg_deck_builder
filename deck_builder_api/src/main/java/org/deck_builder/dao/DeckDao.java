@@ -15,7 +15,7 @@ public interface DeckDao {
 
     boolean addCardToDeck(int deckId, CardSearchDTO cardDto);
 
-    boolean removeCardFromDeck(int deckId, int cardId);
+    boolean removeCardFromDeck(int deckId, CardSearchDTO cardDto);
 
     boolean updateDeck(int id, String deckName, String commander);
 

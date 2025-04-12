@@ -3,6 +3,7 @@ package org.deck_builder.dao;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
+import org.deck_builder.model.DeckDTO;
 import org.deck_builder.model.exceptions.DeckNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -108,7 +109,9 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public boolean removeCardFromDeck(int deckId, int cardId){
+    public boolean removeCardFromDeck(int deckId, CardSearchDTO cardDto){
+
+        System.out.println("deckId in remove card from deck = " + deckId);
         String sql = "WITH to_delete AS (\n" +
                 "  SELECT ctid\n" +
                 "  FROM deck_cards\n" +
@@ -119,7 +122,7 @@ public class JdbcDeckDao implements DeckDao{
                 "WHERE ctid IN (SELECT ctid FROM to_delete);";
 
 
-        return jdbcTemplate.update(sql, deckId, cardId) == 1;
+        return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
     private Deck mapRowToDeck(SqlRowSet row){

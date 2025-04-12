@@ -111,3 +111,20 @@ export const isDeckLegal = (cardList) => {
 
     return cardsDuplicated;
 }
+
+
+export const createCardObject = (card) => {
+
+    return {
+        scryfallId: card.scryfallId,
+        name: card.name,
+        scryfallURL: card.scryfall_url,
+        imageLink: card.image_link,
+        type: card.type,
+        oracleText: card.oracle_text,
+        manaCost: card.mana_cost,
+        colors: card.colors,
+        colorIdentity: card.color_identity,
+        keyword: card.keywords
+    }
+}
