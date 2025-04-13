@@ -8,12 +8,6 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     console.log(searchResults)
 
     const addToDeck = async (card) => {
-        // e.preventDefault();
-        // const card = e.target;
-        // console.log("e =")
-        // console.log(e)
-        console.log("target card = ")
-        console.log(card)
         let cardObject = createCardObject(card)
         
         const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, cardDto: cardObject})

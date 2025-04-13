@@ -25,13 +25,16 @@ export function SingleDeck() {
     }, [])
 
     const deleteFromDeck = async (card) => {
-        let cardObject = createCardObject(card)
-        console.log(cardObject)
-        const res = await axios.delete('http://localhost:8080/decks/remove', { deckId: 1, cardDto: cardObject })
-        if(res) console.log(`${card.name} removed from deck successfully`)
+        const res = await axios.delete('http://localhost:8080/decks/remove', { data: {
+            deckId: 1, 
+            cardDto: {
+                scryfallId: card.scryfallId
+                }
+            }
+        })
+        if(res) window.location.reload()
     }
-  console.log(isLegal)
-  console.log(cardList)
+
     if (cardList) {
         return (
             <div>

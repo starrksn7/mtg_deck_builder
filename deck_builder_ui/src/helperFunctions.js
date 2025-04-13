@@ -36,6 +36,7 @@ export const replaceTextWithManaSymbols = (text) => {
                .replace(/\{20\}/g, '<i class="ms ms-20 ms-cost ms-shadow"></i>')
                .replace(/{W\/U}/g, '<i class="ms ms-wu ms-cost ms-shadow"></i>')
                .replace(/{W\/B}/g, '<i class="ms ms-wb ms-cost ms-shadow"></i>')
+               .replace(/{G\/U}/g, '<i class="ms ms-gu ms-cost ms-shadow"></i>')
                .replace(/{U\/B}/g, '<i class="ms ms-ub ms-cost ms-shadow"></i>')
                .replace(/{U\/R}/g, '<i class="ms ms-ur ms-cost ms-shadow"></i>')
                .replace(/{B\/R}/g, '<i class="ms ms-br ms-cost ms-shadow"></i>')
