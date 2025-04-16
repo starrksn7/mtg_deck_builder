@@ -19,5 +19,4 @@ public class DeckBuilderApplication {
  * 3. Style the pages
  * 4. Figure out a way to handle multiple commander, possibilities, like partner and background
  * 5. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
- * 6. check for is deck legal isn't displaying at all times when deck is illegal
  */

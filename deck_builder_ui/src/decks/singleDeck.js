@@ -10,15 +10,13 @@ export function SingleDeck() {
     useEffect(() => {
         const res = axios.get('http://localhost:8080/decks?deckId=1')
             .then((res) => {
-                let data = res.data
-                let resultsArray = [];
-                data.forEach(entry => {
-                    resultsArray.push(entry);
-                })
+                const data = res.data;
+                const resultsArray = [...data];
                 setCardList(resultsArray);
-
-                setDuplicatedCardsArray(isDeckLegal(resultsArray))
-                duplicatedCardsArray.length > 0 ? setIsLegal(false) : setIsLegal(true)
+    
+                const duplicates = isDeckLegal(resultsArray);
+                setDuplicatedCardsArray(duplicates);
+                setIsLegal(duplicates.length === 0);
             })
 
 
