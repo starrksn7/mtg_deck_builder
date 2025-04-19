@@ -6,6 +6,7 @@ export function SingleDeck() {
     const [cardList, setCardList] = useState('')
     const [isLegal, setIsLegal] = useState('')
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([])
+    const [showConfirm, setShowConfirm] = useState(false)
     
     useEffect(() => {
         const res = axios.get('http://localhost:8080/decks?deckId=1')
@@ -33,6 +34,14 @@ export function SingleDeck() {
         if(res) window.location.reload()
     }
 
+    const cancelDelete = () => {
+        setShowConfirm(false)
+    }
+
+    const handleDelete = () => {
+        setShowConfirm(true)
+    }
+
     if (cardList) {
         return (
             <div>
@@ -54,7 +63,15 @@ export function SingleDeck() {
                                 <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
                                 <div>Type: {card.type}</div>
                                 <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
-                                <button type="submit" onClick={() => deleteFromDeck(card)}>Remove From Deck</button>
+                                <button type="submit" onClick={handleDelete}>Remove From Deck</button>
+
+                                {showConfirm && (
+                                    <div className="confirmation-dialog">
+                                    <p>Are you sure you want to delete {card.name} from this deck?</p>
+                                    <button onClick={() => deleteFromDeck(card)}>Delete</button>
+                                    <button onClick={cancelDelete}>Cancel</button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}
