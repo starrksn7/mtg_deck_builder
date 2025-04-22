@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 export function AllDecks() {
     const [deckList, setDeckList] = useState('')
+    const [showConfirm, setShowConfirm] = useState(false)
+
     useEffect(() => {
         const res = axios.get('http://localhost:8080/user?userId=1')
             .then((res) => {
@@ -16,6 +18,14 @@ export function AllDecks() {
             })
     }, [])
 
+    const cancelDelete = () => {
+        setShowConfirm(false)
+    }
+
+    const handleDelete = () => {
+        setShowConfirm(true)
+    }
+
     if(deckList) {
         return deckList.map((deck, index) => {
             return (
@@ -25,6 +35,13 @@ export function AllDecks() {
                         <div>Deck Name: {deck.deckName}</div>
                         <div>Commander: {deck.commander}</div>
                     </Link>
+                    {showConfirm && (
+                        <div className="confirmation-dialog">
+                        <p>Are you sure you want to delete {deck.deckName} from this deck?</p>
+                        <button onClick={() => deleteDeck(deck)}>Delete</button>
+                        <button onClick={cancelDelete}>Cancel</button>
+                        </div>
+                    )}
                 </div>
             )
         })
