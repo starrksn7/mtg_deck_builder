@@ -50,7 +50,7 @@ public class DeckController {
     }
 
     @DeleteMapping(path="/deleteDeck")
-    public boolean deleteDeck(int deckId){
+    public boolean deleteDeck(@RequestBody int deckId){
         return deckDao.deleteDeck(deckId);
     }
 

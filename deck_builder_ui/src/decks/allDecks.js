@@ -18,6 +18,14 @@ export function AllDecks() {
             })
     }, [])
 
+    const deleteDeck = async (deck) => {
+        const res = await axios.delete('http://localhost:8080/decks/deleteDeck', { data: {
+            deckId: 1, 
+            }
+        })
+        if(res) window.location.reload()
+    }
+
     const cancelDelete = () => {
         setShowConfirm(false)
     }
@@ -35,6 +43,7 @@ export function AllDecks() {
                         <div>Deck Name: {deck.deckName}</div>
                         <div>Commander: {deck.commander}</div>
                     </Link>
+                    <button type="submit" onClick={handleDelete}>Delete Deck</button>
                     {showConfirm && (
                         <div className="confirmation-dialog">
                         <p>Are you sure you want to delete {deck.deckName} from this deck?</p>
