@@ -62,7 +62,6 @@ public class JdbcDeckDao implements DeckDao{
         while(results.next()){
             decks.add(mapRowToDeck(results));
         }
-        System.out.println(decks.toString());
         return decks;
     }
 
@@ -110,8 +109,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean removeCardFromDeck(int deckId, CardSearchDTO cardDto){
-
-        System.out.println("deckId in remove card from deck = " + deckId);
         String sql = "WITH to_delete AS (\n" +
                 "  SELECT ctid\n" +
                 "  FROM deck_cards\n" +

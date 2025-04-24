@@ -38,7 +38,6 @@ public class JdbcCardDao implements CardDao{
             if(searchResults.get(0).equals("No cards found")){
                 return failedSearch();
             }
-            System.out.println(parseSearchResults(searchResults));
             return parseSearchResults(searchResults);
 
         } catch (IOException e) {

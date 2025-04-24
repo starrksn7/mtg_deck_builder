@@ -20,5 +20,4 @@ public class DeckBuilderApplication {
  * 4. Figure out a way to handle multiple commander possibilities, like partner and background
  * 5. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
  * 6. Create a deck page, maybe tie that in with #1?
- * 7. Delete deck option
  */
