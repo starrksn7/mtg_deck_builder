@@ -25,4 +25,6 @@ public interface CardDao {
     boolean addCardToDb(Card card);
 
     SqlRowSet getFromDb(String scryfallId);
+
+    List<String> searchForCommander(String name, String colors) throws UnsupportedEncodingException;
 }

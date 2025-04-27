@@ -159,6 +159,19 @@ public class JdbcCardDao implements CardDao{
         return jdbcTemplate.queryForRowSet(getSql);
     }
 
+    public List<String> searchForCommander(String name, String colors) throws UnsupportedEncodingException {
+        String commanderForUri = "is%3Acommander";
+        String encodedName = URLEncoder.encode(name, "UTF-8");
+
+        String searchUri = scryfallUrl + encodedName + "c%3A" + colors + commanderForUri + uniqueOnly;
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String name = result.get("name") != null ? result.get("name").getAsString() : null;
