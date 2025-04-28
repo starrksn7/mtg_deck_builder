@@ -42,4 +42,9 @@ public class CardController {
     public boolean addCardToDb(Card card){
         return cardDao.addCardToDb(card);
     }
+
+    @PostMapping(path="/searchForCommander")
+    public List<String> searchForCommander(@RequestBody String name, String colors) throws UnsupportedEncodingException {
+        return cardDao.searchForCommander(name, colors);
+    }
 }
