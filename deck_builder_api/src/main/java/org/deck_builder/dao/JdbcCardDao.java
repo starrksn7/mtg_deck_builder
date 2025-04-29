@@ -163,7 +163,10 @@ public class JdbcCardDao implements CardDao{
         String commanderForUri = "is%3Acommander";
         String encodedName = URLEncoder.encode(name, "UTF-8");
 
-        String searchUri = scryfallUrl + encodedName + "c%3A" + colors + commanderForUri + uniqueOnly;
+        String searchUri = scryfallUrl + "/cards/search?q=" + encodedName + "+c%3A" + colors + "+" +commanderForUri + uniqueOnly;
+        System.out.println("name = " + name);
+        System.out.println("colors = " + colors);
+        System.out.println(searchUri);
         try {
             List<String> results = getCardsFromUri(searchUri);
             return parseSearchResults(results);
