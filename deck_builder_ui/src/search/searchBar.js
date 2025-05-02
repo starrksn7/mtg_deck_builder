@@ -6,6 +6,7 @@ import { Pagination } from './pagination';
 import { Loader } from './loader';
 import { RenderColorOptions } from './renderColorOptions';
 import { RenderTypeOptions } from './renderTypeOptions';
+import { useLocation } from 'react-router-dom';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -33,6 +34,14 @@ export function SearchBar(){
         try{
             let searchUrl = '';
             let res;
+
+            const location = useLocation();
+
+            if(location === "/create"){
+                searchUrl = 'http://localhost:8080/card/searchforCommander'
+                res = axios.post(searchUrl, , {name: searchInput, colors: colorIdentity})
+                setSearchType('')
+            }
             
             switch(searchType) {
                 case ('1'):
