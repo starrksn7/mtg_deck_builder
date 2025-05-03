@@ -23,6 +23,7 @@ export function SearchBar(){
     const [isLoading, setIsLoading] = useState(false);
     const [colorIdentity, setColorIdentity] = useState('');
     const [cardType, setCardType] = useState('');
+    const location = useLocation();
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
@@ -35,11 +36,9 @@ export function SearchBar(){
             let searchUrl = '';
             let res;
 
-            const location = useLocation();
-
-            if(location === "/create"){
+            if(location.pathname === "/create"){
                 searchUrl = 'http://localhost:8080/card/searchforCommander'
-                res = axios.post(searchUrl, , {name: searchInput, colors: colorIdentity})
+                res = axios.post(searchUrl, {name: searchInput, colors: colorIdentity})
                 setSearchType('')
             }
             
