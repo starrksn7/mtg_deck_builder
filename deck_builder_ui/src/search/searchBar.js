@@ -37,7 +37,8 @@ export function SearchBar(){
             let res;
 
             if(location.pathname === "/create"){
-                searchUrl = 'http://localhost:8080/card/searchforCommander'
+                console.log("made it into the pathname check")
+                searchUrl = 'http://localhost:8080/card/searchForCommander'
                 res = axios.post(searchUrl, {name: searchInput, colors: colorIdentity})
                 setSearchType('')
             }
