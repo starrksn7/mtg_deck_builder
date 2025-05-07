@@ -35,7 +35,7 @@ export function SearchBar(){
         try{
             let searchUrl = '';
             let res;
-
+            console.log(colorIdentity)
             if(location.pathname === "/create"){
                 console.log("made it into the pathname check")
                 searchUrl = 'http://localhost:8080/card/searchForCommander'
