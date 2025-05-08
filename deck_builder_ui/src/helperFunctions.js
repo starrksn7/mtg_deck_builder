@@ -129,3 +129,101 @@ export const createCardObject = (card) => {
         keyword: card.keywords
     }
 }
+
+export const getBaseColors = (colorIdentity) => {
+    let colors;
+
+    switch(colorIdentity) {
+        case ('blue'):
+            colors = "u"
+            break;
+        case ('black'):
+            colors = "b"
+            break;
+        case ('red'):
+            colors = "r"
+            break;
+        case ('green'):
+            colors = "g"
+            break;
+        case ('white'):
+            colors = "w"
+            break;
+        case ('azorius'):
+            colors = "uw"
+            break;
+        case ('simic'):
+            colors = "ug"
+            break;
+        case ('dimir'):
+            colors = "ub"
+            break;
+        case ('golgari'):
+            colors = "bg"
+            break;
+        case ('gruul'):
+            colors = "rg"
+            break;
+        case ('izzet'):
+            colors = "ur"
+            break;
+        case ('orzhov'):
+            colors = "bw"
+            break;
+        case ('rakdos'):
+            colors = "br"
+            break;
+        case ('selesnya'):
+            colors = "gw"
+            break;
+        case ('boros'):
+            colors = "rw"
+            break;
+        case ('abzan'):
+            colors = "wbg"
+            break;
+        case ('bant'):
+            colors = "wug"
+            break;
+        case ('esper'):
+            colors = "uwb"
+            break;
+        case ('grixis'):
+            colors = "ubr"
+            break;
+        case ('jeskai'):
+            colors = "wur"
+            break;
+        case ('jund'):
+            colors = "brg"
+            break;
+        case ('mardu'):
+            colors = "wbr"
+            break;
+        case ('sultai'):
+            colors = "ubg"
+            break;
+        case ('temur'):
+            colors = "brg"
+            break;
+        case ('glint'):
+            colors = "ubrg"
+            break;
+        case ('ink'):
+            colors = "wurg"
+            break;
+        case ('witch'):
+            colors = "wbug"
+            break;
+        case ('yore'):
+            colors = "wbur"
+            break;
+        case ('wubrg'):
+            colors = "wubrg"
+            break;
+        default:
+            colors = ""
+    }
+    
+    return colors
+}
