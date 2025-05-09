@@ -221,6 +221,9 @@ export const getBaseColors = (colorIdentity) => {
         case ('wubrg'):
             colors = "wubrg"
             break;
+        case ('colorless'):
+            colors = "c"
+            break;
         default:
             colors = ""
     }
