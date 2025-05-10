@@ -30,6 +30,9 @@ public class CardSearchDTO {
     @NotEmpty
     private boolean isPartner;
 
+    @NotEmpty
+    private String searchTerm;
+
     public int getId() {
         return id;
     }
@@ -125,6 +128,10 @@ public class CardSearchDTO {
     public void setIsPartner(boolean isPartner) {
         this.isPartner = isPartner;
     }
+
+    public String getSearchTerm() { return searchTerm;}
+
+    public void setSearchTerm(String searchTerm){ this.searchTerm = searchTerm; }
 
     @Override
     public String toString(){

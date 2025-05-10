@@ -159,11 +159,11 @@ public class JdbcCardDao implements CardDao{
         return jdbcTemplate.queryForRowSet(getSql);
     }
 
-    public List<String> searchForCommander(String name, String colors) throws UnsupportedEncodingException {
+    public List<String> searchForCommander(String searchTerm, String colors) throws UnsupportedEncodingException {
         String commanderForUri = "is%3Acommander";
-        String encodedName = URLEncoder.encode(name, "UTF-8");
+        String encodedSearch = URLEncoder.encode(searchTerm, "UTF-8");
 
-        String searchUri = scryfallUrl + "/cards/search?q=" + encodedName + "+c%3Dbg" + "+" +commanderForUri + uniqueOnly;
+        String searchUri = scryfallUrl + "/cards/search?q=" + "+color%3Dbg" + "+" +commanderForUri + searchTerm;
         System.out.println(searchUri);
         try {
             List<String> results = getCardsFromUri(searchUri);

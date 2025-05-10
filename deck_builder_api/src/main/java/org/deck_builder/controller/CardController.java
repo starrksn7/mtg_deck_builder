@@ -45,6 +45,6 @@ public class CardController {
 
     @PostMapping(path="/searchForCommander")
     public List<String> searchForCommander(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        return cardDao.searchForCommander(jsonBody.getName(), jsonBody.getColors());
+        return cardDao.searchForCommander(jsonBody.getSearchTerm(), jsonBody.getColors());
     }
 }
