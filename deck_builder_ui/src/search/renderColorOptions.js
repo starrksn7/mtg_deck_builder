@@ -12,131 +12,131 @@ export const RenderColorOptions = ({setColorIdentity}) => {
             Select The Color Identity
             <label>
                 <input type='radio' name="identitySelect" value='black' onChange={handleColorChange}/>
-                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}") }}></span>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}") }} />
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='blue' onChange={handleColorChange}/>
-                Blue
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}") }} />
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='green' onChange={handleColorChange}/>
-                Green
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{G}") }} />
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='red' onChange={handleColorChange}/>
-                Red
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{R}") }} />
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='white' onChange={handleColorChange}/>
-                White
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='azorius' onChange={handleColorChange}/>
-                Azorius
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='boros' onChange={handleColorChange}/>
-                Boros
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='dimir' onChange={handleColorChange}/>
-                Dimir
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='golgari' onChange={handleColorChange}/>
-                Golgari
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='gruul' onChange={handleColorChange}/>
-                Gruul
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='izzet' onChange={handleColorChange}/>
-                Izzet
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='orzhov' onChange={handleColorChange}/>
-                Orzhov
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='rakdos' onChange={handleColorChange}/>
-                Rakdos
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='selesnya' onChange={handleColorChange}/>
-                Selesnya
-            </label>
-            <label>
-                <input type='radio' name="sidentitySelect" value='simic' onChange={handleColorChange}/>
-                Simic
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='abzan' onChange={handleColorChange}/>
-                Abzan
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='bant' onChange={handleColorChange}/>
-                Bant
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='esper' onChange={handleColorChange}/>
-                Esper
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='grixis' onChange={handleColorChange}/>
-                Grixis
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='jeskai' onChange={handleColorChange}/>
-                Jeskai
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='jund' onChange={handleColorChange}/>
-                Jund
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='mardu' onChange={handleColorChange}/>
-                Mardu
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='naya' onChange={handleColorChange}/>
-                Naya
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='sultai' onChange={handleColorChange}/>
-                Sultai
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='temur' onChange={handleColorChange}/>
-                Temur
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='glint' onChange={handleColorChange}/>
-                Glint
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='dune' onChange={handleColorChange}/>
-                Dune
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='ink' onChange={handleColorChange}/>
-                Ink
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='witch' onChange={handleColorChange}/>
-                Witch
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='yore' onChange={handleColorChange}/>
-                Yore
-            </label>
-            <label>
-                <input type='radio' name="identitySelect" value='wurbg' onChange={handleColorChange}/>
-                WURBG
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}") }} />
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='c' onChange={handleColorChange}/>
-                Colorless
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{C}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='azorius' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}{W}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='boros' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{R}{W}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='dimir' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{B}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='golgari' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{G}{B}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='gruul' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='izzet' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{R}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='orzhov' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{B}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='rakdos' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}{R}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='selesnya' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{G}{W}") }} />
+            </label>
+            <label>
+                <input type='radio' name="sidentitySelect" value='simic' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='abzan' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{B}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='bant' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{G}{W}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='esper' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{B}{W}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='grixis' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{B}{R}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='jeskai' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{U}{R}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='jund' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='mardu' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{B}{R}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='naya' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='sultai' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{B}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='temur' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='glint' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{U}{R}{G}{B}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='dune' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{B}{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='ink' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{U}{R}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='witch' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{U}{B}{G}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='yore' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{U}{R}{B}") }} />
+            </label>
+            <label>
+                <input type='radio' name="identitySelect" value='wurbg' onChange={handleColorChange}/>
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{W}{U}{B}{R}{G}") }} />
             </label>
         </div>
     )
