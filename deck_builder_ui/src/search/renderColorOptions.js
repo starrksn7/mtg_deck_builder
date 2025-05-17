@@ -1,3 +1,5 @@
+import { replaceTextWithManaSymbols } from "../helperFunctions";
+
 export const RenderColorOptions = ({setColorIdentity}) => {
 
     const handleColorChange = (event) => {
@@ -10,7 +12,7 @@ export const RenderColorOptions = ({setColorIdentity}) => {
             Select The Color Identity
             <label>
                 <input type='radio' name="identitySelect" value='black' onChange={handleColorChange}/>
-                Black
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols("{B}") }}></span>
             </label>
             <label>
                 <input type='radio' name="identitySelect" value='blue' onChange={handleColorChange}/>

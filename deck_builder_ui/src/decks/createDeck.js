@@ -9,10 +9,20 @@ export function CreateDeck(){
         const response = await axios.post('http://localhost:8080/card/searchForCommander', 
             {keyword: searchInput, colors: searchColor})
     }
+
+    const handleChange = (e) => {
+        setSearchInput(e.target.value)
+    }
             
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Commander Search"
+                    onChange={handleChange}
+                    value={searchInput}
+                />
                 <button>Find A Commander</button>
             </form>
         </div>
