@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import { RenderColorOptions } from "../search/renderColorOptions"
+import { getBaseColors } from "../helperFunctions"
 
 export function CreateDeck(){
     const [searchColor, setSearchColor] = useState('')
@@ -11,7 +13,8 @@ export function CreateDeck(){
     }
 
     const handleChange = (e) => {
-        setSearchInput(e.target.value)
+        let colors = getBaseColors(e.target.value)
+        setSearchInput(colors)
     }
             
     return (
@@ -23,6 +26,7 @@ export function CreateDeck(){
                     onChange={handleChange}
                     value={searchInput}
                 />
+                <RenderColorOptions setColorIdentity={setSearchColor}/>
                 <button>Find A Commander</button>
             </form>
         </div>
