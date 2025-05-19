@@ -8,13 +8,13 @@ export function CreateDeck(){
     const [searchInput, setSearchInput] = useState('')
 
     const handleSubmit = async () => {
+        let colors = getBaseColors(searchColor)
         const response = await axios.post('http://localhost:8080/card/searchForCommander', 
-            {keyword: searchInput, colors: searchColor})
+            {keyword: searchInput, colors: colors})
     }
 
     const handleChange = (e) => {
-        let colors = getBaseColors(e.target.value)
-        setSearchInput(colors)
+        setSearchInput(e.target.value)
     }
             
     return (
@@ -27,7 +27,7 @@ export function CreateDeck(){
                     value={searchInput}
                 />
                 <RenderColorOptions setColorIdentity={setSearchColor}/>
-                <button>Find A Commander</button>
+                <button type="submit">Find A Commander</button>
             </form>
         </div>
     )
