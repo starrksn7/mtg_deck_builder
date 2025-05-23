@@ -7,10 +7,15 @@ export function CreateDeck(){
     const [searchColor, setSearchColor] = useState('')
     const [searchInput, setSearchInput] = useState('')
 
-    const handleSubmit = async () => {
-        let colors = getBaseColors(searchColor)
+    const findCommanderWithSearch = async () => {
         const response = await axios.post('http://localhost:8080/card/searchForCommander', 
-            {keyword: searchInput, colors: colors})
+            {keyword: searchInput})
+    }
+
+    const findCommanderByColor = async () => {
+        const response = await axios.post('http://localhost:8080/card/findCommanderByColors',
+            {colorIdentity: searchColor}
+        )
     }
 
     const handleChange = (e) => {
@@ -19,7 +24,7 @@ export function CreateDeck(){
             
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={findCommanderWithSearch}>
                 <input
                     type="text"
                     placeholder="Commander Search"
