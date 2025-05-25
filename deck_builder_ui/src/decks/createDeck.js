@@ -21,6 +21,7 @@ export function CreateDeck(){
     const handleChange = (e) => {
         setSearchInput(e.target.value)
     }
+
             
     return (
         <div>
@@ -31,9 +32,17 @@ export function CreateDeck(){
                     onChange={handleChange}
                     value={searchInput}
                 />
-                <RenderColorOptions setColorIdentity={setSearchColor}/>
                 <button type="submit">Find A Commander</button>
             </form>
+            <div class="color-filter">
+                <button class="dropdown-btn">Select Commander Color</button>
+                <div class="dropdown-content">
+                    <a href="#" data-color="mono">Mono-Color</a>
+                    <a href="#" data-color="2-color">Two-Color</a>
+                    <a href="#" data-color="3-color">Three-Color</a>
+                    <a href="#" data-color="4-plus-color">Four or More Colors</a>
+                </div>
+            </div>
         </div>
     )
 }
