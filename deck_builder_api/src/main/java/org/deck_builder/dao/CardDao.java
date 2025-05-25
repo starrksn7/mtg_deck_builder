@@ -26,5 +26,7 @@ public interface CardDao {
 
     SqlRowSet getFromDb(String scryfallId);
 
-    List<String> searchForCommander(String name, String colors) throws UnsupportedEncodingException;
+    List<String> findCommanderByName(String name) throws UnsupportedEncodingException;
+
+    List<String>  findCommanderByColors(String colors) throws UnsupportedEncodingException;
 }

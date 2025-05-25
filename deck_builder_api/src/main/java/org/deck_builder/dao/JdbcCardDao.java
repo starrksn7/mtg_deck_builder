@@ -159,20 +159,6 @@ public class JdbcCardDao implements CardDao{
         return jdbcTemplate.queryForRowSet(getSql);
     }
 
-    public List<String> searchForCommander(String searchTerm, String colors) throws UnsupportedEncodingException {
-        String commanderForUri = "is%3Acommander";
-        String encodedSearch = URLEncoder.encode(searchTerm, "UTF-8");
-
-        String searchUri = scryfallUrl + "/cards/search?q=" + "+color%3Dbg" + "+" +commanderForUri + searchTerm;
-        System.out.println(searchUri);
-        try {
-            List<String> results = getCardsFromUri(searchUri);
-            return parseSearchResults(results);
-        } catch(IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String name = result.get("name") != null ? result.get("name").getAsString() : null;
@@ -214,6 +200,33 @@ public class JdbcCardDao implements CardDao{
             }
         }
         return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
+    }
+
+    public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {
+        String commanderForUri = "is%3Acommander";
+        String encodedSearch = URLEncoder.encode(searchTerm, "UTF-8");
+
+        String searchUri = scryfallUrl + "/cards/search?q=" + "+" +commanderForUri + searchTerm;
+        System.out.println(searchUri);
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> findCommanderByColors(String colors) throws UnsupportedEncodingException {
+        String commanderForUri = "is%3Acommander";
+        String colorSearch = "+color%3D" + colors;
+        String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
+        System.out.println(searchUri);
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException{

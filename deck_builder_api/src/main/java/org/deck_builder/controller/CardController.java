@@ -43,8 +43,13 @@ public class CardController {
         return cardDao.addCardToDb(card);
     }
 
-    @PostMapping(path="/searchForCommander")
-    public List<String> searchForCommander(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        return cardDao.searchForCommander(jsonBody.getSearchTerm(), jsonBody.getColors());
+    @PostMapping(path="/searchForCommanderByName")
+    public List<String> findCommanderByName(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
+        return cardDao.findCommanderByName(jsonBody.getSearchTerm());
+    }
+
+    @PostMapping(path="/searchForCommandByColor")
+    public List<String> findCommanderByColors(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
+        return cardDao.findCommanderByColors(jsonBody.getColors());
     }
 }
