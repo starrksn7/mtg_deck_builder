@@ -204,9 +204,9 @@ public class JdbcCardDao implements CardDao{
 
     public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {
         String commanderForUri = "is%3Acommander";
-        String encodedSearch = URLEncoder.encode(searchTerm, "UTF-8");
+        String encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 
-        String searchUri = scryfallUrl + "/cards/search?q=" + "+" +commanderForUri + searchTerm;
+        String searchUri = scryfallUrl + "/cards/search?q=" + encodedSearchTerm + "+" +commanderForUri;
         System.out.println(searchUri);
         try {
             List<String> results = getCardsFromUri(searchUri);

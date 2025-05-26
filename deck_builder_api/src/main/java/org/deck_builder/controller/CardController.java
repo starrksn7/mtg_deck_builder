@@ -48,7 +48,7 @@ public class CardController {
         return cardDao.findCommanderByName(jsonBody.getSearchTerm());
     }
 
-    @PostMapping(path="/searchForCommandByColor")
+    @PostMapping(path="/searchForCommanderByColor")
     public List<String> findCommanderByColors(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
         return cardDao.findCommanderByColors(jsonBody.getColors());
     }
