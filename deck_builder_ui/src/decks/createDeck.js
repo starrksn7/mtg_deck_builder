@@ -8,6 +8,7 @@ export function CreateDeck(){
     const [searchInput, setSearchInput] = useState('')
     const [searchResults, setSearchResults] = useState([])
 
+
     const findCommanderWithSearch = async () => {
         const response = await axios.post('http://localhost:8080/card/searchForCommander', 
             {keyword: searchInput})
