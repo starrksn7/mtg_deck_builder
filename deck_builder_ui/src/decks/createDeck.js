@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { RenderColorOptions } from "../search/renderColorOptions"
 import { getBaseColors } from "../helperFunctions"
+import { CascadingDropdown } from "../search/cascadingDropdown"
 
 export function CreateDeck(){
     const [searchColor, setSearchColor] = useState('')
@@ -48,7 +49,7 @@ export function CreateDeck(){
                 />
                 <button type="submit">Find A Commander</button>
             </form>
-            <div class="color-filter">
+            {/* <div class="color-filter">
                 <button class="dropdown-btn">Select Commander Color</button>
                 <div class="dropdown-content">
                     <a href="#" data-color="mono">Mono-Color</a>
@@ -56,7 +57,8 @@ export function CreateDeck(){
                     <a href="#" data-color="3-color">Three-Color</a>
                     <a href="#" data-color="4-plus-color">Four or More Colors</a>
                 </div>
-            </div>
+            </div> */}
+            <CascadingDropdown />
         </div>
     )
 }
