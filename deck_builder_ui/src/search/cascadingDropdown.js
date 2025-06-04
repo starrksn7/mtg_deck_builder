@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function CascadingDropdown() {
+export function CascadingDropdown({ onColorSelect }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedItem, setSelectedItem] = useState('');
 
@@ -24,7 +24,9 @@ export function CascadingDropdown() {
   };
 
   const handleItemChange = (e) => {
-    setSelectedItem(e.target.value);
+    const value = e.target.value;
+    setSelectedItem(value);
+    onColorSelect?.(value);
   };
 
   const selectedKey = categories.find(c => c.label === selectedCategory)?.key;
@@ -45,12 +47,6 @@ export function CascadingDropdown() {
             <option key={item} value={item}>{item}</option>
           ))}
         </select>
-      )}
-
-      {selectedItem && (
-        <div style={{ marginTop: '1rem' }}>
-          <strong>Selected Value:</strong> {selectedItem}
-        </div>
       )}
     </div>
   );
