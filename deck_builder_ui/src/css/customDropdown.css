@@ -1,0 +1,38 @@
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: left;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: white;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}

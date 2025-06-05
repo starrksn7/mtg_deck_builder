@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { replaceTextWithManaSymbols } from "../helperFunctions";
+import "../css/customDropdown.css";
 
 export function CascadingDropdown({ onColorSelect }) {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedItem, setSelectedItem] = useState('');
+  const [selectedColors, setSelectedColors] = useState('');
 
   const categories = [
     { label: "Single Color", key: "single" },
@@ -20,12 +22,12 @@ export function CascadingDropdown({ onColorSelect }) {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
-    setSelectedItem('');
+    setSelectedColors('');
   };
 
-  const handleItemChange = (e) => {
+  const handleColorChange = (e) => {
     const value = e.target.value;
-    setSelectedItem(value);
+    setSelectedColors(value);
     onColorSelect?.(value);
   };
 
@@ -40,13 +42,29 @@ export function CascadingDropdown({ onColorSelect }) {
         ))}
       </select>
 
-      {selectedCategory && selectedKey && (
-        <select value={selectedItem} onChange={handleItemChange}>
-          <option value="">-- Select Options --</option>
-          {colorsMap[selectedKey].map((item) => (
-            <option key={item} value={item}>{item}</option>
-          ))}
-        </select>
+{selectedCategory && selectedKey && (
+        <div className="custom-dropdown">
+          <button className="dropdown-toggle" onClick={() => setSelectedColors('')}>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: selectedColors
+                  ? replaceTextWithManaSymbols(selectedColors)
+                  : '-- Select Options --',
+              }}
+            />
+          </button>
+          <ul className="dropdown-menu">
+            {colorsMap[selectedKey].map(item => (
+              <li
+                key={item}
+                className="dropdown-item"
+                onClick={() => handleColorChange(item)}
+              >
+                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(item) }} />
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
