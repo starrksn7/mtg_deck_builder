@@ -36,3 +36,19 @@
 .dropdown-item:hover {
   background-color: #f0f0f0;
 }
+
+.styled-select {
+  width: 200px;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: left;
+  background-color: white;
+  border: 1px solid #ccc;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"><polygon points="0,0 16,0 8,10"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}

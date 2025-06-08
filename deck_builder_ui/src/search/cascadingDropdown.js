@@ -15,9 +15,9 @@ export function CascadingDropdown({ onColorSelect }) {
 
   const colorsMap = {
     single: ["{W} White", "{U} Blue", "{B} Black", "{R} Red", "{G} Green", "{C} Colorless"],
-    twoColor: ["{UW} Azorius", "{UG} Simic", "{UB} Dimir", "{BG} Golgari", "{RG} Gruul", "{UR} Izzet", "{BW} Orzhov", "{BR} Rakdos", "{GW} Selesnya", "{RW} Boros"],
-    threeColor: ["{WBG} Abzan", "{WUG} Bant", "{UWB} Esper", "{UBR} Grixis", "{WUR} Jeskai", "{BRG} Jund", "{WBR} Mardu", "{UBG} Sultai", "{BRG} Temur"],
-    fourColor: ["{UBRG} Glint", "{WURG} Ink", "{WBUG} Witch", "{WBUR} Yore", "{WUBRG} WUBRG"]
+    twoColor: ["{U}{W} Azorius", "{U}{G} Simic", "{U}{B} Dimir", "{B}{G} Golgari", "{R}{G} Gruul", "{U}{R} Izzet", "{B}{W} Orzhov", "{B}{R} Rakdos", "{G}{W} Selesnya", "{R}{W} Boros"],
+    threeColor: ["{W}{B}{G} Abzan", "{W}{U}{G} Bant", "{U}{W}{B} Esper", "{U}{B}{R} Grixis", "{W}{U}{R} Jeskai", "{B}{R}{G} Jund", "{W}{B}{R} Mardu", "{U}{B}{G} Sultai", "{B}{R}{G} Temur"],
+    fourColor: ["{U}{B}{R}{G} Glint", "{W}{U}{R}{G} Ink", "{W}{B}{U}{G} Witch", "{W}{B}{U}{R} Yore", "{W}{U}{B}{R}{G} WUBRG"]
   };
 
   const handleCategoryChange = (e) => {
@@ -26,7 +26,7 @@ export function CascadingDropdown({ onColorSelect }) {
   };
 
   const handleColorChange = (e) => {
-    const value = e.target.value;
+    const value = e.split(" ")[1];
     setSelectedColors(value);
     onColorSelect?.(value);
   };
@@ -35,14 +35,14 @@ export function CascadingDropdown({ onColorSelect }) {
 
   return (
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-      <select value={selectedCategory} onChange={handleCategoryChange}>
+      <select className="styled-select" value={selectedCategory} onChange={handleCategoryChange}>
         <option value="">-- How many colors --</option>
         {categories.map(({ label }) => (
           <option key={label} value={label}>{label}</option>
         ))}
       </select>
 
-{selectedCategory && selectedKey && (
+      {selectedCategory && selectedKey && (
         <div className="custom-dropdown">
           <button className="dropdown-toggle" onClick={() => setSelectedColors('')}>
             <span
