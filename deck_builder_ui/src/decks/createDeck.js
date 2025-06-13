@@ -19,8 +19,12 @@ export function CreateDeck(){
         setSearchResults(resultsArray);
     }
 
-    const findCommanderByColor = async (selectedColor) => {
-        const searchColor = getBaseColors(selectedColor);
+    const findCommanderByColor = async (searchColor) => {
+        const color = getBaseColors(searchColor.toLowerCase());
+        console.log("XXXXXXXXX")
+        console.log(searchColor)
+        console.log(color)
+        console.log("XXXXXXXXX")
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByColors',
             {colorIdentity: searchColor}
         )
