@@ -5,6 +5,8 @@ import "../css/customDropdown.css";
 export function CascadingDropdown({ onColorSelect }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedColors, setSelectedColors] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
   const categories = [
     { label: "Single Color", key: "single" },
@@ -44,7 +46,7 @@ export function CascadingDropdown({ onColorSelect }) {
 
       {selectedCategory && selectedKey && (
         <div className="custom-dropdown">
-          <button className="dropdown-toggle" onClick={() => setSelectedColors('')}>
+          <button className="dropdown-toggle" onClick={() => setIsDropdownOpen(prev => !prev)}>
             <span
               dangerouslySetInnerHTML={{
                 __html: selectedColors
@@ -53,17 +55,22 @@ export function CascadingDropdown({ onColorSelect }) {
               }}
             />
           </button>
-          <ul className="dropdown-menu">
-            {colorsMap[selectedKey].map(item => (
-              <li
-                key={item}
-                className="dropdown-item"
-                onClick={() => handleColorChange(item)}
-              >
-                <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(item) }} />
-              </li>
-            ))}
-          </ul>
+          {isDropdownOpen && (
+            <ul className="dropdown-menu">
+              {colorsMap[selectedKey].map(item => (
+                <li
+                  key={item}
+                  className="dropdown-item"
+                  onClick={() => {
+                    handleColorChange(item);
+                    setIsDropdownOpen(false);
+                  }}
+                >
+                  <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(item) }} />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </div>
