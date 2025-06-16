@@ -5,6 +5,7 @@ import { getBaseColors } from "../helperFunctions"
 import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
 import { Pagination } from "../search/pagination"
+import { Loader } from "../search/loader"
 
 export function CreateDeck(){
     const [searchColor, setSearchColor] = useState('')
@@ -16,17 +17,22 @@ export function CreateDeck(){
     const [cardsPerPage, setCardsPerPage] = useState(25);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
+    const [isLoading, setIsLoading] = useState(false)
 
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByName', 
             {keyword: searchInput})
         
         const resultsArray = response.data.map(entry => JSON.parse(entry));
         setSearchResults(resultsArray);
+        setIsLoading(false)
     }
 
     const findCommanderByColor = async (searchColor) => {
+        setIsLoading(true)
         const color = getBaseColors(searchColor.toLowerCase());
 
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByColor',
@@ -35,12 +41,7 @@ export function CreateDeck(){
 
         const resultsArray = response.data.map(entry => JSON.parse(entry));
         setSearchResults(resultsArray);
-
-        console.log("XXXXXXX")
-        console.log(resultsArray)
-        console.log("XXXXXXX")
-        console.log(searchResults)
-        console.log("XXXXXXX")
+        setIsLoading(false)
     }
 
     const handleDropdownSelection = (selectedColor) => {
@@ -61,9 +62,10 @@ export function CreateDeck(){
                 <button type="submit">Find A Commander</button>
             </form>
             <CascadingDropdown onColorSelect={handleDropdownSelection} />
+            {isLoading ? <Loader /> : <div></div>}
             {searchResults && (
                 <div> 
-                    <DisplayResults searchResults={searchResults} deckId={deckId} setIsError={setIsError}/>         
+                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
                     <Pagination 
                         cardsPerPage={cardsPerPage}
                         totalResults={searchResults.length}

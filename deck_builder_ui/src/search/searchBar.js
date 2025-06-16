@@ -118,17 +118,17 @@ export function SearchBar(){
                 </div> : <div></div>}
             </form>
             {isLoading ? <Loader /> : <div>
-            {searchResults && (
-                <div> 
-                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
-                    <Pagination 
-                        cardsPerPage={cardsPerPage}
-                        totalResults={searchResults.length}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                        isError={isError}
-                    />
-                </div>
+                {searchResults && (
+                    <div> 
+                        <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
+                        <Pagination 
+                            cardsPerPage={cardsPerPage}
+                            totalResults={searchResults.length}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            isError={isError}
+                        />
+                    </div>
                 )}
                 </div>
             }
