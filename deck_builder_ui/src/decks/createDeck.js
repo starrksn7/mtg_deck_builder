@@ -23,8 +23,9 @@ export function CreateDeck(){
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
         setIsLoading(true)
+        setSearchResults([])
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByName', 
-            {keyword: searchInput})
+            {searchTerm: searchInput})
         
         const resultsArray = response.data.map(entry => JSON.parse(entry));
         setSearchResults(resultsArray);
@@ -33,6 +34,7 @@ export function CreateDeck(){
 
     const findCommanderByColor = async (searchColor) => {
         setIsLoading(true)
+        setSearchResults([])
         const color = getBaseColors(searchColor.toLowerCase());
 
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByColor',
