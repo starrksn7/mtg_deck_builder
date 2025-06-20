@@ -1,7 +1,8 @@
-import React from "react"
+import React, {useState} from "react"
 import axios from 'axios'
 import { replaceTextWithManaSymbols, createCardObject } from "../helperFunctions"
 import { useLocation } from "react-router-dom"
+import '../css/createModal.css'
 
 
 export const DisplayResults = ({searchResults, deckId, setIsError}) => {
@@ -9,6 +10,9 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     console.log(searchResults)
     const location = useLocation();
     const isOnCreatePage = location.pathname === '/create' 
+    const [deckName, setDeckName] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [selectedCard, setSelectedCard] = useState(null)
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
@@ -18,13 +22,27 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         else console.log("Couldn't add the card to deck, for some reason")
    }
 
-   const setAsCommander = async (card) => {
-        let cardObject = createCardObject(card)
+   const handleCreateDeck = async () => {
+        if (!deckName || !selectedCard) return;
 
-        const res = await axios.post('http://localhost:8080/decks/create', { userId: 1, deckName, cardObject})
-        if(res) console.log("deck created")
-        else console.log("new deck could not be created")
-   }
+        const cardObject = createCardObject(selectedCard);
+
+        const res = await axios.post('http://localhost:8080/decks/create', { 
+            userId: 1, 
+            deckName, 
+            cardObject 
+        });
+
+        if (res) {
+            console.log("deck created");
+            setShowModal(false);
+            setDeckName('');
+            setSelectedCard(null);
+        } else {
+            console.log("new deck could not be created");
+        }
+    }
+
 
     if(searchResults[0]?.error) {
         setIsError(true)
@@ -44,12 +62,35 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
                     <div>Type: {card.type}</div>
                     <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
                     {/* <form onSubmit={addToDeck}> */}
-                        <button type="submit" onClick={() => isOnCreatePage ? setAsCommander(card) : addToDeck(card)}>
+                        <button type="submit" onClick={() => {
+                            if(isOnCreatePage){
+                                setSelectedCard(card)
+                                setShowModal(true)
+                            } else {
+                                addToDeck(card)
+
+                                {showModal && (
+                                    <div className="popup-overlay">
+                                        <div className="popup-content">
+                                            <h3>Name your new deck</h3>
+                                            <input 
+                                                type="text" 
+                                                value={deckName} 
+                                                onChange={(e) => setDeckName(e.target.value)} 
+                                                placeholder="Enter deck name"
+                                            />
+                                            <button onClick={handleCreateDeck}>Create Deck</button>
+                                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                                        </div>
+                                    </div>
+                                )}
+                            }
+                        }}>
                             {isOnCreatePage ? 'Set as Commander' : 'Add to Deck'}
                         </button>
                     {/* </form> */}
                 </div>  
             </div>
-    ))
+        ))
     }
 }
