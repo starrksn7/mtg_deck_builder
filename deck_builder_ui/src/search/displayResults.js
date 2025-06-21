@@ -53,44 +53,46 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         )
     } else {
         setIsError(false)
-        return searchResults.map((card, index) => (
-            <div key={index}>
-                <div>
-                    <img src={card.image_link} alt='alternate text'/>
-                    <div>{card.name}</div>
-                    <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
-                    <div>Type: {card.type}</div>
-                    <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
-                    {/* <form onSubmit={addToDeck}> */}
-                        <button type="submit" onClick={() => {
-                            if(isOnCreatePage){
-                                setSelectedCard(card)
-                                setShowModal(true)
-                            } else {
-                                addToDeck(card)
-
-                                {showModal && (
-                                    <div className="popup-overlay">
-                                        <div className="popup-content">
-                                            <h3>Name your new deck</h3>
-                                            <input 
-                                                type="text" 
-                                                value={deckName} 
-                                                onChange={(e) => setDeckName(e.target.value)} 
-                                                placeholder="Enter deck name"
-                                            />
-                                            <button onClick={handleCreateDeck}>Create Deck</button>
-                                            <button onClick={() => setShowModal(false)}>Cancel</button>
-                                        </div>
-                                    </div>
-                                )}
-                            }
-                        }}>
-                            {isOnCreatePage ? 'Set as Commander' : 'Add to Deck'}
-                        </button>
-                    {/* </form> */}
-                </div>  
-            </div>
-        ))
+        return (
+            <>
+                {showModal && (
+                    <div className="popup-overlay">
+                        <div className="popup-content">
+                            <h3>Name your new deck</h3>
+                            <input 
+                                type="text" 
+                                value={deckName} 
+                                onChange={(e) => setDeckName(e.target.value)} 
+                                placeholder="Enter deck name"
+                            />
+                            <button onClick={handleCreateDeck}>Create Deck</button>
+                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                )}
+                
+                {searchResults.map((card, index) => (
+                    <div key={index}>
+                        <div>
+                            <img src={card.image_link} alt='alternate text'/>
+                            <div>{card.name}</div>
+                            <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
+                            <div>Type: {card.type}</div>
+                            <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
+                            <button type="submit" onClick={() => {
+                                if(isOnCreatePage){
+                                    setSelectedCard(card)
+                                    setShowModal(true)
+                                } else {
+                                    addToDeck(card)
+                                }
+                            }}>
+                                {isOnCreatePage ? 'Set as Commander' : 'Add to Deck'}
+                            </button>
+                        </div>  
+                    </div>
+                ))}
+            </>
+        );
     }
 }
