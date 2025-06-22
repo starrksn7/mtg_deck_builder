@@ -30,7 +30,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         const res = await axios.post('http://localhost:8080/decks/create', { 
             userId: 1, 
             deckName, 
-            cardObject 
+            cardObject
         });
 
         if (res) {
