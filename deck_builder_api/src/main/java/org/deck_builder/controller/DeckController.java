@@ -1,10 +1,7 @@
 package org.deck_builder.controller;
 
-import org.deck_builder.model.Card;
-import org.deck_builder.model.CardSearchDTO;
-import org.deck_builder.model.Deck;
+import org.deck_builder.model.*;
 import org.deck_builder.dao.DeckDao;
-import org.deck_builder.model.DeckDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +22,8 @@ public class DeckController {
     }
 
     @PostMapping(path="/create")
-    public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
-        return deckDao.createDeck(userId, deckName, cardDto);
+    public boolean createDeck(@RequestBody CreateDeckDTO createDeckDTO){
+        return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
     }
 
     @PostMapping(path="/add")
