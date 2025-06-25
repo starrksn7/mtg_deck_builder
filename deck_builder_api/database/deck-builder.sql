@@ -36,7 +36,7 @@ CREATE TABLE cards (
 	scryfall_link varchar(100) NOT NULL,
 	image_link varchar(100) NOT NULL,
 	mana_cost varchar(20),
-	card_type varchar(30),
+	card_type varchar(100),
 	oracle_text varchar(200),
 	colors varchar(15),
 	color_identity varchar(15),
