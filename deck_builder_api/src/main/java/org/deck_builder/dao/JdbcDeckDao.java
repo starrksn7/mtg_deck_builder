@@ -28,6 +28,7 @@ public class JdbcDeckDao implements DeckDao{
         Integer.class);
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
+        addCardToDeck(deckId, cardDto);
         return true;
     }
 
