@@ -6,8 +6,6 @@ import '../css/createModal.css'
 
 
 export const DisplayResults = ({searchResults, deckId, setIsError}) => {
-    console.log("searchResults in displayResults = ")
-    console.log(searchResults)
     const location = useLocation();
     const isOnCreatePage = location.pathname === '/create' 
     const [deckName, setDeckName] = useState('')

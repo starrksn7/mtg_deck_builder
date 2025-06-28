@@ -37,10 +37,10 @@ CREATE TABLE cards (
 	image_link varchar(100) NOT NULL,
 	mana_cost varchar(20),
 	card_type varchar(100),
-	oracle_text varchar(200),
-	colors varchar(15),
+	oracle_text varchar(500),
+	colors varchar(60),
 	color_identity varchar(15),
-	keywords varchar(100),
+	keywords varchar(200),
 	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 
