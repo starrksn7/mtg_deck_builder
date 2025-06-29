@@ -22,7 +22,7 @@ public class DeckController {
     }
 
     @PostMapping(path="/create")
-    public boolean createDeck(@RequestBody CreateDeckDTO createDeckDTO){
+    public int createDeck(@RequestBody CreateDeckDTO createDeckDTO){
         return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
     }
 

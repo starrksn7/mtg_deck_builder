@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import axios from 'axios'
 import { replaceTextWithManaSymbols, createCardObject } from "../helperFunctions"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import '../css/createModal.css'
 
 
@@ -11,6 +11,7 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
     const [deckName, setDeckName] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [selectedCard, setSelectedCard] = useState(null)
+    const navigate = useNavigate();
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
@@ -32,10 +33,11 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         });
 
         if (res) {
-            console.log("deck created");
+            const deckId = res?.data;
             setShowModal(false);
             setDeckName('');
             setSelectedCard(null);
+            navigate(`/decks/${deckId}`);
         } else {
             console.log("new deck could not be created");
         }

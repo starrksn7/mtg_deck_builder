@@ -21,7 +21,7 @@ public class JdbcDeckDao implements DeckDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean createDeck(int userId, String deckName, CardSearchDTO cardDto){
+    public int createDeck(int userId, String deckName, CardSearchDTO cardDto){
         checkForCard(cardDto);
         String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner) VALUES (?, ?, ?) RETURNING deck_id;";
         int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner()},
@@ -29,7 +29,7 @@ public class JdbcDeckDao implements DeckDao{
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
         addCardToDeck(deckId, cardDto);
-        return true;
+        return deckId;
     }
 
     public boolean deleteDeck(int deckId){
