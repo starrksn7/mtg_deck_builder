@@ -104,7 +104,7 @@ export const isDeckLegal = (cardList) => {
         if(value > 1){
             let cardFound = permittedDuplicateCards.indexOf(key)
 
-            if(cardFound != 1){
+            if(cardFound !== 1){
                 cardsDuplicated.push(key);
             }
         }

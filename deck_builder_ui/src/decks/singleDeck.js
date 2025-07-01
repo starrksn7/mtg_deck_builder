@@ -1,15 +1,17 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { createCardObject, replaceTextWithManaSymbols, isDeckLegal } from '../helperFunctions'
+import { useParams } from 'react-router-dom';
 
 export function SingleDeck() {
+    const { deckId } = useParams();
     const [cardList, setCardList] = useState('')
     const [isLegal, setIsLegal] = useState('')
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([])
     const [showConfirm, setShowConfirm] = useState(false)
     
     useEffect(() => {
-        const res = axios.get('http://localhost:8080/decks?deckId=1')
+        const res = axios.get(`http://localhost:8080/decks?deckId=${deckId}`)
             .then((res) => {
                 const data = res.data;
                 const resultsArray = [...data];
@@ -25,7 +27,7 @@ export function SingleDeck() {
 
     const deleteFromDeck = async (card) => {
         const res = await axios.delete('http://localhost:8080/decks/remove', { data: {
-            deckId: 1, 
+            deckId: deckId, 
             cardDto: {
                 scryfallId: card.scryfallId
                 }

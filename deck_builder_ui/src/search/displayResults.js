@@ -5,18 +5,19 @@ import { useLocation, useNavigate } from "react-router-dom"
 import '../css/createModal.css'
 
 
-export const DisplayResults = ({searchResults, deckId, setIsError}) => {
+export const DisplayResults = ({searchResults, setIsError}) => {
     const location = useLocation();
     const isOnCreatePage = location.pathname === '/create' 
     const [deckName, setDeckName] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [selectedCard, setSelectedCard] = useState(null)
     const navigate = useNavigate();
+    const [deckId, setDeckId] = useState('');
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
         
-        const res = await axios.post('http://localhost:8080/decks/add', { deckId: 1, cardDto: cardObject})
+        const res = await axios.post('http://localhost:8080/decks/add', { deckId: deckId, cardDto: cardObject})
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
@@ -33,11 +34,11 @@ export const DisplayResults = ({searchResults, deckId, setIsError}) => {
         });
 
         if (res) {
-            const deckId = res?.data;
+            const responseId = res?.data;
             setShowModal(false);
             setDeckName('');
             setSelectedCard(null);
-            navigate(`/decks/${deckId}`);
+            navigate(`/decks/${responseId}`);
         } else {
             console.log("new deck could not be created");
         }
