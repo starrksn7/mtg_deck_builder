@@ -2,6 +2,8 @@ package org.deck_builder.model;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
+
 public class DeckDTO {
     @NotEmpty
     int deckId;
@@ -14,6 +16,8 @@ public class DeckDTO {
     @NotEmpty
     CardSearchDTO cardDto;
 
+    @NotEmpty
+    List<CardIdentifierDTO> identifiers;
 
     public int getDeckId() {
         return deckId;
@@ -50,5 +54,9 @@ public class DeckDTO {
     public CardSearchDTO getCardDto(){ return cardDto; }
 
     public void setCardDto(CardSearchDTO cardDto){ this.cardDto = cardDto;};
+
+    public List<CardIdentifierDTO> getIdentifiers() { return identifiers; }
+
+    public void setIdentifiers(List<CardIdentifierDTO> identifiers) { this.identifiers = identifiers;}
 
 }
