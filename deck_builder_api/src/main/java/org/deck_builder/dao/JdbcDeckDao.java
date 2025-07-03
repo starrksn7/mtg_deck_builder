@@ -1,9 +1,6 @@
 package org.deck_builder.dao;
 
-import org.deck_builder.model.Card;
-import org.deck_builder.model.CardSearchDTO;
-import org.deck_builder.model.Deck;
-import org.deck_builder.model.DeckDTO;
+import org.deck_builder.model.*;
 import org.deck_builder.model.exceptions.DeckNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -122,6 +119,13 @@ public class JdbcDeckDao implements DeckDao{
 
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
+    }
+
+    public List<Card> addCollectionToDeck(List<CardIdentifierDTO> cardSearchDTO){
+        List<Card> cardList = new ArrayList<>();
+
+
+        return cardList;
     }
 
     private Deck mapRowToDeck(SqlRowSet row){

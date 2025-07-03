@@ -2,6 +2,7 @@ package org.deck_builder.dao;
 
 
 import org.deck_builder.model.Card;
+import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
 import org.deck_builder.model.Deck;
 
@@ -26,4 +27,6 @@ public interface DeckDao {
     List<Deck> searchForDeckByName(String deckName);
 
     void checkForCard(CardSearchDTO cardDto);
+
+    List<Card> addCollectionToDeck(List<CardIdentifierDTO> cardIdentifierDTO);
 }

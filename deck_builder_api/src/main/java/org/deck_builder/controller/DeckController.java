@@ -51,4 +51,9 @@ public class DeckController {
         return deckDao.deleteDeck(deckId);
     }
 
+    @PostMapping(path="/addCollection")
+    public List<Card> addCollectionToDeck(@RequestBody List<CardIdentifierDTO> cardIdentifierDTO){
+        return deckDao.addCollectionToDeck(cardIdentifierDTO);
+    }
+
 }

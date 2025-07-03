@@ -15,7 +15,6 @@ public class DeckDTO {
     String username;
     @NotEmpty
     CardSearchDTO cardDto;
-
     @NotEmpty
     List<CardIdentifierDTO> identifiers;
 
