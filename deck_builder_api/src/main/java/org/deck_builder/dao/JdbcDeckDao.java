@@ -7,6 +7,11 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 @Component
@@ -122,10 +127,27 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Card> addCollectionToDeck(List<CardIdentifierDTO> cardSearchDTO){
-        List<Card> cardList = new ArrayList<>();
+        try {
+            List<Card> cardList = new ArrayList<>();
+            String collectionUrl = "https://api.scryfall.com/cards/collection";
+            HttpClient client = HttpClient.newHttpClient();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.scryfall.com/cards/collection"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(cardSearchDTO))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("Status: " + response.statusCode());
+            System.out.println("Response:\n" + response.body());
 
 
-        return cardList;
+            return cardList;
+        } catch (InterruptedException | IOException error){
+            throw new RuntimeException(error);
+        }
     }
 
     private Deck mapRowToDeck(SqlRowSet row){
