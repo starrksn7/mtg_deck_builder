@@ -1,5 +1,7 @@
 package org.deck_builder.dao;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.deck_builder.model.*;
 import org.deck_builder.model.exceptions.DeckNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,12 +10,16 @@ import org.springframework.stereotype.Component;
 
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
+
 @Component
 public class JdbcDeckDao implements DeckDao{
     private JdbcCardDao jdbcCardDao;
@@ -126,27 +132,60 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public List<Card> addCollectionToDeck(List<CardIdentifierDTO> cardSearchDTO){
+    public List<String> addCollectionToDeck(List<CardIdentifierDTO> cardSearchDTO){
         try {
-            List<Card> cardList = new ArrayList<>();
-            String collectionUrl = "https://api.scryfall.com/cards/collection";
-            HttpClient client = HttpClient.newHttpClient();
+            List<String> dataSets = new ArrayList<>();
+            String collectionUrl = "https://api.scryfall.com/cards/collection"
+            URL scryfallUrl = new URL(collectionUrl);
+            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.scryfall.com/cards/collection"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(cardSearchDTO))
-                    .build();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            //need to turn my cardSearchDTO into this jsonBody
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonBody.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
 
-            System.out.println("Status: " + response.statusCode());
-            System.out.println("Response:\n" + response.body());
+            int responseCode = conn.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            }
 
+            InputStream inputStream = conn.getInputStream();
+            Scanner scanner = new Scanner(inputStream);
+            while (true) {
+                StringBuilder body = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    body.append(scanner.nextLine());
+                }
 
-            return cardList;
-        } catch (InterruptedException | IOException error){
-            throw new RuntimeException(error);
+                dataSets.add(body.toString());
+
+                JsonObject jsonObject = JsonParser.parseString(body.toString()).getAsJsonObject();
+
+                if (!jsonObject.has("has_more") || !jsonObject.get("has_more").getAsBoolean()) {
+                    break;
+                }
+
+                String nextPage = jsonObject.get("next_page").getAsString();
+                scryfallUrl = new URL(nextPage);
+                conn = (HttpURLConnection) scryfallUrl.openConnection();
+                conn.setRequestMethod("GET"); // For pagination, if the API requires GET
+                conn.connect();
+                scanner = new Scanner(conn.getInputStream());
+            }
+
+            scanner.close();
+            return dataSets;
+
+        } catch (IOException | RuntimeException e) {
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
+            return errorMessage;
         }
     }
 
