@@ -1,5 +1,6 @@
 package org.deck_builder.dao;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.deck_builder.model.*;
@@ -132,7 +133,7 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public List<String> addCollectionToDeck(List<CardIdentifierDTO> cardSearchDTO){
+    public List<String> addCollectionToDeck(List<CardIdentifierDTO> cardIdentifierDTO){
         try {
             List<String> dataSets = new ArrayList<>();
             String collectionUrl = "https://api.scryfall.com/cards/collection"
@@ -143,6 +144,12 @@ public class JdbcDeckDao implements DeckDao{
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+
+            Gson gson = new Gson();
+            Map<String, List<CardIdentifierDTO>> requestMap = new HashMap<>();
+            requestMap.put("identifiers", cardIdentifierDTO);
+
+            String jsonBody = gson.toJson(requestMap);
 
             //need to turn my cardSearchDTO into this jsonBody
             try (OutputStream os = conn.getOutputStream()) {
