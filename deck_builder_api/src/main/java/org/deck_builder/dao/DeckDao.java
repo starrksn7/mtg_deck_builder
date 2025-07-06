@@ -28,5 +28,8 @@ public interface DeckDao {
 
     void checkForCard(CardSearchDTO cardDto);
 
-    List<String> addCollectionToDeck(List<CardIdentifierDTO> cardIdentifierDTO);
+    List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO);
+
+    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO);
+
 }

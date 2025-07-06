@@ -133,10 +133,10 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public List<String> addCollectionToDeck(List<CardIdentifierDTO> cardIdentifierDTO){
+    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO){
         try {
             List<String> dataSets = new ArrayList<>();
-            String collectionUrl = "https://api.scryfall.com/cards/collection"
+            String collectionUrl = "https://api.scryfall.com/cards/collection";
             URL scryfallUrl = new URL(collectionUrl);
             HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
 
@@ -194,6 +194,13 @@ public class JdbcDeckDao implements DeckDao{
             errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
             return errorMessage;
         }
+    }
+
+    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO){
+        List<String> scryfallCollectionResults = getCardsFromCollection(cardIdentifierDTO);
+
+        //This isn't what's going to get return in the end, I just need this as a place holder
+        return scryfallCollectionResults;
     }
 
     private Deck mapRowToDeck(SqlRowSet row){
