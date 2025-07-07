@@ -2,6 +2,7 @@ package org.deck_builder.controller;
 
 import org.deck_builder.model.Card;
 import org.deck_builder.dao.CardDao;
+import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +52,10 @@ public class CardController {
     @PostMapping(path="/searchForCommanderByColor")
     public List<String> findCommanderByColors(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
         return cardDao.findCommanderByColors(jsonBody.getColorIdentity());
+    }
+
+    @PostMapping(path="/addCollection")
+    public List<String> addCollectionToDeck(@RequestBody int deckId, List<CardIdentifierDTO> cardIdentifierDTO){
+        return cardDao.addCollectionToDeck(deckId, cardIdentifierDTO);
     }
 }

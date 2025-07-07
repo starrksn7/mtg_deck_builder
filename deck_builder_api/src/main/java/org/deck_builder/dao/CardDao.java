@@ -2,6 +2,7 @@ package org.deck_builder.dao;
 
 import com.google.gson.JsonObject;
 import org.deck_builder.model.Card;
+import org.deck_builder.model.CardIdentifierDTO;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.io.IOException;
@@ -29,4 +30,8 @@ public interface CardDao {
     List<String> findCommanderByName(String name) throws UnsupportedEncodingException;
 
     List<String>  findCommanderByColors(String colors) throws UnsupportedEncodingException;
+
+    List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO);
+
+    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO);
 }

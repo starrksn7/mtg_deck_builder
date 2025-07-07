@@ -1,16 +1,20 @@
 package org.deck_builder.dao;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
+import org.deck_builder.model.CardIdentifierDTO;
 import org.json.simple.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -157,6 +161,76 @@ public class JdbcCardDao implements CardDao{
     public SqlRowSet getFromDb(String scryfallId){
         String getSql = "SELECT scryfall_id from cards;";
         return jdbcTemplate.queryForRowSet(getSql);
+    }
+
+    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO){
+        try {
+            List<String> dataSets = new ArrayList<>();
+            String collectionUrl = "https://api.scryfall.com/cards/collection";
+            URL scryfallUrl = new URL(collectionUrl);
+            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            Gson gson = new Gson();
+            Map<String, List<CardIdentifierDTO>> requestMap = new HashMap<>();
+            requestMap.put("identifiers", cardIdentifierDTO);
+
+            String jsonBody = gson.toJson(requestMap);
+
+            //need to turn my cardSearchDTO into this jsonBody
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonBody.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            }
+
+            InputStream inputStream = conn.getInputStream();
+            Scanner scanner = new Scanner(inputStream);
+            while (true) {
+                StringBuilder body = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    body.append(scanner.nextLine());
+                }
+
+                dataSets.add(body.toString());
+
+                JsonObject jsonObject = JsonParser.parseString(body.toString()).getAsJsonObject();
+
+                if (!jsonObject.has("has_more") || !jsonObject.get("has_more").getAsBoolean()) {
+                    break;
+                }
+
+                String nextPage = jsonObject.get("next_page").getAsString();
+                scryfallUrl = new URL(nextPage);
+                conn = (HttpURLConnection) scryfallUrl.openConnection();
+                conn.setRequestMethod("GET"); // For pagination, if the API requires GET
+                conn.connect();
+                scanner = new Scanner(conn.getInputStream());
+            }
+
+            scanner.close();
+            return dataSets;
+
+        } catch (IOException | RuntimeException e) {
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
+            return errorMessage;
+        }
+    }
+
+    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO){
+        List<String> scryfallCollectionResults = getCardsFromCollection(cardIdentifierDTO);
+
+        //This isn't what's going to get return in the end, I just need this as a place holder
+        return scryfallCollectionResults;
     }
 
     public Card mapResultToCard(JsonObject result){
