@@ -1,6 +1,7 @@
 package org.deck_builder.dao;
 
 import com.google.gson.JsonObject;
+import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -33,5 +34,5 @@ public interface CardDao {
 
     List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO);
 
-    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO);
+    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException;
 }

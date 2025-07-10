@@ -226,11 +226,18 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO){
+    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
         List<String> scryfallCollectionResults = getCardsFromCollection(cardIdentifierDTO);
 
         //This isn't what's going to get return in the end, I just need this as a place holder
-        return scryfallCollectionResults;
+        try {
+            if(scryfallCollectionResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
+            return parseSearchResults(scryfallCollectionResults);
+        } catch (MalformedJsonException exception){
+            throw new MalformedJsonException(exception);
+        }
     }
 
     public Card mapResultToCard(JsonObject result){
