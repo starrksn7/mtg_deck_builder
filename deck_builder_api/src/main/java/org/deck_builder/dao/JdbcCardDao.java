@@ -280,7 +280,9 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-        return new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
+        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray);
+        addCardToDb(newCard);
+        return newCard;
     }
 
     public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {

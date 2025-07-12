@@ -1,5 +1,7 @@
 package org.deck_builder.controller;
 
+import com.google.gson.stream.MalformedJsonException;
+import org.deck_builder.model.AddToCollectionDTO;
 import org.deck_builder.model.Card;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.model.CardIdentifierDTO;
@@ -55,7 +57,7 @@ public class CardController {
     }
 
     @PostMapping(path="/addCollection")
-    public List<String> addCollectionToDeck(@RequestBody int deckId, List<CardIdentifierDTO> cardIdentifierDTO){
-        return cardDao.addCollectionToDeck(deckId, cardIdentifierDTO);
+    public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
+        return cardDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getCardIdentifierDTO());
     }
 }
