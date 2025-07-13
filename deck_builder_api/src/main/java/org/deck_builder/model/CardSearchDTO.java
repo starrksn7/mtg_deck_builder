@@ -21,11 +21,11 @@ public class CardSearchDTO {
     @NotEmpty
     private String oracleText;
     @NotEmpty
-    private String colors;
+    private String colors[];
     @NotEmpty
-    private String colorIdentity;
+    private String colorIdentity[];
     @NotEmpty
-    private String keyword;
+    private String keyword[];
 
     @NotEmpty
     private boolean isPartner;
@@ -97,27 +97,27 @@ public class CardSearchDTO {
         this.oracleText = oracleText;
     }
 
-    public String getColors() {
+    public String[] getColors() {
         return colors;
     }
 
-    public void setColors(String colors) {
+    public void setColors(String[] colors) {
         this.colors = colors;
     }
 
-    public String getColorIdentity() {
+    public String[] getColorIdentity() {
         return colorIdentity;
     }
 
-    public void setColorIdentity(String colorIdentity) {
+    public void setColorIdentity(String[] colorIdentity) {
         this.colorIdentity = colorIdentity;
     }
 
-    public String getKeyword() {
+    public String[] getKeyword() {
         return keyword;
     }
 
-    public void setKeyword(String keyword) {
+    public void setKeyword(String[] keyword) {
         this.keyword = keyword;
     }
 

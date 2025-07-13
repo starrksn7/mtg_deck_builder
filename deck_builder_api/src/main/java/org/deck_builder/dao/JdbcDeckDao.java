@@ -115,6 +115,10 @@ public class JdbcDeckDao implements DeckDao{
         checkForCard(cardDto);
 
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
+        Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
+                cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
+                cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword());
+        jdbcCardDao.addCardToDb(card);
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
