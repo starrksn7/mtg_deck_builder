@@ -95,8 +95,8 @@ public class JdbcCardDao implements CardDao{
     }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
-    public List<String> findCardByIdentityAndType(String colorIdentity, String type) throws UnsupportedEncodingException{
-        String encodedIdentity = "id%3A" + colorIdentity;
+    public List<String> findCardByIdentityAndType(String[] colorIdentity, String type) throws UnsupportedEncodingException{
+        String encodedIdentity = "id%3A" + Arrays.toString(colorIdentity);
         String encodedType = "t%3A" + type;
         String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
         System.out.println(uri);
@@ -131,8 +131,8 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
-    public List<String> getCardByKeywordAndColors(String keyword, String colors) throws UnsupportedEncodingException {
-        String uri= scryfallUrl + "/cards/search?q=kw%3A" + keyword + "+c%3A" + colors + commanderLegal + uniqueOnly;
+    public List<String> getCardByKeywordAndColors(String[] keyword, String colors) throws UnsupportedEncodingException {
+        String uri= scryfallUrl + "/cards/search?q=kw%3A" + Arrays.toString(keyword) + "+c%3A" + colors + commanderLegal + uniqueOnly;
         System.out.println(uri);
         try {
             List<String> searchResults = getCardsFromUri(uri);

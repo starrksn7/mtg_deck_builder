@@ -1,10 +1,8 @@
 package org.deck_builder.model;
 
-import com.google.gson.annotations.SerializedName;
 import jakarta.validation.constraints.NotEmpty;
 
 public class CardSearchDTO {
-    @NotEmpty
     private int id;
     @NotEmpty
     private String scryfallId;
@@ -21,15 +19,12 @@ public class CardSearchDTO {
     @NotEmpty
     private String oracleText;
     @NotEmpty
-    private String colors[];
+    private String colors;
     @NotEmpty
-    private String colorIdentity[];
+    private String[] colorIdentity;
     @NotEmpty
-    private String keyword[];
-
-    @NotEmpty
+    private String[] keyword;
     private boolean isPartner;
-
     @NotEmpty
     private String searchTerm;
 
@@ -97,11 +92,11 @@ public class CardSearchDTO {
         this.oracleText = oracleText;
     }
 
-    public String[] getColors() {
+    public String getColors() {
         return colors;
     }
 
-    public void setColors(String[] colors) {
+    public void setColors(String colors) {
         this.colors = colors;
     }
 
