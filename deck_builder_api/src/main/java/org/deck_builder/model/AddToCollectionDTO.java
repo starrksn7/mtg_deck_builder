@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AddToCollectionDTO {
     int deckId;
-    CardIdentifierDTO cardIdentifierDTO;
+    List<CardIdentifierDTO> identifiers;
 
     public int getDeckId() {
         return deckId;
@@ -14,11 +14,11 @@ public class AddToCollectionDTO {
         this.deckId = deckId;
     }
 
-    public List<CardIdentifierDTO> getCardIdentifierDTO() {
-        return (List<CardIdentifierDTO>) cardIdentifierDTO;
+    public List<CardIdentifierDTO> getIdentifiers() {
+        return identifiers;
     }
 
-    public void setCardIdentifierDTO(CardIdentifierDTO cardIdentifierDTO) {
-        this.cardIdentifierDTO = cardIdentifierDTO;
+    public void setCardIdentifierDTO(List<CardIdentifierDTO> identifiers) {
+        this.identifiers = identifiers;
     }
 }

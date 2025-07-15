@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
-import org.json.simple.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -29,6 +28,7 @@ public class JdbcCardDao implements CardDao{
     public JdbcCardDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
+    public JdbcDeckDao jdbcDeckDao;
     private final String scryfallUrl = "https://api.scryfall.com";
     private final String uniqueOnly = "&unique=cards";
     private final String commanderLegal = "+format%3Acommander";
@@ -226,6 +226,9 @@ public class JdbcCardDao implements CardDao{
         }
     }
 
+    /* I need to add each card the parsed search results bring back. I could call the function
+    from the deckDAO to add each card individually, or I could add a method that would add them in bulk.
+     */
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
         List<String> scryfallCollectionResults = getCardsFromCollection(cardIdentifierDTO);
 

@@ -58,6 +58,6 @@ public class CardController {
 
     @PostMapping(path="/addCollection")
     public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
-        return cardDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getCardIdentifierDTO());
+        return cardDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
     }
 }

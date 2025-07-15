@@ -38,7 +38,7 @@ export function CreateDeck(){
         const color = getBaseColors(searchColor.toLowerCase());
 
         const response = await axios.post('http://localhost:8080/card/searchForCommanderByColor',
-            {colorIdentity: color}
+            {colors: color}
         )
 
         const resultsArray = response.data.map(entry => JSON.parse(entry));
