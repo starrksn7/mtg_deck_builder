@@ -183,18 +183,16 @@ public class JdbcDeckDao implements DeckDao{
 
     private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
         CardSearchDTO dto = new CardSearchDTO();
-        dto.setScryfallId(response.getId());
         dto.setName(response.getName());
-        dto.setScryfallURL(response.getScryfall_uri());
-        dto.setImageLink(response.getImage_uris() != null ? response.getImage_uris().getNormal() : "");
-        dto.setManaCost(response.getMana_cost());
-        dto.setType(response.getType_line());
-        dto.setOracleText(response.getOracle_text());
-        dto.setColors(String.join(",", response.getColors()));
-        dto.setColorIdentity(response.getColor_identity().toArray(new String[0]));
-        dto.setKeyword(response.getKeywords().toArray(new String[0]));
-        dto.setIsPartner(false); // update if you want logic for partner
-        dto.setSearchTerm(searchTerm);
+        dto.setScryfallURL(response.getScryfallURL());
+        dto.setImageLink(response.getImageLink());
+        dto.setManaCost(response.getManaCost());
+        dto.setType(response.getType());
+        dto.setOracleText(response.getOracleText());
+        dto.setColors(response.getColors());
+        dto.setColorIdentity(response.getColorIdentity());
+        dto.setKeyword(response.getKeyword());
+        dto.setIsPartner(false); // need to figure out how to handle partners
         return dto;
     }
 }
