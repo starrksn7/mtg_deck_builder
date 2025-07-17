@@ -180,4 +180,21 @@ public class JdbcDeckDao implements DeckDao{
                     cardDto.getKeyword());
         }
     }
+
+    private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
+        CardSearchDTO dto = new CardSearchDTO();
+        dto.setScryfallId(response.getId());
+        dto.setName(response.getName());
+        dto.setScryfallURL(response.getScryfall_uri());
+        dto.setImageLink(response.getImage_uris() != null ? response.getImage_uris().getNormal() : "");
+        dto.setManaCost(response.getMana_cost());
+        dto.setType(response.getType_line());
+        dto.setOracleText(response.getOracle_text());
+        dto.setColors(String.join(",", response.getColors()));
+        dto.setColorIdentity(response.getColor_identity().toArray(new String[0]));
+        dto.setKeyword(response.getKeywords().toArray(new String[0]));
+        dto.setIsPartner(false); // update if you want logic for partner
+        dto.setSearchTerm(searchTerm);
+        return dto;
+    }
 }
