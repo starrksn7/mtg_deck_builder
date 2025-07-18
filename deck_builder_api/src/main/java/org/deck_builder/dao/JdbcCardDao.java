@@ -1,5 +1,8 @@
 package org.deck_builder.dao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -7,6 +10,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
+import org.deck_builder.model.CardSearchDTO;
+import org.deck_builder.model.ScryfallCardResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -181,7 +186,6 @@ public class JdbcCardDao implements CardDao{
 
             String jsonBody = gson.toJson(requestMap);
 
-            //need to turn my cardSearchDTO into this jsonBody
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonBody.getBytes("utf-8");
                 os.write(input, 0, input.length);
@@ -237,9 +241,20 @@ public class JdbcCardDao implements CardDao{
             if(scryfallCollectionResults.get(0).equals("No cards found")){
                 return failedSearch();
             }
+
+            for(String scryfallResult : scryfallCollectionResults){
+                ObjectMapper mapper = new ObjectMapper();
+                ScryfallCardResponse scryfallCardResponse = mapper.readValue(scryfallResult, ScryfallCardResponse.class);
+                CardSearchDTO cardSearchDTO = mapScryfallToCardSearchDTO(scryfallCardResponse);
+                jdbcDeckDao.addCardToDeck(deckId, cardSearchDTO);
+            }
             return parseSearchResults(scryfallCollectionResults);
         } catch (MalformedJsonException exception){
             throw new MalformedJsonException(exception);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -336,5 +351,20 @@ public class JdbcCardDao implements CardDao{
         List<String> failedSearch = new ArrayList<>();
         failedSearch.add(object.toString());
         return failedSearch;
+    }
+
+    private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
+        CardSearchDTO dto = new CardSearchDTO();
+        dto.setName(response.getName());
+        dto.setScryfallURL(response.getScryfallURL());
+        dto.setImageLink(response.getImageLink());
+        dto.setManaCost(response.getManaCost());
+        dto.setType(response.getType());
+        dto.setOracleText(response.getOracleText());
+        dto.setColors(response.getColors());
+        dto.setColorIdentity(response.getColorIdentity());
+        dto.setKeyword(response.getKeyword());
+        dto.setIsPartner(false); // need to figure out how to handle partners
+        return dto;
     }
 }
