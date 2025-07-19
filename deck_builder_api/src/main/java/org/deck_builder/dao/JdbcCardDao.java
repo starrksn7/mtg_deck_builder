@@ -3,10 +3,7 @@ package org.deck_builder.dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
@@ -168,9 +165,9 @@ public class JdbcCardDao implements CardDao{
         return jdbcTemplate.queryForRowSet(getSql);
     }
 
-    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO){
+    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
         try {
-            List<String> dataSets = new ArrayList<>();
+            List<String> cardJsonStrings = new ArrayList<>();
             String collectionUrl = "https://api.scryfall.com/cards/collection";
             URL scryfallUrl = new URL(collectionUrl);
             HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
@@ -191,44 +188,47 @@ public class JdbcCardDao implements CardDao{
                 os.write(input, 0, input.length);
             }
 
-            int responseCode = conn.getResponseCode();
-            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode);
-            }
-
-            InputStream inputStream = conn.getInputStream();
-            Scanner scanner = new Scanner(inputStream);
-            while (true) {
-                StringBuilder body = new StringBuilder();
-                while (scanner.hasNextLine()) {
-                    body.append(scanner.nextLine());
-                }
-
-                dataSets.add(body.toString());
-
-                JsonObject jsonObject = JsonParser.parseString(body.toString()).getAsJsonObject();
-
-                if (!jsonObject.has("has_more") || !jsonObject.get("has_more").getAsBoolean()) {
-                    break;
-                }
-
-                String nextPage = jsonObject.get("next_page").getAsString();
-                scryfallUrl = new URL(nextPage);
-                conn = (HttpURLConnection) scryfallUrl.openConnection();
-                conn.setRequestMethod("GET"); // For pagination, if the API requires GET
-                conn.connect();
-                scanner = new Scanner(conn.getInputStream());
-            }
-
+            Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
+            String responseBody = scanner.hasNext() ? scanner.next() : "";
             scanner.close();
-            return dataSets;
+
+            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+            JsonArray dataArray = jsonObject.getAsJsonArray("data");
+
+            for (JsonElement element : dataArray) {
+                cardJsonStrings.add(element.toString());
+            }
+            // I don't think I need this because has_more kicks in at 175 results, but the collection
+            //caps at 75, so this shouldn't be necessary
+//            while (jsonObject.has("has_more") && jsonObject.get("has_more").getAsBoolean()) {
+//                String nextPage = jsonObject.get("next_page").getAsString();
+//                scryfallUrl = new URL(nextPage);
+//                conn = (HttpURLConnection) scryfallUrl.openConnection();
+//                conn.setRequestMethod("GET");
+//                conn.connect();
+//
+//                scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
+//                responseBody = scanner.hasNext() ? scanner.next() : "";
+//                scanner.close();
+//
+//                jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+//                dataArray = jsonObject.getAsJsonArray("data");
+//
+//                for (JsonElement element : dataArray) {
+//                    cardJsonStrings.add(element.toString());
+//                }
+//            }
+
+            return cardJsonStrings;
 
         } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
             List<String> errorMessage = new ArrayList<>();
             errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
             return errorMessage;
         }
     }
+
 
     /* I need to add each card the parsed search results bring back. I could call the function
     from the deckDAO to add each card individually, or I could add a method that would add them in bulk.
