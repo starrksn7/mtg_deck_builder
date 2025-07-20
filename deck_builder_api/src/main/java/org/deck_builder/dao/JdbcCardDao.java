@@ -356,14 +356,14 @@ public class JdbcCardDao implements CardDao{
     private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
         CardSearchDTO dto = new CardSearchDTO();
         dto.setName(response.getName());
-        dto.setScryfallURL(response.getScryfallURL());
-        dto.setImageLink(response.getImageLink());
-        dto.setManaCost(response.getManaCost());
+        dto.setScryfallURL(response.getScryfall_uri());
+        dto.setImageLink(response.getImage_link());
+        dto.setManaCost(response.getMana_cost());
         dto.setType(response.getType());
-        dto.setOracleText(response.getOracleText());
+        dto.setOracleText(response.getOracle_text());
         dto.setColors(response.getColors());
-        dto.setColorIdentity(response.getColorIdentity());
-        dto.setKeyword(response.getKeyword());
+        dto.setColorIdentity(response.getColor_identity());
+        dto.setKeyword(response.getKeywords());
         dto.setIsPartner(false); // need to figure out how to handle partners
         return dto;
     }

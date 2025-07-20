@@ -3,36 +3,37 @@ package org.deck_builder.model;
 import jakarta.validation.constraints.NotEmpty;
 
 public class ScryfallCardResponse {
+    //id is the equivalent of scryfallId in the cardSearchDTO
     @NotEmpty
-    private String scryfallId;
+    private String id;
     @NotEmpty
     private String name;
     @NotEmpty
-    private String scryfallURL;
+    private String scryfall_uri;
     @NotEmpty
-    private String imageLink;
+    private String image_link;
     @NotEmpty
-    private String manaCost;
+    private String mana_cost;
     @NotEmpty
     private String type;
     @NotEmpty
-    private String oracleText;
+    private String oracle_text;
     @NotEmpty
     private String colors;
     @NotEmpty
-    private String[] colorIdentity;
+    private String[] color_identity;
     @NotEmpty
-    private String[] keyword;
-    private boolean isPartner;
+    private String[] keywords;
+    private boolean isPartner = false;
     @NotEmpty
     private String searchTerm;
 
-    public String getScryfallId() {
-        return scryfallId;
+    public String getId() {
+        return id;
     }
 
-    public void setScryfallId(String scryfallId) {
-        this.scryfallId = scryfallId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,28 +44,28 @@ public class ScryfallCardResponse {
         this.name = name;
     }
 
-    public String getScryfallURL() {
-        return scryfallURL;
+    public String getScryfall_uri() {
+        return scryfall_uri;
     }
 
-    public void setScryfallURL(String scryfallURL) {
-        this.scryfallURL = scryfallURL;
+    public void setScryfall_uri(String scryfall_uri) {
+        this.scryfall_uri = scryfall_uri;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public String getImage_link() {
+        return image_link;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setImage_link(String image_link) {
+        this.image_link = image_link;
     }
 
-    public String getManaCost() {
-        return manaCost;
+    public String getMana_cost() {
+        return mana_cost;
     }
 
-    public void setManaCost(String manaCost) {
-        this.manaCost = manaCost;
+    public void setMana_cost(String mana_cost) {
+        this.mana_cost = mana_cost;
     }
 
     public String getType() {
@@ -75,12 +76,12 @@ public class ScryfallCardResponse {
         this.type = type;
     }
 
-    public String getOracleText() {
-        return oracleText;
+    public String getOracle_text() {
+        return oracle_text;
     }
 
-    public void setOracleText(String oracleText) {
-        this.oracleText = oracleText;
+    public void setOracle_text(String oracle_text) {
+        this.oracle_text = oracle_text;
     }
 
     public String getColors() {
@@ -91,28 +92,35 @@ public class ScryfallCardResponse {
         this.colors = colors;
     }
 
-    public String[] getColorIdentity() {
-        return colorIdentity;
+    public String[] getColor_identity() {
+        return color_identity;
     }
 
-    public void setColorIdentity(String[] colorIdentity) {
-        this.colorIdentity = colorIdentity;
+    public void setColor_identity(String[] color_identity) {
+        this.color_identity = color_identity;
     }
 
-    public String[] getKeyword() {
-        return keyword;
+    public String[] getKeywords() {
+        return keywords;
     }
 
-    public void setKeyword(String[] keyword) {
-        this.keyword = keyword;
+    public void setKeywords(String[] keywords) {
+        this.keywords = keywords;
     }
 
-    public boolean getIsPartner() {
+    public boolean isPartner() {
         return isPartner;
     }
 
-    public void setIsPartner(boolean isPartner) {
-        this.isPartner = isPartner;
+    public void setPartner(boolean partner) {
+        isPartner = partner;
     }
-    
+
+    public String getSearchTerm() {
+        return searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
 }
