@@ -357,9 +357,11 @@ public class JdbcCardDao implements CardDao{
         CardSearchDTO dto = new CardSearchDTO();
         dto.setName(response.getName());
         dto.setScryfallURL(response.getScryfall_uri());
+        //need to make sure I'm getting the right value for image_link, it should be part of an array
+        //should check other mapping functions to make sure I'm getting the right size image
         dto.setImageLink(response.getImage_link());
         dto.setManaCost(response.getMana_cost());
-        dto.setType(response.getType());
+        dto.setType(response.getType_line());
         dto.setOracleText(response.getOracle_text());
         dto.setColors(response.getColors());
         dto.setColorIdentity(response.getColor_identity());

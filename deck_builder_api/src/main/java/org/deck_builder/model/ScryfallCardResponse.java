@@ -15,7 +15,7 @@ public class ScryfallCardResponse {
     @NotEmpty
     private String mana_cost;
     @NotEmpty
-    private String type;
+    private String type_line;
     @NotEmpty
     private String oracle_text;
     @NotEmpty
@@ -68,12 +68,12 @@ public class ScryfallCardResponse {
         this.mana_cost = mana_cost;
     }
 
-    public String getType() {
-        return type;
+    public String getType_line() {
+        return type_line;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType_line(String type_line) {
+        this.type_line = type_line;
     }
 
     public String getOracle_text() {
