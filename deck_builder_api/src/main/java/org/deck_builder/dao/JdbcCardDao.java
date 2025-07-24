@@ -363,7 +363,7 @@ public class JdbcCardDao implements CardDao{
         dto.setManaCost(response.getMana_cost());
         dto.setType(response.getType_line());
         dto.setOracleText(response.getOracle_text());
-        dto.setColors(response.getColors());
+        dto.setColors(String.join("", response.getColors()));
         dto.setColorIdentity(response.getColor_identity());
         dto.setKeyword(response.getKeywords());
         dto.setIsPartner(false); // need to figure out how to handle partners

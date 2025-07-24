@@ -1,7 +1,8 @@
 package org.deck_builder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ScryfallCardResponse {
     //id is the equivalent of scryfallId in the cardSearchDTO
     @NotEmpty
@@ -19,7 +20,7 @@ public class ScryfallCardResponse {
     @NotEmpty
     private String oracle_text;
     @NotEmpty
-    private String colors;
+    private String[] colors;
     @NotEmpty
     private String[] color_identity;
     @NotEmpty
@@ -84,11 +85,11 @@ public class ScryfallCardResponse {
         this.oracle_text = oracle_text;
     }
 
-    public String getColors() {
+    public String[] getColors() {
         return colors;
     }
 
-    public void setColors(String colors) {
+    public void setColors(String[] colors) {
         this.colors = colors;
     }
 
