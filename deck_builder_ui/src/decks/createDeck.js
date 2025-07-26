@@ -77,6 +77,14 @@ export function CreateDeck(){
                     />
                 </div>
             )}
+            <form>
+                <textarea>
+                    Add cards to deck
+                </textarea>
+                <button>
+                    Submit
+                </button>
+            </form>
         </div>
     )
 }

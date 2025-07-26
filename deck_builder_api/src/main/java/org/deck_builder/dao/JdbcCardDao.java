@@ -363,10 +363,56 @@ public class JdbcCardDao implements CardDao{
         dto.setManaCost(response.getMana_cost());
         dto.setType(response.getType_line());
         dto.setOracleText(response.getOracle_text());
+        System.out.println("colors = " + Arrays.toString(response.getColors()));
         dto.setColors(String.join("", response.getColors()));
         dto.setColorIdentity(response.getColor_identity());
         dto.setKeyword(response.getKeywords());
         dto.setIsPartner(false); // need to figure out how to handle partners
         return dto;
+    }
+
+    public CardSearchDTO mapResultToCardSearchDTO(JsonObject result){
+        CardSearchDTO cardSearchDTO = new CardSearchDTO();
+        cardSearchDTO.setScryfallId(result.get("id") != null ? result.get("id").getAsString() : null);
+        String name = result.get("name") != null ? result.get("name").getAsString() : null;
+        //regex to replace double quotes with single quotes
+        cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
+        cardSearchDTO.setScryfallURL(result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null);
+        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+        cardSearchDTO.setImageLink(uris != null ? uris.get("small").getAsString() : "");
+        cardSearchDTO.setManaCost(result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+        cardSearchDTO.setType(result.get("type_line").getAsString());
+        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+        //regex to remove the line breaks
+        oracleText = oracleText.replaceAll("\\n", " ");
+        //regex to remove the escaping slashes
+        oracleText = oracleText.replaceAll("\\\\", "");
+        //regex to change double quotes to single quotes
+        cardSearchDTO.setOracleText(oracleText.replaceAll("\"(.*?)\"", "'$1'"));
+        JsonArray colors = (JsonArray) result.get("colors");
+        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
+        if(colors != null) {
+            for (int i = 0; i < colors.size(); i++) {
+                colorsArray[i] = colors.get(i).getAsString();
+            }
+        }
+        cardSearchDTO.setColors(String.join("", colorsArray));
+        JsonArray colorIdentity = (JsonArray) result.get("color_identity");
+        String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
+        if(colorIdentity != null){
+            for (int i = 0; i < colorIdentity.size(); i++){
+                identityArray[i] = colorIdentity.get(i).getAsString();
+            }
+        }
+        cardSearchDTO.setColorIdentity(identityArray);
+        JsonArray keywords = (JsonArray) result.get("keywords");
+        String[] keywordsArray = keywords != null ? new String[keywords.size()] : new String[0];
+        if(keywords != null){
+            for (int i = 0; i < keywords.size(); i++){
+                keywordsArray[i] = keywords.get(i).getAsString();
+            }
+        }
+        cardSearchDTO.setKeyword(keywordsArray);
+        return cardSearchDTO;
     }
 }
