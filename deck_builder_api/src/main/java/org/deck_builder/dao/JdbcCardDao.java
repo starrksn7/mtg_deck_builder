@@ -25,12 +25,11 @@ import java.util.*;
 @Component
 public class JdbcCardDao implements CardDao{
     private final JdbcTemplate jdbcTemplate;
-
-
-    public JdbcCardDao(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-    }
     public JdbcDeckDao jdbcDeckDao;
+    public JdbcCardDao(JdbcTemplate jdbcTemplate, JdbcDeckDao jdbcDeckDao){
+        this.jdbcTemplate = jdbcTemplate;
+        this.jdbcDeckDao = jdbcDeckDao;
+    }
     private final String scryfallUrl = "https://api.scryfall.com";
     private final String uniqueOnly = "&unique=cards";
     private final String commanderLegal = "+format%3Acommander";
