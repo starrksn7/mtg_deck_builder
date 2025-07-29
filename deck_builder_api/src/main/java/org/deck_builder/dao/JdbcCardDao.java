@@ -242,18 +242,14 @@ public class JdbcCardDao implements CardDao{
             }
 
             for(String scryfallResult : scryfallCollectionResults){
-                ObjectMapper mapper = new ObjectMapper();
-                ScryfallCardResponse scryfallCardResponse = mapper.readValue(scryfallResult, ScryfallCardResponse.class);
-                CardSearchDTO cardSearchDTO = mapScryfallToCardSearchDTO(scryfallCardResponse);
+                JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
+                CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
+                System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
                 jdbcDeckDao.addCardToDeck(deckId, cardSearchDTO);
             }
             return parseSearchResults(scryfallCollectionResults);
         } catch (MalformedJsonException exception){
             throw new MalformedJsonException(exception);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -354,6 +350,7 @@ public class JdbcCardDao implements CardDao{
 
     private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
         CardSearchDTO dto = new CardSearchDTO();
+        dto.setScryfallId(response.getId());
         dto.setName(response.getName());
         dto.setScryfallURL(response.getScryfall_uri());
         //need to make sure I'm getting the right value for image_link, it should be part of an array
@@ -362,7 +359,6 @@ public class JdbcCardDao implements CardDao{
         dto.setManaCost(response.getMana_cost());
         dto.setType(response.getType_line());
         dto.setOracleText(response.getOracle_text());
-        System.out.println("colors = " + Arrays.toString(response.getColors()));
         dto.setColors(String.join("", response.getColors()));
         dto.setColorIdentity(response.getColor_identity());
         dto.setKeyword(response.getKeywords());
