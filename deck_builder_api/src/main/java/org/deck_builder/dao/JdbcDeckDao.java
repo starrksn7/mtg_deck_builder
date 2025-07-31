@@ -144,21 +144,17 @@ public class JdbcDeckDao implements DeckDao{
         List<String> scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdentifierDTO);
 
         //This isn't what's going to get return in the end, I just need this as a place holder
-        try {
-            if(scryfallCollectionResults.get(0).equals("No cards found")){
-                return jdbcCardDao.failedSearch();
-            }
-
-            for(String scryfallResult : scryfallCollectionResults){
-                JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
-                CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
-                System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
-                addCardToDeck(deckId, cardSearchDTO);
-            }
-            return jdbcCardDao.parseSearchResults(scryfallCollectionResults);
-        } catch (MalformedJsonException exception){
-            throw new MalformedJsonException(exception);
+        if(scryfallCollectionResults.get(0).equals("No cards found")){
+            return jdbcCardDao.failedSearch();
         }
+
+        for(String scryfallResult : scryfallCollectionResults){
+            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
+            CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
+            System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
+            addCardToDeck(deckId, cardSearchDTO);
+        }
+        return scryfallCollectionResults;
     }
 
     private Deck mapRowToDeck(SqlRowSet row){
