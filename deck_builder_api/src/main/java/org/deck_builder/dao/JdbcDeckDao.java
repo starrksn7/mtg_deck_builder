@@ -141,21 +141,21 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
-        List<String> scryfallCollectionResults = getCardsFromCollection(cardIdentifierDTO);
+        List<String> scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdentifierDTO);
 
         //This isn't what's going to get return in the end, I just need this as a place holder
         try {
             if(scryfallCollectionResults.get(0).equals("No cards found")){
-                return failedSearch();
+                return jdbcCardDao.failedSearch();
             }
 
             for(String scryfallResult : scryfallCollectionResults){
                 JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
                 CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
                 System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
-                jdbcDeckDao.addCardToDeck(deckId, cardSearchDTO);
+                addCardToDeck(deckId, cardSearchDTO);
             }
-            return parseSearchResults(scryfallCollectionResults);
+            return jdbcCardDao.parseSearchResults(scryfallCollectionResults);
         } catch (MalformedJsonException exception){
             throw new MalformedJsonException(exception);
         }

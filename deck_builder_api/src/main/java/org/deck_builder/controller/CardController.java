@@ -56,8 +56,4 @@ public class CardController {
         return cardDao.findCommanderByColors(jsonBody.getColors());
     }
 
-    @PostMapping(path="/addCollection")
-    public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
-        return cardDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
-    }
 }

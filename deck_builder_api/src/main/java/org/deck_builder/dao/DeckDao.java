@@ -1,6 +1,7 @@
 package org.deck_builder.dao;
 
 
+import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
@@ -27,5 +28,8 @@ public interface DeckDao {
     List<Deck> searchForDeckByName(String deckName);
 
     void checkForCard(CardSearchDTO cardDto);
+
+    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException;
+
 
 }

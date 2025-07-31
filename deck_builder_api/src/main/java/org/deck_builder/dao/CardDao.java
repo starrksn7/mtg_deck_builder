@@ -33,6 +33,4 @@ public interface CardDao {
     List<String>  findCommanderByColors(String colors) throws UnsupportedEncodingException;
 
     List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO);
-
-    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException;
 }

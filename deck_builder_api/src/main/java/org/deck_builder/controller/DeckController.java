@@ -1,5 +1,6 @@
 package org.deck_builder.controller;
 
+import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.*;
 import org.deck_builder.dao.DeckDao;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,11 @@ public class DeckController {
     @DeleteMapping(path="/deleteDeck")
     public boolean deleteDeck(@RequestBody int deckId){
         return deckDao.deleteDeck(deckId);
+    }
+
+    @PostMapping(path="/addCollection")
+    public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
+        return deckDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
     }
 
 }
