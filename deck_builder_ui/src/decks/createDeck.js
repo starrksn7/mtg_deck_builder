@@ -19,6 +19,7 @@ export function CreateDeck(){
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
     const [isLoading, setIsLoading] = useState(false)
+    const [collectionList, setCollectionList] = useState('');
 
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
@@ -51,6 +52,17 @@ export function CreateDeck(){
         findCommanderByColor(selectedColor);
     }
 
+    const handleAddCollection = async () => {
+        const cardSearchDTO = { 
+            deckId,
+            identifiers
+        }
+
+        const response = await axios.post('http://localhost:8080/decks/addCollection')
+
+        const results = response.data;
+    }
+
             
     return (
         <div>
@@ -78,10 +90,10 @@ export function CreateDeck(){
                 </div>
             )}
             <form>
-                <textarea>
+                <textarea value={collectionList}>
                     Add cards to deck
                 </textarea>
-                <button>
+                <button handleSubmit={handleAddCollection}>
                     Submit
                 </button>
             </form>
