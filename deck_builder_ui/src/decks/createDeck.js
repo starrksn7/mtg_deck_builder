@@ -53,12 +53,16 @@ export function CreateDeck(){
     }
 
     const handleAddCollection = async () => {
+        const identifiersArray = collectionList.split(/\r?\n/);
+
+        const identifiers = identifiersArray.map((item) => ({ name: item }))
+        
         const cardSearchDTO = { 
             deckId,
             identifiers
         }
 
-        const response = await axios.post('http://localhost:8080/decks/addCollection')
+        const response = await axios.post('http://localhost:8080/decks/addCollection', cardSearchDTO)
 
         const results = response.data;
     }

@@ -8,7 +8,6 @@ import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
-import org.deck_builder.model.ScryfallCardResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -324,24 +323,5 @@ public class JdbcCardDao implements CardDao{
         failedSearch.add(object.toString());
         return failedSearch;
     }
-
-    private CardSearchDTO mapScryfallToCardSearchDTO(ScryfallCardResponse response) {
-        CardSearchDTO dto = new CardSearchDTO();
-        dto.setScryfallId(response.getId());
-        dto.setName(response.getName());
-        dto.setScryfallURL(response.getScryfall_uri());
-        //need to make sure I'm getting the right value for image_link, it should be part of an array
-        //should check other mapping functions to make sure I'm getting the right size image
-        dto.setImageLink(response.getImage_link());
-        dto.setManaCost(response.getMana_cost());
-        dto.setType(response.getType_line());
-        dto.setOracleText(response.getOracle_text());
-        dto.setColors(String.join("", response.getColors()));
-        dto.setColorIdentity(response.getColor_identity());
-        dto.setKeyword(response.getKeywords());
-        dto.setIsPartner(false); // need to figure out how to handle partners
-        return dto;
-    }
-
 
 }
