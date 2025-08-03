@@ -21,6 +21,8 @@ export function CreateDeck(){
     const [isLoading, setIsLoading] = useState(false)
     const [collectionList, setCollectionList] = useState('');
 
+    console.log(collectionList)
+
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
         setIsLoading(true)
@@ -67,6 +69,9 @@ export function CreateDeck(){
         const results = response.data;
     }
 
+    const handleChange = () => {
+        setCollectionList()
+    }
             
     return (
         <div>
@@ -94,7 +99,7 @@ export function CreateDeck(){
                 </div>
             )}
             <form>
-                <textarea value={collectionList}>
+                <textarea value={collectionList} onChange={handleChange}>
                     Add cards to deck
                 </textarea>
                 <button handleSubmit={handleAddCollection}>

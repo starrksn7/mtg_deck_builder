@@ -1,6 +1,5 @@
 package org.deck_builder.dao;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,21 +10,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.*;
 
 @Component
 public class JdbcDeckDao implements DeckDao{
-    private JdbcCardDao jdbcCardDao;
+    private final JdbcCardDao jdbcCardDao;
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcDeckDao(JdbcTemplate jdbcTemplate, JdbcCardDao jdbcCardDao){
