@@ -7,7 +7,7 @@ export function AllDecks() {
     const [showConfirm, setShowConfirm] = useState(false)
 
     useEffect(() => {
-        const res = axios.get('http://localhost:8080/user?userId=1')
+        axios.get('http://localhost:8080/user?userId=1')
             .then((res) => {
                 let data = res.data
                 let resultsArray = [];

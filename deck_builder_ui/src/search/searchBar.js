@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
 import { Pagination } from './pagination';
@@ -23,7 +23,6 @@ export function SearchBar(){
     const [isLoading, setIsLoading] = useState(false);
     const [colorIdentity, setColorIdentity] = useState('');
     const [cardType, setCardType] = useState('');
-    const location = useLocation();
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)

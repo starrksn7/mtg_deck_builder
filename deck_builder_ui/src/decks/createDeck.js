@@ -1,6 +1,5 @@
 import { useState } from "react"
 import axios from "axios"
-import { RenderColorOptions } from "../search/renderColorOptions"
 import { getBaseColors } from "../helperFunctions"
 import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
@@ -69,8 +68,8 @@ export function CreateDeck(){
         const results = response.data;
     }
 
-    const handleChange = () => {
-        setCollectionList()
+    const handleChange = (e) => {
+        setCollectionList(e.target.value)
     }
             
     return (
@@ -99,10 +98,12 @@ export function CreateDeck(){
                 </div>
             )}
             <form>
-                <textarea value={collectionList} onChange={handleChange}>
-                    Add cards to deck
-                </textarea>
-                <button handleSubmit={handleAddCollection}>
+                <textarea 
+                    value={collectionList}
+                    onChange={handleChange}
+                    placeholder="Add cards to deck"
+                />
+                <button type="button" onClick={handleAddCollection}>
                     Submit
                 </button>
             </form>

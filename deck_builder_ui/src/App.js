@@ -1,5 +1,4 @@
 import './App.css';
-import { SearchBar } from './search/searchBar';
 import 'mana-font/css/mana.css'
 import { Route, Routes } from 'react-router-dom';
 import { AllDecks } from './decks/allDecks';
