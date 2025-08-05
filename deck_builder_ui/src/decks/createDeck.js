@@ -11,7 +11,7 @@ export function CreateDeck(){
     const [searchInput, setSearchInput] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [isError, setIsError] = useState(false);
-    const deckId = 100;
+    const deckId = 10;
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(25);
     const indexOfLastCard = currentPage * cardsPerPage;
