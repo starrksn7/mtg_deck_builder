@@ -19,5 +19,7 @@ public class DeckBuilderApplication {
  * 3. Style the pages
  * 4. Figure out a way to handle multiple commander possibilities, like partner and background
  * 5. Figure out if I need to send an isPartner boolean from the ui or establish that value in the api
- * 6. Create a deck page
+ * 6. Update the single deck page so that it looks neater
+ *      a. maybe just include the name of the card and cost
+ *      b. add an effect that shows the image and more info if you hover over it.
  */

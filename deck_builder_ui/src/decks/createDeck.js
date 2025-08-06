@@ -71,6 +71,10 @@ export function CreateDeck(){
     const handleChange = (e) => {
         setCollectionList(e.target.value)
     }
+
+    //it might be better to move the text area to add a collection to the single deck component instead of the create
+    //since create seems like where they would start the deck, and singleDeck is where they would view it and make
+    //changes to it.
             
     return (
         <div>
