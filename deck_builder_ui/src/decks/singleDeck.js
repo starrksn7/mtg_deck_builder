@@ -5,10 +5,11 @@ import { useParams } from 'react-router-dom';
 
 export function SingleDeck() {
     const { deckId } = useParams();
-    const [cardList, setCardList] = useState('')
-    const [isLegal, setIsLegal] = useState('')
-    const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([])
-    const [showConfirm, setShowConfirm] = useState(false)
+    const [cardList, setCardList] = useState('');
+    const [isLegal, setIsLegal] = useState('');
+    const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [groupedCards, setGroupedCards] = useState({});
     
     useEffect(() => {
         axios.get(`http://localhost:8080/decks?deckId=${deckId}`)
@@ -20,8 +21,26 @@ export function SingleDeck() {
                 const duplicates = isDeckLegal(resultsArray);
                 setDuplicatedCardsArray(duplicates);
                 setIsLegal(duplicates.length === 0);
+
+                const grouped = groupCardsByType(resultsArray);
+                setGroupedCards(grouped);
             })
     }, [deckId])
+
+    const groupCardsByType = (cards) => {
+        const groups = {};
+
+        cards.forEach(card => {
+            const type = card.type.split(' ')[0];
+            if (!groups[type]) {
+                groups[type] = [];
+            }
+            groups[type].push(card);
+        });
+
+        return groups;
+    };
+
 
     const deleteFromDeck = async (card) => {
         const res = await axios.delete('http://localhost:8080/decks/remove', { data: {
@@ -55,23 +74,28 @@ export function SingleDeck() {
                 )}
     
                 <div>
-                    {cardList.map((card, index) => (
-                        <div key={index}>
-                            <div>
-                                <img src={card.imageLink} alt={card.name} />
-                                <div>{card.name}</div>
-                                <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
-                                <div>Type: {card.type}</div>
-                                <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
-                                <button type="submit" onClick={handleDelete}>Remove From Deck</button>
+                    {Object.keys(groupedCards).map((type) => (
+                        <div key={type}>
+                            <h2>{type} Cards</h2>
+                            <div className="card-section">
+                                {groupedCards[type].map((card, index) => (
+                                    <div key={index} className="card">
+                                        <img src={card.imageLink} alt={card.name} />
+                                        <div>{card.name}</div>
+                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
+                                        <div>Type: {card.type}</div>
+                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
+                                        <button type="submit" onClick={handleDelete}>Remove From Deck</button>
 
-                                {showConfirm && (
-                                    <div className="confirmation-dialog">
-                                    <p>Are you sure you want to delete {card.name} from this deck?</p>
-                                    <button onClick={() => deleteFromDeck(card)}>Delete</button>
-                                    <button onClick={cancelDelete}>Cancel</button>
+                                        {showConfirm && (
+                                            <div className="confirmation-dialog">
+                                                <p>Are you sure you want to delete {card.name} from this deck?</p>
+                                                <button onClick={() => deleteFromDeck(card)}>Delete</button>
+                                                <button onClick={cancelDelete}>Cancel</button>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
+                                ))}
                             </div>
                         </div>
                     ))}
