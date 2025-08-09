@@ -5,6 +5,8 @@ import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
 import { Pagination } from "../search/pagination"
 import { Loader } from "../search/loader"
+import '../App.css';
+
 
 export function CreateDeck(){
     const [searchColor, setSearchColor] = useState('')

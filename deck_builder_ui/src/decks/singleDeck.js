@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { replaceTextWithManaSymbols, isDeckLegal } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
+import '../App.css';
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -10,7 +11,8 @@ export function SingleDeck() {
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [groupedCards, setGroupedCards] = useState({});
-    
+    const [hoveredCard, setHoveredCard] = useState(null);
+
     useEffect(() => {
         axios.get(`http://localhost:8080/decks?deckId=${deckId}`)
             .then((res) => {
@@ -31,16 +33,34 @@ export function SingleDeck() {
         const groups = {};
 
         cards.forEach(card => {
-            const type = card.type.split(' ')[0];
-            if (!groups[type]) {
-                groups[type] = [];
+            let typeCategory = '';
+
+            if (card.type.includes('Creature')) {
+                typeCategory = 'Creatures';
+            } else if (card.type.includes('Instant')) {
+                typeCategory = 'Instants';
+            } else if (card.type.includes('Sorcery')) {
+                typeCategory = 'Sorceries';
+            } else if (card.type.includes('Artifact')) {
+                typeCategory = 'Artifacts';
+            } else if (card.type.includes('Enchantment')) {
+                typeCategory = 'Enchantments';
+            } else if (card.type.includes('Planeswalker')) {
+                typeCategory = 'Planeswalkers';
+            } else if (card.type.includes('Land')) {
+                typeCategory = 'Lands';
+            } else {
+                typeCategory = 'Other';
             }
-            groups[type].push(card);
+
+            if (!groups[typeCategory]) {
+                groups[typeCategory] = [];
+            }
+            groups[typeCategory].push(card);
         });
 
         return groups;
     };
-
 
     const deleteFromDeck = async (card) => {
         const res = await axios.delete('http://localhost:8080/decks/remove', { data: {
@@ -76,16 +96,24 @@ export function SingleDeck() {
                 <div>
                     {Object.keys(groupedCards).map((type) => (
                         <div key={type}>
-                            <h2>{type} Cards</h2>
+                            <h2>{type}</h2>
                             <div className="card-section">
                                 {groupedCards[type].map((card, index) => (
                                     <div key={index} className="card">
-                                        <img src={card.imageLink} alt={card.name} />
-                                        <div>{card.name}</div>
-                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost) }}></div>
-                                        <div>Type: {card.type}</div>
-                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracleText) }}></div>
-                                        <button type="submit" onClick={handleDelete}>Remove From Deck</button>
+                                        <div
+                                            onMouseEnter={() => setHoveredCard(card)}
+                                            onMouseLeave={() => setHoveredCard(null)}
+                                            style={{ position: 'relative', display: 'inline-block' }}
+                                        >
+                                            {card.name}
+                                            {hoveredCard === card && (
+                                                <div className="hover-image-preview">
+                                                    <img src={card.imageLink} alt={card.name} />
+                                                    <button type="submit" onClick={handleDelete}>Remove From Deck</button>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost)}}></div>
 
                                         {showConfirm && (
                                             <div className="confirmation-dialog">
