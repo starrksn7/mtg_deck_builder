@@ -12,6 +12,7 @@ export function SingleDeck() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [groupedCards, setGroupedCards] = useState({});
     const [hoveredCard, setHoveredCard] = useState(null);
+    const [confirmingCard, setConfirmingCard] = useState(null);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/decks?deckId=${deckId}`)
@@ -74,11 +75,11 @@ export function SingleDeck() {
     }
 
     const cancelDelete = () => {
-        setShowConfirm(false)
+        setConfirmingCard(null)
     }
 
-    const handleDelete = () => {
-        setShowConfirm(true)
+    const handleDelete = (card) => {
+        setConfirmingCard(card)
     }
 
     if (cardList) {
@@ -109,13 +110,14 @@ export function SingleDeck() {
                                             {hoveredCard === card && (
                                                 <div className="hover-image-preview">
                                                     <img src={card.imageLink} alt={card.name} />
-                                                    <button type="submit" onClick={handleDelete}>Remove From Deck</button>
+                                                    <button type="submit" onClick={() => handleDelete(card)}>Remove From Deck</button>
+
                                                 </div>
                                             )}
                                         </div>
                                         <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost)}}></div>
 
-                                        {showConfirm && (
+                                        {confirmingCard === card && (
                                             <div className="confirmation-dialog">
                                                 <p>Are you sure you want to delete {card.name} from this deck?</p>
                                                 <button onClick={() => deleteFromDeck(card)}>Delete</button>
