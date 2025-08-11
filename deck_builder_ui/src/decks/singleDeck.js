@@ -82,6 +82,22 @@ export function SingleDeck() {
         setConfirmingCard(card)
     }
 
+    function DeleteConfirmationModal({ card, onCancel, onConfirm }) {
+        return (
+            <div className="modal-overlay">
+                <div className="modal-content">
+                    <h2>Confirm Deletion</h2>
+                    <p>Are you sure you want to delete <strong>{card.name}</strong> from this deck?</p>
+                    <div className="modal-buttons">
+                        <button className="delete-button" onClick={() => onConfirm(card)}>Delete</button>
+                        <button className="cancel-button" onClick={onCancel}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
     if (cardList) {
         return (
             <div>
@@ -118,11 +134,11 @@ export function SingleDeck() {
                                         <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost)}}></div>
 
                                         {confirmingCard === card && (
-                                            <div className="confirmation-dialog">
-                                                <p>Are you sure you want to delete {card.name} from this deck?</p>
-                                                <button onClick={() => deleteFromDeck(card)}>Delete</button>
-                                                <button onClick={cancelDelete}>Cancel</button>
-                                            </div>
+                                            <DeleteConfirmationModal
+                                                card={confirmingCard}
+                                                onCancel={cancelDelete}
+                                                onConfirm={deleteFromDeck}
+                                            />
                                         )}
                                     </div>
                                 ))}
