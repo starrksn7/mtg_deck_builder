@@ -14,4 +14,6 @@ public interface UserDao {
 
     boolean create(String email, String userName, String password);
 
+    User login(String username, String passoword);
+
 }

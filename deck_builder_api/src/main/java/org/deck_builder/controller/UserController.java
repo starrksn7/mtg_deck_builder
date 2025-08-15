@@ -3,6 +3,7 @@ package org.deck_builder.controller;
 import org.deck_builder.dao.DeckDao;
 import org.deck_builder.dao.UserDao;
 import org.deck_builder.model.Deck;
+import org.deck_builder.model.RegisterUserDTO;
 import org.deck_builder.model.User;
 import org.deck_builder.model.UserDTO;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,10 @@ public class UserController {
     @GetMapping(path = "")
     public List<Deck> findDecksByUser(@RequestParam int userId){
         return deckDao.findDecksByUser(userId);
+    }
+
+    @PostMapping(path = "/login")
+    public User login(@RequestBody RegisterUserDTO registerUserDTO){
+        return userDao.login(registerUserDTO.getEmail(), registerUserDTO.getPassword());
     }
 }
