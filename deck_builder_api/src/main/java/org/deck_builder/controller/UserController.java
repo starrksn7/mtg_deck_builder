@@ -2,10 +2,7 @@ package org.deck_builder.controller;
 
 import org.deck_builder.dao.DeckDao;
 import org.deck_builder.dao.UserDao;
-import org.deck_builder.model.Deck;
-import org.deck_builder.model.RegisterUserDTO;
-import org.deck_builder.model.User;
-import org.deck_builder.model.UserDTO;
+import org.deck_builder.model.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,23 +21,23 @@ public class UserController {
     }
 
     @PutMapping(path="/update")
-    public User updateUserProfile(int userId, UserDTO updatedUser){
-        return userDao.updateUserProfile(userId, updatedUser);
+    public User updateUserProfile(@RequestBody UserDTO userDTO){
+        return userDao.updateUserProfile(userDTO.getUserId(), userDTO.getEmail(), userDTO.getUserName());
     }
 
     @GetMapping(path="/findByEmail")
-    public User findUserByEmail(String email){
-        return userDao.findUserByEmail(email);
+    public User findUserByEmail(@RequestBody UserDTO userDTO){
+        return userDao.findUserByEmail(userDTO.getEmail());
     }
 
     @GetMapping(path="/findById")
-    public User getUserById(int userId){
-        return userDao.getUserById(userId);
+    public User getUserById(@RequestBody UserDTO userDTO){
+        return userDao.getUserById(userDTO.getUserId());
     }
 
     @PostMapping(path="/create")
-    public boolean create(String email, String username, String password){
-        return userDao.create(email, username, password);
+    public boolean create(@RequestBody RegisterUserDTO registerUserDTO){
+        return userDao.create(registerUserDTO.getEmail(), registerUserDTO.getUsername(), registerUserDTO.getPassword());
     }
 
     @GetMapping(path = "")
@@ -49,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public User login(@RequestBody RegisterUserDTO registerUserDTO){
-        return userDao.login(registerUserDTO.getEmail(), registerUserDTO.getPassword());
+    public User login(@RequestBody LoginDTO loginDTO){
+        return userDao.login(loginDTO.getEmail(), loginDTO.getPassword());
     }
 }

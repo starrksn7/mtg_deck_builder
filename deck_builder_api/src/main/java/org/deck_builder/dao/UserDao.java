@@ -6,7 +6,7 @@ import org.deck_builder.model.UserDTO;
 
 public interface UserDao {
 
-    User updateUserProfile(int userId, UserDTO updatedUser);
+    User updateUserProfile(int userId, String email, String username);
 
     User findUserByEmail(String email);
 

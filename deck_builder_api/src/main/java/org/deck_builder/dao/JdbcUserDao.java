@@ -57,12 +57,12 @@ public class JdbcUserDao implements UserDao{
     }
 
     @Override
-    public User updateUserProfile(int userId, UserDTO updatedUser) {
+    public User updateUserProfile(int userId, String email, String username) {
         String sql = "UPDATE users\n" +
                 "SET email = ?,\n" +
                 "username = ?\n" +
                 "WHERE user_id = ?;";
-        jdbcTemplate.update(sql,updatedUser.getEmail(),updatedUser.getUserName(), userId);
+        jdbcTemplate.update(sql,email,username, userId);
 
         return getUserById(userId);
     }
