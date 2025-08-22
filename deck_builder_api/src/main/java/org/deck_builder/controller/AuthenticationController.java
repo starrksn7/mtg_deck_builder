@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import org.deck_builder.dao.UserDao;
 import org.deck_builder.model.LoginDTO;
+import org.deck_builder.model.RegisterUserDTO;
 import org.deck_builder.model.User;
+import org.deck_builder.model.exceptions.UserAlreadyExistsException;
 import org.deck_builder.security.jwt.JWTFilter;
 import org.deck_builder.security.jwt.TokenProvider;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -50,6 +49,12 @@ class AuthenticationController {
         return new ResponseEntity<>(new LoginResponse(jwt, user), httpHeaders, HttpStatus.OK);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/register")
+    public void register(@Valid @RequestBody RegisterUserDTO newUser) {
+        User user = userDao.findUserByEmail(newUser.getEmail());
+        userDao.create(newUser.getEmail(),newUser.getPassword(), "ROLE_USER");
+    }
 
     static class LoginResponse {
 
