@@ -10,7 +10,7 @@ export function Login() {
         e.preventDefault();
 
         try{ 
-            const response = axios.post('http://localhost:8080/user/login', {
+            const response = axios.post('http://localhost:8080/login', {
                 username,
                 password
             })

@@ -64,19 +64,18 @@ public class WebSecurityConfig {
 
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
-
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // create no session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/register", "/login").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .apply(securityConfigurerAdapter());
     }
 

@@ -53,7 +53,7 @@ class AuthenticationController {
     @PostMapping(value = "/register")
     public void register(@Valid @RequestBody RegisterUserDTO newUser) {
         User user = userDao.findUserByEmail(newUser.getEmail());
-        userDao.create(newUser.getEmail(),newUser.getPassword(), "ROLE_USER");
+        userDao.create(newUser.getEmail(),newUser.getUsername(),newUser.getPassword());
     }
 
     static class LoginResponse {
