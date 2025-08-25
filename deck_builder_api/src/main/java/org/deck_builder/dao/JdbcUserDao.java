@@ -40,18 +40,18 @@ public class JdbcUserDao implements UserDao{
         }
     }
 
-    public boolean create(String email, String userName, String password){
+    public boolean create(String email, String username, String password){
         String checkNameSql = "SELECT username FROM users WHERE username = ?;";
-        SqlRowSet checkNameResult = jdbcTemplate.queryForRowSet(checkNameSql);
+        SqlRowSet checkNameResult = jdbcTemplate.queryForRowSet(checkNameSql, username);
         String checkEmailSql = "SELECT email FROM users WHERE users = ?;";
-        SqlRowSet checkEmailResult = jdbcTemplate.queryForRowSet(checkEmailSql);
+        SqlRowSet checkEmailResult = jdbcTemplate.queryForRowSet(checkEmailSql, email);
         String insertSql = "INSERT INTO users (email, userName, password) VALUES (?, ?, ?);";
         String passwordHash = new BCryptPasswordEncoder().encode(password);
 
         if(checkNameResult.next() || checkEmailResult.next()){
             return false;
         } else {
-            jdbcTemplate.update(insertSql, email, userName, passwordHash);
+            jdbcTemplate.update(insertSql, email, username, passwordHash);
             return true;
         }
     }

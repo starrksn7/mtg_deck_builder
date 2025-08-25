@@ -49,10 +49,9 @@ class AuthenticationController {
         return new ResponseEntity<>(new LoginResponse(jwt, user), httpHeaders, HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody RegisterUserDTO newUser) {
-        User user = userDao.findUserByEmail(newUser.getEmail());
         userDao.create(newUser.getEmail(),newUser.getUsername(),newUser.getPassword());
     }
 

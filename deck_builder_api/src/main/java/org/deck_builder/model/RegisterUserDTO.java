@@ -1,19 +1,17 @@
 package org.deck_builder.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public class RegisterUserDTO {
 
-    @NotEmpty
+    @NotBlank
     private String email;
-    @NotEmpty
+    @NotBlank
     private String username;
-    @NotEmpty
+    @NotBlank
     private String password;
-    @NotEmpty
     private String confirmPassword;
-    @NotEmpty(message = "Please select a role for this user.")
-    private String role;
 
     public String getEmail() {
         return email;
@@ -43,11 +41,4 @@ public class RegisterUserDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
