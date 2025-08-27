@@ -49,7 +49,7 @@ public class JdbcUserDao implements UserDao{
         if(checkNameResult.next()){
             return false;
         } else {
-            jdbcTemplate.update(insertSql, username, email, passwordHash);
+            jdbcTemplate.update(insertSql, username, passwordHash, email);
             return true;
         }
     }
