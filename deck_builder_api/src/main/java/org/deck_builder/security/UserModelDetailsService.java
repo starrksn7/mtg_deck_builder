@@ -25,8 +25,10 @@ public class UserModelDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String login) {
+        System.out.println("login = " + login);
         log.debug("Authenticating user '{}'", login);
         String lowercaseLogin = login.toLowerCase();
+        //keep following this track, something might be causing an error below
         return createSpringSecurityUser(lowercaseLogin, userDao.findUserByEmail(lowercaseLogin));
     }
 

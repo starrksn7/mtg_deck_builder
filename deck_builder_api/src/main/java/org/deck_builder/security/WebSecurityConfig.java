@@ -87,4 +87,5 @@ public class WebSecurityConfig {
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
     }
+
 }

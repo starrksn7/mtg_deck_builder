@@ -39,7 +39,9 @@ class AuthenticationController {
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
         System.out.println(2);
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        System.out.println(2.1);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println(2.2);
         String jwt = tokenProvider.createToken(authentication, false);
         System.out.println(3);
         User user = userDao.findUserByEmail(loginDto.getEmail());
