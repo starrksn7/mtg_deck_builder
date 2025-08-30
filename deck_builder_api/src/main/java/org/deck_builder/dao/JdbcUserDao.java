@@ -19,17 +19,11 @@ public class JdbcUserDao implements UserDao{
     }
 
     public User findUserByEmail(String email){
-        System.out.println("Z");
-        System.out.println(email);
         String sql = "SELECT * FROM users WHERE email = ?";
-        System.out.println(sql);
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, email);
-        System.out.println("Y");
         if(result.next()){
-            System.out.println("X");
             return mapRowToUser(result);
         } else {
-            System.out.println("W");
             throw new UserNotFoundException();
         }
     }
@@ -78,16 +72,11 @@ public class JdbcUserDao implements UserDao{
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
-        System.out.println("V");
         user.setId(rs.getInt("user_id"));
-        System.out.println("U");
         user.setEmail(rs.getString("email"));
-        System.out.println("T");
         user.setPassword(rs.getString("password_hash"));
-//        user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
-        System.out.println("S");
         user.setActivated(rs.getBoolean("activated"));
-        System.out.println("R");
+        user.setUsername(rs.getString("username"));
         return user;
     }
 }

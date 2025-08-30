@@ -25,17 +25,8 @@ public class UserModelDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String login) {
-        System.out.println("login = " + login);
-        System.out.println("A");
         log.debug("Authenticating user '{}'", login);
-        String lowercaseLogin = login.toLowerCase();
-        System.out.println("B");
-        //keep following this track, something might be causing an error below
-        System.out.println(userDao.findUserByEmail(login));
-        System.out.println("B point 1");
-        System.out.println(userDao.findUserByEmail(lowercaseLogin));
-        System.out.println("C");
-        return createSpringSecurityUser(lowercaseLogin, userDao.findUserByEmail(lowercaseLogin));
+        return createSpringSecurityUser(login, userDao.findUserByEmail(login));
     }
 
     private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) {

@@ -10,7 +10,7 @@ public class User {
 
     private int id;
     private String email;
-    private String userName;
+    private String username;
     @JsonIgnore
     private String password;
     @JsonIgnore
@@ -18,10 +18,10 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
 
-    public User(int id, String email, String userName, String password, String authorities){
+    public User(int id, String email, String username, String password, String authorities){
         this.id = id;
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         if(authorities != null){
             this.setAuthorities(authorities);
@@ -49,11 +49,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -108,7 +108,7 @@ public class User {
     public String toString(){
         return "User{id + " + id
                 + ", email= " + email
-                + ", userName=  " + userName
+                + ", username=  " + username
                 + ", activated= " + activated
                 + ", authorities= " + authorities
                 + "}";
