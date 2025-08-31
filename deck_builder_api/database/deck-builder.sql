@@ -18,6 +18,7 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	email varchar (200) NOT NULL,
 	activated boolean NOT NULL,
+    role varchar(20) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id),
 	CONSTRAINT UQ_username UNIQUE (username)
 );

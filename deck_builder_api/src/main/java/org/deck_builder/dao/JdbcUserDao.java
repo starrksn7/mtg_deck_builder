@@ -42,7 +42,7 @@ public class JdbcUserDao implements UserDao{
     public boolean create(String email, String username, String password){
         String checkNameSql = "SELECT username FROM users WHERE username = ?;";
         SqlRowSet checkNameResult = jdbcTemplate.queryForRowSet(checkNameSql, username);
-        String insertSql = "INSERT INTO users (username, password_hash, email, activated) VALUES (?, ?, ?, true);";
+        String insertSql = "INSERT INTO users (username, password_hash, email, activated, role) VALUES (?, ?, ?, true, 'user');";
         String passwordHash = new BCryptPasswordEncoder().encode(password);
 
         if(checkNameResult.next()){
