@@ -53,6 +53,22 @@ public class JdbcUserDao implements UserDao{
         }
     }
 
+    //The idea I have for this is that users created in the ui will always have a user role, but
+    //if an admin is needed for some reason, they can be created by pinging the api directly
+    public boolean createAdminUser(String email, String username, String password){
+        String checkNameSql = "SELECT username FROM users WHERE username = ?;";
+        SqlRowSet checkNameResult = jdbcTemplate.queryForRowSet(checkNameSql, username);
+        String insertSql = "INSERT INTO users (username, password_hash, email, activated, role) Values (?, ?, ?, true, 'admin');";
+        String passwordHash = new BCryptPasswordEncoder().encode(password);
+
+        if(checkNameResult.next()){
+            return false;
+        } else {
+            jdbcTemplate.update(insertSql, username, passwordHash, email);
+            return true;
+        }
+    }
+
     @Override
     public User updateUserProfile(int userId, String email, String username) {
         String sql = "UPDATE users\n" +
