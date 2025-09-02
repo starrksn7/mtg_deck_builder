@@ -48,7 +48,7 @@ class AuthenticationController {
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody RegisterUserDTO newUser) {
-        userDao.create(newUser.getEmail(),newUser.getUsername(),newUser.getPassword());
+        userDao.create(newUser.getEmail(),newUser.getUsername(),newUser.getPassword(), newUser.getRole());
     }
 
     static class LoginResponse {

@@ -12,6 +12,8 @@ public class RegisterUserDTO {
     @NotBlank
     private String password;
     private String confirmPassword;
+    @NotBlank
+    private String role;
 
     public String getEmail() {
         return email;
@@ -40,5 +42,9 @@ public class RegisterUserDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public String getRole(){ return role; }
+
+    public void setRole(String role){ this.role = role; }
 
 }
