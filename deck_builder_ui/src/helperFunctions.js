@@ -86,7 +86,7 @@ export const isDeckLegal = (cardList) => {
 
     let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp",
             "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
-        "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight"]
+        "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight", "Cid, Timeless Artificer"]
 
     let cardsDuplicated = [];
 
