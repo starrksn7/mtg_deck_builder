@@ -88,27 +88,34 @@ export const isDeckLegal = (cardList) => {
             "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
         "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight", "Cid, Timeless Artificer"]
 
+    let cardsWithCustomLimits = {
+        "Seven Dwarves": 7,
+        "Nazgul": 9
+    }
+
     let cardsDuplicated = [];
 
     cardList.forEach((card) => {
-        let isListed = deckMap.get(card.name)
+        let currentCount = deckMap.get(card.name) || 0;
+        deckMap.set(card.name, currentCount + 1);
+    });
 
-        if(!isListed){
-            deckMap.set(card.name, 1)
-        } else {
-            deckMap.set(card.name, (deckMap.get(card.name) + 1));
-        }
-    })
-
-    deckMap.forEach((value, key, map) => {
-        if(value > 1){
-            let cardFound = permittedDuplicateCards.indexOf(key)
-
-            if(cardFound !== 1){
-                cardsDuplicated.push(key);
+    deckMap.forEach((count, name) => {
+        if (count > 1) {
+            if (permittedDuplicateCards.includes(name)) {
+                return;
             }
+
+            if (cardsWithCustomLimits.hasOwnProperty(name)) {
+                if (count > cardsWithCustomLimits[name]) {
+                    cardsDuplicated.push(`${name} (has ${count}, max ${cardsWithCustomLimits[name]})`);
+                }
+                return;
+            }
+
+            cardsDuplicated.push(`${name} (has ${count}, max 1)`);
         }
-    })
+    });
 
     return cardsDuplicated;
 }
