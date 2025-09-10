@@ -7,6 +7,7 @@ export function Login() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('')
     const [error, setError] = useState(null);
+    const [passwordMismatch, setPasswordMismatch] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -40,7 +41,7 @@ export function Login() {
                 <input
                     type="text"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Password" 
                 />
                 <input
@@ -52,7 +53,7 @@ export function Login() {
                 <input
                     type="text"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Password" 
                 />
                 <button type="submit">Submit</button>
