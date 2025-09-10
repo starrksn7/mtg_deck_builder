@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios";
 
 export function Login() {
@@ -7,7 +7,15 @@ export function Login() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('')
     const [error, setError] = useState(null);
-    const [passwordMismatch, setPasswordMismatch] = useState('');
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
+    useEffect(() => {
+        if (password !== confirmPassword) {
+            setPasswordMismatch(true);
+            setPasswordError(true);
+        }
+    }, [password, confirmPassword])
 
     const handleSubmit = (e) => {
         e.preventDefault();
