@@ -14,11 +14,19 @@ export function Login() {
         if (password !== confirmPassword) {
             setPasswordMismatch(true);
             setPasswordError(true);
+        } else {
+            setPasswordMismatch(false);
+            setPasswordError(false);
         }
     }, [password, confirmPassword])
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (passwordMismatch) {
+            setError("Passwords do not match.");
+            return;
+        }
 
         try{ 
             const response = axios.post('http://localhost:8080/register', {
@@ -47,25 +55,30 @@ export function Login() {
                     placeholder="Username" 
                 />
                 <input
-                    type="text"
-                    value={password}
+                    type="email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Password" 
+                    placeholder="Email" 
                 />
                 <input
-                    type="text"
+                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
                 />
                 <input
-                    type="text"
-                    value={password}
+                    type="password"
+                    value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Password" 
+                    placeholder="Confirm Password" 
                 />
-                <button type="submit">Submit</button>
+                {passwordMismatch && (
+                    <p style={{ color: 'red' }}>Passwords do not match.</p>
+                )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
+                <button type="submit" disabled={passwordMismatch}>
+                    Submit
+                </button>
             </form>
         </div>
     )
