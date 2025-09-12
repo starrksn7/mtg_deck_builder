@@ -17,7 +17,8 @@ export function Login() {
 
             const token = response.data
 
-            localStorage.setItem('jwt', token)
+            localStorage.setItem('jwt', token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             console.log('Login successful.')
         } catch (err){
             setError('Login failed.')
