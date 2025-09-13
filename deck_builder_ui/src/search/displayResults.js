@@ -1,9 +1,8 @@
 import React, {useState} from "react"
-import axios from 'axios'
 import { replaceTextWithManaSymbols, createCardObject } from "../helperFunctions"
 import { useLocation, useNavigate } from "react-router-dom"
 import '../css/createModal.css'
-
+import api from "../api/axios"
 
 export const DisplayResults = ({searchResults, setIsError}) => {
     const location = useLocation();
@@ -17,7 +16,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
         
-        const res = await axios.post('http://localhost:8080/decks/add', { deckId: deckId, cardDto: cardObject})
+        const res = await api.post('/decks/add', { deckId: deckId, cardDto: cardObject})
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
@@ -27,7 +26,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
 
         const cardObject = createCardObject(selectedCard);
 
-        const res = await axios.post('http://localhost:8080/decks/create', { 
+        const res = await api.post('/decks/create', { 
             userId: 1, 
             deckName, 
             cardDTO: cardObject

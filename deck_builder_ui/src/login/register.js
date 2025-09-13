@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import axios from "axios";
+import api from "../api/axios";
 
 export function Login() {
     const [username, setUserName] = useState('');
@@ -29,7 +29,7 @@ export function Login() {
         }
 
         try{ 
-            const response = axios.post('http://localhost:8080/register', {
+            const response = api.post('/register', {
                 email,
                 username,
                 password

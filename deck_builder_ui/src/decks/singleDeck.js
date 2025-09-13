@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../api/axios';
 import { useState, useEffect } from 'react'
 import { replaceTextWithManaSymbols, isDeckLegal } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ export function SingleDeck() {
     const [confirmingCard, setConfirmingCard] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/decks?deckId=${deckId}`)
+        api.get(`/decks?deckId=${deckId}`)
             .then((res) => {
                 const data = res.data;
                 const resultsArray = [...data];
@@ -64,7 +64,7 @@ export function SingleDeck() {
     };
 
     const deleteFromDeck = async (card) => {
-        const res = await axios.delete('http://localhost:8080/decks/remove', { data: {
+        const res = await api.delete('/decks/remove', { data: {
             deckId: deckId, 
             cardDto: {
                 scryfallId: card.scryfallId

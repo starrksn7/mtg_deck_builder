@@ -1,5 +1,5 @@
 import { useState } from "react"
-import axios from "axios"
+import api from "../api/axios"
 import { getBaseColors } from "../helperFunctions"
 import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
@@ -28,7 +28,7 @@ export function CreateDeck(){
         e.preventDefault();
         setIsLoading(true)
         setSearchResults([])
-        const response = await axios.post('http://localhost:8080/card/searchForCommanderByName', 
+        const response = await api.post('/card/searchForCommanderByName', 
             {searchTerm: searchInput})
         
         const resultsArray = response.data.map(entry => JSON.parse(entry));
@@ -41,7 +41,7 @@ export function CreateDeck(){
         setSearchResults([])
         const color = getBaseColors(searchColor.toLowerCase());
 
-        const response = await axios.post('http://localhost:8080/card/searchForCommanderByColor',
+        const response = await api.post('/card/searchForCommanderByColor',
             {colors: color}
         )
 
@@ -65,7 +65,7 @@ export function CreateDeck(){
             identifiers
         }
 
-        const response = await axios.post('http://localhost:8080/decks/addCollection', cardSearchDTO)
+        const response = await api.post('/decks/addCollection', cardSearchDTO)
 
         const results = response.data;
     }

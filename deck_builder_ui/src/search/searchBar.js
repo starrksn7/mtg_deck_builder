@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
@@ -6,7 +5,7 @@ import { Pagination } from './pagination';
 import { Loader } from './loader';
 import { RenderColorOptions } from './renderColorOptions';
 import { RenderTypeOptions } from './renderTypeOptions';
-import { useLocation } from 'react-router-dom';
+import api from '../api/axios';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
@@ -37,20 +36,20 @@ export function SearchBar(){
 
             switch(searchType) {
                 case ('1'):
-                    searchUrl = 'http://localhost:8080/card/searchByName';
-                    res = await axios.post(searchUrl, {name: searchInput});
+                    searchUrl = '/card/searchByName';
+                    res = await api.post(searchUrl, {name: searchInput});
                     break;
                 case ('2'):
-                    searchUrl = 'http://localhost:8080/card/searchByIdentityAndType';
-                    res = await axios.post(searchUrl, {colorIdentity: colorIdentity, type: cardType});
+                    searchUrl = '/card/searchByIdentityAndType';
+                    res = await api.post(searchUrl, {colorIdentity: colorIdentity, type: cardType});
                     break;
                 case ('3'):
-                    searchUrl = 'http://localhost:8080/card/searchByColorAndCost';
-                    res = await axios.post(searchUrl, {colors: colorIdentity, manaCost: searchInput});
+                    searchUrl = '/card/searchByColorAndCost';
+                    res = await api.post(searchUrl, {colors: colorIdentity, manaCost: searchInput});
                     break;
                 case ('4'):
-                    searchUrl = 'http://localhost:8080/card/searchByKeywordAndColors'
-                    res = await axios.post(searchUrl, {keyword: searchInput, colors: colorIdentity})
+                    searchUrl = '/card/searchByKeywordAndColors'
+                    res = await api.post(searchUrl, {keyword: searchInput, colors: colorIdentity})
                     break;
                 default:
                     searchUrl = ''

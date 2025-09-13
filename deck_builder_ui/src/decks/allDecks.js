@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../api/axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ export function AllDecks() {
     const [showConfirm, setShowConfirm] = useState(false)
 
     useEffect(() => {
-        axios.get('http://localhost:8080/user?userId=1')
+        api.get('/user?userId=1')
             .then((res) => {
                 let data = res.data
                 let resultsArray = [];
@@ -19,7 +19,7 @@ export function AllDecks() {
     }, [])
 
     const deleteDeck = async (deck) => {
-        const res = await axios.delete('http://localhost:8080/decks/deleteDeck', { data: {
+        const res = await api.delete('/decks/deleteDeck', { data: {
             deckId: 1, 
             }
         })
