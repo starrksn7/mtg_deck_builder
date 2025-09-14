@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping(path="/create")
     public boolean create(@RequestBody RegisterUserDTO registerUserDTO){
-        return userDao.create(registerUserDTO.getEmail(), registerUserDTO.getUsername(), registerUserDTO.getPassword());
+        return userDao.create(registerUserDTO.getEmail(), registerUserDTO.getUsername(), registerUserDTO.getPassword(), registerUserDTO.getRole());
     }
 
     @GetMapping(path = "")
