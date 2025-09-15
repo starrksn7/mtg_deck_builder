@@ -7,15 +7,20 @@ export function AllDecks() {
     const [showConfirm, setShowConfirm] = useState(false)
 
     useEffect(() => {
-        api.get('/user?userId=1')
-            .then((res) => {
-                let data = res.data
-                let resultsArray = [];
-                data.forEach(entry => {
-                    resultsArray.push(entry);
-                })
-                setDeckList(resultsArray);
-            })
+        const fetchDecks = async () => {
+            api.get('/user?userId=1')
+                .then((res) => {
+                    let data = res.data
+                    let resultsArray = [];
+                    data.forEach(entry => {
+                        resultsArray.push(entry);
+                    })
+                    setDeckList(resultsArray);
+                }
+            )
+        }
+
+        fetchDecks();
     }, [])
 
     const deleteDeck = async (deck) => {

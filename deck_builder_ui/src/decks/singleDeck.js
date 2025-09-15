@@ -15,19 +15,24 @@ export function SingleDeck() {
     const [confirmingCard, setConfirmingCard] = useState(null);
 
     useEffect(() => {
-        api.get(`/decks?deckId=${deckId}`)
-            .then((res) => {
-                const data = res.data;
-                const resultsArray = [...data];
-                setCardList(resultsArray);
-    
-                const duplicates = isDeckLegal(resultsArray);
-                setDuplicatedCardsArray(duplicates);
-                setIsLegal(duplicates.length === 0);
+        const fetchDeck = async () => {
+            api.get(`/decks?deckId=${deckId}`)
+                .then((res) => {
+                    const data = res.data;
+                    const resultsArray = [...data];
+                    setCardList(resultsArray);
 
-                const grouped = groupCardsByType(resultsArray);
-                setGroupedCards(grouped);
-            })
+                    const duplicates = isDeckLegal(resultsArray);
+                    setDuplicatedCardsArray(duplicates);
+                    setIsLegal(duplicates.length === 0);
+
+                    const grouped = groupCardsByType(resultsArray);
+                    setGroupedCards(grouped);
+                }
+            )
+        }
+
+        fetchDeck();
     }, [deckId])
 
     const groupCardsByType = (cards) => {

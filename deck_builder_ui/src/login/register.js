@@ -20,7 +20,7 @@ export function Login() {
         }
     }, [password, confirmPassword])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (passwordMismatch) {
@@ -29,7 +29,7 @@ export function Login() {
         }
 
         try{ 
-            const response = api.post('/register', {
+            const response = await api.post('/register', {
                 email,
                 username,
                 password

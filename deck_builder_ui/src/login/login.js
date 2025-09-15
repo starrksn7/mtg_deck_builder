@@ -6,11 +6,11 @@ export function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try{ 
-            const response = api.post('/login', {
+            const response = await api.post('/login', {
                 username,
                 password
             })

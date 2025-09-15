@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//need to change axios calls to use this api instead, so that it will automatically attach the headers
 const api = axios.create({
   baseURL: 'https://localhost:8080', 
   headers: {
