@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../api/axios";
 
-export function Login() {
+export function Register() {
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +32,8 @@ export function Login() {
             const response = await api.post('/register', {
                 email,
                 username,
-                password
+                password,
+                role: "user"
             })
 
             const token = response.data

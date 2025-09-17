@@ -1,8 +1,9 @@
 import { useState } from "react"
 import api from "../api/axios";
+import axios from "axios";
 
 export function Login() {
-    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
@@ -11,7 +12,7 @@ export function Login() {
 
         try{ 
             const response = await api.post('/login', {
-                username,
+                email,
                 password
             })
 
@@ -31,12 +32,12 @@ export function Login() {
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text"
-                    value={username}
-                    onChange={(e) => setUserName(e.target.value)}
-                    placeholder="Username" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email" 
                 />
                 <input
-                    type="text"
+                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
