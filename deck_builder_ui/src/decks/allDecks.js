@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom'
 export function AllDecks() {
     const [deckList, setDeckList] = useState('')
     const [showConfirm, setShowConfirm] = useState(false)
+    const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         const fetchDecks = async () => {
-            api.get('/user?userId=1')
+            api.get(`/user?userId=${userId}`)
                 .then((res) => {
                     let data = res.data
                     let resultsArray = [];
