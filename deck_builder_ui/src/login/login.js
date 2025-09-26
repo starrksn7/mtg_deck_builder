@@ -23,7 +23,7 @@ export function Login() {
 
             localStorage.setItem('jwt', token);
             localStorage.setItem('userId', userId)
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             console.log('Login successful.')
             navigate(`/user/${userId}`)
         } catch (err){
