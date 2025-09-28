@@ -13,23 +13,27 @@ export function SingleDeck() {
     const [groupedCards, setGroupedCards] = useState({});
     const [hoveredCard, setHoveredCard] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
+    const [deckNotFound, setDeckNotFound] = useState(false);
 
     useEffect(() => {
         const fetchDeck = async () => {
-            api.get(`/decks?deckId=${deckId}`)
-                .then((res) => {
-                    const data = res.data;
-                    const resultsArray = [...data];
-                    setCardList(resultsArray);
+            try {
+                const res = await api.get(`/decks?deckId=${deckId}`)
+                const data = res.data;
+                const resultsArray = [...data];
+                setCardList(resultsArray);
+                setDeckNotFound(false);
 
-                    const duplicates = isDeckLegal(resultsArray);
-                    setDuplicatedCardsArray(duplicates);
-                    setIsLegal(duplicates.length === 0);
+                const duplicates = isDeckLegal(resultsArray);
+                setDuplicatedCardsArray(duplicates);
+                setIsLegal(duplicates.length === 0);
 
-                    const grouped = groupCardsByType(resultsArray);
-                    setGroupedCards(grouped);
-                }
-            )
+                const grouped = groupCardsByType(resultsArray);
+                setGroupedCards(grouped);
+            } catch (e) {
+                console.log("Deck not found", e)
+                setDeckNotFound(true);
+            }
         }
 
         fetchDeck();
@@ -102,6 +106,13 @@ export function SingleDeck() {
         );
     }
 
+    if (deckNotFound) {
+        return (
+            <div>
+                Deck not found
+            </div>
+        )
+    }
 
     if (cardList) {
         return (
