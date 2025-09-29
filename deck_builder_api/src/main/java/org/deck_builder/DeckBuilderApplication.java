@@ -15,6 +15,5 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Set an active deck so all cards added to a deck go to that
- * 2. Login capabilities
- * 3. Style the pages
+ * 2. Style the pages
  */
