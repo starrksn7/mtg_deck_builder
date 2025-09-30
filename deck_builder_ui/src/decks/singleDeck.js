@@ -14,6 +14,9 @@ export function SingleDeck() {
     const [hoveredCard, setHoveredCard] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
+    const [collectionList, setCollectionList] = useState('');
+
+    console.log(collectionList)
 
     useEffect(() => {
         const fetchDeck = async () => {
@@ -91,6 +94,25 @@ export function SingleDeck() {
         setConfirmingCard(card)
     }
 
+    const handleAddCollection = async () => {
+        const identifiersArray = collectionList.split(/\r?\n/);
+
+        const identifiers = identifiersArray.map((item) => ({ name: item }))
+        
+        const cardSearchDTO = { 
+            deckId,
+            identifiers
+        }
+
+        const response = await api.post('/decks/addCollection', cardSearchDTO)
+
+        const results = response.data;
+    }
+
+    const handleChange = (e) => {
+        setCollectionList(e.target.value)
+    }
+
     function DeleteConfirmationModal({ card, onCancel, onConfirm }) {
         return (
             <div className="modal-overlay">
@@ -125,7 +147,16 @@ export function SingleDeck() {
                         ))}
                     </div>
                 )}
-    
+                 <form>
+                    <textarea 
+                        value={collectionList}
+                        onChange={handleChange}
+                        placeholder="Add cards to deck"
+                    />
+                    <button type="button" onClick={handleAddCollection}>
+                        Submit
+                    </button>
+                </form>
                 <div>
                     {Object.keys(groupedCards).map((type) => (
                         <div key={type}>

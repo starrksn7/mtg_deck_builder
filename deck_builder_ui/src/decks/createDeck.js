@@ -20,9 +20,6 @@ export function CreateDeck(){
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
     const [isLoading, setIsLoading] = useState(false)
-    const [collectionList, setCollectionList] = useState('');
-
-    console.log(collectionList)
 
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
@@ -54,29 +51,6 @@ export function CreateDeck(){
         setSearchColor(selectedColor);
         findCommanderByColor(selectedColor);
     }
-
-    const handleAddCollection = async () => {
-        const identifiersArray = collectionList.split(/\r?\n/);
-
-        const identifiers = identifiersArray.map((item) => ({ name: item }))
-        
-        const cardSearchDTO = { 
-            deckId,
-            identifiers
-        }
-
-        const response = await api.post('/decks/addCollection', cardSearchDTO)
-
-        const results = response.data;
-    }
-
-    const handleChange = (e) => {
-        setCollectionList(e.target.value)
-    }
-
-    //it might be better to move the text area to add a collection to the single deck component instead of the create
-    //since create seems like where they would start the deck, and singleDeck is where they would view it and make
-    //changes to it.
             
     return (
         <div>
@@ -103,16 +77,6 @@ export function CreateDeck(){
                     />
                 </div>
             )}
-            <form>
-                <textarea 
-                    value={collectionList}
-                    onChange={handleChange}
-                    placeholder="Add cards to deck"
-                />
-                <button type="button" onClick={handleAddCollection}>
-                    Submit
-                </button>
-            </form>
         </div>
     )
 }
