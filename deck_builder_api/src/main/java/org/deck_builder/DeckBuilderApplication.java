@@ -14,6 +14,7 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Set an active deck so all cards added to a deck go to that
- * 2. Style the pages
+ * 1. Test add collection to deck since it was moved
+ * 2. Test creating a deck and verfiy the redirect
+ * 3. Style the pages
  */

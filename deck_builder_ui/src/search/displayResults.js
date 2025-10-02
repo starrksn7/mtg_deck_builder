@@ -12,6 +12,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const [selectedCard, setSelectedCard] = useState(null)
     const navigate = useNavigate();
     const [deckId, setDeckId] = useState('');
+    const userId = localStorage.getItem('userId');
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
@@ -27,7 +28,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         const cardObject = createCardObject(selectedCard);
 
         const res = await api.post('/decks/create', { 
-            userId: 1, 
+            userId: userId, 
             deckName, 
             cardDTO: cardObject
         });
