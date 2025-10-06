@@ -29,6 +29,11 @@ export function CreateDeck(){
             {searchTerm: searchInput})
         
         const resultsArray = response.data.map(entry => JSON.parse(entry));
+
+                    console.log("xxxxxxxxxxxxxx")
+    console.log(response.data)
+    console.log(resultsArray)
+    console.log("xxxxxxxxxxxxxx")
         setSearchResults(resultsArray);
         setIsLoading(false)
     }

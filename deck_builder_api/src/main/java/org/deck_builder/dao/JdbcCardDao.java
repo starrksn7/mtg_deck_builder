@@ -251,8 +251,8 @@ public class JdbcCardDao implements CardDao{
 
         JsonArray colorIdentity = (JsonArray) result.get("color_identity");
         String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
-        if(colorIdentity != null){
-            for (int i = 0; i < colorIdentity.size(); i++){
+        if (colorIdentity != null) {
+            for (int i = 0; i < colorIdentity.size(); i++) {
                 identityArray[i] = colorIdentity.get(i).getAsString();
             }
         }

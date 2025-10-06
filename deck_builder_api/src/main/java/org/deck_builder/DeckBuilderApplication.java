@@ -15,6 +15,6 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Test add collection to deck since it was moved
- * 2. Test creating a deck and verfiy the redirect
+ * 2. Test creating a deck and verify the redirect
  * 3. Style the pages
  */

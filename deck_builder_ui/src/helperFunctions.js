@@ -122,7 +122,6 @@ export const isDeckLegal = (cardList) => {
 
 
 export const createCardObject = (card) => {
-
     return {
         scryfallId: card.scryfallId,
         name: card.name,
