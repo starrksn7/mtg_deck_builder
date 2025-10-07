@@ -122,6 +122,23 @@ export const isDeckLegal = (cardList) => {
 
 
 export const createCardObject = (card) => {
+    let colorIdentity = card.color_identity;
+    let keyword = card.keywords
+
+    if (typeof colorIdentity === 'string') {
+        colorIdentity = colorIdentity
+            .replace(/\[|\]/g, '')
+            .split(',')
+            .map(c => c.trim());
+    }
+
+    if (typeof keyword === 'string') {
+        keyword = keyword
+            .replace(/\[|\]/g, '')
+            .split(',')
+            .map(c => c.trim());
+    }
+
     return {
         scryfallId: card.scryfallId,
         name: card.name,
@@ -131,8 +148,8 @@ export const createCardObject = (card) => {
         oracleText: card.oracle_text,
         manaCost: card.mana_cost,
         colors: card.colors,
-        colorIdentity: card.color_identity,
-        keyword: card.keywords
+        colorIdentity: colorIdentity,
+        keyword: keyword
     }
 }
 

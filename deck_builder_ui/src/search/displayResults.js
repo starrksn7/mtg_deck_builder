@@ -24,7 +24,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
 
    const handleCreateDeck = async () => {
         if (!deckName || !selectedCard) return;
-
+        
         const cardObject = createCardObject(selectedCard);
         console.log(cardObject)
 
