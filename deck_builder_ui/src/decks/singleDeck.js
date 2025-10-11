@@ -16,8 +16,6 @@ export function SingleDeck() {
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
 
-    console.log(collectionList)
-
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -105,8 +103,10 @@ export function SingleDeck() {
         }
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
-
-        const results = response.data;
+        
+        if (response.status === 200){
+            window.location.reload();
+        }
     }
 
     const handleChange = (e) => {

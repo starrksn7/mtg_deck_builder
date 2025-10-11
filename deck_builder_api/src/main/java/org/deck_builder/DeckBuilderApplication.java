@@ -14,6 +14,6 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Test add collection to deck since it was moved
+ * 1. Verify deck legality checks
  * 2. Style the pages
  */
