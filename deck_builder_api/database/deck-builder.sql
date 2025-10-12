@@ -28,6 +28,7 @@ CREATE TABLE decks (
 	deck_name varchar(200) NOT NULL,
 	commander varchar(50) NOT NULL,
 	is_partner boolean NOT NULL,
+    color_identity varchar(50) NOT NULL,
 	CONSTRAINT PK_decks PRIMARY KEY (deck_id)
 );
 

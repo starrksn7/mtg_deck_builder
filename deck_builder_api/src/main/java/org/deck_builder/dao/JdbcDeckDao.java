@@ -25,8 +25,8 @@ public class JdbcDeckDao implements DeckDao{
 
     public int createDeck(int userId, String deckName, CardSearchDTO cardDto){
         checkForCard(cardDto);
-        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner) VALUES (?, ?, ?) RETURNING deck_id;";
-        int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner()},
+        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity) VALUES (?, ?, ?, ?) RETURNING deck_id;";
+        int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner(), cardDto.getColorIdentity()},
         Integer.class);
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
@@ -70,11 +70,13 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Card> getDeckById(int deckId){
-        String sql = "SELECT c.scryfall_id, card_name, scryfall_link, image_link, mana_cost, card_type, " +
-                "oracle_text, colors, color_identity, keywords " +
-                "FROM cards c " +
-                "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
-                "WHERE dc.deck_id = ?";
+        String sql = "SELECT c.scryfall_id, c.card_name, c.scryfall_link, c.image_link, c.mana_cost, c.card_type, " +
+                "c.oracle_text, c.colors, c.color_identity AS card_color_identity, c.keywords, " +
+                "d.color_identity AS deck_color_identity " +
+        "FROM cards c " +
+        "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
+        "JOIN decks d ON d.deck_id = dc.deck_id " +
+        "WHERE dc.deck_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
         while(result.next()){
@@ -168,8 +170,9 @@ public class JdbcDeckDao implements DeckDao{
         card.setOracleText(row.getString("oracle_text"));
         String colors = row.getString("colors");
         card.setColors(colors.split(","));
-        String colorIdentity = row.getString("color_identity");
-        card.setColorIdentity(colorIdentity.split(","));
+        System.out.println("color_identity = " + row.getString("card_color_identity"));
+        String cardColorIdentity = row.getString("card_color_identity");
+        card.setColorIdentity(cardColorIdentity.split(","));
         String keywords = row.getString("keywords");
         card.setKeywords(keywords.split(","));
 
