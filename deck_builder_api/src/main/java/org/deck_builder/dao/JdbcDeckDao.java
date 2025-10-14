@@ -169,10 +169,13 @@ public class JdbcDeckDao implements DeckDao{
         card.setType(row.getString("card_type"));
         card.setOracleText(row.getString("oracle_text"));
         String colors = row.getString("colors");
-        card.setColors(colors.split(","));
+        String regex = "[()\\[\\]{}]";
+        String cleanColors = colors.replaceAll(regex, "");
+        card.setColors(cleanColors.split(","));
         System.out.println("color_identity = " + row.getString("card_color_identity"));
         String cardColorIdentity = row.getString("card_color_identity");
-        card.setColorIdentity(cardColorIdentity.split(","));
+        String cleanColorIdentity = cardColorIdentity.replaceAll(regex, "");
+        card.setColorIdentity(cleanColorIdentity.split(","));
         String keywords = row.getString("keywords");
         card.setKeywords(keywords.split(","));
 
