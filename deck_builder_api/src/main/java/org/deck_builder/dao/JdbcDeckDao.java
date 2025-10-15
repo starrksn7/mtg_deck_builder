@@ -178,6 +178,9 @@ public class JdbcDeckDao implements DeckDao{
         card.setColorIdentity(cleanColorIdentity.split(","));
         String keywords = row.getString("keywords");
         card.setKeywords(keywords.split(","));
+        String deckColorIdentity = row.getString("deck_color_identity");
+        String cleanDeckIdentity = deckColorIdentity.replaceAll(regex, "");
+        card.setDeckColorIdentity(cleanDeckIdentity.split(","));
 
         return card;
     }

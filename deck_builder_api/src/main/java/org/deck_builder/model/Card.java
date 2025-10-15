@@ -28,6 +28,9 @@ public class Card {
     @SerializedName("keywords")
     private String[] keywords;
 
+    @SerializedName("deck_color_identity")
+    private String[] deckColorIdentity;
+
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords){
         this.scryfallId = scryfallId;
         this.name = name;
@@ -131,6 +134,10 @@ public class Card {
     public void setKeywords(String[] keywords) {
         this.keywords = keywords;
     }
+
+    public String[] getDeckColorIdentity() { return deckColorIdentity; }
+
+    public void setDeckColorIdentity(String[] deckColorIdentity) { this.deckColorIdentity = deckColorIdentity; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\"}", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, Arrays.toString(this.colors), Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords));
