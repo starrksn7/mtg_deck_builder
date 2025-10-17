@@ -120,6 +120,23 @@ export const duplicateCardCheck = (cardList) => {
     return cardsDuplicated;
 }
 
+export const colorIdentityCheck = (cardList) => {
+    const wrongIdentity = []
+
+    cardList.forEach(card => {
+        const cardColorIdentity = card.colorIdentity || [];
+        const deckColorIdentity = card.deckColorIdentity || [];
+
+        const colorsMatch = cardColorIdentity.every(color => deckColorIdentity.includes(color));
+
+        if (!colorsMatch){
+            wrongIdentity.push(card.name);
+        }
+    })
+
+    return wrongIdentity
+}
+
 
 export const createCardObject = (card) => {
     let colorIdentity = card.color_identity;

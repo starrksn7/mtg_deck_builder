@@ -1,6 +1,6 @@
 import api from '../api/axios';
 import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols, duplicateCardCheck } from '../helperFunctions'
+import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
 
