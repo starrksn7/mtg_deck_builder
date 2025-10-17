@@ -81,7 +81,7 @@ export const replaceTextWithManaSymbols = (text) => {
                .replace(/{HR}/g, '<i class="ms ms-r ms-half ms-cost"></i>')
 };
 
-export const isDeckLegal = (cardList) => {
+export const duplicateCardCheck = (cardList) => {
     let deckMap = new Map();
 
     let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp",

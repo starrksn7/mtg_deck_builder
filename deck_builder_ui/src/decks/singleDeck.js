@@ -1,6 +1,6 @@
 import api from '../api/axios';
 import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols, isDeckLegal } from '../helperFunctions'
+import { replaceTextWithManaSymbols, duplicateCardCheck } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
 
@@ -15,7 +15,11 @@ export function SingleDeck() {
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
+    const [containsDuplicates, setContainsDuplicates] = useState(false);
+    const [mismatchedIdentities, setMismatchedIdentities] = useState('')
+    const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
 
+    console.log(cardList)
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -25,9 +29,17 @@ export function SingleDeck() {
                 setCardList(resultsArray);
                 setDeckNotFound(false);
 
-                const duplicates = isDeckLegal(resultsArray);
+                const duplicates = duplicateCardCheck(resultsArray);
                 setDuplicatedCardsArray(duplicates);
-                setIsLegal(duplicates.length === 0);
+                setContainsDuplicates(duplicates.length === 0);
+
+                const checkMismatchedIdentities = colorIdentityCheck(resultsArray);
+                setMismatchedIdentities(checkMismatchedIdentities);
+                setDoIdentitiesMatch(mismatchedIdentities.length === 0);
+                
+                if (containsDuplicates || doIdentitiesMatch) {
+                    setIsLegal(false);
+                }
 
                 const grouped = groupCardsByType(resultsArray);
                 setGroupedCards(grouped);
