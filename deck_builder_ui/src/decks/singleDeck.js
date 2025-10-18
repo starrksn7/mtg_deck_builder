@@ -17,9 +17,18 @@ export function SingleDeck() {
     const [collectionList, setCollectionList] = useState('');
     const [containsDuplicates, setContainsDuplicates] = useState(false);
     const [mismatchedIdentities, setMismatchedIdentities] = useState('')
+    const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
 
-    console.log(cardList)
+    // console.log("XXXXXXXXXXXXXXXXXXX")
+    // console.log("containsDuplicates")
+    // console.log(containsDuplicates)
+    // console.log("mismatchedIdentities")
+    // console.log(mismatchedIdentities)
+    // console.log("mismatchedArray")
+    // console.log(mismatchedArray)
+    // console.log("XXXXXXXXXXXXXXXXXXX")
+
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -34,8 +43,8 @@ export function SingleDeck() {
                 setContainsDuplicates(duplicates.length === 0);
 
                 const checkMismatchedIdentities = colorIdentityCheck(resultsArray);
-                setMismatchedIdentities(checkMismatchedIdentities);
-                setDoIdentitiesMatch(mismatchedIdentities.length === 0);
+                setMismatchedArray(checkMismatchedIdentities);
+                setMismatchedIdentities(mismatchedIdentities.length === 0);
                 
                 if (containsDuplicates || doIdentitiesMatch) {
                     setIsLegal(false);
@@ -151,10 +160,18 @@ export function SingleDeck() {
     if (cardList) {
         return (
             <div>
-                {!isLegal && (
+                {!containsDuplicates && (
                     <div>
                         <div>Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.</div>
                         {duplicatedCardsArray.map((item, index) => (
+                            <div key={index}>{item}</div>
+                        ))}
+                    </div>
+                )}
+                {!mismatchedIdentities && (
+                    <div>
+                        <div>Deck is not legal. The cards below do not match your commander's color identity.</div>
+                        {mismatchedArray.map((item, index) => (
                             <div key={index}>{item}</div>
                         ))}
                     </div>
