@@ -124,24 +124,15 @@ export const colorIdentityCheck = (cardList) => {
     const wrongIdentity = []
 
     cardList.forEach(card => {
-        console.log("card name. = ", card.name)
         const cardColorIdentity = card.colorIdentity || [];
         const deckColorIdentity = card.deckColorIdentity || [];
 
-        console.log("color identity = ", cardColorIdentity)
-        console.log("deck identity = ", deckColorIdentity)
-
         const colorsMatch = cardColorIdentity.every(color => deckColorIdentity.includes(color));
-
-        console.log("colorsMatch = ", colorsMatch)
 
         if (!colorsMatch){
             wrongIdentity.push(card.name);
         }
     })
-
-    console.log("wrongIdentity")
-    console.log(wrongIdentity)
 
     return wrongIdentity
 }

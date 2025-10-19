@@ -14,6 +14,9 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Verify deck legality checks
- * 2. Style the pages
+ * 1. There's an error when using the bulk card adder to a deck that causes an api crash when there's an empty line
+ *    in the submission.
+ * 2. Figure out a way to make the commander stand out more, maybe a section specifically for that card and then
+ *    sort all the other cards?
+ * 3. Style the pages
  */

@@ -20,15 +20,6 @@ export function SingleDeck() {
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
 
-    // console.log("XXXXXXXXXXXXXXXXXXX")
-    // console.log("containsDuplicates")
-    // console.log(containsDuplicates)
-    // console.log("mismatchedIdentities")
-    // console.log(mismatchedIdentities)
-    // console.log("mismatchedArray")
-    // console.log(mismatchedArray)
-    // console.log("XXXXXXXXXXXXXXXXXXX")
-
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -40,15 +31,15 @@ export function SingleDeck() {
 
                 const duplicates = duplicateCardCheck(resultsArray);
                 setDuplicatedCardsArray(duplicates);
-                setContainsDuplicates(duplicates.length === 0);
+                const noDuplicates = duplicates.length === 0;
+                setContainsDuplicates(noDuplicates);
 
                 const checkMismatchedIdentities = colorIdentityCheck(resultsArray);
                 setMismatchedArray(checkMismatchedIdentities);
-                setMismatchedIdentities(mismatchedIdentities.length === 0);
-                
-                if (containsDuplicates || doIdentitiesMatch) {
-                    setIsLegal(false);
-                }
+                const identitiesMatch = checkMismatchedIdentities.length === 0;
+                setDoIdentitiesMatch(identitiesMatch);
+
+                setIsLegal(noDuplicates && identitiesMatch);
 
                 const grouped = groupCardsByType(resultsArray);
                 setGroupedCards(grouped);
