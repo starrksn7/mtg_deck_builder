@@ -105,7 +105,7 @@ export function SingleDeck() {
     }
 
     const handleAddCollection = async () => {
-        const identifiersArray = collectionList.split(/\r?\n/);
+        const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
 
         const identifiers = identifiersArray.map((item) => ({ name: item }))
         

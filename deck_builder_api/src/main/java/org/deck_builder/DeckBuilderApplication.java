@@ -14,9 +14,9 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. There's an error when using the bulk card adder to a deck that causes an api crash when there's an empty line
- *    in the submission.
+ * 1. Need to change the function checking color identity legality in the ui to allow for artifacts to go into the deck
  * 2. Figure out a way to make the commander stand out more, maybe a section specifically for that card and then
  *    sort all the other cards?
- * 3. Style the pages
+ * 3. Find a way to include current card prices?
+ * 4. Style the pages
  */
