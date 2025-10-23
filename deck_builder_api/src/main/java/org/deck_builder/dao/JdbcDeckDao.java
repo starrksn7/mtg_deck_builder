@@ -72,7 +72,7 @@ public class JdbcDeckDao implements DeckDao{
     public List<Card> getDeckById(int deckId){
         String sql = "SELECT c.scryfall_id, c.card_name, c.scryfall_link, c.image_link, c.mana_cost, c.card_type, " +
                 "c.oracle_text, c.colors, c.color_identity AS card_color_identity, c.keywords, " +
-                "d.color_identity AS deck_color_identity " +
+                "d.color_identity AS deck_color_identity, d.commander AS deck_commander " +
         "FROM cards c " +
         "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
         "JOIN decks d ON d.deck_id = dc.deck_id " +
@@ -181,6 +181,7 @@ public class JdbcDeckDao implements DeckDao{
         String deckColorIdentity = row.getString("deck_color_identity");
         String cleanDeckIdentity = deckColorIdentity.replaceAll(regex, "");
         card.setDeckColorIdentity(cleanDeckIdentity.split(","));
+        card.setDeckCommander(row.getString("deck_commander"));
 
         return card;
     }
