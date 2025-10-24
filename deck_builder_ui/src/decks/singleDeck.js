@@ -58,7 +58,9 @@ export function SingleDeck() {
         cards.forEach(card => {
             let typeCategory = '';
 
-            if (card.type.includes('Creature')) {
+            if (card.name === card.deckCommander){
+                typeCategory = 'Commander';
+            } else if (card.type.includes('Creature')) {
                 typeCategory = 'Creatures';
             } else if (card.type.includes('Instant')) {
                 typeCategory = 'Instants';
