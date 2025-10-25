@@ -20,6 +20,17 @@ export function SingleDeck() {
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
 
+    const renderOrder = [
+    'Commander',
+    'Creatures',
+    'Enchantments',
+    'Instants',
+    'Sorceries',
+    'Artifacts',
+    'Planeswalkers',
+    'Lands'
+    ];
+
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -83,6 +94,8 @@ export function SingleDeck() {
             }
             groups[typeCategory].push(card);
         });
+
+        console.log(groups)
 
         return groups;
     };
@@ -155,67 +168,89 @@ export function SingleDeck() {
             <div>
                 {!containsDuplicates && (
                     <div>
-                        <div>Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.</div>
-                        {duplicatedCardsArray.map((item, index) => (
-                            <div key={index}>{item}</div>
-                        ))}
+                    <div>
+                        Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.
+                    </div>
+                    {duplicatedCardsArray.map((item, index) => (
+                        <div key={index}>{item}</div>
+                    ))}
                     </div>
                 )}
+
                 {!mismatchedIdentities && (
                     <div>
-                        <div>Deck is not legal. The cards below do not match your commander's color identity.</div>
-                        {mismatchedArray.map((item, index) => (
-                            <div key={index}>{item}</div>
-                        ))}
+                    <div>
+                        Deck is not legal. The cards below do not match your commander's color identity.
+                    </div>
+                    {mismatchedArray.map((item, index) => (
+                        <div key={index}>{item}</div>
+                    ))}
                     </div>
                 )}
-                 <form>
+
+                <form>
                     <textarea 
-                        value={collectionList}
-                        onChange={handleChange}
-                        placeholder="Add cards to deck"
+                    value={collectionList}
+                    onChange={handleChange}
+                    placeholder="Add cards to deck"
                     />
                     <button type="button" onClick={handleAddCollection}>
-                        Submit
+                    Submit
                     </button>
                 </form>
+
                 <div>
-                    {Object.keys(groupedCards).map((type) => (
-                        <div key={type}>
-                            <h2>{type}</h2>
-                            <div className="card-section">
-                                {groupedCards[type].map((card, index) => (
-                                    <div key={index} className="card">
-                                        <div
+                    {renderOrder.map((type) => {
+                        const cards = groupedCards[type];
+                        if (!cards || cards.length === 0) return null; // skip missing/empty groups
+
+                        return (
+                            <div key={type}>
+                                <h2>{type}</h2>
+                                <div className="card-section">
+                                    {cards.map((card, index) => (
+                                        <div key={index} className="card">
+                                            <div
                                             onMouseEnter={() => setHoveredCard(card)}
                                             onMouseLeave={() => setHoveredCard(null)}
                                             style={{ position: 'relative', display: 'inline-block' }}
-                                        >
-                                            {card.name}
-                                            {hoveredCard === card && (
-                                                <div className="hover-image-preview">
+                                            >
+                                                {card.name}
+                                                {hoveredCard === card && (
+                                                    <div className="hover-image-preview">
                                                     <img src={card.imageLink} alt={card.name} />
-                                                    <button type="submit" onClick={() => handleDelete(card)}>Remove From Deck</button>
+                                                    <button
+                                                        type="submit"
+                                                        onClick={() => handleDelete(card)}
+                                                    >
+                                                        Remove From Deck
+                                                    </button>
+                                                    </div>
+                                                )}
+                                            </div>
 
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.manaCost)}}></div>
-
-                                        {confirmingCard === card && (
-                                            <DeleteConfirmationModal
-                                                card={confirmingCard}
-                                                onCancel={cancelDelete}
-                                                onConfirm={deleteFromDeck}
+                                            <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: replaceTextWithManaSymbols(card.manaCost),
+                                            }}
                                             />
-                                        )}
-                                    </div>
-                                ))}
+
+                                                {confirmingCard === card && (
+                                                <DeleteConfirmationModal
+                                                    card={confirmingCard}
+                                                    onCancel={cancelDelete}
+                                                    onConfirm={deleteFromDeck}
+                                                />
+                                                )}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         );
-    }    
+    }
+ 
 }

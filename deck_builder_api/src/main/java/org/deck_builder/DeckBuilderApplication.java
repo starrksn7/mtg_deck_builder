@@ -15,8 +15,8 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Need to change the function checking color identity legality in the ui to allow for artifacts to go into the deck
- * 2. Figure out a way to make the commander stand out more, maybe a section specifically for that card and then
- *    sort all the other cards?
+ * 2. Need to group cards that you can have multiples of and include a number in front of each card showing the amount
+ * in the deck
  * 3. Find a way to include current card prices?
  * 4. Style the pages
  */
