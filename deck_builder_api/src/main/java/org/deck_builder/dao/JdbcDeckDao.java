@@ -172,7 +172,6 @@ public class JdbcDeckDao implements DeckDao{
         String regex = "[()\\[\\]{}\\s]";
         String cleanColors = colors.replaceAll(regex, "");
         card.setColors(cleanColors.split(","));
-        System.out.println("color_identity = " + row.getString("card_color_identity"));
         String cardColorIdentity = row.getString("card_color_identity");
         String cleanColorIdentity = cardColorIdentity.replaceAll(regex, "");
         card.setColorIdentity(cleanColorIdentity.split(","));
