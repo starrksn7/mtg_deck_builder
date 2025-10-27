@@ -70,13 +70,37 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Card> getDeckById(int deckId){
-        String sql = "SELECT c.scryfall_id, c.card_name, c.scryfall_link, c.image_link, c.mana_cost, c.card_type, " +
-                "c.oracle_text, c.colors, c.color_identity AS card_color_identity, c.keywords, " +
-                "d.color_identity AS deck_color_identity, d.commander AS deck_commander " +
-        "FROM cards c " +
-        "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id " +
-        "JOIN decks d ON d.deck_id = dc.deck_id " +
-        "WHERE dc.deck_id = ?;";
+        String sql = "SELECT \n" +
+                "    c.scryfall_id,\n" +
+                "    c.card_name,\n" +
+                "    c.scryfall_link,\n" +
+                "    c.image_link,\n" +
+                "    c.mana_cost,\n" +
+                "    c.card_type,\n" +
+                "    c.oracle_text,\n" +
+                "    c.colors,\n" +
+                "    c.color_identity AS card_color_identity,\n" +
+                "    c.keywords,\n" +
+                "    d.color_identity AS deck_color_identity,\n" +
+                "    d.commander AS deck_commander,\n" +
+                "    COUNT(*) AS quantity\n" +
+                "FROM cards c\n" +
+                "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id\n" +
+                "JOIN decks d ON d.deck_id = dc.deck_id\n" +
+                "WHERE dc.deck_id = 11\n" +
+                "GROUP BY \n" +
+                "    c.scryfall_id,\n" +
+                "    c.card_name,\n" +
+                "    c.scryfall_link,\n" +
+                "    c.image_link,\n" +
+                "    c.mana_cost,\n" +
+                "    c.card_type,\n" +
+                "    c.oracle_text,\n" +
+                "    c.colors,\n" +
+                "    c.color_identity,\n" +
+                "    c.keywords,\n" +
+                "    d.color_identity,\n" +
+                "    d.commander;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
         while(result.next()){
