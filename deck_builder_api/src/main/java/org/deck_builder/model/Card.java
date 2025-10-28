@@ -31,6 +31,8 @@ public class Card {
     private String[] deckColorIdentity;
     @SerializedName("deck_commander")
     private String deckCommander;
+    @SerializedName("quantity")
+    private int quantity;
 
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords){
         this.scryfallId = scryfallId;
@@ -143,6 +145,10 @@ public class Card {
     public String getDeckCommander(){ return deckCommander; }
 
     public void setDeckCommander(String deckCommander){ this.deckCommander = deckCommander;}
+
+    public int getQuantity(){ return quantity; }
+
+    public void setQuantity(int quantity){ this.quantity = quantity; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\"}", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, Arrays.toString(this.colors), Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords));

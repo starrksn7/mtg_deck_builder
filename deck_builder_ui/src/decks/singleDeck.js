@@ -214,8 +214,12 @@ export function SingleDeck() {
                                             onMouseEnter={() => setHoveredCard(card)}
                                             onMouseLeave={() => setHoveredCard(null)}
                                             style={{ position: 'relative', display: 'inline-block' }}
-                                            >
+                                            >   <div>
+                                                    {card.quantity}
+                                                </div>
+                                                <div>
                                                 {card.name}
+                                                </div>
                                                 {hoveredCard === card && (
                                                     <div className="hover-image-preview">
                                                     <img src={card.imageLink} alt={card.name} />
