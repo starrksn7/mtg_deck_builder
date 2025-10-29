@@ -14,9 +14,6 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Need to group cards that you can have multiples of and include a number in front of each card showing the amount
- *    in the deck
- * 2. Find a way to include current card prices?
- * 3. Maybe add a chart that will show the mana curve of the cards selected?
- * 4. Style the pages
+ * 1. Maybe add a chart that will show the mana curve of the cards selected?
+ * 2. Style the pages
  */

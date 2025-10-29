@@ -6,7 +6,7 @@ import '../App.css';
 
 export function SingleDeck() {
     const { deckId } = useParams();
-    const [cardList, setCardList] = useState('');
+    const [cardList, setCardList] = useState([]);
     const [isLegal, setIsLegal] = useState('');
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
@@ -61,7 +61,15 @@ export function SingleDeck() {
         }
 
         fetchDeck();
+
     }, [deckId])
+
+    const manaCurve = cardList.reduce((acc, card) => {
+        const cost = Math.floor(card.cmc ?? 0);
+        acc[cost] = (acc[cost] || 0) + 1;
+        return acc;
+    }, {});
+    console.log(manaCurve);
 
     const groupCardsByType = (cards) => {
         const groups = {};
@@ -94,8 +102,6 @@ export function SingleDeck() {
             }
             groups[typeCategory].push(card);
         });
-
-        console.log(groups)
 
         return groups;
     };
