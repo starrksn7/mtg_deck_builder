@@ -31,12 +31,10 @@ public class Card {
     private String[] deckColorIdentity;
     @SerializedName("deck_commander")
     private String deckCommander;
-    @SerializedName("quantity")
-    private int quantity;
     @SerializedName("cmc")
     private float cmc;
 
-    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords){
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, float cmc){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -47,6 +45,7 @@ public class Card {
         this.colors = colors;
         this.colorIdentity = colorIdentity;
         this.keywords = keywords;
+        this.cmc = cmc;
     }
 
     public Card(){
@@ -147,10 +146,6 @@ public class Card {
     public String getDeckCommander(){ return deckCommander; }
 
     public void setDeckCommander(String deckCommander){ this.deckCommander = deckCommander;}
-
-    public int getQuantity(){ return quantity; }
-
-    public void setQuantity(int quantity){ this.quantity = quantity; }
 
     public float getCmc(){ return cmc; }
 

@@ -27,6 +27,8 @@ public class CardSearchDTO {
     private boolean isPartner;
     @NotEmpty
     private String searchTerm;
+    @NotEmpty
+    private float cmc;
 
     public int getId() {
         return id;
@@ -127,6 +129,10 @@ public class CardSearchDTO {
     public String getSearchTerm() { return searchTerm;}
 
     public void setSearchTerm(String searchTerm){ this.searchTerm = searchTerm; }
+
+    public float getCmc(){ return cmc; }
+
+    public void setCmc(float cmc){ this.cmc = cmc; }
 
     @Override
     public String toString(){
