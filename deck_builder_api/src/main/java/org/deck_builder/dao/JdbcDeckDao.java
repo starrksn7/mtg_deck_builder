@@ -207,7 +207,6 @@ public class JdbcDeckDao implements DeckDao{
         String cleanDeckIdentity = deckColorIdentity.replaceAll(regex, "");
         card.setDeckColorIdentity(cleanDeckIdentity.split(","));
         card.setDeckCommander(row.getString("deck_commander"));
-        card.setQuantity(row.getInt("quantity"));
         card.setCmc(row.getFloat("cmc"));
 
         return card;

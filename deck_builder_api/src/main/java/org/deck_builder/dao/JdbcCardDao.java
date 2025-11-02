@@ -141,12 +141,12 @@ public class JdbcCardDao implements CardDao{
 
     public boolean addCardToDb(Card card){
         SqlRowSet getResults = getFromDb(card.getScryfallId());
-        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         if (!getResults.next()) {
             jdbcTemplate.queryForRowSet(insertSql, card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(), card.getType(),
-                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId());
+                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc());
             return true;
         }
         return false;
@@ -264,9 +264,10 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-        int quantity = result.get("quantity").getAsInt();
+        System.out.println("cmc = " + result.get("cmc").getAsFloat());
         float cmc = result.get("cmc").getAsFloat();
         Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray, cmc);
+        System.out.println("card cmc = " + newCard.getCmc());
         addCardToDb(newCard);
         return newCard;
     }

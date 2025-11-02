@@ -19,6 +19,9 @@ export function SingleDeck() {
     const [mismatchedIdentities, setMismatchedIdentities] = useState('')
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
+    console.log("XXXXXXXXXX")
+    console.log(cardList)
+    console.log("XXXXXXXXXX")
 
     const renderOrder = [
     'Commander',
@@ -69,7 +72,10 @@ export function SingleDeck() {
         acc[cost] = (acc[cost] || 0) + 1;
         return acc;
     }, {});
+    console.log('-----------------')
     console.log(manaCurve);
+    console.log('-----------------')
+
 
     const groupCardsByType = (cards) => {
         const groups = {};
