@@ -26,7 +26,9 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         if (!deckName || !selectedCard) return;
         
         const cardObject = createCardObject(selectedCard);
+        console.log("AAAAAAAAAAAA")
         console.log(cardObject)
+        console.log("AAAAAAAAAAAA")
 
         const res = await api.post('/decks/create', { 
             userId: userId, 

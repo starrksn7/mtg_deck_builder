@@ -146,6 +146,7 @@ public class CardSearchDTO {
                 "\", \"colors\": \"" + this.colors +
                 "\", \"colorIdentity\": \"" + this.colorIdentity +
                 "\", \"keywords\": \"" + this.keyword +
+                "\", \"cmc\": \"" + this.cmc +
                 "\"}";
     }
 }
