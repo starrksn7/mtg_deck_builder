@@ -16,6 +16,8 @@ export const DisplayResults = ({searchResults, setIsError}) => {
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
+
+        console.log(cardObject)
         
         const res = await api.post('/decks/add', { deckId: deckId, cardDto: cardObject})
         if(res) console.log("added card to deck. Need to find a better notification than this")

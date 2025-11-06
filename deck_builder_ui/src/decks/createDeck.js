@@ -52,7 +52,7 @@ export function CreateDeck(){
         setSearchColor(selectedColor);
         findCommanderByColor(selectedColor);
     }
-            
+
     return (
         <div>
             <form onSubmit={findCommanderWithSearch}>

@@ -140,6 +140,7 @@ public class JdbcCardDao implements CardDao{
     }
 
     public boolean addCardToDb(Card card){
+        System.out.println(card.getName() + " has a cmc of " + card.getCmc());
         SqlRowSet getResults = getFromDb(card.getScryfallId());
         String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";

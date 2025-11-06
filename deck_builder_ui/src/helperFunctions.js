@@ -156,7 +156,7 @@ export const createCardObject = (card) => {
             .split(',')
             .map(c => c.trim());
     }
-
+    
     return {
         scryfallId: card.scryfallId,
         name: card.name,
@@ -167,7 +167,8 @@ export const createCardObject = (card) => {
         manaCost: card.mana_cost,
         colors: card.colors,
         colorIdentity: colorIdentity,
-        keyword: keyword
+        keyword: keyword,
+        cmc: card.cmc
     }
 }
 
