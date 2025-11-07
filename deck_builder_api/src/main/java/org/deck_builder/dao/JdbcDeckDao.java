@@ -134,7 +134,8 @@ public class JdbcDeckDao implements DeckDao{
 
     public boolean addCardToDeck(int deckId, CardSearchDTO cardDto){
         checkForCard(cardDto);
-
+        System.out.println("adding card in deck, cmc = " + cardDto.getCmc());
+        System.out.println(cardDto.toString());
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
         Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                 cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
@@ -170,6 +171,7 @@ public class JdbcDeckDao implements DeckDao{
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
             System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
+            System.out.println(cardSearchDTO.toString());
             addCardToDeck(deckId, cardSearchDTO);
         }
         return scryfallCollectionResults;
@@ -207,6 +209,7 @@ public class JdbcDeckDao implements DeckDao{
         String cleanDeckIdentity = deckColorIdentity.replaceAll(regex, "");
         card.setDeckColorIdentity(cleanDeckIdentity.split(","));
         card.setDeckCommander(row.getString("deck_commander"));
+        System.out.println();
         card.setCmc(row.getFloat("cmc"));
 
         return card;
@@ -269,6 +272,7 @@ public class JdbcDeckDao implements DeckDao{
             }
         }
         cardSearchDTO.setKeyword(keywordsArray);
+        cardSearchDTO.setCmc(result.get("cmc").getAsFloat());
         return cardSearchDTO;
     }
 }
