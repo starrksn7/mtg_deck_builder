@@ -32,9 +32,9 @@ public class Card {
     @SerializedName("deck_commander")
     private String deckCommander;
     @SerializedName("cmc")
-    private float cmc;
+    private Double cmc;
 
-    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, float cmc){
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, Double cmc){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -147,9 +147,9 @@ public class Card {
 
     public void setDeckCommander(String deckCommander){ this.deckCommander = deckCommander;}
 
-    public float getCmc(){ return cmc; }
+    public Double getCmc(){ return cmc; }
 
-    public void setCmc(float cmc){ this.cmc = cmc; }
+    public void setCmc(Double cmc){ this.cmc = cmc; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, Arrays.toString(this.colors), Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc);

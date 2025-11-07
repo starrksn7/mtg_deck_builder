@@ -210,7 +210,7 @@ public class JdbcDeckDao implements DeckDao{
         card.setDeckColorIdentity(cleanDeckIdentity.split(","));
         card.setDeckCommander(row.getString("deck_commander"));
         System.out.println();
-        card.setCmc(row.getFloat("cmc"));
+        card.setCmc(row.getDouble("cmc"));
 
         return card;
     }
@@ -272,7 +272,7 @@ public class JdbcDeckDao implements DeckDao{
             }
         }
         cardSearchDTO.setKeyword(keywordsArray);
-        cardSearchDTO.setCmc(result.get("cmc").getAsFloat());
+        cardSearchDTO.setCmc(result.get("cmc").getAsDouble());
         return cardSearchDTO;
     }
 }

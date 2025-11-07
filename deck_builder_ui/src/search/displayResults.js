@@ -13,7 +13,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const navigate = useNavigate();
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
-
+console.log(searchResults)
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
 
