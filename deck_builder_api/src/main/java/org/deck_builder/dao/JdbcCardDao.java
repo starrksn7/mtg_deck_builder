@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -143,13 +144,20 @@ public class JdbcCardDao implements CardDao{
         System.out.println(card.getName() + " has a cmc of " + card.getCmc());
         SqlRowSet getResults = getFromDb(card.getScryfallId());
         String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(2.0 AS real));";
-
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        System.out.println("XXXXXXXXXXXXXXX");
         if (!getResults.next()) {
+            System.out.println("Running SQL: " + insertSql);
+            System.out.println("Params: " + Arrays.asList(
+                    card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(),
+                    card.getType(), card.getOracleText(), card.getColors(), card.getColorIdentity(),
+                    card.getKeywords(), card.getScryfallId(), new BigDecimal("2.0")
+            ));
             jdbcTemplate.update(insertSql, card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(), card.getType(),
-                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId());
+                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc());
             return true;
         }
+        System.out.println("XXXXXXXXXXX");
         return false;
     }
 
@@ -265,8 +273,8 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-        System.out.println("cmc = " + result.get("cmc").getAsDouble());
-        Double cmc = result.get("cmc").getAsDouble();
+        System.out.println("cmc = " + result.get("cmc").getAsBigDecimal());
+        BigDecimal cmc = result.get("cmc").getAsBigDecimal();
         Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray, cmc);
         System.out.println("card cmc = " + newCard.getCmc());
         addCardToDb(newCard);

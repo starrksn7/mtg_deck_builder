@@ -2,6 +2,7 @@ package org.deck_builder.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class Card {
@@ -32,9 +33,9 @@ public class Card {
     @SerializedName("deck_commander")
     private String deckCommander;
     @SerializedName("cmc")
-    private Double cmc;
+    private BigDecimal cmc;
 
-    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, Double cmc){
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, BigDecimal cmc){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -147,9 +148,9 @@ public class Card {
 
     public void setDeckCommander(String deckCommander){ this.deckCommander = deckCommander;}
 
-    public Double getCmc(){ return cmc; }
+    public BigDecimal getCmc(){ return cmc; }
 
-    public void setCmc(Double cmc){ this.cmc = cmc; }
+    public void setCmc(BigDecimal cmc){ this.cmc = cmc; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, Arrays.toString(this.colors), Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc);

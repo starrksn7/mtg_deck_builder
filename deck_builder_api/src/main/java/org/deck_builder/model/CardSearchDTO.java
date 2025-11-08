@@ -2,6 +2,8 @@ package org.deck_builder.model;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import java.math.BigDecimal;
+
 public class CardSearchDTO {
     private int id;
     @NotEmpty
@@ -28,7 +30,7 @@ public class CardSearchDTO {
     @NotEmpty
     private String searchTerm;
     @NotEmpty
-    private Double cmc;
+    private BigDecimal cmc;
 
     public int getId() {
         return id;
@@ -130,9 +132,9 @@ public class CardSearchDTO {
 
     public void setSearchTerm(String searchTerm){ this.searchTerm = searchTerm; }
 
-    public Double getCmc(){ return cmc; }
+    public BigDecimal getCmc(){ return cmc; }
 
-    public void setCmc(Double cmc){ this.cmc = cmc; }
+    public void setCmc(BigDecimal cmc){ this.cmc = cmc; }
 
     @Override
     public String toString(){
