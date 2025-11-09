@@ -19,9 +19,6 @@ export function SingleDeck() {
     const [mismatchedIdentities, setMismatchedIdentities] = useState('')
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
-    console.log("XXXXXXXXXX")
-    console.log(cardList)
-    console.log("XXXXXXXXXX")
 
     const renderOrder = [
     'Commander',

@@ -23,7 +23,7 @@ public class Card {
     @SerializedName("oracle_text")
     private String oracleText;
     @SerializedName("colors")
-    private String[] colors;
+    private String colors;
     @SerializedName("color_identity")
     private String[] colorIdentity;
     @SerializedName("keywords")
@@ -35,7 +35,7 @@ public class Card {
     @SerializedName("cmc")
     private BigDecimal cmc;
 
-    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String[] colors, String[] colorIdentity, String[] keywords, BigDecimal cmc){
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -116,11 +116,11 @@ public class Card {
         this.oracleText = oracleText;
     }
 
-    public String[] getColors() {
+    public String getColors() {
         return colors;
     }
 
-    public void setColors(String[] colors) {
+    public void setColors(String colors) {
         this.colors = colors;
     }
 
@@ -153,6 +153,6 @@ public class Card {
     public void setCmc(BigDecimal cmc){ this.cmc = cmc; }
 
     public String toJsonString(){
-        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, Arrays.toString(this.colors), Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc);
+        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc);
     }
 }

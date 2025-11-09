@@ -141,29 +141,22 @@ public class JdbcCardDao implements CardDao{
     }
 
     public boolean addCardToDb(Card card){
-        System.out.println(card.getName() + " has a cmc of " + card.getCmc());
         SqlRowSet getResults = getFromDb(card.getScryfallId());
+        boolean cardExistsInDb = getResults.next();
         String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        System.out.println("XXXXXXXXXXXXXXX");
-        if (!getResults.next()) {
-            System.out.println("Running SQL: " + insertSql);
-            System.out.println("Params: " + Arrays.asList(
-                    card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(),
-                    card.getType(), card.getOracleText(), card.getColors(), card.getColorIdentity(),
-                    card.getKeywords(), card.getScryfallId(), new BigDecimal("2.0")
-            ));
+
+        if (!cardExistsInDb) {
             jdbcTemplate.update(insertSql, card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(), card.getType(),
                     card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc());
             return true;
         }
-        System.out.println("XXXXXXXXXXX");
         return false;
     }
 
     public SqlRowSet getFromDb(String scryfallId){
-        String getSql = "SELECT scryfall_id from cards;";
-        return jdbcTemplate.queryForRowSet(getSql);
+        String getSql = "SELECT scryfall_id FROM cards WHERE scryfall_id = ?;";
+        return jdbcTemplate.queryForRowSet(getSql, scryfallId);
     }
 
     public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
@@ -250,14 +243,14 @@ public class JdbcCardDao implements CardDao{
         oracleText = oracleText.replaceAll("\\\\", "");
         //regex to change double quotes to single quotes
         oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
-        JsonArray colors = (JsonArray) result.get("colors");
-        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
-        if(colors != null) {
-            for (int i = 0; i < colors.size(); i++) {
-                colorsArray[i] = colors.get(i).getAsString();
-            }
-        }
-
+//        JsonArray colors = (JsonArray) result.get("colors");
+//        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
+//        if(colors != null) {
+//            for (int i = 0; i < colors.size(); i++) {
+//                colorsArray[i] = colors.get(i).getAsString();
+//            }
+//        }
+        String colors = result.get("colors").getAsString();
         JsonArray colorIdentity = (JsonArray) result.get("color_identity");
         String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
         if (colorIdentity != null) {
@@ -273,10 +266,8 @@ public class JdbcCardDao implements CardDao{
                 keywordsArray[i] = keywords.get(i).getAsString();
             }
         }
-        System.out.println("cmc = " + result.get("cmc").getAsBigDecimal());
         BigDecimal cmc = result.get("cmc").getAsBigDecimal();
-        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colorsArray, identityArray, keywordsArray, cmc);
-        System.out.println("card cmc = " + newCard.getCmc());
+        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc);
         addCardToDb(newCard);
         return newCard;
     }

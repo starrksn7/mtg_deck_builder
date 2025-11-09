@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,12 +135,11 @@ public class JdbcDeckDao implements DeckDao{
 
     public boolean addCardToDeck(int deckId, CardSearchDTO cardDto){
         checkForCard(cardDto);
-        System.out.println("adding card in deck, cmc = " + cardDto.getCmc());
-        System.out.println(cardDto.toString());
+
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
         Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                 cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
-                cardDto.getColors().split(","), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc());
+                cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc());
         jdbcCardDao.addCardToDb(card);
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
@@ -170,8 +170,6 @@ public class JdbcDeckDao implements DeckDao{
         for(String scryfallResult : scryfallCollectionResults){
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
-            System.out.println("scryfallId = " + cardSearchDTO.getScryfallId());
-            System.out.println(cardSearchDTO.toString());
             addCardToDeck(deckId, cardSearchDTO);
         }
         return scryfallCollectionResults;
@@ -199,7 +197,7 @@ public class JdbcDeckDao implements DeckDao{
         String colors = row.getString("colors");
         String regex = "[()\\[\\]{}\\s]";
         String cleanColors = colors.replaceAll(regex, "");
-        card.setColors(cleanColors.split(","));
+        card.setColors(cleanColors);
         String cardColorIdentity = row.getString("card_color_identity");
         String cleanColorIdentity = cardColorIdentity.replaceAll(regex, "");
         card.setColorIdentity(cleanColorIdentity.split(","));
@@ -209,7 +207,6 @@ public class JdbcDeckDao implements DeckDao{
         String cleanDeckIdentity = deckColorIdentity.replaceAll(regex, "");
         card.setDeckColorIdentity(cleanDeckIdentity.split(","));
         card.setDeckCommander(row.getString("deck_commander"));
-        System.out.println();
         card.setCmc(row.getBigDecimal("cmc"));
 
         return card;
@@ -221,12 +218,12 @@ public class JdbcDeckDao implements DeckDao{
         SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
 
         if(!result.next()){
-            String insert = "INSERT INTO cards (scryfall_id, card_name, scryfall_link, image_link, mana_cost, " +
-                    "card_type, oracle_text, colors, color_identity, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
+                    cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
+                    cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc());
 
-            jdbcTemplate.update(insert, cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(), cardDto.getImageLink(),
-                    cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(), cardDto.getColors(), cardDto.getColorIdentity(),
-                    cardDto.getKeyword());
+            jdbcCardDao.addCardToDb(card);
+
         }
     }
 

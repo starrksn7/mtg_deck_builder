@@ -13,11 +13,9 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const navigate = useNavigate();
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
-console.log(searchResults)
+
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
-
-        console.log(cardObject)
         
         const res = await api.post('/decks/add', { deckId: deckId, cardDto: cardObject})
         if(res) console.log("added card to deck. Need to find a better notification than this")
@@ -28,9 +26,6 @@ console.log(searchResults)
         if (!deckName || !selectedCard) return;
         
         const cardObject = createCardObject(selectedCard);
-        console.log("AAAAAAAAAAAA")
-        console.log(cardObject)
-        console.log("AAAAAAAAAAAA")
 
         const res = await api.post('/decks/create', { 
             userId: userId, 
