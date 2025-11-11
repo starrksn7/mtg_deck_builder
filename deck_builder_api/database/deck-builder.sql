@@ -43,7 +43,7 @@ CREATE TABLE cards (
 	colors varchar(60),
 	color_identity varchar(15),
 	keywords varchar(200),
-    cmc varchar(10),
+    cmc NUMERIC(10,2),
 	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 
