@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
+import { BarChart } from '../charts/barChart';
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -64,12 +65,13 @@ export function SingleDeck() {
 
     }, [deckId])
 
-    const manaCurve = cardList.reduce((acc, card) => {
+    const manaCurve = Object.entries(
+    cardList.reduce((acc, card) => {
         const cost = Math.floor(card.cmc ?? 0);
         acc[cost] = (acc[cost] || 0) + 1;
         return acc;
     }, {})
-    .map(([cost, amount]) => ({
+    ).map(([cost, amount]) => ({
         cost: Number(cost),
         amountOfCards: amount
     }));
@@ -211,7 +213,7 @@ export function SingleDeck() {
                     Submit
                     </button>
                 </form>
-
+                <BarChart manaValues={manaCurve} />
                 <div>
                     {renderOrder.map((type) => {
                         const cards = groupedCards[type];

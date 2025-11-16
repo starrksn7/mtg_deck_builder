@@ -243,14 +243,17 @@ public class JdbcCardDao implements CardDao{
         oracleText = oracleText.replaceAll("\\\\", "");
         //regex to change double quotes to single quotes
         oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
-//        JsonArray colors = (JsonArray) result.get("colors");
-//        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
-//        if(colors != null) {
-//            for (int i = 0; i < colors.size(); i++) {
-//                colorsArray[i] = colors.get(i).getAsString();
-//            }
-//        }
-        String colors = result.get("colors").getAsString();
+
+        JsonArray colorsArray = result.getAsJsonArray("colors");
+        String colors = "";
+
+        if (colorsArray != null) {
+            List<String> list = new ArrayList<>();
+            for (JsonElement c : colorsArray) {
+                list.add(c.getAsString());
+            }
+            colors = String.join(",", list);
+        }
         JsonArray colorIdentity = (JsonArray) result.get("color_identity");
         String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
         if (colorIdentity != null) {
