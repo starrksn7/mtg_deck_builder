@@ -24,10 +24,20 @@ export const BarChart = ({manaValues}) => {
                         backgroundColor: '#4B80F4'
                     }
                 ]
+            },
+            options: {
+                scales: {
+                    y: {
+                    ticks: {
+                        callback: (value) => Number.isInteger(value) ? value : ''
+                    }
+                    }
+                },
+                responsive: false
             }
         });
 
     }, [manaValues]);
 
-    return <canvas id="manaCurve" ref={canvasRef} />;
+    return <canvas id="manaCurve" ref={canvasRef} width={400} height={300} />;
 }
