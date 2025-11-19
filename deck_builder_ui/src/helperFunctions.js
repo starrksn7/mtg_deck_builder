@@ -272,3 +272,16 @@ export const getBaseColors = (colorIdentity) => {
     
     return colors
 }
+
+export const calculateManaCurve = (cardList) => {
+    return Object.entries(
+        cardList.reduce((acc, card) => {
+            const cost = Math.floor(card.cmc ?? 0);
+            acc[cost] = (acc[cost] || 0) + 1;
+            return acc;
+        }, {})
+        ).map(([cost, amount]) => ({
+            cost: Number(cost),
+            amountOfCards: amount
+        }));
+}

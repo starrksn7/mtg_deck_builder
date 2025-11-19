@@ -1,6 +1,6 @@
 import api from '../api/axios';
 import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck } from '../helperFunctions'
+import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck, calculateManaCurve } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
 import { BarChart } from '../charts/barChart';
@@ -20,6 +20,7 @@ export function SingleDeck() {
     const [mismatchedIdentities, setMismatchedIdentities] = useState('')
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
+    const [manaCurve, setManaCurve] = useState([]);
 
     const renderOrder = [
     'Commander',
@@ -55,6 +56,9 @@ export function SingleDeck() {
 
                 const grouped = groupCardsByType(resultsArray);
                 setGroupedCards(grouped);
+
+                const curve = calculateManaCurve(cardList)
+                setManaCurve(curve)
             } catch (e) {
                 console.log("Deck not found", e)
                 setDeckNotFound(true);
@@ -64,21 +68,6 @@ export function SingleDeck() {
         fetchDeck();
 
     }, [deckId])
-
-    const manaCurve = Object.entries(
-    cardList.reduce((acc, card) => {
-        const cost = Math.floor(card.cmc ?? 0);
-        acc[cost] = (acc[cost] || 0) + 1;
-        return acc;
-    }, {})
-    ).map(([cost, amount]) => ({
-        cost: Number(cost),
-        amountOfCards: amount
-    }));
-    console.log('-----------------')
-    console.log(manaCurve);
-    console.log('-----------------')
-
 
     const groupCardsByType = (cards) => {
         const groups = {};
@@ -213,7 +202,9 @@ export function SingleDeck() {
                     Submit
                     </button>
                 </form>
-                <BarChart manaValues={manaCurve} />
+                
+                {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
+
                 <div>
                     {renderOrder.map((type) => {
                         const cards = groupedCards[type];
