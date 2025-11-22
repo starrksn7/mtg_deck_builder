@@ -57,7 +57,7 @@ export function SingleDeck() {
                 const grouped = groupCardsByType(resultsArray);
                 setGroupedCards(grouped);
 
-                const curve = calculateManaCurve(cardList)
+                const curve = calculateManaCurve(resultsArray)
                 setManaCurve(curve)
             } catch (e) {
                 console.log("Deck not found", e)
@@ -68,7 +68,7 @@ export function SingleDeck() {
         fetchDeck();
 
     }, [deckId])
-
+    
     const groupCardsByType = (cards) => {
         const groups = {};
 

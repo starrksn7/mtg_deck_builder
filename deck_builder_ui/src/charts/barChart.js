@@ -13,14 +13,28 @@ export const BarChart = ({manaValues}) => {
             chartRef.current.destroy();
         }
 
+        const minCost = Math.min(...manaValues.map(x => x.cost));
+        const maxCost = Math.max(...manaValues.map(x => x.cost));
+
+        let filledValues = [];
+
+        for(let i = minCost; i <= maxCost; i++){
+            const found = manaValues.find(x => x.cost === i);
+            filledValues.push({
+                cost: i,
+                amountOfCards: found ? found.amountOfCards : 0
+            });
+        }
+
+        console.log(filledValues);
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {
-                labels: manaValues.map(row => row.cost),
+                labels: filledValues.map(row => row.cost),
                 datasets: [
                     {
                         label: 'Your mana curve',
-                        data: manaValues.map(row => row.amountOfCards),
+                        data: filledValues.map(row => row.amountOfCards),
                         backgroundColor: '#4B80F4'
                     }
                 ]
