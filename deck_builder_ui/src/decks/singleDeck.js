@@ -4,6 +4,7 @@ import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck, cal
 import { useParams } from 'react-router-dom';
 import '../App.css';
 import { BarChart } from '../charts/barChart';
+import { PieChart } from '../charts/pieChart';
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -21,6 +22,8 @@ export function SingleDeck() {
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
     const [manaCurve, setManaCurve] = useState([]);
+
+    console.log(groupedCards)
 
     const renderOrder = [
     'Commander',
@@ -204,6 +207,7 @@ export function SingleDeck() {
                 </form>
                 
                 {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
+                {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
 
                 <div>
                     {renderOrder.map((type) => {

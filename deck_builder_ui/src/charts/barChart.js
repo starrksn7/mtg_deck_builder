@@ -26,7 +26,6 @@ export const BarChart = ({manaValues}) => {
             });
         }
 
-        console.log(filledValues);
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {

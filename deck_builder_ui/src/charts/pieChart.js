@@ -1,6 +1,8 @@
 import Chart from 'chart.js/auto'
+import { useEffect, useRef } from 'react';
+import { createDeckBreakdown } from '../helperFunctions';
 
-export const PieChart = ({deckBreakdown}) => {
+export const PieChart = ({groupedCards}) => {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
@@ -11,21 +13,22 @@ export const PieChart = ({deckBreakdown}) => {
           chartRef.current.destroy();
       }
 
+      const deckBreakdown = createDeckBreakdown(groupedCards)
+
       chartRef.current = new Chart(canvasRef.current, {
-          type: 'bar',
+          type: 'pie',
           data: {
-              labels: manaValues.map(row => row.cardType),
+              labels: deckBreakdown.map(row => row.cardType),
               datasets: [
                   {
-                      label: 'Your mana curve',
-                      data: manaValues.map(row => row.count),
-                      backgroundColor: '#4B80F4'
+                      label: 'Your deck breakdown by type',
+                      data: deckBreakdown.map(row => row.count)
                   }
               ]
           }
       });
 
-  }, [manaValues]);
+  }, [groupedCards]);
 
   return <canvas id="manaCurve" ref={canvasRef} />;
 };

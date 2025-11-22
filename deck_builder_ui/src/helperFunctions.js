@@ -285,3 +285,12 @@ export const calculateManaCurve = (cardList) => {
             amountOfCards: amount
         }));
 }
+
+export const createDeckBreakdown = (groupedCards) => {
+    const deckBreakdown =Object.entries(groupedCards).map(([cardType, cards]) => ({
+        cardType,
+        count: cards.length
+    }));
+
+    return deckBreakdown;
+}
