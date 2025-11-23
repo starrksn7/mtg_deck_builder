@@ -292,5 +292,6 @@ export const createDeckBreakdown = (groupedCards) => {
         count: cards.length
     }));
 
+    console.log(deckBreakdown)
     return deckBreakdown;
 }

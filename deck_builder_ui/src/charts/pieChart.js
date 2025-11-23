@@ -25,10 +25,14 @@ export const PieChart = ({groupedCards}) => {
                       data: deckBreakdown.map(row => row.count)
                   }
               ]
-          }
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+        }
       });
 
   }, [groupedCards]);
 
-  return <canvas id="manaCurve" ref={canvasRef} />;
+  return <canvas id="manaCurve" ref={canvasRef} width={375} height={375} />;
 };
