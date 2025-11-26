@@ -18,12 +18,11 @@ export function SingleDeck() {
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
     const [containsDuplicates, setContainsDuplicates] = useState(false);
-    const [mismatchedIdentities, setMismatchedIdentities] = useState('')
+    const [mismatchedIdentities, setMismatchedIdentities] = useState('');
     const [mismatchedArray, setMismatchedArray] = useState([]);
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
     const [manaCurve, setManaCurve] = useState([]);
-
-    console.log(groupedCards)
+    const [collectionTooBigError, setCollectionTooBigError] = useState(false);
 
     const renderOrder = [
     'Commander',
@@ -129,6 +128,13 @@ export function SingleDeck() {
     const handleAddCollection = async () => {
         const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
 
+        if (identifiersArray.length > 75){
+            setCollectionTooBigError(true);
+            return;
+        }
+
+        setCollectionTooBigError(false);
+
         const identifiers = identifiersArray.map((item) => ({ name: item }))
         
         const cardSearchDTO = { 
@@ -194,7 +200,7 @@ export function SingleDeck() {
                     ))}
                     </div>
                 )}
-
+                {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <form>
                     <textarea 
                     value={collectionList}
