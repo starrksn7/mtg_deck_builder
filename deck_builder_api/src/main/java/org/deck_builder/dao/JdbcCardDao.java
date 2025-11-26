@@ -192,26 +192,6 @@ public class JdbcCardDao implements CardDao{
             for (JsonElement element : dataArray) {
                 cardJsonStrings.add(element.toString());
             }
-            // I don't think I need this because has_more kicks in at 175 results, but the collection
-            //caps at 75, so this shouldn't be necessary
-//            while (jsonObject.has("has_more") && jsonObject.get("has_more").getAsBoolean()) {
-//                String nextPage = jsonObject.get("next_page").getAsString();
-//                scryfallUrl = new URL(nextPage);
-//                conn = (HttpURLConnection) scryfallUrl.openConnection();
-//                conn.setRequestMethod("GET");
-//                conn.connect();
-//
-//                scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
-//                responseBody = scanner.hasNext() ? scanner.next() : "";
-//                scanner.close();
-//
-//                jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-//                dataArray = jsonObject.getAsJsonArray("data");
-//
-//                for (JsonElement element : dataArray) {
-//                    cardJsonStrings.add(element.toString());
-//                }
-//            }
 
             return cardJsonStrings;
 
@@ -222,9 +202,6 @@ public class JdbcCardDao implements CardDao{
             return errorMessage;
         }
     }
-
-
-
 
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
