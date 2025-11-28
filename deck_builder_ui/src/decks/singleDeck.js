@@ -77,7 +77,7 @@ export function SingleDeck() {
         cards.forEach(card => {
             let typeCategory = '';
 
-            if (card.name === card.deckCommander){
+            if (card.name === card.deckCommander) {
                 typeCategory = 'Commander';
             } else if (card.type.includes('Creature')) {
                 typeCategory = 'Creatures';
@@ -98,10 +98,24 @@ export function SingleDeck() {
             }
 
             if (!groups[typeCategory]) {
-                groups[typeCategory] = [];
+                groups[typeCategory] = {};
             }
-            groups[typeCategory].push(card);
+
+            const key = card.scryfallId;
+
+            if (!groups[typeCategory][key]) {
+                groups[typeCategory][key] = {
+                    ...card,
+                    quantity: 1,
+                };
+            } else {
+                groups[typeCategory][key].quantity += 1;
+            }
         });
+
+        for (const type in groups) {
+            groups[type] = Object.values(groups[type]);
+        }
 
         return groups;
     };
@@ -218,6 +232,7 @@ export function SingleDeck() {
                 <div>
                     {renderOrder.map((type) => {
                         const cards = groupedCards[type];
+
                         if (!cards || cards.length === 0) return null; // skip missing/empty groups
 
                         return (
