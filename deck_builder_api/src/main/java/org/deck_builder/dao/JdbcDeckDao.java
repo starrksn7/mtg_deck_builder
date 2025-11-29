@@ -162,8 +162,7 @@ public class JdbcDeckDao implements DeckDao{
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
         List<String> scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdentifierDTO);
 
-        //This isn't what's going to get return in the end, I just need this as a place holder
-        if(scryfallCollectionResults.get(0).equals("No cards found")){
+        if(scryfallCollectionResults.isEmpty()){
             return jdbcCardDao.failedSearch();
         }
 

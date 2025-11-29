@@ -157,7 +157,10 @@ export function SingleDeck() {
         }
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
-        
+        console.log("XXXXXXXXXX")
+        console.log(response)
+        console.log("XXXXXXXXXX")
+
         if (response.status === 200){
             window.location.reload();
         }
