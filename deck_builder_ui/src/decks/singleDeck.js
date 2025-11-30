@@ -140,6 +140,8 @@ export function SingleDeck() {
     }
 
     const handleAddCollection = async () => {
+        //I'm changing this from just taking the name of every card and updating it so that 
+        //the user will enter a number for how many of each card they want along with the card name
         const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
 
         if (identifiersArray.length > 75){
@@ -149,7 +151,17 @@ export function SingleDeck() {
 
         setCollectionTooBigError(false);
 
-        const identifiers = identifiersArray.map((item) => ({ name: item }))
+        let identifiers = []
+
+        identifiersArray.forEach((item) => {
+            const amount = item.substring(0, str.indexOf(' '));
+            const cardName = item.substring(str.indexOf(' ') + 1);
+
+            for(let i = 1; i <= amount; i++){
+                identifiers.push({name: cardName})
+            }
+            
+        })
         
         const cardSearchDTO = { 
             deckId,
@@ -157,9 +169,6 @@ export function SingleDeck() {
         }
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
-        console.log("XXXXXXXXXX")
-        console.log(response)
-        console.log("XXXXXXXXXX")
 
         if (response.status === 200){
             window.location.reload();
