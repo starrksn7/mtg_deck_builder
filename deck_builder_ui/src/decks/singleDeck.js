@@ -140,8 +140,6 @@ export function SingleDeck() {
     }
 
     const handleAddCollection = async () => {
-        //I'm changing this from just taking the name of every card and updating it so that 
-        //the user will enter a number for how many of each card they want along with the card name
         const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
 
         if (identifiersArray.length > 75){
@@ -154,9 +152,27 @@ export function SingleDeck() {
         let identifiers = []
 
         identifiersArray.forEach((item) => {
-            const amount = item.substring(0, str.indexOf(' '));
-            const cardName = item.substring(str.indexOf(' ') + 1);
+            const firstSpace = item.indexOf(" ");
 
+            let amount = item.substring(0, item.indexOf(' '));
+            let cardName = item.substring(item.indexOf(' ') + 1);
+
+            if (firstSpace === -1){
+                amount = 1;
+                cardName = item;
+            } else {
+                const amountStr = item.substring(0, firstSpace).trim();
+                const parsedAmount = parseInt(amountStr, 10);
+
+                if (isNaN(parsedAmount) || parsedAmount < 1) {
+                    // treating an invalid number as the card name
+                    amount = 1;
+                    cardName = item;
+                } else {
+                    amount = parsedAmount;
+                    cardName = item.substring(firstSpace + 1).trim();
+                }
+            }
             for(let i = 1; i <= amount; i++){
                 identifiers.push({name: cardName})
             }
