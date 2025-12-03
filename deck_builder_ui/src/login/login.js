@@ -17,7 +17,6 @@ export function Login() {
                 email,
                 password
             })
-            console.log(response)
             const token = response.data.token
             const userId = response.data.user.id
 

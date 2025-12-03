@@ -294,6 +294,5 @@ export const createDeckBreakdown = (groupedCards) => {
     ))
     .filter(({cardType}) => cardType !== 'Commander');
 
-    console.log(deckBreakdown)
     return deckBreakdown;
 }

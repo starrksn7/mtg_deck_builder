@@ -160,6 +160,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
+        System.out.println("DTO received size = " + cardIdentifierDTO.size());
         List<String> scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdentifierDTO);
 
         if(scryfallCollectionResults.isEmpty()){

@@ -179,6 +179,10 @@ export function SingleDeck() {
             
         })
         
+        console.log("xxxxxx")
+        console.log([...identifiers])
+        console.log("xxxxxx")
+        
         const cardSearchDTO = { 
             deckId,
             identifiers
