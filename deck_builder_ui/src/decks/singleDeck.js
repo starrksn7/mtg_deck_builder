@@ -24,6 +24,11 @@ export function SingleDeck() {
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
 
+    console.log("XxXXXXXXX")
+    console.log(groupedCards)
+    // console.log(cardList)
+    console.log("XxXXXXXXX")
+
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -106,10 +111,9 @@ export function SingleDeck() {
             if (!groups[typeCategory][key]) {
                 groups[typeCategory][key] = {
                     ...card,
-                    quantity: 1,
                 };
             } else {
-                groups[typeCategory][key].quantity += 1;
+                groups[typeCategory][key].quantity += card.quantity;
             }
         });
 

@@ -287,11 +287,13 @@ export const calculateManaCurve = (cardList) => {
 }
 
 export const createDeckBreakdown = (groupedCards) => {
-    const deckBreakdown =Object.entries(groupedCards).map(([cardType, cards]) => ({
+    const deckBreakdown =Object.entries(groupedCards).map(([cardType, cards]) => {
+        const totalQuantity = cards.reduce((sum, card) => sum + card.quantity, 0)
+        return {
         cardType,
-        count: cardType !== 'Creatures' ? cards.length : cards.length + 1
+        count: totalQuantity
         }
-    ))
+    })
     .filter(({cardType}) => cardType !== 'Commander');
 
     return deckBreakdown;
