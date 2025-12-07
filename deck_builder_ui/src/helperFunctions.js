@@ -274,10 +274,11 @@ export const getBaseColors = (colorIdentity) => {
 }
 
 export const calculateManaCurve = (cardList) => {
+    const noLandList = cardList.filter((card) => !card.type.toLowerCase().includes('land'));
     return Object.entries(
-        cardList.reduce((acc, card) => {
+        noLandList.reduce((acc, card) => {
             const cost = Math.floor(card.cmc ?? 0);
-            acc[cost] = (acc[cost] || 0) + 1;
+            acc[cost] = (acc[cost] || 0) + card.quantity;
             return acc;
         }, {})
         ).map(([cost, amount]) => ({

@@ -22,4 +22,5 @@ public class DeckBuilderApplication {
  *    that I would need to change the delete logic to check if something is there more than once?
  * 4. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
+ * 5. Some kind of banner with login, create, view decks/user home page
  */

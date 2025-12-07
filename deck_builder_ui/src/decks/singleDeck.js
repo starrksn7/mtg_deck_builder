@@ -24,11 +24,6 @@ export function SingleDeck() {
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
 
-    console.log("XxXXXXXXX")
-    console.log(groupedCards)
-    // console.log(cardList)
-    console.log("XxXXXXXXX")
-
     const renderOrder = [
     'Commander',
     'Creatures',
