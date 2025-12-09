@@ -235,7 +235,7 @@ export function SingleDeck() {
                     </div>
                 )}
 
-                {!mismatchedIdentities && (
+                {mismatchedIdentities.length > 0 && (
                     <div>
                     <div>
                         Deck is not legal. The cards below do not match your commander's color identity.
