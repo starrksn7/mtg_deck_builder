@@ -6,10 +6,12 @@ import { SingleDeck } from './decks/singleDeck';
 import { CreateDeck } from './decks/createDeck';
 import { Login } from './login/login';
 import { Register } from './login/register';
+import { Header } from './header/header';
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <div>Whatever I want goes here</div>
       {/* <SearchBar /> */}
       <Routes>
