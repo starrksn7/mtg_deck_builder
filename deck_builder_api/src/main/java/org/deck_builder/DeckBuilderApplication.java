@@ -23,4 +23,5 @@ public class DeckBuilderApplication {
  * 3. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 4. Some kind of banner with login, create, view decks/user home page
+ * --->a. make the banner just have login if they're not logged in, then logout, create, my decks when logged in
  */
