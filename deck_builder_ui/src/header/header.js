@@ -1,17 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "../login/AuthContext";
 
 export const Header = () => {
     const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem("jwt"));
-    const userId = localStorage.getItem("userId");
-
-    const handleLogout = () => {
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("userId");
-        setToken(null);
-        navigate("/login");
-    };
+    const { token, userId, logout } = useAuth();
 
     if (token) {
         return (
@@ -22,7 +15,8 @@ export const Header = () => {
                     to="#"
                     onClick={(e) => {
                         e.preventDefault();
-                        handleLogout();
+                        logout();
+                        navigate("/login");
                     }}>
                         Logout
                     </Link>
