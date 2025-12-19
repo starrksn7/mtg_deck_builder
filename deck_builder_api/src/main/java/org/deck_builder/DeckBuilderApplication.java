@@ -22,6 +22,4 @@ public class DeckBuilderApplication {
  *    a. add protection to keep people from being able to put in specialty cards/tokens
  * 3. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
- * 4. Some kind of banner with login, create, view decks/user home page
- * --->a. login shows when logged out, and then again when initially logged in, but this is fixed on refresh, need to address
  */

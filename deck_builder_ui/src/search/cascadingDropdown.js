@@ -18,7 +18,7 @@ export function CascadingDropdown({ onColorSelect }) {
   const colorsMap = {
     single: ["{W} White", "{U} Blue", "{B} Black", "{R} Red", "{G} Green", "{C} Colorless"],
     twoColor: ["{U}{W} Azorius", "{U}{G} Simic", "{U}{B} Dimir", "{B}{G} Golgari", "{R}{G} Gruul", "{U}{R} Izzet", "{B}{W} Orzhov", "{B}{R} Rakdos", "{G}{W} Selesnya", "{R}{W} Boros"],
-    threeColor: ["{W}{B}{G} Abzan", "{W}{U}{G} Bant", "{U}{W}{B} Esper", "{U}{B}{R} Grixis", "{W}{U}{R} Jeskai", "{B}{R}{G} Jund", "{W}{B}{R} Mardu", "{U}{B}{G} Sultai", "{B}{R}{G} Temur"],
+    threeColor: ["{W}{B}{G} Abzan", "{W}{U}{G} Bant", "{U}{W}{B} Esper", "{U}{B}{R} Grixis", "{W}{U}{R} Jeskai", "{B}{R}{G} Jund", "{W}{B}{R} Mardu", "{U}{B}{G} Sultai", "{U}{R}{G} Temur"],
     fourColor: ["{U}{B}{R}{G} Glint", "{W}{U}{R}{G} Ink", "{W}{B}{U}{G} Witch", "{W}{B}{U}{R} Yore", "{W}{U}{B}{R}{G} WUBRG"]
   };
 

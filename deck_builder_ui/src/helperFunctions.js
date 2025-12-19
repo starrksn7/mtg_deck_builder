@@ -246,7 +246,7 @@ export const getBaseColors = (colorIdentity) => {
             colors = "ubg"
             break;
         case ('temur'):
-            colors = "brg"
+            colors = "urg"
             break;
         case ('glint'):
             colors = "ubrg"
