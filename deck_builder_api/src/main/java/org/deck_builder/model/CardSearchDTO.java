@@ -1,5 +1,6 @@
 package org.deck_builder.model;
 
+import com.google.gson.JsonObject;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
@@ -31,6 +32,8 @@ public class CardSearchDTO {
     private String searchTerm;
     @NotEmpty
     private BigDecimal cmc;
+
+    private JsonObject legalities;
 
     public int getId() {
         return id;
@@ -136,6 +139,10 @@ public class CardSearchDTO {
 
     public void setCmc(BigDecimal cmc){ this.cmc = cmc; }
 
+    public void setLegalities(JsonObject legalities){ this.legalities = legalities; }
+
+    public JsonObject getLegalities(){ return legalities; }
+
     @Override
     public String toString(){
         return "{\"scryfallId\": \"" + this.scryfallId +
@@ -149,6 +156,7 @@ public class CardSearchDTO {
                 "\", \"colorIdentity\": \"" + this.colorIdentity +
                 "\", \"keywords\": \"" + this.keyword +
                 "\", \"cmc\": \"" + this.cmc +
+                "\", \"legalities\": \"" + this.legalities +
                 "\"}";
     }
 }

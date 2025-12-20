@@ -170,6 +170,12 @@ public class JdbcDeckDao implements DeckDao{
         for(String scryfallResult : scryfallCollectionResults){
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
+            JsonObject legalities = cardSearchDTO.getLegalities();
+            String commanderLegality = legalities.get("commander").getAsString();
+            boolean isLegal = commanderLegality.equals("legal");
+            if (!isLegal){
+                continue;
+            }
             addCardToDeck(deckId, cardSearchDTO);
         }
         return scryfallCollectionResults;
@@ -270,6 +276,7 @@ public class JdbcDeckDao implements DeckDao{
         }
         cardSearchDTO.setKeyword(keywordsArray);
         cardSearchDTO.setCmc(result.get("cmc").getAsBigDecimal());
+        cardSearchDTO.setLegalities(result.get("legalities").getAsJsonObject());
         return cardSearchDTO;
     }
 }
