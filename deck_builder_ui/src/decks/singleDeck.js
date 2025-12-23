@@ -178,10 +178,6 @@ export function SingleDeck() {
             
         })
         
-        console.log("xxxxxx")
-        console.log([...identifiers])
-        console.log("xxxxxx")
-        
         const cardSearchDTO = { 
             deckId,
             identifiers
@@ -246,74 +242,76 @@ export function SingleDeck() {
                     </div>
                 )}
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
-                <form>
-                    <textarea 
-                    value={collectionList}
-                    onChange={handleChange}
-                    placeholder="Add cards to deck"
-                    />
-                    <button type="button" onClick={handleAddCollection}>
-                    Submit
-                    </button>
-                </form>
-                
-                {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
-                {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
+                <div className="deck-page">
+                    <div className="charts-row">
+                        {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
+                        {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
+                    </div>
+                    <div className="content-row">
+                        <form className="collection-form">
+                            <textarea 
+                            value={collectionList}
+                            onChange={handleChange}
+                            placeholder="Add cards to deck"
+                            />
+                            <button type="button" onClick={handleAddCollection}>
+                            Submit
+                            </button>
+                        </form>
+                    </div>
+                        <div className="cards-container">
+                            {renderOrder.map((type) => {
+                                const cards = groupedCards[type];
 
-                <div>
-                    {renderOrder.map((type) => {
-                        const cards = groupedCards[type];
+                                if (!cards || cards.length === 0) return null;
 
-                        if (!cards || cards.length === 0) return null; // skip missing/empty groups
-
-                        return (
-                            <div key={type}>
-                                <h2>{type}</h2>
-                                <div className="card-section">
-                                    {cards.map((card, index) => (
-                                        <div key={index} className="card">
-                                            <div
-                                            onMouseEnter={() => setHoveredCard(card)}
-                                            onMouseLeave={() => setHoveredCard(null)}
-                                            style={{ position: 'relative', display: 'inline-block' }}
-                                            >   <div>
-                                                    {card.quantity}
-                                                </div>
-                                                <div>
-                                                {card.name}
-                                                </div>
-                                                {hoveredCard === card && (
-                                                    <div className="hover-image-preview">
-                                                    <img src={card.imageLink} alt={card.name} />
-                                                    <button
-                                                        type="submit"
-                                                        onClick={() => handleDelete(card)}
-                                                    >
-                                                        Remove From Deck
-                                                    </button>
+                                return (
+                                    <div key={type} className="card-group">
+                                        <h2 className="card-group-title">{type}</h2>
+                                            {cards.map((card, index) => (
+                                                <div key={index} className="card">
+                                                    <div
+                                                    onMouseEnter={() => setHoveredCard(card)}
+                                                    onMouseLeave={() => setHoveredCard(null)}
+                                                    style={{ position: 'relative', display: 'inline-block' }}
+                                                    >   <div>
+                                                            {card.quantity}
+                                                        </div>
+                                                        <div>
+                                                        {card.name}
+                                                        </div>
+                                                        {hoveredCard === card && (
+                                                            <div className="hover-image-preview">
+                                                            <img src={card.imageLink} alt={card.name} />
+                                                            <button
+                                                                type="submit"
+                                                                onClick={() => handleDelete(card)}
+                                                            >
+                                                                Remove From Deck
+                                                            </button>
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                )}
-                                            </div>
 
-                                            <div
-                                            dangerouslySetInnerHTML={{
-                                                __html: replaceTextWithManaSymbols(card.manaCost),
-                                            }}
-                                            />
+                                                    <div
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: replaceTextWithManaSymbols(card.manaCost),
+                                                    }}
+                                                    />
 
-                                                {confirmingCard === card && (
-                                                <DeleteConfirmationModal
-                                                    card={confirmingCard}
-                                                    onCancel={cancelDelete}
-                                                    onConfirm={deleteFromDeck}
-                                                />
-                                                )}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })}
+                                                        {confirmingCard === card && (
+                                                        <DeleteConfirmationModal
+                                                            card={confirmingCard}
+                                                            onCancel={cancelDelete}
+                                                            onConfirm={deleteFromDeck}
+                                                        />
+                                                        )}
+                                                </div>
+                                            ))}
+                                    </div>
+                                );
+                            })}
+                        </div>
                 </div>
             </div>
         );

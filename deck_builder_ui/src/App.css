@@ -98,3 +98,133 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* ---------- Page Layout ---------- */
+
+.deck-page {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 20px;
+}
+
+/* ---------- Charts ---------- */
+
+.charts-row {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 24px;
+}
+
+.charts-row > * {
+  flex: 0 0 420px;
+  min-width: 420px;
+}
+
+/* ---------- Main Content ---------- */
+
+.content-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+/* ---------- Text Area ---------- */
+
+.collection-form {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.collection-form textarea {
+  min-height: 240px;
+  resize: vertical;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.collection-form button {
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ---------- Cards Layout ---------- */
+
+/* ---------- Cards Area ---------- */
+
+.cards-container {
+  flex: 1;
+  column-count: 2;
+  column-gap: 24px;
+}
+
+/* Each group stays together vertically */
+.card-group {
+  break-inside: avoid;
+  margin-bottom: 20px;
+}
+
+/* Titles don't split across columns */
+.card-group-title {
+  margin: 12px 0 8px;
+  break-inside: avoid;
+}
+
+/* Individual cards */
+.card {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+}
+
+
+/* ---------- Card Hover Preview ---------- */
+
+.hover-image-preview {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 12px;
+  z-index: 10;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  width: 200px;
+}
+
+.hover-image-preview img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- Headings ---------- */
+
+h2 {
+  margin: 16px 0 8px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .content-row {
+    flex-direction: column;
+  }
+
+  .collection-form {
+    width: 100%;
+  }
+
+  .card-section {
+    column-count: 1;
+  }
+
+  .charts-row {
+    flex-direction: column;
+  }
+}
