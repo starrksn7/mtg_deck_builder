@@ -23,6 +23,7 @@ export function SingleDeck() {
     const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
+    const [deckName, setDeckName] = useState('');
 
     const renderOrder = [
     'Commander',
@@ -43,6 +44,7 @@ export function SingleDeck() {
                 const resultsArray = [...data];
                 setCardList(resultsArray);
                 setDeckNotFound(false);
+                setDeckName(resultsArray[0].deckName)
 
                 const duplicates = duplicateCardCheck(resultsArray);
                 setDuplicatedCardsArray(duplicates);
@@ -233,16 +235,17 @@ export function SingleDeck() {
 
                 {mismatchedIdentities.length > 0 && (
                     <div>
-                    <div>
-                        Deck is not legal. The cards below do not match your commander's color identity.
-                    </div>
-                    {mismatchedArray.map((item, index) => (
-                        <div key={index}>{item}</div>
-                    ))}
+                        <div>
+                            Deck is not legal. The cards below do not match your commander's color identity.
+                        </div>
+                        {mismatchedArray.map((item, index) => (
+                            <div key={index}>{item}</div>
+                        ))}
                     </div>
                 )}
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
+                    <div className="deckName-row">{deckName}</div>
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
@@ -258,7 +261,6 @@ export function SingleDeck() {
                             Submit
                             </button>
                         </form>
-                    </div>
                         <div className="cards-container">
                             {renderOrder.map((type) => {
                                 const cards = groupedCards[type];
@@ -274,12 +276,12 @@ export function SingleDeck() {
                                                     onMouseEnter={() => setHoveredCard(card)}
                                                     onMouseLeave={() => setHoveredCard(null)}
                                                     style={{ position: 'relative', display: 'inline-block' }}
-                                                    >   <div>
+                                                    >   <span className="card-qty">
                                                             {card.quantity}
-                                                        </div>
-                                                        <div>
-                                                        {card.name}
-                                                        </div>
+                                                        </span>
+                                                        <span className="card-name">
+                                                            {card.name}
+                                                        </span>
                                                         {hoveredCard === card && (
                                                             <div className="hover-image-preview">
                                                             <img src={card.imageLink} alt={card.name} />
@@ -293,7 +295,8 @@ export function SingleDeck() {
                                                         )}
                                                     </div>
 
-                                                    <div
+                                                    <span
+                                                    className="card-cost"
                                                     dangerouslySetInnerHTML={{
                                                         __html: replaceTextWithManaSymbols(card.manaCost),
                                                     }}
@@ -312,6 +315,7 @@ export function SingleDeck() {
                                 );
                             })}
                         </div>
+                    </div>
                 </div>
             </div>
         );

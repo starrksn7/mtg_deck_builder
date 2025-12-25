@@ -85,7 +85,8 @@ public class JdbcDeckDao implements DeckDao{
                 "    d.color_identity AS deck_color_identity,\n" +
                 "    d.commander AS deck_commander,\n" +
                 "    c.cmc, \n" +
-                "    COUNT(*) AS quantity\n" +
+                "    COUNT(*) AS quantity, \n" +
+                "    d.deck_name \n" +
                 "FROM cards c\n" +
                 "JOIN deck_cards dc ON dc.scryfall_id = c.scryfall_id\n" +
                 "JOIN decks d ON d.deck_id = dc.deck_id\n" +
@@ -103,7 +104,8 @@ public class JdbcDeckDao implements DeckDao{
                 "    c.keywords,\n" +
                 "    d.color_identity,\n" +
                 "    d.commander,\n" +
-                "    c.cmc;";
+                "    c.cmc, \n" +
+                "    d.deck_name;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
         while(result.next()){
@@ -215,6 +217,7 @@ public class JdbcDeckDao implements DeckDao{
         card.setDeckCommander(row.getString("deck_commander"));
         card.setCmc(row.getBigDecimal("cmc"));
         card.setQuantity(row.getInt("quantity"));
+        card.setDeckName(row.getString("deck_name"));
         return card;
     }
 

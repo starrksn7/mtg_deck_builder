@@ -159,6 +159,7 @@
   flex: 1;
   column-count: 2;
   column-gap: 24px;
+  border: 1px solid #ddd
 }
 
 /* Each group stays together vertically */
@@ -178,10 +179,30 @@
   break-inside: avoid;
   margin-bottom: 12px;
   padding: 8px;
-  border: 1px solid #ddd;
   background: #fff;
   border-radius: 6px;
 }
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-qty {
+  width: 24px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.card-name {
+  flex: 1;
+}
+
+.card-cost img {
+  height: 16px;
+}
+
 
 
 /* ---------- Card Hover Preview ---------- */
