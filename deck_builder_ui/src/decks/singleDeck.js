@@ -271,44 +271,40 @@ export function SingleDeck() {
                                     <div key={type} className="card-group">
                                         <h2 className="card-group-title">{type}</h2>
                                             {cards.map((card, index) => (
-                                                <div key={index} className="card">
+                                                <div className="card">
                                                     <div
-                                                    onMouseEnter={() => setHoveredCard(card)}
-                                                    onMouseLeave={() => setHoveredCard(null)}
-                                                    style={{ position: 'relative', display: 'inline-block' }}
-                                                    >   <span className="card-qty">
-                                                            {card.quantity}
-                                                        </span>
-                                                        <span className="card-name">
-                                                            {card.name}
-                                                        </span>
-                                                        {hoveredCard === card && (
-                                                            <div className="hover-image-preview">
-                                                            <img src={card.imageLink} alt={card.name} />
-                                                            <button
-                                                                type="submit"
-                                                                onClick={() => handleDelete(card)}
-                                                            >
-                                                                Remove From Deck
-                                                            </button>
-                                                            </div>
-                                                        )}
+                                                        className="card-row"
+                                                        onMouseEnter={() => setHoveredCard(card)}
+                                                        onMouseLeave={() => setHoveredCard(null)}
+                                                    >
+                                                        <span className="card-qty">{card.quantity}</span>
+
+                                                        <span className="card-name">{card.name}</span>
+
+                                                        <span
+                                                        className="card-cost"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: replaceTextWithManaSymbols(card.manaCost),
+                                                        }}
+                                                        />
                                                     </div>
 
-                                                    <span
-                                                    className="card-cost"
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: replaceTextWithManaSymbols(card.manaCost),
-                                                    }}
-                                                    />
+                                                    {hoveredCard === card && (
+                                                        <div className="hover-image-preview">
+                                                        <img src={card.imageLink} alt={card.name} />
+                                                        <button type="submit" onClick={() => handleDelete(card)}>
+                                                            Remove From Deck
+                                                        </button>
+                                                        </div>
+                                                    )}
 
-                                                        {confirmingCard === card && (
+                                                    {confirmingCard === card && (
                                                         <DeleteConfirmationModal
-                                                            card={confirmingCard}
-                                                            onCancel={cancelDelete}
-                                                            onConfirm={deleteFromDeck}
+                                                        card={confirmingCard}
+                                                        onCancel={cancelDelete}
+                                                        onConfirm={deleteFromDeck}
                                                         />
-                                                        )}
+                                                    )}
                                                 </div>
                                             ))}
                                     </div>

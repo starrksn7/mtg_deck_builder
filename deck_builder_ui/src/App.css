@@ -177,17 +177,17 @@
 /* Individual cards */
 .card {
   break-inside: avoid;
-  margin-bottom: 12px;
-  padding: 8px;
-  background: #fff;
-  border-radius: 6px;
+  margin-bottom: 6px;
+  padding: 4px 8px;
 }
 
 .card-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 32px 1fr 120px;
   align-items: center;
-  gap: 12px;
+  column-gap: 12px;
 }
+
 
 .card-qty {
   width: 24px;
