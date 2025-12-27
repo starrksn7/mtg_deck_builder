@@ -37,22 +37,6 @@
   }
 }
 
-.hover-image-preview {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 10;
-    background: white;
-    border: 1px solid #ccc;
-    padding: 5px;
-    box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
-}
-
-.hover-image-preview img {
-    width: 200px;
-    height: auto;
-}
-
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -156,11 +140,11 @@
 /* ---------- Cards Area ---------- */
 
 .cards-container {
-  flex: 1;
-  column-count: 2;
-  column-gap: 24px;
-  border: 1px solid #ddd
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
+
 
 /* Each group stays together vertically */
 .card-group {
@@ -179,10 +163,12 @@
   break-inside: avoid;
   margin-bottom: 6px;
   padding: 4px 8px;
+  position: relative;
 }
 
 .card-row {
   display: grid;
+  position: relative;
   grid-template-columns: 32px 1fr 120px;
   align-items: center;
   column-gap: 12px;
@@ -209,19 +195,31 @@
 
 .hover-image-preview {
   position: absolute;
-  top: 0;
-  left: 100%;
-  margin-left: 12px;
-  z-index: 10;
+  top: 50%;
+  left: calc(100% + 8px); /* just past the text */
+  transform: translateY(-50%);
+  z-index: 1000;
   background: white;
   border: 1px solid #ccc;
   padding: 8px;
   width: 200px;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;      
+  gap: 8px;  
 }
 
 .hover-image-preview img {
   max-width: 100%;
   display: block;
+  height: auto;
+}
+
+.hover-image-preview button {
+  margin-top: 4px;
+  padding: 6px 10px;
+  width: 100%;
+  max-width: 180px;
 }
 
 /* ---------- Headings ---------- */

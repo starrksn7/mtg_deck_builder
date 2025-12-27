@@ -13,7 +13,7 @@ export function SingleDeck() {
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [groupedCards, setGroupedCards] = useState({});
-    const [hoveredCard, setHoveredCard] = useState(null);
+    const [hoveredCardId, setHoveredCardId] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
@@ -271,11 +271,11 @@ export function SingleDeck() {
                                     <div key={type} className="card-group">
                                         <h2 className="card-group-title">{type}</h2>
                                             {cards.map((card, index) => (
-                                                <div className="card">
+                                                <div key={card.scryfallId} className="card">
                                                     <div
                                                         className="card-row"
-                                                        onMouseEnter={() => setHoveredCard(card)}
-                                                        onMouseLeave={() => setHoveredCard(null)}
+                                                        onMouseEnter={() => setHoveredCardId(card.scryfallId)}
+                                                        onMouseLeave={() => setHoveredCardId(null)}
                                                     >
                                                         <span className="card-qty">{card.quantity}</span>
 
@@ -287,16 +287,16 @@ export function SingleDeck() {
                                                             __html: replaceTextWithManaSymbols(card.manaCost),
                                                         }}
                                                         />
-                                                    </div>
 
-                                                    {hoveredCard === card && (
-                                                        <div className="hover-image-preview">
-                                                        <img src={card.imageLink} alt={card.name} />
-                                                        <button type="submit" onClick={() => handleDelete(card)}>
-                                                            Remove From Deck
-                                                        </button>
-                                                        </div>
-                                                    )}
+                                                        {hoveredCardId === card.scryfallId && (
+                                                            <div className="hover-image-preview">
+                                                            <img src={card.imageLink} alt={card.name} />
+                                                            <button type="button" onClick={() => handleDelete(card)}>
+                                                                Remove From Deck
+                                                            </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
 
                                                     {confirmingCard === card && (
                                                         <DeleteConfirmationModal

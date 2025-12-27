@@ -34,7 +34,7 @@ CREATE TABLE decks (
 
 CREATE TABLE cards (
 	scryfall_id varchar(50) NOT NULL,
-	card_name varchar(50) NOT NULL,
+	card_name varchar(200) NOT NULL,
 	scryfall_link varchar(100) NOT NULL,
 	image_link varchar(100) NOT NULL,
 	mana_cost varchar(20),
