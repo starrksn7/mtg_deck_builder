@@ -137,6 +137,12 @@
 
 /* ---------- Cards Layout ---------- */
 
+.cards-container,
+.card-group,
+.card-row {
+  text-align: left;
+}
+
 /* ---------- Cards Area ---------- */
 
 .cards-container {
@@ -156,6 +162,7 @@
 .card-group-title {
   margin: 12px 0 8px;
   break-inside: avoid;
+  text-align: left;
 }
 
 /* Individual cards */
@@ -183,6 +190,11 @@
 
 .card-name {
   flex: 1;
+  text-align: left;
+}
+
+.card-cost {
+  text-align: left;
 }
 
 .card-cost img {

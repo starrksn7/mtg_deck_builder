@@ -269,7 +269,7 @@ export function SingleDeck() {
 
                                 return (
                                     <div key={type} className="card-group">
-                                        <h2 className="card-group-title">{type}</h2>
+                                        <h4 className="card-group-title">{type}</h4>
                                             {cards.map((card, index) => (
                                                 <div key={card.scryfallId} className="card">
                                                     <div
