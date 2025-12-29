@@ -24,6 +24,7 @@ export function SingleDeck() {
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
     const [deckName, setDeckName] = useState('');
+    const [hoverPlacement, setHoverPlacement] = useState('right')
 
     const renderOrder = [
     'Commander',
@@ -245,7 +246,7 @@ export function SingleDeck() {
                 )}
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
-                    <div className="deckName-row">{deckName}</div>
+                    <h1 className="deckName-row">{deckName}</h1>
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
@@ -271,12 +272,19 @@ export function SingleDeck() {
                                     <div key={type} className="card-group">
                                         <h4 className="card-group-title">{type}</h4>
                                             {cards.map((card, index) => (
-                                                <div key={card.scryfallId} className="card">
-                                                    <div
-                                                        className="card-row"
-                                                        onMouseEnter={() => setHoveredCardId(card.scryfallId)}
-                                                        onMouseLeave={() => setHoveredCardId(null)}
-                                                    >
+                                                <div key={card.scryfallId} className="card"
+                                                    onMouseEnter={(e) => {
+                                                        const rect = e.currentTarget.getBoundingClientRect();
+                                                        const previewHeight = 300;
+                                                        const spaceBelow = window.innerHeight - rect.bottom;
+
+                                                        setHoverPlacement(spaceBelow < previewHeight ? 'above' : 'center');
+                                                        setHoveredCardId(card.scryfallId)
+
+                                                    }}
+                                                    onMouseLeave={() => setHoveredCardId(null)}
+                                                >
+                                                    <div className="card-row">
                                                         <span className="card-qty">{card.quantity}</span>
 
                                                         <span className="card-name">{card.name}</span>
@@ -289,7 +297,7 @@ export function SingleDeck() {
                                                         />
 
                                                         {hoveredCardId === card.scryfallId && (
-                                                            <div className="hover-image-preview">
+                                                            <div className={`hover-image-preview ${hoverPlacement}`}>
                                                             <img src={card.imageLink} alt={card.name} />
                                                             <button type="button" onClick={() => handleDelete(card)}>
                                                                 Remove From Deck

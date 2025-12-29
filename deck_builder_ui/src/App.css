@@ -175,7 +175,6 @@
 
 .card-row {
   display: grid;
-  position: relative;
   grid-template-columns: 32px 1fr 120px;
   align-items: center;
   column-gap: 12px;
@@ -184,7 +183,7 @@
 
 .card-qty {
   width: 24px;
-  text-align: right;
+  text-align: left;
   font-weight: bold;
 }
 
@@ -207,9 +206,8 @@
 
 .hover-image-preview {
   position: absolute;
-  top: 50%;
-  left: calc(100% + 8px); /* just past the text */
-  transform: translateY(-50%);
+  left: 100%;
+  margin-left: 4px;
   z-index: 1000;
   background: white;
   border: 1px solid #ccc;
@@ -219,6 +217,16 @@
   flex-direction: column; 
   align-items: center;      
   gap: 8px;  
+}
+
+.hover-image-preview.center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hover-image-preview.above {
+  bottom: 100%;
+  transform: translateY(-8px);
 }
 
 .hover-image-preview img {

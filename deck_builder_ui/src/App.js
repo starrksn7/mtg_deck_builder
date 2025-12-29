@@ -14,8 +14,6 @@ function App() {
     <AuthProvider>
       <div className="App">
         <Header />
-        <div>Whatever I want goes here</div>
-        {/* <SearchBar /> */}
         <Routes>
           <Route path="/decks/:deckId" element={<SingleDeck />} />
           <Route path="/user/:userId" element={<AllDecks />} />
