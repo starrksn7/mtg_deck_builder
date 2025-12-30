@@ -274,11 +274,19 @@ export function SingleDeck() {
                                             {cards.map((card, index) => (
                                                 <div key={card.scryfallId} className="card"
                                                     onMouseEnter={(e) => {
-                                                        const rect = e.currentTarget.getBoundingClientRect();
+                                                        const rect = e.currentTarget
+                                                            .querySelector('.card-name')
+                                                            .getBoundingClientRect();
                                                         const previewHeight = 300;
                                                         const spaceBelow = window.innerHeight - rect.bottom;
+                                                        const spaceAbove = rect.top;
 
-                                                        setHoverPlacement(spaceBelow < previewHeight ? 'above' : 'center');
+                                                        if (spaceBelow < previewHeight && spaceAbove > previewHeight) {
+                                                            setHoverPlacement('above')
+                                                        } else {
+                                                            setHoverPlacement('center')
+                                                        }
+
                                                         setHoveredCardId(card.scryfallId)
 
                                                     }}
@@ -287,23 +295,24 @@ export function SingleDeck() {
                                                     <div className="card-row">
                                                         <span className="card-qty">{card.quantity}</span>
 
-                                                        <span className="card-name">{card.name}</span>
+                                                        <span className="card-name">
+                                                            {card.name}
 
+                                                            {hoveredCardId === card.scryfallId && (
+                                                                <div className={`hover-image-preview ${hoverPlacement}`}>
+                                                                <img src={card.imageLink} alt={card.name} />
+                                                                <button type="button" onClick={() => handleDelete(card)}>
+                                                                    Remove From Deck
+                                                                </button>
+                                                                </div>
+                                                            )}
+                                                        </span>
                                                         <span
                                                         className="card-cost"
                                                         dangerouslySetInnerHTML={{
                                                             __html: replaceTextWithManaSymbols(card.manaCost),
                                                         }}
                                                         />
-
-                                                        {hoveredCardId === card.scryfallId && (
-                                                            <div className={`hover-image-preview ${hoverPlacement}`}>
-                                                            <img src={card.imageLink} alt={card.name} />
-                                                            <button type="button" onClick={() => handleDelete(card)}>
-                                                                Remove From Deck
-                                                            </button>
-                                                            </div>
-                                                        )}
                                                     </div>
 
                                                     {confirmingCard === card && (

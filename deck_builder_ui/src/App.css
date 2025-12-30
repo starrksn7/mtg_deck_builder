@@ -188,8 +188,10 @@
 }
 
 .card-name {
-  flex: 1;
-  text-align: left;
+  /* flex: 1;
+  text-align: left; */
+  position: relative;
+  display: inline-block;
 }
 
 .card-cost {
@@ -207,7 +209,7 @@
 .hover-image-preview {
   position: absolute;
   left: 100%;
-  margin-left: 4px;
+  transform: translateX(-8px);
   z-index: 1000;
   background: white;
   border: 1px solid #ccc;
@@ -220,13 +222,13 @@
 }
 
 .hover-image-preview.center {
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
 }
 
 .hover-image-preview.above {
-  bottom: 100%;
-  transform: translateY(-8px);
+  top: 0;
+  transform: translateY(-100%);
+  margin-top: -8px;
 }
 
 .hover-image-preview img {
