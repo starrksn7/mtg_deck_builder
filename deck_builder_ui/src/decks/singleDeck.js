@@ -272,56 +272,59 @@ export function SingleDeck() {
                                     <div key={type} className="card-group">
                                         <h4 className="card-group-title">{type}</h4>
                                             {cards.map((card, index) => (
-                                                <div key={card.scryfallId} className="card"
+                                                <div
+                                                    className="card-hover-wrapper"
                                                     onMouseEnter={(e) => {
                                                         const rect = e.currentTarget
-                                                            .querySelector('.card-name')
-                                                            .getBoundingClientRect();
+                                                        .querySelector('.card-row')
+                                                        .getBoundingClientRect();
+
                                                         const previewHeight = 300;
                                                         const spaceBelow = window.innerHeight - rect.bottom;
                                                         const spaceAbove = rect.top;
 
                                                         if (spaceBelow < previewHeight && spaceAbove > previewHeight) {
-                                                            setHoverPlacement('above')
+                                                        setHoverPlacement('above');
                                                         } else {
-                                                            setHoverPlacement('center')
+                                                        setHoverPlacement('center');
                                                         }
 
-                                                        setHoveredCardId(card.scryfallId)
-
+                                                        setHoveredCardId(card.scryfallId);
                                                     }}
                                                     onMouseLeave={() => setHoveredCardId(null)}
-                                                >
-                                                    <div className="card-row">
-                                                        <span className="card-qty">{card.quantity}</span>
+                                                    >
+                                                    <div key={card.scryfallId} className="card">
+                                                        <div className="card-row">
+                                                            <span className="card-qty">{card.quantity}</span>
 
-                                                        <span className="card-name">
-                                                            {card.name}
+                                                            <span className="card-name">
+                                                                {card.name}
+                                                            </span>
+                                                            <span
+                                                            className="card-cost"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: replaceTextWithManaSymbols(card.manaCost),
+                                                            }}
+                                                            />
+                                                        </div>
 
-                                                            {hoveredCardId === card.scryfallId && (
-                                                                <div className={`hover-image-preview ${hoverPlacement}`}>
-                                                                <img src={card.imageLink} alt={card.name} />
-                                                                <button type="button" onClick={() => handleDelete(card)}>
-                                                                    Remove From Deck
-                                                                </button>
-                                                                </div>
-                                                            )}
-                                                        </span>
-                                                        <span
-                                                        className="card-cost"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: replaceTextWithManaSymbols(card.manaCost),
-                                                        }}
-                                                        />
+                                                        {hoveredCardId === card.scryfallId && (
+                                                            <div className={`hover-image-preview ${hoverPlacement}`}>
+                                                            <img src={card.imageLink} alt={card.name} />
+                                                            <button type="button" onClick={() => handleDelete(card)}>
+                                                                Remove From Deck
+                                                            </button>
+                                                            </div>
+                                                        )}
+
+                                                        {confirmingCard === card && (
+                                                            <DeleteConfirmationModal
+                                                            card={confirmingCard}
+                                                            onCancel={cancelDelete}
+                                                            onConfirm={deleteFromDeck}
+                                                            />
+                                                        )}
                                                     </div>
-
-                                                    {confirmingCard === card && (
-                                                        <DeleteConfirmationModal
-                                                        card={confirmingCard}
-                                                        onCancel={cancelDelete}
-                                                        onConfirm={deleteFromDeck}
-                                                        />
-                                                    )}
                                                 </div>
                                             ))}
                                     </div>
