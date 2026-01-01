@@ -15,6 +15,10 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Style the pages
+ *    a. style the single deck page
+ *    b. style the login screen
+ *    c. style the create a deck page
+ *    d. style the deck list page
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 3. Maybe include prices for cards? The scryfall response does include a prices array of objects that could be used
