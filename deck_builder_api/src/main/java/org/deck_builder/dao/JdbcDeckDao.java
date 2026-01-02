@@ -116,6 +116,14 @@ public class JdbcDeckDao implements DeckDao{
             throw new DeckNotFoundException();
         }
 
+        /* This is where I need to build a json object using the scryfallIds from each card in the deck.
+            It should use the same format as the collection POST request to scryfall. If the request is larger
+            75 entries, then I'll have to make a second call to get the remaining cards. The ui will need to do the
+            math to do any multiplication that is needed for duplicate cards.
+
+            Once the card info is returned from scryfall, I can loop through the cards in the list and add the price
+            to it, which is returned in "prices" and then "usd"
+         */
         return deckList;
     }
 
