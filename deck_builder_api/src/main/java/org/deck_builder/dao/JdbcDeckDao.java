@@ -124,6 +124,19 @@ public class JdbcDeckDao implements DeckDao{
             Once the card info is returned from scryfall, I can loop through the cards in the list and add the price
             to it, which is returned in "prices" and then "usd"
          */
+        List<String> scryfallCollectionResults = new ArrayList<>();
+        List<CardIdentifierDTO> cardIdsForPrice = new ArrayList<>();
+        for(Card card : deckList){
+           CardIdentifierDTO cardIdentifierDTO = new CardIdentifierDTO();
+           cardIdentifierDTO.setId(card.getScryfallId());
+        }
+
+        if (cardIdsForPrice.size() > 75){
+            //need to send results in groups of 75 or less until the entire deck has been covered
+        } else {
+            //This isn't going to work, but it's a start, need to fill out the list correctly
+            scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdsForPrice);
+        }
         return deckList;
     }
 
