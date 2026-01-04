@@ -124,19 +124,22 @@ public class JdbcDeckDao implements DeckDao{
             Once the card info is returned from scryfall, I can loop through the cards in the list and add the price
             to it, which is returned in "prices" and then "usd"
          */
-        List<String> scryfallCollectionResults = new ArrayList<>();
         List<CardIdentifierDTO> cardIdsForPrice = new ArrayList<>();
         for(Card card : deckList){
            CardIdentifierDTO cardIdentifierDTO = new CardIdentifierDTO();
            cardIdentifierDTO.setId(card.getScryfallId());
+           cardIdsForPrice.add(cardIdentifierDTO);
         }
 
-        if (cardIdsForPrice.size() > 75){
-            //need to send results in groups of 75 or less until the entire deck has been covered
-        } else {
-            //This isn't going to work, but it's a start, need to fill out the list correctly
-            scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdsForPrice);
+        List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, 75);
+        List<String> scryfallCollectionResults = new ArrayList<>();
+
+        for (List<CardIdentifierDTO> batch : batches) {
+            scryfallCollectionResults.addAll(
+                    jdbcCardDao.getCardsFromCollection(batch)
+            );
         }
+
         return deckList;
     }
 
@@ -302,5 +305,13 @@ public class JdbcDeckDao implements DeckDao{
         cardSearchDTO.setCmc(result.get("cmc").getAsBigDecimal());
         cardSearchDTO.setLegalities(result.get("legalities").getAsJsonObject());
         return cardSearchDTO;
+    }
+
+    private <T> List<List<T>> chunk(List<T> list, int size) {
+        List<List<T>> chunks = new ArrayList<>();
+        for (int i = 0; i < list.size(); i += size) {
+            chunks.add(list.subList(i, Math.min(i + size, list.size())));
+        }
+        return chunks;
     }
 }
