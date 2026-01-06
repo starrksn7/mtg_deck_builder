@@ -35,6 +35,8 @@ public class CardSearchDTO {
 
     private JsonObject legalities;
 
+    private JsonObject prices;
+
     public int getId() {
         return id;
     }
@@ -142,6 +144,10 @@ public class CardSearchDTO {
     public void setLegalities(JsonObject legalities){ this.legalities = legalities; }
 
     public JsonObject getLegalities(){ return legalities; }
+
+    public void setPrices(JsonObject prices){ this.prices = prices; }
+
+    public JsonObject getPrices(){ return prices; }
 
     @Override
     public String toString(){

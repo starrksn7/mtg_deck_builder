@@ -140,6 +140,17 @@ public class JdbcDeckDao implements DeckDao{
             );
         }
 
+        for(String scryfallResult : scryfallCollectionResults){
+            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
+            CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
+            JsonObject prices = cardSearchDTO.getPrices();
+            String priceInUSD = prices.get("usd").getAsString();
+
+            //need to change this loop so it gets the corresponding index from the decklist and then adds the price
+            //to that card object
+            addCardToDeck(deckId, cardSearchDTO);
+        }
+
         return deckList;
     }
 
@@ -304,6 +315,7 @@ public class JdbcDeckDao implements DeckDao{
         cardSearchDTO.setKeyword(keywordsArray);
         cardSearchDTO.setCmc(result.get("cmc").getAsBigDecimal());
         cardSearchDTO.setLegalities(result.get("legalities").getAsJsonObject());
+        cardSearchDTO.setPrices(result.get("prices").getAsJsonObject());
         return cardSearchDTO;
     }
 
