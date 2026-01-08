@@ -306,6 +306,11 @@ export function SingleDeck() {
                                                                 __html: replaceTextWithManaSymbols(card.manaCost),
                                                             }}
                                                             />
+                                                            <span
+                                                            className="card-price"
+                                                            >
+                                                                {card.price}
+                                                            </span>
                                                         </div>
 
                                                         {hoveredCardId === card.scryfallId && (
