@@ -26,6 +26,9 @@ export function SingleDeck() {
     const [deckName, setDeckName] = useState('');
     const [hoverPlacement, setHoverPlacement] = useState('right')
 
+    console.log("xxxxxxxxxxxxxxx")
+    console.log(cardList)
+    console.log("xxxxxxxxxxxxxxx")
     const renderOrder = [
     'Commander',
     'Creatures',
