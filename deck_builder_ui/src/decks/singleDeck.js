@@ -26,9 +26,6 @@ export function SingleDeck() {
     const [deckName, setDeckName] = useState('');
     const [hoverPlacement, setHoverPlacement] = useState('right')
 
-    console.log("xxxxxxxxxxxxxxx")
-    console.log(cardList)
-    console.log("xxxxxxxxxxxxxxx")
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -312,7 +309,7 @@ export function SingleDeck() {
                                                             <span
                                                             className="card-price"
                                                             >
-                                                                {card.price}
+                                                                ${card.price.toFixed(2)}
                                                             </span>
                                                         </div>
 
