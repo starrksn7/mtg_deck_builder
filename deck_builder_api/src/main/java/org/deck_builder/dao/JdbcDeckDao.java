@@ -152,7 +152,6 @@ public class JdbcDeckDao implements DeckDao{
             JsonObject prices = cardSearchDTO.getPrices();
             String priceInUSD = prices.get("usd").getAsString();
 
-            addCardToDeck(deckId, cardSearchDTO);
             Card card = deckList.get(i);
             card.setPrice(Double.parseDouble(priceInUSD));
             deckList.set(i, card);
