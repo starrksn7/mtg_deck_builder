@@ -20,15 +20,15 @@ public class UserService {
         return userDao.findUserByEmail(userDTO.getEmail());
     }
 
-    public User getuserById(UserDTO userDTO) {
+    public User getUserById(UserDTO userDTO) {
         return userDao.getUserById(userDTO.getUserId());
     }
 
-    public boolean createUser(RegisterUserDTO registerUserDTO) {
+    public boolean create(RegisterUserDTO registerUserDTO) {
         return userDao.create(registerUserDTO.getEmail(), registerUserDTO.getUsername(), registerUserDTO.getPassword(), registerUserDTO.getRole());
     }
 
-    public List<Deck> getDecksById(int userId){
+    public List<Deck> findDecksByUser(int userId){
         return deckDao.findDecksByUser(userId);
     }
 

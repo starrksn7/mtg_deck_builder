@@ -3,6 +3,7 @@ package org.deck_builder.controller;
 import org.deck_builder.dao.DeckDao;
 import org.deck_builder.dao.UserDao;
 import org.deck_builder.model.*;
+import org.deck_builder.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,33 +21,35 @@ public class UserController {
         this.deckDao = deckDao;
     }
 
+    UserService userService;
+
     @PutMapping(path="/update")
     public User updateUserProfile(@RequestBody UserDTO userDTO){
-        return userDao.updateUserProfile(userDTO.getUserId(), userDTO.getEmail(), userDTO.getUserName());
+        return userService.updateUserProfile(userDTO);
     }
 
     @GetMapping(path="/findByEmail")
     public User findUserByEmail(@RequestBody UserDTO userDTO){
-        return userDao.findUserByEmail(userDTO.getEmail());
+        return userService.findUserByEmail(userDTO);
     }
 
     @GetMapping(path="/findById")
     public User getUserById(@RequestBody UserDTO userDTO){
-        return userDao.getUserById(userDTO.getUserId());
+        return userService.getUserById(userDTO);
     }
 
     @PostMapping(path="/create")
     public boolean create(@RequestBody RegisterUserDTO registerUserDTO){
-        return userDao.create(registerUserDTO.getEmail(), registerUserDTO.getUsername(), registerUserDTO.getPassword(), registerUserDTO.getRole());
+        return userService.create(registerUserDTO);
     }
 
     @GetMapping(path = "")
     public List<Deck> findDecksByUser(@RequestParam int userId){
-        return deckDao.findDecksByUser(userId);
+        return userService.findDecksByUser(userId);
     }
 
     @PostMapping(path = "/login")
     public User login(@RequestBody LoginDTO loginDTO){
-        return userDao.login(loginDTO.getEmail(), loginDTO.getPassword());
+        return userService.login(loginDTO);
     }
 }
