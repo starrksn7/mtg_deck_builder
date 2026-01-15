@@ -3,14 +3,20 @@ package org.deck_builder.services;
 import org.deck_builder.dao.DeckDao;
 import org.deck_builder.dao.UserDao;
 import org.deck_builder.model.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class UserService {
 
     UserDao userDao;
     DeckDao deckDao;
+
+    public UserService(UserDao userDao, DeckDao deckDao){
+        this.userDao = userDao;
+        this.deckDao = deckDao;
+    }
 
     public User updateUserProfile(UserDTO userDTO) {
         return userDao.updateUserProfile(userDTO.getUserId(), userDTO.getEmail(), userDTO.getUserName());

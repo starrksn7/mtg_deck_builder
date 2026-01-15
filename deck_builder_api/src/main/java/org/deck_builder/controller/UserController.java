@@ -13,15 +13,11 @@ import java.util.List;
 @CrossOrigin
 public class UserController {
 
-    private UserDao userDao;
-    private DeckDao deckDao;
-
-    private UserController(UserDao userDao, DeckDao deckDao){
-        this.userDao = userDao;
-        this.deckDao = deckDao;
-    }
-
     UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PutMapping(path="/update")
     public User updateUserProfile(@RequestBody UserDTO userDTO){
