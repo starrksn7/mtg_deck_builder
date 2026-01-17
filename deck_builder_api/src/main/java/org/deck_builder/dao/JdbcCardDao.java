@@ -27,84 +27,84 @@ public class JdbcCardDao implements CardDao{
     private final String scryfallUrl = "https://api.scryfall.com";
     private final String uniqueOnly = "&unique=cards";
     private final String commanderLegal = "+format%3Acommander";
-    public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
-        String encodedName = URLEncoder.encode(name, "UTF-8");
-        String uri = scryfallUrl + "/cards/search?q=" + encodedName + commanderLegal + uniqueOnly ;
-        try {
-            System.out.println(uri);
-            List<String> searchResults = getCardsFromUri(uri);
-            //failed searches return an array that's just [No cards found]
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
+//    public List<String> searchForCardByName(String name) throws UnsupportedEncodingException {
+//        String encodedName = URLEncoder.encode(name, "UTF-8");
+//        String uri = scryfallUrl + "/cards/search?q=" + encodedName + commanderLegal + uniqueOnly ;
+//        try {
+//            System.out.println(uri);
+//            List<String> searchResults = getCardsFromUri(uri);
+//            //failed searches return an array that's just [No cards found]
+//            if(searchResults.get(0).equals("No cards found")){
+//                return failedSearch();
+//            }
+//            return parseSearchResults(searchResults);
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> getCardsFromUri(String uri) throws IOException {
-        try {
-            List<String> dataSets = new ArrayList<>();
-            URL scryfallUrl = new URL(uri);
-            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode);
-            }
-
-            Scanner scanner = new Scanner(scryfallUrl.openStream());
-            while(true){
-                StringBuilder body = new StringBuilder();
-                while (scanner.hasNext()) {
-                    body.append(scanner.nextLine());
-                }
-                dataSets.add(String.valueOf(body));
-                JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
-
-                if(!jsonObject.get("has_more").getAsBoolean()){
-                    break;
-                }
-
-                scryfallUrl = new URL(jsonObject.get("next_page").getAsString());
-                scanner = new Scanner(scryfallUrl.openStream());
-            }
-
-            scanner.close();
-            return dataSets;
-        } catch (IOException | RuntimeException e) {
-            /*
-            When there is no search results, it causes an error and goes to this catch
-            I need to make the data returned below into good json and have the rest of my
-            functions check for that before sending the response to the ui
-             */
-            List<String> errorMessage = new ArrayList<>();
-            errorMessage.add("No cards found");
-            return errorMessage;
-        }
-
-    }
+//    public List<String> getCardsFromUri(String uri) throws IOException {
+//        try {
+//            List<String> dataSets = new ArrayList<>();
+//            URL scryfallUrl = new URL(uri);
+//            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+//            conn.setRequestMethod("GET");
+//            conn.connect();
+//
+//            int responseCode = conn.getResponseCode();
+//            if (responseCode != 200) {
+//                throw new RuntimeException("HttpResponseCode: " + responseCode);
+//            }
+//
+//            Scanner scanner = new Scanner(scryfallUrl.openStream());
+//            while(true){
+//                StringBuilder body = new StringBuilder();
+//                while (scanner.hasNext()) {
+//                    body.append(scanner.nextLine());
+//                }
+//                dataSets.add(String.valueOf(body));
+//                JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
+//
+//                if(!jsonObject.get("has_more").getAsBoolean()){
+//                    break;
+//                }
+//
+//                scryfallUrl = new URL(jsonObject.get("next_page").getAsString());
+//                scanner = new Scanner(scryfallUrl.openStream());
+//            }
+//
+//            scanner.close();
+//            return dataSets;
+//        } catch (IOException | RuntimeException e) {
+//            /*
+//            When there is no search results, it causes an error and goes to this catch
+//            I need to make the data returned below into good json and have the rest of my
+//            functions check for that before sending the response to the ui
+//             */
+//            List<String> errorMessage = new ArrayList<>();
+//            errorMessage.add("No cards found");
+//            return errorMessage;
+//        }
+//
+//    }
 
     //Just like below the identity needs to be the official name for a combo, like azorious for blue & white or just the single color
-    public List<String> findCardByIdentityAndType(String[] colorIdentity, String type) throws UnsupportedEncodingException{
-        String encodedIdentity = "id%3A" + Arrays.toString(colorIdentity);
-        String encodedType = "t%3A" + type;
-        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public List<String> findCardByIdentityAndType(String[] colorIdentity, String type) throws UnsupportedEncodingException{
+//        String encodedIdentity = "id%3A" + Arrays.toString(colorIdentity);
+//        String encodedType = "t%3A" + type;
+//        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
+//        System.out.println(uri);
+//        try {
+//            List<String> searchResults = getCardsFromUri(uri);
+//            if(searchResults.get(0).equals("No cards found")){
+//                return failedSearch();
+//            }
+//            return parseSearchResults(searchResults);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     //This function needs manaCost to be a string that is a number, due to the scryfall api for searching by cost and color appending a
     //number to the url, but needing to combine strings to make the url.  Search results from scryfall will still have mana_cost as a string, so most other places
@@ -112,33 +112,33 @@ public class JdbcCardDao implements CardDao{
     //
     //Unlike other functions, the scryfall api needs the colors variable to be one string, but not be the name for the identity
     //So black is just b and red to be r.  The colors variable for black and red should be br not rakdos
-    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
-        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
+//        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + commanderLegal + uniqueOnly;
+//        System.out.println(uri);
+//        try {
+//            List<String> searchResults = getCardsFromUri(uri);
+//            if(searchResults.get(0).equals("No cards found")){
+//                return failedSearch();
+//            }
+//            return parseSearchResults(searchResults);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    public List<String> getCardByKeywordAndColors(String[] keyword, String colors) throws UnsupportedEncodingException {
-        String uri= scryfallUrl + "/cards/search?q=kw%3A" + Arrays.toString(keyword) + "+c%3A" + colors + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public List<String> getCardByKeywordAndColors(String[] keyword, String colors) throws UnsupportedEncodingException {
+//        String uri= scryfallUrl + "/cards/search?q=kw%3A" + Arrays.toString(keyword) + "+c%3A" + colors + commanderLegal + uniqueOnly;
+//        System.out.println(uri);
+//        try {
+//            List<String> searchResults = getCardsFromUri(uri);
+//            if(searchResults.get(0).equals("No cards found")){
+//                return failedSearch();
+//            }
+//            return parseSearchResults(searchResults);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public boolean addCardToDb(Card card){
         SqlRowSet getResults = getFromDb(card.getScryfallId());
@@ -159,147 +159,147 @@ public class JdbcCardDao implements CardDao{
         return jdbcTemplate.queryForRowSet(getSql, scryfallId);
     }
 
-    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
-        try {
-            List<String> cardJsonStrings = new ArrayList<>();
-            String collectionUrl = "https://api.scryfall.com/cards/collection";
-            URL scryfallUrl = new URL(collectionUrl);
-            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+//    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
+//        try {
+//            List<String> cardJsonStrings = new ArrayList<>();
+//            String collectionUrl = "https://api.scryfall.com/cards/collection";
+//            URL scryfallUrl = new URL(collectionUrl);
+//            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+//
+//            conn.setRequestMethod("POST");
+//            conn.setDoOutput(true);
+//            conn.setRequestProperty("Content-Type", "application/json");
+//            conn.setRequestProperty("Accept", "application/json");
+//
+//            Gson gson = new Gson();
+//            Map<String, List<CardIdentifierDTO>> requestMap = new HashMap<>();
+//            requestMap.put("identifiers", cardIdentifierDTO);
+//
+//            String jsonBody = gson.toJson(requestMap);
+//
+//            try (OutputStream os = conn.getOutputStream()) {
+//                byte[] input = jsonBody.getBytes("utf-8");
+//                os.write(input, 0, input.length);
+//            }
+//
+//            Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
+//            String responseBody = scanner.hasNext() ? scanner.next() : "";
+//            scanner.close();
+//
+//            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+//            JsonArray dataArray = jsonObject.getAsJsonArray("data");
+//
+//            for (JsonElement element : dataArray) {
+//                cardJsonStrings.add(element.toString());
+//            }
+//
+//            return cardJsonStrings;
+//
+//        } catch (IOException | RuntimeException e) {
+//            e.printStackTrace();
+//            List<String> errorMessage = new ArrayList<>();
+//            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
+//            return errorMessage;
+//        }
+//    }
 
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
+//    public Card mapResultToCard(JsonObject result){
+//        String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
+//        String name = result.get("name") != null ? result.get("name").getAsString() : null;
+//        //regex to replace double quotes with single quotes
+//        name = name.replaceAll("\"(.*?)\"", "'$1'");
+//        String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
+//        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+//        String imageLink = uris != null ? uris.get("small").getAsString() : "";
+//        String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+//        String type = result.get("type_line").getAsString();
+//        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+//        //regex to remove the line breaks
+//        oracleText = oracleText.replaceAll("\\n", " ");
+//        //regex to remove the escaping slashes
+//        oracleText = oracleText.replaceAll("\\\\", "");
+//        //regex to change double quotes to single quotes
+//        oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
+//
+//        JsonArray colorsArray = result.getAsJsonArray("colors");
+//        String colors = "";
+//
+//        if (colorsArray != null) {
+//            List<String> list = new ArrayList<>();
+//            for (JsonElement c : colorsArray) {
+//                list.add(c.getAsString());
+//            }
+//            colors = String.join(",", list);
+//        }
+//        JsonArray colorIdentity = (JsonArray) result.get("color_identity");
+//        String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
+//        if (colorIdentity != null) {
+//            for (int i = 0; i < colorIdentity.size(); i++) {
+//                identityArray[i] = colorIdentity.get(i).getAsString();
+//            }
+//        }
+//
+//        JsonArray keywords = (JsonArray) result.get("keywords");
+//        String[] keywordsArray = keywords != null ? new String[keywords.size()] : new String[0];
+//        if(keywords != null){
+//            for (int i = 0; i < keywords.size(); i++){
+//                keywordsArray[i] = keywords.get(i).getAsString();
+//            }
+//        }
+//        BigDecimal cmc = result.get("cmc").getAsBigDecimal();
+//        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc);
+//        addCardToDb(newCard);
+//        return newCard;
+//    }
 
-            Gson gson = new Gson();
-            Map<String, List<CardIdentifierDTO>> requestMap = new HashMap<>();
-            requestMap.put("identifiers", cardIdentifierDTO);
+//    public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {
+//        String commanderForUri = "is%3Acommander";
+//        String encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+//
+//        String searchUri = scryfallUrl + "/cards/search?q=" + encodedSearchTerm + "+" +commanderForUri;
+//        System.out.println(searchUri);
+//        try {
+//            List<String> results = getCardsFromUri(searchUri);
+//            return parseSearchResults(results);
+//        } catch(IOException e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-            String jsonBody = gson.toJson(requestMap);
+//    public List<String> findCommanderByColors(String colors) throws UnsupportedEncodingException {
+//        String commanderForUri = "is%3Acommander";
+//        String colorSearch = "+color%3D" + colors;
+//        String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
+//        System.out.println(searchUri);
+//        try {
+//            List<String> results = getCardsFromUri(searchUri);
+//            return parseSearchResults(results);
+//        } catch(IOException e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-            try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonBody.getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
+//    public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException{
+//        ArrayList<String> result = new ArrayList<>();
+//        for(String dataSet : searchResults){
+//            JsonObject jsonObject = new JsonParser().parse(dataSet).getAsJsonObject();
+//            JsonArray jsonCards = (JsonArray) jsonObject.get("data");
+//
+//            for(int i = 0; i < jsonCards.size(); i+=1){
+//                JsonObject tempObj = (JsonObject) jsonCards.get(i);
+//                result.add(mapResultToCard(tempObj).toJsonString());
+//            }
+//        }
+//
+//        return result;
+//    }
 
-            Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
-            String responseBody = scanner.hasNext() ? scanner.next() : "";
-            scanner.close();
-
-            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-            JsonArray dataArray = jsonObject.getAsJsonArray("data");
-
-            for (JsonElement element : dataArray) {
-                cardJsonStrings.add(element.toString());
-            }
-
-            return cardJsonStrings;
-
-        } catch (IOException | RuntimeException e) {
-            e.printStackTrace();
-            List<String> errorMessage = new ArrayList<>();
-            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
-            return errorMessage;
-        }
-    }
-
-    public Card mapResultToCard(JsonObject result){
-        String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
-        String name = result.get("name") != null ? result.get("name").getAsString() : null;
-        //regex to replace double quotes with single quotes
-        name = name.replaceAll("\"(.*?)\"", "'$1'");
-        String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
-        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
-        String imageLink = uris != null ? uris.get("small").getAsString() : "";
-        String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
-        String type = result.get("type_line").getAsString();
-        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
-        //regex to remove the line breaks
-        oracleText = oracleText.replaceAll("\\n", " ");
-        //regex to remove the escaping slashes
-        oracleText = oracleText.replaceAll("\\\\", "");
-        //regex to change double quotes to single quotes
-        oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
-
-        JsonArray colorsArray = result.getAsJsonArray("colors");
-        String colors = "";
-
-        if (colorsArray != null) {
-            List<String> list = new ArrayList<>();
-            for (JsonElement c : colorsArray) {
-                list.add(c.getAsString());
-            }
-            colors = String.join(",", list);
-        }
-        JsonArray colorIdentity = (JsonArray) result.get("color_identity");
-        String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
-        if (colorIdentity != null) {
-            for (int i = 0; i < colorIdentity.size(); i++) {
-                identityArray[i] = colorIdentity.get(i).getAsString();
-            }
-        }
-
-        JsonArray keywords = (JsonArray) result.get("keywords");
-        String[] keywordsArray = keywords != null ? new String[keywords.size()] : new String[0];
-        if(keywords != null){
-            for (int i = 0; i < keywords.size(); i++){
-                keywordsArray[i] = keywords.get(i).getAsString();
-            }
-        }
-        BigDecimal cmc = result.get("cmc").getAsBigDecimal();
-        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc);
-        addCardToDb(newCard);
-        return newCard;
-    }
-
-    public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {
-        String commanderForUri = "is%3Acommander";
-        String encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8");
-
-        String searchUri = scryfallUrl + "/cards/search?q=" + encodedSearchTerm + "+" +commanderForUri;
-        System.out.println(searchUri);
-        try {
-            List<String> results = getCardsFromUri(searchUri);
-            return parseSearchResults(results);
-        } catch(IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> findCommanderByColors(String colors) throws UnsupportedEncodingException {
-        String commanderForUri = "is%3Acommander";
-        String colorSearch = "+color%3D" + colors;
-        String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
-        System.out.println(searchUri);
-        try {
-            List<String> results = getCardsFromUri(searchUri);
-            return parseSearchResults(results);
-        } catch(IOException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException{
-        ArrayList<String> result = new ArrayList<>();
-        for(String dataSet : searchResults){
-            JsonObject jsonObject = new JsonParser().parse(dataSet).getAsJsonObject();
-            JsonArray jsonCards = (JsonArray) jsonObject.get("data");
-
-            for(int i = 0; i < jsonCards.size(); i+=1){
-                JsonObject tempObj = (JsonObject) jsonCards.get(i);
-                result.add(mapResultToCard(tempObj).toJsonString());
-            }
-        }
-
-        return result;
-    }
-
-    public List<String> failedSearch(){
-        JsonObject object = new JsonObject();
-        object.addProperty("error", "No cards found");
-        List<String> failedSearch = new ArrayList<>();
-        failedSearch.add(object.toString());
-        return failedSearch;
-    }
+//    public List<String> failedSearch(){
+//        JsonObject object = new JsonObject();
+//        object.addProperty("error", "No cards found");
+//        List<String> failedSearch = new ArrayList<>();
+//        failedSearch.add(object.toString());
+//        return failedSearch;
+//    }
 
 }

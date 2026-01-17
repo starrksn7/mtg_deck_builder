@@ -1,23 +1,20 @@
 package org.deck_builder.services;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.model.Card;
+import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CardService {
 
@@ -93,6 +90,94 @@ public class CardService {
 
     }
 
+    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
+        try {
+            List<String> cardJsonStrings = new ArrayList<>();
+            String collectionUrl = "https://api.scryfall.com/cards/collection";
+            URL scryfallUrl = new URL(collectionUrl);
+            HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            Gson gson = new Gson();
+            Map<String, List<CardIdentifierDTO>> requestMap = new HashMap<>();
+            requestMap.put("identifiers", cardIdentifierDTO);
+
+            String jsonBody = gson.toJson(requestMap);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonBody.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A");
+            String responseBody = scanner.hasNext() ? scanner.next() : "";
+            scanner.close();
+
+            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+            JsonArray dataArray = jsonObject.getAsJsonArray("data");
+
+            for (JsonElement element : dataArray) {
+                cardJsonStrings.add(element.toString());
+            }
+
+            return cardJsonStrings;
+
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
+            return errorMessage;
+        }
+    }
+
+    public List<String> getCardByKeywordAndColors(String[] keyword, String colors) throws UnsupportedEncodingException {
+        String uri= scryfallUrl + "/cards/search?q=kw%3A" + Arrays.toString(keyword) + "+c%3A" + colors + commanderLegal + uniqueOnly;
+        System.out.println(uri);
+        try {
+            List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
+            return parseSearchResults(searchResults);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
+        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + commanderLegal + uniqueOnly;
+        System.out.println(uri);
+        try {
+            List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
+            return parseSearchResults(searchResults);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> findCardByIdentityAndType(String[] colorIdentity, String type) throws UnsupportedEncodingException{
+        String encodedIdentity = "id%3A" + Arrays.toString(colorIdentity);
+        String encodedType = "t%3A" + type;
+        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
+        System.out.println(uri);
+        try {
+            List<String> searchResults = getCardsFromUri(uri);
+            if(searchResults.get(0).equals("No cards found")){
+                return failedSearch();
+            }
+            return parseSearchResults(searchResults);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException {
         ArrayList<String> result = new ArrayList<>();
         for(String dataSet : searchResults){
@@ -106,6 +191,33 @@ public class CardService {
         }
 
         return result;
+    }
+
+    public List<String> findCommanderByColors(String colors) throws UnsupportedEncodingException {
+        String commanderForUri = "is%3Acommander";
+        String colorSearch = "+color%3D" + colors;
+        String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
+        System.out.println(searchUri);
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> findCommanderByName(String searchTerm) throws UnsupportedEncodingException {
+        String commanderForUri = "is%3Acommander";
+        String encodedSearchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+
+        String searchUri = scryfallUrl + "/cards/search?q=" + encodedSearchTerm + "+" +commanderForUri;
+        System.out.println(searchUri);
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public Card mapResultToCard(JsonObject result){
