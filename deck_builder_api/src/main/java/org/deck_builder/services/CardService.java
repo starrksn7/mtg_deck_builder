@@ -6,6 +6,7 @@ import org.deck_builder.dao.CardDao;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
 
+@Service
 public class CardService {
 
     CardDao cardDao;
@@ -219,6 +221,8 @@ public class CardService {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean addCardToDb(Card card){ return cardDao.addCardToDb(card); }
 
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;

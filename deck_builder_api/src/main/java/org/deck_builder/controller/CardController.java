@@ -6,6 +6,8 @@ import org.deck_builder.model.Card;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
+import org.deck_builder.services.CardService;
+import org.deck_builder.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -16,44 +18,44 @@ import java.util.List;
 @RequestMapping("/card")
 @CrossOrigin
 public class CardController {
-    private CardDao cardDao;
+    CardService cardService;
 
-    private CardController(CardDao cardDao){
-        this.cardDao = cardDao;
+    public CardController(CardService cardService) {
+        this.cardService = cardService;
     }
     @PostMapping(path="/searchByName")
     public List<String> searchForCardByName(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        return cardDao.searchForCardByName(jsonBody.getName());
+        return cardService.searchForCardByName(jsonBody);
     }
 
     @PostMapping(path="/searchByIdentityAndType")
     public List<String> findCardByType(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardDao.findCardByIdentityAndType(jsonBody.getColorIdentity(), jsonBody.getType());
+        return cardService.findCardByIdentityAndType(jsonBody.getColorIdentity(), jsonBody.getType());
     }
 
     @PostMapping(path="/searchByColorAndCost")
     public List<String> getCardByColorAndCost(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardDao.getCardByColorAndCost(jsonBody.getColors(), jsonBody.getManaCost());
+        return cardService.getCardByColorAndCost(jsonBody.getColors(), jsonBody.getManaCost());
     }
 
     @PostMapping(path="/searchByKeywordAndColors")
     public List<String> getCardByKeyword(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardDao.getCardByKeywordAndColors(jsonBody.getKeyword(), jsonBody.getColors());
+        return cardService.getCardByKeywordAndColors(jsonBody.getKeyword(), jsonBody.getColors());
     }
 
     @PostMapping(path="/addToDb")
     public boolean addCardToDb(Card card){
-        return cardDao.addCardToDb(card);
+        return cardService.addCardToDb(card);
     }
 
     @PostMapping(path="/searchForCommanderByName")
     public List<String> findCommanderByName(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        return cardDao.findCommanderByName(jsonBody.getSearchTerm());
+        return cardService.findCommanderByName(jsonBody.getSearchTerm());
     }
 
     @PostMapping(path="/searchForCommanderByColor")
     public List<String> findCommanderByColors(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
-        return cardDao.findCommanderByColors(jsonBody.getColors());
+        return cardService.findCommanderByColors(jsonBody.getColors());
     }
 
 }
