@@ -120,42 +120,7 @@ public class JdbcDeckDao implements DeckDao{
         if(deckList.isEmpty()) {
             throw new DeckNotFoundException();
         }
-
-        /* This is where I need to build a json object using the scryfallIds from each card in the deck.
-            It should use the same format as the collection POST request to scryfall. If the request is larger
-            75 entries, then I'll have to make a second call to get the remaining cards. The ui will need to do the
-            math to do any multiplication that is needed for duplicate cards.
-
-            Once the card info is returned from scryfall, I can loop through the cards in the list and add the price
-            to it, which is returned in "prices" and then "usd"
-         */
-        List<CardIdentifierDTO> cardIdsForPrice = new ArrayList<>();
-        for(Card card : deckList){
-           CardIdentifierDTO cardIdentifierDTO = new CardIdentifierDTO();
-           cardIdentifierDTO.setId(card.getScryfallId());
-           cardIdsForPrice.add(cardIdentifierDTO);
-        }
-
-        List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, 75);
-        List<String> scryfallCollectionResults = new ArrayList<>();
-
-        for (List<CardIdentifierDTO> batch : batches) {
-            scryfallCollectionResults.addAll(
-                    jdbcCardDao.getCardsFromCollection(batch)
-            );
-        }
-
-        for (int i = 0; i < scryfallCollectionResults.size(); i++){
-            String scryfallResult = scryfallCollectionResults.get(i);
-            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
-            CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
-            JsonObject prices = cardSearchDTO.getPrices();
-            String priceInUSD = prices.get("usd").getAsString();
-
-            Card card = deckList.get(i);
-            card.setPrice(Double.parseDouble(priceInUSD));
-            deckList.set(i, card);
-        }
+        
 
         return deckList;
     }
@@ -202,27 +167,6 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
-        System.out.println("DTO received size = " + cardIdentifierDTO.size());
-        List<String> scryfallCollectionResults = jdbcCardDao.getCardsFromCollection(cardIdentifierDTO);
-
-        if(scryfallCollectionResults.isEmpty()){
-            return jdbcCardDao.failedSearch();
-        }
-
-        for(String scryfallResult : scryfallCollectionResults){
-            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
-            CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
-            JsonObject legalities = cardSearchDTO.getLegalities();
-            String commanderLegality = legalities.get("commander").getAsString();
-            boolean isLegal = commanderLegality.equals("legal");
-            if (!isLegal){
-                continue;
-            }
-            addCardToDeck(deckId, cardSearchDTO);
-        }
-        return scryfallCollectionResults;
-    }
 
     private Deck mapRowToDeck(SqlRowSet row){
         Deck deck = new Deck();
@@ -275,61 +219,5 @@ public class JdbcDeckDao implements DeckDao{
             jdbcCardDao.addCardToDb(card);
 
         }
-    }
-
-    public CardSearchDTO mapResultToCardSearchDTO(JsonObject result){
-        CardSearchDTO cardSearchDTO = new CardSearchDTO();
-        cardSearchDTO.setScryfallId(result.get("id") != null ? result.get("id").getAsString() : null);
-        String name = result.get("name") != null ? result.get("name").getAsString() : null;
-        //regex to replace double quotes with single quotes
-        cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
-        cardSearchDTO.setScryfallURL(result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null);
-        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
-        cardSearchDTO.setImageLink(uris != null ? uris.get("small").getAsString() : "");
-        cardSearchDTO.setManaCost(result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
-        cardSearchDTO.setType(result.get("type_line").getAsString());
-        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
-        //regex to remove the line breaks
-        oracleText = oracleText.replaceAll("\\n", " ");
-        //regex to remove the escaping slashes
-        oracleText = oracleText.replaceAll("\\\\", "");
-        //regex to change double quotes to single quotes
-        cardSearchDTO.setOracleText(oracleText.replaceAll("\"(.*?)\"", "'$1'"));
-        JsonArray colors = (JsonArray) result.get("colors");
-        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
-        if(colors != null) {
-            for (int i = 0; i < colors.size(); i++) {
-                colorsArray[i] = colors.get(i).getAsString();
-            }
-        }
-        cardSearchDTO.setColors(String.join("", colorsArray));
-        JsonArray colorIdentity = (JsonArray) result.get("color_identity");
-        String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
-        if(colorIdentity != null){
-            for (int i = 0; i < colorIdentity.size(); i++){
-                identityArray[i] = colorIdentity.get(i).getAsString();
-            }
-        }
-        cardSearchDTO.setColorIdentity(identityArray);
-        JsonArray keywords = (JsonArray) result.get("keywords");
-        String[] keywordsArray = keywords != null ? new String[keywords.size()] : new String[0];
-        if(keywords != null){
-            for (int i = 0; i < keywords.size(); i++){
-                keywordsArray[i] = keywords.get(i).getAsString();
-            }
-        }
-        cardSearchDTO.setKeyword(keywordsArray);
-        cardSearchDTO.setCmc(result.get("cmc").getAsBigDecimal());
-        cardSearchDTO.setLegalities(result.get("legalities").getAsJsonObject());
-        cardSearchDTO.setPrices(result.get("prices").getAsJsonObject());
-        return cardSearchDTO;
-    }
-
-    private <T> List<List<T>> chunk(List<T> list, int size) {
-        List<List<T>> chunks = new ArrayList<>();
-        for (int i = 0; i < list.size(); i += size) {
-            chunks.add(list.subList(i, Math.min(i + size, list.size())));
-        }
-        return chunks;
     }
 }
