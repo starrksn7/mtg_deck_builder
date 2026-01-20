@@ -29,7 +29,5 @@ public interface DeckDao {
 
     void checkForCard(CardSearchDTO cardDto);
 
-    List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException;
-
 
 }

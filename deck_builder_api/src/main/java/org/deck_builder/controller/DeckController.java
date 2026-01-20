@@ -3,6 +3,7 @@ package org.deck_builder.controller;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.*;
 import org.deck_builder.dao.DeckDao;
+import org.deck_builder.services.DeckService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,20 +12,20 @@ import java.util.List;
 @RequestMapping("/decks")
 @CrossOrigin
 public class DeckController {
-    private DeckDao deckDao;
+    private DeckService deckService
 
-    private DeckController(DeckDao deckDao){
-        this.deckDao = deckDao;
+    private DeckController(DeckService deckService){
+        this.deckService = deckService;
     }
 
     @GetMapping(path="")
     public List<Card> getDeckById(@RequestParam int deckId){
-        return deckDao.getDeckById(deckId);
+        return deckService.getDeckById(deckId);
     }
 
     @PostMapping(path="/create")
     public int createDeck(@RequestBody CreateDeckDTO createDeckDTO){
-        return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
+        return deckService.createDeck(createDeckDTO);
     }
 
     @PostMapping(path="/add")

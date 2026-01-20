@@ -9,6 +9,7 @@ import org.deck_builder.dao.DeckDao;
 import org.deck_builder.model.Card;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
+import org.deck_builder.model.CreateDeckDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -134,5 +135,14 @@ public class DeckService {
         }
         return chunks;
     }
+
+    public List<Card> getDeckById(int deckId){
+        return deckDao.getDeckById(deckId);
+    }
+
+    public int createDeck(CreateDeckDTO createDeckDTO){
+        return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
+    }
+
 
 }
