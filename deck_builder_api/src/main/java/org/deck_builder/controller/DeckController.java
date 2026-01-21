@@ -30,32 +30,32 @@ public class DeckController {
 
     @PostMapping(path="/add")
     public boolean addCardToDeck(@RequestBody DeckDTO jsonBody){
-        return deckDao.addCardToDeck(jsonBody.getDeckId(), jsonBody.getCardDto());
+        return deckService.addCardToDeck(jsonBody);
     }
 
     @PutMapping(path="/update")
     public boolean updateDeck(int id, String deckName, String commander){
-        return deckDao.updateDeck(id, deckName, commander);
+        return deckService.updateDeck(id, deckName, commander);
     }
 
     @GetMapping(path="/search")
     public List<Deck> searchForDeckByName(String deckName){
-        return deckDao.searchForDeckByName(deckName);
+        return deckService.searchForDeckByName(deckName);
     }
 
     @DeleteMapping(path="/remove")
     public boolean removeCardFromDeck(@RequestBody DeckDTO jsonBody){
-        return deckDao.removeCardFromDeck(jsonBody.getDeckId(), jsonBody.getCardDto());
+        return deckService.removeCardFromDeck(jsonBody);
     }
 
     @DeleteMapping(path="/deleteDeck")
     public boolean deleteDeck(@RequestBody int deckId){
-        return deckDao.deleteDeck(deckId);
+        return deckService.deleteDeck(deckId);
     }
 
     @PostMapping(path="/addCollection")
     public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
-        return deckDao.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
+        return deckService.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
     }
 
 }

@@ -6,10 +6,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.dao.DeckDao;
-import org.deck_builder.model.Card;
-import org.deck_builder.model.CardIdentifierDTO;
-import org.deck_builder.model.CardSearchDTO;
-import org.deck_builder.model.CreateDeckDTO;
+import org.deck_builder.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -142,6 +139,26 @@ public class DeckService {
 
     public int createDeck(CreateDeckDTO createDeckDTO){
         return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
+    }
+
+    public boolean addCardToDeck(DeckDTO deckDTO){
+        return deckDao.addCardToDeck(deckDTO.getDeckId(), deckDTO.getCardDto());
+    }
+
+    public boolean updateDeck(int id, String deckName, String commander){
+        return deckDao.updateDeck(id, deckName, commander);
+    }
+
+    public List<Deck> searchForDeckByName(String deckName){
+        return deckDao.searchForDeckByName(deckName);
+    }
+
+    public boolean removeCardFromDeck(DeckDTO deckDTO){
+        return deckDao.removeCardFromDeck(deckDTO.getDeckId(), deckDTO.getCardDto());
+    }
+
+    public boolean deleteDeck(int deckId){
+        return deckDao.deleteDeck(deckId);
     }
 
 
