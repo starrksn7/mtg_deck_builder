@@ -29,10 +29,18 @@ export const PieChart = ({groupedCards}) => {
           options: {
             responsive: false,
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    // Position of the legend: 'top', 'bottom', 'left', 'right', or 'chartArea'
+                    position: 'bottom', // Example position
+                    // Alignment of the legend: 'start', 'center', or 'end'
+                    align: 'center', // Example alignment
+                }
+            }
         }
       });
 
   }, [groupedCards]);
 
-  return <canvas id="manaCurve" ref={canvasRef} width={375} height={375} />;
+  return <canvas id="manaCurve" ref={canvasRef} width={400} height={300} />;
 };

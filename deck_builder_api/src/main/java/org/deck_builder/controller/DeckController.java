@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/decks")
 @CrossOrigin
 public class DeckController {
-    private DeckService deckService
+    private DeckService deckService;
 
     private DeckController(DeckService deckService){
         this.deckService = deckService;
