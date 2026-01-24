@@ -134,7 +134,9 @@ public class DeckService {
     }
 
     public List<Card> getDeckById(int deckId){
-        return deckDao.getDeckById(deckId);
+        List<Card> deckList = deckDao.getDeckById(deckId);
+
+        return addPricesToDeckList(deckList);
     }
 
     public int createDeck(CreateDeckDTO createDeckDTO){

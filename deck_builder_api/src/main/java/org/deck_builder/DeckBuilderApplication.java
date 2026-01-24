@@ -21,5 +21,4 @@ public class DeckBuilderApplication {
  *    d. style the deck list page
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
- * 3. figure out why the price for the cards are all showing $0.00
  */

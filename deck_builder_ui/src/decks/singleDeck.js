@@ -24,7 +24,8 @@ export function SingleDeck() {
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
     const [deckName, setDeckName] = useState('');
-    const [hoverPlacement, setHoverPlacement] = useState('right')
+    const [hoverPlacement, setHoverPlacement] = useState('right');
+    const [deckPrice, setDeckPrice] = useState('');
 
     const renderOrder = [
     'Commander',
@@ -64,6 +65,11 @@ export function SingleDeck() {
 
                 const curve = calculateManaCurve(resultsArray)
                 setManaCurve(curve)
+
+                let total = resultsArray.reduce((accumulator, currentItem) => {
+                    return accumulator + currentItem.price;
+                }, 0)
+                setDeckPrice(total);
             } catch (e) {
                 console.log("Deck not found", e)
                 setDeckNotFound(true);
@@ -247,6 +253,7 @@ export function SingleDeck() {
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <h1 className="deckName-row">{deckName}</h1>
+                    <h4 className="deckPrice">Total cost: ${deckPrice}</h4>
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}

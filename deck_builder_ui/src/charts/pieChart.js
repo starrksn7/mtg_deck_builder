@@ -31,10 +31,10 @@ export const PieChart = ({groupedCards}) => {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    // Position of the legend: 'top', 'bottom', 'left', 'right', or 'chartArea'
-                    position: 'bottom', // Example position
-                    // Alignment of the legend: 'start', 'center', or 'end'
-                    align: 'center', // Example alignment
+                    // Position of the legend can be 'top', 'bottom', 'left', 'right', or 'chartArea'
+                    position: 'bottom',
+                    // Alignment of the legend can be 'start', 'center', or 'end'
+                    align: 'center',
                 }
             }
         }
