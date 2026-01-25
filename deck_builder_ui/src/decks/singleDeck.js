@@ -253,7 +253,7 @@ export function SingleDeck() {
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <h1 className="deckName-row">{deckName}</h1>
-                    <h4 className="deckPrice">Total cost: ${deckPrice}</h4>
+                    <h4 className="deckPrice">Total cost: ${Number(deckPrice).toFixed(2)}</h4>
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}

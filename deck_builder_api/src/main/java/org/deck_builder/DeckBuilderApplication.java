@@ -21,4 +21,17 @@ public class DeckBuilderApplication {
  *    d. style the deck list page
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
+ * 3. Account creation enhancement
+ *    a. Add something to verify password upon creating an account
+ *    b. add username option
+ * 4. Determine what columns to add to the db
+ *    a. cards
+ *       i.full card art url
+ *       ii. rarity
+ *       iii. game_changer
+ *    b. users
+ *       a. add a username
+ * 5. There's a brief error message that flickers when coming back to using the ui after leaving it previously and I
+ *    click on 'my decks' before being routed to the login screen.
+ * 6. Firgure out why the messages that tell my my deck isn't legal don't display correctly.
  */
