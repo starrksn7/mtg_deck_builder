@@ -44,6 +44,9 @@ CREATE TABLE cards (
 	color_identity varchar(15),
 	keywords varchar(200),
     cmc NUMERIC(10,2),
+    full_art_link varchar(100) NOT NULL,
+    rarity varchar(50) NOT NULL,
+    game_changer boolean,
 	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 

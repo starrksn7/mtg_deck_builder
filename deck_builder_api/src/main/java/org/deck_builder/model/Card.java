@@ -41,8 +41,16 @@ public class Card {
 
     private double price;
 
+    private boolean gameChanger;
 
-    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type, String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc){
+    private String rarity;
+
+    private String fullArtLink;
+
+
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
+                 String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
+                 boolean gameChanger, String rarity, String fullArtLink){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -54,6 +62,9 @@ public class Card {
         this.colorIdentity = colorIdentity;
         this.keywords = keywords;
         this.cmc = cmc;
+        this.gameChanger = gameChanger;
+        this.rarity = rarity;
+        this.fullArtLink = fullArtLink;
     }
 
     public Card(){
@@ -171,7 +182,19 @@ public class Card {
 
     public void setPrice(double price){ this.price = price; }
 
+    public boolean getGameChanger(){ return gameChanger; }
+
+    public void setGameChanger(boolean gameChanger){ this.gameChanger = gameChanger; }
+
+    public String getRarity(){ return rarity; }
+
+    public void setRarity(String rarity){ this.rarity = rarity; }
+
+    public String getFullArtLink(){ return fullArtLink; }
+
+    public void setFullArtLink(String fullArtLink){ this.fullArtLink = fullArtLink; }
+
     public String toJsonString(){
-        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc);
+        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger, this.rarity, this.fullArtLink);
     }
 }

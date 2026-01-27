@@ -26,7 +26,7 @@ public class DeckBuilderApplication {
  *    b. add username option
  * 4. Determine what columns to add to the db
  *    a. cards
- *       i.full card art url
+ *       i.full card art url - "art_crop"
  *       ii. rarity
  *       iii. game_changer
  *    b. users
