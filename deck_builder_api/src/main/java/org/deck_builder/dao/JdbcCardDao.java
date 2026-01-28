@@ -31,12 +31,13 @@ public class JdbcCardDao implements CardDao{
     public boolean addCardToDb(Card card){
         SqlRowSet getResults = getFromDb(card.getScryfallId());
         boolean cardExistsInDb = getResults.next();
-        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc, game_changer, rarity, full_art_link)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         if (!cardExistsInDb) {
             jdbcTemplate.update(insertSql, card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(), card.getType(),
-                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc());
+                    card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc(),
+                    card.getGameChanger(), card.getRarity(), card.getFullArtLink());
             return true;
         }
         return false;

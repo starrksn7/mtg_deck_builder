@@ -37,6 +37,12 @@ public class CardSearchDTO {
 
     private JsonObject prices;
 
+    private boolean gameChanger;
+
+    private String rarity;
+
+    private String fullArtLink;
+
     public int getId() {
         return id;
     }
@@ -149,6 +155,18 @@ public class CardSearchDTO {
 
     public JsonObject getPrices(){ return prices; }
 
+    public boolean getGameChanger(){ return gameChanger; }
+
+    public void setGameChanger(boolean gameChanger){ this.gameChanger = gameChanger; }
+
+    public String getRarity(){ return rarity; }
+
+    public void setRarity(String rarity){ this.rarity = rarity; }
+
+    public String getFullArtLink(){ return fullArtLink; }
+
+    public void setFullArtLink(String fullArtLink){ this.fullArtLink = fullArtLink; }
+
     @Override
     public String toString(){
         return "{\"scryfallId\": \"" + this.scryfallId +
@@ -163,6 +181,9 @@ public class CardSearchDTO {
                 "\", \"keywords\": \"" + this.keyword +
                 "\", \"cmc\": \"" + this.cmc +
                 "\", \"legalities\": \"" + this.legalities +
+                "\", \"rarity\": \"" + this.rarity +
+                "\", \"gameChanger\": \"" + this.gameChanger +
+                "\", \"fullArtLink\": \"" + this.fullArtLink +
                 "\"}";
     }
 }

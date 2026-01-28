@@ -232,6 +232,7 @@ public class CardService {
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
         JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
         String imageLink = uris != null ? uris.get("small").getAsString() : "";
+        String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
         String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
         String type = result.get("type_line").getAsString();
         String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
@@ -268,7 +269,9 @@ public class CardService {
             }
         }
         BigDecimal cmc = result.get("cmc").getAsBigDecimal();
-        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc);
+        String rarity = result.get("rarity").getAsString();
+        boolean gameChanger = result.get("game_changer").getAsBoolean();
+        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
         cardDao.addCardToDb(newCard);
         return newCard;
     }

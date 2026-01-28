@@ -86,6 +86,7 @@ public class DeckService {
         cardSearchDTO.setScryfallURL(result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null);
         JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
         cardSearchDTO.setImageLink(uris != null ? uris.get("small").getAsString() : "");
+        cardSearchDTO.setFullArtLink(uris != null ? uris.get("art_crop").getAsString() : "");
         cardSearchDTO.setManaCost(result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
         cardSearchDTO.setType(result.get("type_line").getAsString());
         String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
@@ -122,6 +123,8 @@ public class DeckService {
         cardSearchDTO.setCmc(result.get("cmc").getAsBigDecimal());
         cardSearchDTO.setLegalities(result.get("legalities").getAsJsonObject());
         cardSearchDTO.setPrices(result.get("prices").getAsJsonObject());
+        cardSearchDTO.setRarity(result.get("rarity").getAsString());
+        cardSearchDTO.setGameChanger(result.get("game_changer").getAsBoolean());
         return cardSearchDTO;
     }
 
