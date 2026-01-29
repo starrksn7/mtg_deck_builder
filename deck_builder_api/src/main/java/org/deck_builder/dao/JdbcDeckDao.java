@@ -90,6 +90,9 @@ public class JdbcDeckDao implements DeckDao{
                 "    d.color_identity AS deck_color_identity,\n" +
                 "    d.commander AS deck_commander,\n" +
                 "    c.cmc, \n" +
+                "    c.game_changer, \n" +
+                "    c.rarity, \n" +
+                "    c.full_art_link, \n" +
                 "    COUNT(*) AS quantity, \n" +
                 "    d.deck_name \n" +
                 "FROM cards c\n" +
@@ -110,6 +113,9 @@ public class JdbcDeckDao implements DeckDao{
                 "    d.color_identity,\n" +
                 "    d.commander,\n" +
                 "    c.cmc, \n" +
+                "    c.game_changer, \n" +
+                "    c.rarity, \n" +
+                "    c.full_art_link, \n" +
                 "    d.deck_name;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
@@ -147,7 +153,8 @@ public class JdbcDeckDao implements DeckDao{
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
         Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                 cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
-                cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc());
+                cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
+                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink());
         jdbcCardDao.addCardToDb(card);
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
@@ -214,7 +221,8 @@ public class JdbcDeckDao implements DeckDao{
         if(!result.next()){
             Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                     cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
-                    cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc());
+                    cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
+                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink());
 
             jdbcCardDao.addCardToDb(card);
 

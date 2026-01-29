@@ -25,13 +25,10 @@ public class DeckBuilderApplication {
  *    a. Add something to verify password upon creating an account
  *    b. add username option
  * 4. Determine what columns to add to the db
- *    a. cards
- *       i.full card art url - "art_crop"
- *       ii. rarity
- *       iii. game_changer
- *    b. users
+ *    a. users
  *       a. add a username
  * 5. There's a brief error message that flickers when coming back to using the ui after leaving it previously and I
  *    click on 'my decks' before being routed to the login screen.
- * 6. Firgure out why the messages that tell my my deck isn't legal don't display correctly.
+ * 6. Figure out why the messages that tell my deck isn't legal don't display correctly.
+ * 7. Remove the prices from lands and don't count them in the overall cost of the deck
  */
