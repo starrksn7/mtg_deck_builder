@@ -26,6 +26,7 @@ export function SingleDeck() {
     const [deckName, setDeckName] = useState('');
     const [hoverPlacement, setHoverPlacement] = useState('right');
     const [deckPrice, setDeckPrice] = useState('');
+    const [commander, setCommander] = useState('');
 
     const renderOrder = [
     'Commander',
@@ -70,6 +71,10 @@ export function SingleDeck() {
                     return accumulator + currentItem.price;
                 }, 0)
                 setDeckPrice(total);
+
+                resultsArray.forEach((card) => { 
+                    if(card.name === card.deckCommander) setCommander(card)
+                })
             } catch (e) {
                 console.log("Deck not found", e)
                 setDeckNotFound(true);
@@ -253,6 +258,7 @@ export function SingleDeck() {
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <h1 className="deckName-row">{deckName}</h1>
+                    <img src={commander.fullArtLink} altText={commander.name}/>
                     <h4 className="deckPrice">Total cost: ${Number(deckPrice).toFixed(2)}</h4>
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}

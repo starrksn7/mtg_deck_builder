@@ -210,6 +210,9 @@ public class JdbcDeckDao implements DeckDao{
         card.setCmc(row.getBigDecimal("cmc"));
         card.setQuantity(row.getInt("quantity"));
         card.setDeckName(row.getString("deck_name"));
+        card.setGameChanger(row.getBoolean("game_changer"));
+        card.setFullArtLink(row.getString("full_art_link"));
+        card.setRarity(row.getString("rarity"));
         return card;
     }
 
