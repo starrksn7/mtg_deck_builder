@@ -88,8 +88,12 @@
 .deck-page {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  /* padding: 16px; */
   gap: 20px;
+}
+
+.deck-page > :not(.intro) {
+  padding: 0 16px;
 }
 
 /* ---------- Charts ---------- */
@@ -259,6 +263,85 @@
 .card:hover .hover-image-preview {
   pointer-events: auto;
 }
+
+/* ---------- Intro / Deck Header ---------- */
+
+.intro {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 32px;
+  min-height: 220px;
+  overflow: hidden;
+  background-color: #111827;
+  /* width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw); */
+}
+
+/* Left side text */
+.deck-meta {
+  z-index: 2;
+}
+
+.deckName-row {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+}
+
+.deckPrice {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  color: white;
+}
+
+/* ---------- Commander Art ---------- */
+
+.commander-art {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.commander-art img {
+  height: 320px;
+  max-width: none;
+  opacity: 0;
+  animation: commanderFadeIn 0.8s ease-out forwards;
+
+  /* Soft fade like Moxfield */
+  mask-image: linear-gradient(
+    to left,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0)
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to left,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0)
+  );
+}
+
+@keyframes commanderFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(0);
+  }
+}
+
 
 /* ---------- Headings ---------- */
 
