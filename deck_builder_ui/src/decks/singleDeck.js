@@ -336,15 +336,23 @@ export function SingleDeck() {
                                                                 ${card.price.toFixed(2)}
                                                             </span>
                                                         </div>
+                                                            {hoveredCardId === card.scryfallId && (
+                                                                <div className={`hover-image-preview ${hoverPlacement}`}>
+                                                                    <div className="hover-image-wrapper">
+                                                                        <img src={card.imageLink} alt={card.name} />
 
-                                                        {hoveredCardId === card.scryfallId && (
-                                                            <div className={`hover-image-preview ${hoverPlacement}`}>
-                                                            <img src={card.imageLink} alt={card.name} />
-                                                            <button type="button" onClick={() => handleDelete(card)}>
-                                                                Remove From Deck
-                                                            </button>
-                                                            </div>
-                                                        )}
+                                                                        {card.gameChanger && (
+                                                                            <div className="game-changer-badge">
+                                                                                Game Changer
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+
+                                                                    <button type="button" onClick={() => handleDelete(card)}>
+                                                                        Remove From Deck
+                                                                    </button>
+                                                                </div>
+                                                            )}
 
                                                         {confirmingCard === card && (
                                                             <DeleteConfirmationModal
