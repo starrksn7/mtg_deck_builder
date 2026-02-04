@@ -299,3 +299,17 @@ export const createDeckBreakdown = (groupedCards) => {
 
     return deckBreakdown;
 }
+
+export const getRarities = (cardList) => {
+    const cardMap = new Map();
+    cardMap.set('common', 0);
+    cardMap.set('uncommon', 0);
+    cardMap.set('rare', 0);
+    cardMap.set('mythic', 0);
+
+    cardList.forEach((card) => {
+        cardMap.set(card.rarity, cardMap.get(card.rarity) + 1)
+    })
+
+    return cardMap;
+}
