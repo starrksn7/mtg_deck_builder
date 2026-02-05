@@ -1,6 +1,6 @@
 import api from '../api/axios';
 import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck, calculateManaCurve } from '../helperFunctions'
+import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck, calculateManaCurve, getRarities } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
 import { BarChart } from '../charts/barChart';
@@ -27,6 +27,15 @@ export function SingleDeck() {
     const [hoverPlacement, setHoverPlacement] = useState('right');
     const [deckPrice, setDeckPrice] = useState('');
     const [commander, setCommander] = useState('');
+    const [rarities, setRarities] = useState(
+        new Map([
+            ['common', 0],
+            ['uncommon', 0],
+            ['rare', 0],
+            ['mythic', 0],
+        ])
+    );
+
 
     const renderOrder = [
     'Commander',
@@ -75,6 +84,9 @@ export function SingleDeck() {
                 resultsArray.forEach((card) => { 
                     if(card.name === card.deckCommander) setCommander(card)
                 })
+
+                const rarityMap = getRarities(resultsArray);
+                setRarities(rarityMap);
             } catch (e) {
                 console.log("Deck not found", e)
                 setDeckNotFound(true);
@@ -263,6 +275,10 @@ export function SingleDeck() {
                             <h4 className="deckPrice">
                             Total cost: ${Number(deckPrice).toFixed(2)}
                             </h4>
+                            <div>commons: {rarities.get('common')}</div>
+                            <div>uncommons: {rarities.get('uncommon')}</div>
+                            <div>rares: {rarities.get('rare')}</div>
+                            <div>mythics: {rarities.get('mythic')}</div>
                         </div>
                         <div className="commander-art">
                             <img
