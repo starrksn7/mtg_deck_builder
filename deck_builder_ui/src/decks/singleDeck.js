@@ -76,9 +76,10 @@ export function SingleDeck() {
                 const curve = calculateManaCurve(resultsArray)
                 setManaCurve(curve)
 
-                let total = resultsArray.reduce((accumulator, currentItem) => {
-                    return accumulator + currentItem.price;
-                }, 0)
+                let total = resultsArray.reduce((sum, card) => {
+                    if (card.type.includes('Basic Land')) return sum;
+                    return sum + card.price;
+                }, 0);
                 setDeckPrice(total);
 
                 resultsArray.forEach((card) => { 
@@ -270,7 +271,7 @@ export function SingleDeck() {
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <div className="intro">
-                        <div>
+                        <div className="deck-info">
                             <div className="deck-meta">
                                 <h1 className="deckName-row">{deckName}</h1>
                                 <h4 className="deckPrice">
@@ -350,11 +351,11 @@ export function SingleDeck() {
                                                                 __html: replaceTextWithManaSymbols(card.manaCost),
                                                             }}
                                                             />
-                                                            <span
-                                                            className="card-price"
-                                                            >
+                                                            {!card.type.includes('Basic Land') && (
+                                                            <span className="card-price">
                                                                 ${card.price.toFixed(2)}
                                                             </span>
+                                                            )}
                                                         </div>
                                                             {hoveredCardId === card.scryfallId && (
                                                                 <div className={`hover-image-preview ${hoverPlacement}`}>

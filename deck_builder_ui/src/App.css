@@ -316,6 +316,11 @@
   color: white;
 }
 
+.deck-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .deckPrice {
   margin-top: 8px;
   font-size: 1.1rem;
@@ -324,11 +329,14 @@
 }
 
 .rarity-block {
-  width: 25vw;
   color: white;
   display: flex;
-  justify-content: space-between;
+  /* gap: 16px; */
+  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 12px 20px;
 }
+
 
 /* ---------- Commander Art ---------- */
 

@@ -308,7 +308,7 @@ export const getRarities = (cardList) => {
     cardMap.set('mythic', 0);
 
     cardList.forEach((card) => {
-        cardMap.set(card.rarity, cardMap.get(card.rarity) + 1)
+        if (!card.type.includes('Basic Land')) cardMap.set(card.rarity, cardMap.get(card.rarity) + 1)
     })
 
     return cardMap;
