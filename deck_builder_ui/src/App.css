@@ -323,6 +323,13 @@
   color: white;
 }
 
+.rarity-block {
+  width: 25vw;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
 /* ---------- Commander Art ---------- */
 
 .commander-art {

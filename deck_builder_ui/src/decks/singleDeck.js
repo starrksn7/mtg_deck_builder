@@ -270,15 +270,19 @@ export function SingleDeck() {
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <div className="intro">
-                        <div className="deck-meta">
-                            <h1 className="deckName-row">{deckName}</h1>
-                            <h4 className="deckPrice">
-                            Total cost: ${Number(deckPrice).toFixed(2)}
-                            </h4>
-                            <div>commons: {rarities.get('common')}</div>
-                            <div>uncommons: {rarities.get('uncommon')}</div>
-                            <div>rares: {rarities.get('rare')}</div>
-                            <div>mythics: {rarities.get('mythic')}</div>
+                        <div>
+                            <div className="deck-meta">
+                                <h1 className="deckName-row">{deckName}</h1>
+                                <h4 className="deckPrice">
+                                Total cost: ${Number(deckPrice).toFixed(2)}
+                                </h4>
+                            </div>
+                            <div className="rarity-block">
+                                <div>commons: {rarities.get('common')}</div>
+                                <div>uncommons: {rarities.get('uncommon')}</div>
+                                <div>rares: {rarities.get('rare')}</div>
+                                <div>mythics: {rarities.get('mythic')}</div>
+                            </div>
                         </div>
                         <div className="commander-art">
                             <img
