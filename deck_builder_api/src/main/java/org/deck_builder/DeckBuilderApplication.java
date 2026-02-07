@@ -30,5 +30,5 @@ public class DeckBuilderApplication {
  * 5. There's a brief error message that flickers when coming back to using the ui after leaving it previously and I
  *    click on 'my decks' before being routed to the login screen.
  * 6. Figure out why the messages that tell my deck isn't legal don't display correctly.
- * 7. Remove the prices from basic lands and don't count them in the overall cost of the deck or in the rarities totals
+ * 7. Maybe move the deck preview to the side instead of hover and push the add to deck either to another window or down.
  */

@@ -247,27 +247,6 @@ export function SingleDeck() {
     if (cardList) {
         return (
             <div>
-                {!containsDuplicates && (
-                    <div>
-                    <div>
-                        Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.
-                    </div>
-                    {duplicatedCardsArray.map((item, index) => (
-                        <div key={index}>{item}</div>
-                    ))}
-                    </div>
-                )}
-
-                {mismatchedIdentities.length > 0 && (
-                    <div>
-                        <div>
-                            Deck is not legal. The cards below do not match your commander's color identity.
-                        </div>
-                        {mismatchedArray.map((item, index) => (
-                            <div key={index}>{item}</div>
-                        ))}
-                    </div>
-                )}
                 {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
                 <div className="deck-page">
                     <div className="intro">
@@ -295,6 +274,28 @@ export function SingleDeck() {
                     <div className="charts-row">
                         {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
+                    </div>
+                    <div className="deck-legality">
+                        {!containsDuplicates && (
+                            <div className="deck-error">
+                                <div>
+                                    Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.
+                                </div>
+                                {duplicatedCardsArray.map((item, index) => (
+                                    <div key={index}>{item}</div>
+                                ))}
+                            </div>
+                        )}
+                        {mismatchedIdentities.length > 0 && (
+                            <div className="deck-error">
+                                <div>
+                                    Deck is not legal. The cards below do not match your commander's color identity.
+                                </div>
+                                {mismatchedArray.map((item, index) => (
+                                    <div key={index}>{item}</div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <div className="content-row">
                         <form className="collection-form">
