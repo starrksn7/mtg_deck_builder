@@ -9,18 +9,14 @@ import { PieChart } from '../charts/pieChart';
 export function SingleDeck() {
     const { deckId } = useParams();
     const [cardList, setCardList] = useState([]);
-    const [isLegal, setIsLegal] = useState('');
     const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
-    const [showConfirm, setShowConfirm] = useState(false);
     const [groupedCards, setGroupedCards] = useState({});
     const [hoveredCardId, setHoveredCardId] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
-    const [containsDuplicates, setContainsDuplicates] = useState(false);
-    const [mismatchedIdentities, setMismatchedIdentities] = useState('');
+    const [hasDuplicates, setHasDuplicates] = useState(false);
     const [mismatchedArray, setMismatchedArray] = useState([]);
-    const [doIdentitiesMatch, setDoIdentitiesMatch] = useState(false);
     const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
     const [deckName, setDeckName] = useState('');
@@ -59,16 +55,10 @@ export function SingleDeck() {
                 setDeckName(resultsArray[0].deckName)
 
                 const duplicates = duplicateCardCheck(resultsArray);
-                setDuplicatedCardsArray(duplicates);
-                const noDuplicates = duplicates.length === 0;
-                setContainsDuplicates(noDuplicates);
+                setHasDuplicates(duplicates.length > 0);
 
-                const checkMismatchedIdentities = colorIdentityCheck(resultsArray);
-                setMismatchedArray(checkMismatchedIdentities);
-                const identitiesMatch = checkMismatchedIdentities.length === 0;
-                setDoIdentitiesMatch(identitiesMatch);
-
-                setIsLegal(noDuplicates && identitiesMatch);
+                const mismatches = colorIdentityCheck(resultsArray);
+                setMismatchedArray(mismatches);
 
                 const grouped = groupCardsByType(resultsArray);
                 setGroupedCards(grouped);
@@ -276,23 +266,19 @@ export function SingleDeck() {
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
                     </div>
                     <div className="deck-legality">
-                        {!containsDuplicates && (
+                        {hasDuplicates && (
                             <div className="deck-error">
-                                <div>
-                                    Deck is not legal. The cards below are duplicated, but are only permitted to have one per deck.
-                                </div>
-                                {duplicatedCardsArray.map((item, index) => (
-                                    <div key={index}>{item}</div>
+                                <strong>Deck is not legal.</strong>
+                                {duplicatedCardsArray.map((item, i) => (
+                                <div key={i}>{item}</div>
                                 ))}
                             </div>
                         )}
-                        {mismatchedIdentities.length > 0 && (
+                        {mismatchedArray.length > 0 && (
                             <div className="deck-error">
-                                <div>
-                                    Deck is not legal. The cards below do not match your commander's color identity.
-                                </div>
-                                {mismatchedArray.map((item, index) => (
-                                    <div key={index}>{item}</div>
+                                <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
+                                {mismatchedArray.map((item, i) => (
+                                <div key={i}>{item}</div>
                                 ))}
                             </div>
                         )}
