@@ -84,8 +84,9 @@ export const replaceTextWithManaSymbols = (text) => {
 export const duplicateCardCheck = (cardList) => {
     let deckMap = new Map();
 
-    let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp",
-            "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
+    let permittedDuplicateCards = ["Forest", "Island", "Plains", "Mountain", "Swamp", "Snow-Covered Forest", 
+        "Snow-Covered Island", "Snow-Covered Plains", "Snow-Covered Mountain", "Snow-Covered Swamp", 
+        "Dragon's Approach", "Hare Apparent", "Persistent Petitioners", "Rat Colony", "Relentless Rats",
         "Shadowborn Apostle", "Slime Against Humanity", "Templar Knight", "Cid, Timeless Artificer"]
 
     let cardsWithCustomLimits = {
@@ -96,8 +97,8 @@ export const duplicateCardCheck = (cardList) => {
     let cardsDuplicated = [];
 
     cardList.forEach((card) => {
-        let currentCount = deckMap.get(card.name) || 0;
-        deckMap.set(card.name, currentCount + 1);
+    let currentCount = deckMap.get(card.name) || 0;
+    deckMap.set(card.name, currentCount + (card.quantity || 1));
     });
 
     deckMap.forEach((count, name) => {

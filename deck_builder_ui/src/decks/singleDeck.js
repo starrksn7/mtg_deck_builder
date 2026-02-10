@@ -55,7 +55,9 @@ export function SingleDeck() {
                 setDeckName(resultsArray[0].deckName)
 
                 const duplicates = duplicateCardCheck(resultsArray);
+                setDuplicatedCardsArray(duplicates);
                 setHasDuplicates(duplicates.length > 0);
+
 
                 const mismatches = colorIdentityCheck(resultsArray);
                 setMismatchedArray(mismatches);

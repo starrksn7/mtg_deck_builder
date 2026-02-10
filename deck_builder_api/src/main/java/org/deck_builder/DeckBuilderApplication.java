@@ -27,8 +27,6 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       a. add a username
- * 5. There's a brief error message that flickers when coming back to using the ui after leaving it previously and I
- *    click on 'my decks' before being routed to the login screen.
- * 6. Figure out why the messages that tell my deck isn't legal don't display correctly.
+ * 5. Figure out what I should change to make the single deck info reflect additions/deletions without re-rendering the entire page.
  * 7. Maybe move the deck preview to the side instead of hover and push the add to deck either to another window or down.
  */
