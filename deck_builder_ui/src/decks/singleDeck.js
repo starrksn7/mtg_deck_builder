@@ -1,6 +1,13 @@
 import api from '../api/axios';
-import { useState, useEffect } from 'react'
-import { replaceTextWithManaSymbols, duplicateCardCheck, colorIdentityCheck, calculateManaCurve, getRarities } from '../helperFunctions'
+import { useState, useEffect, useMemo } from 'react'
+import { 
+    replaceTextWithManaSymbols, 
+    duplicateCardCheck, 
+    colorIdentityCheck, 
+    calculateManaCurve, 
+    getRarities, 
+    groupCardsByType 
+} from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
 import { BarChart } from '../charts/barChart';
@@ -9,29 +16,47 @@ import { PieChart } from '../charts/pieChart';
 export function SingleDeck() {
     const { deckId } = useParams();
     const [cardList, setCardList] = useState([]);
-    const [duplicatedCardsArray, setDuplicatedCardsArray] = useState([]);
-    const [groupedCards, setGroupedCards] = useState({});
     const [hoveredCardId, setHoveredCardId] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
-    const [hasDuplicates, setHasDuplicates] = useState(false);
-    const [mismatchedArray, setMismatchedArray] = useState([]);
-    const [manaCurve, setManaCurve] = useState([]);
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
-    const [deckName, setDeckName] = useState('');
     const [hoverPlacement, setHoverPlacement] = useState('right');
-    const [deckPrice, setDeckPrice] = useState('');
-    const [commander, setCommander] = useState('');
-    const [rarities, setRarities] = useState(
-        new Map([
-            ['common', 0],
-            ['uncommon', 0],
-            ['rare', 0],
-            ['mythic', 0],
-        ])
-    );
 
+    const groupedCards = useMemo(() => {
+        return groupCardsByType(cardList);
+    }, [cardList]);
+
+    const duplicatedCardsArray = useMemo(() => {
+        return duplicateCardCheck(cardList);
+    }, [cardList]);
+
+    const mismatchedArray = useMemo(() => {
+        return colorIdentityCheck(cardList);
+    }, [cardList]);
+
+    const manaCurve = useMemo(() => {
+        return calculateManaCurve(cardList);
+    }, [cardList]);
+
+    const rarities = useMemo(() => {
+        return getRarities(cardList);
+    }, [cardList]);
+
+    const deckPrice = useMemo(() => {
+        return cardList.reduce((sum, card) => {
+            if (card.type.includes('Basic Land')) return sum;
+            return sum + card.price;
+        }, 0);
+    }, [cardList]);
+
+    const commander = useMemo(() => {
+        return cardList.find(card => card.name === card.deckCommander);
+    }, [cardList]);
+
+    const deckName = useMemo(() => {
+        return cardList.length > 0 ? cardList[0].deckName : '';
+    }, [cardList]);
 
     const renderOrder = [
     'Commander',
@@ -47,96 +72,21 @@ export function SingleDeck() {
     useEffect(() => {
         const fetchDeck = async () => {
             try {
-                const res = await api.get(`/decks?deckId=${deckId}`)
+                const res = await api.get(`/decks?deckId=${deckId}`);
                 const data = res.data;
-                const resultsArray = [...data];
-                setCardList(resultsArray);
+
+                setCardList(data);
                 setDeckNotFound(false);
-                setDeckName(resultsArray[0].deckName)
 
-                const duplicates = duplicateCardCheck(resultsArray);
-                setDuplicatedCardsArray(duplicates);
-                setHasDuplicates(duplicates.length > 0);
-
-
-                const mismatches = colorIdentityCheck(resultsArray);
-                setMismatchedArray(mismatches);
-
-                const grouped = groupCardsByType(resultsArray);
-                setGroupedCards(grouped);
-
-                const curve = calculateManaCurve(resultsArray)
-                setManaCurve(curve)
-
-                let total = resultsArray.reduce((sum, card) => {
-                    if (card.type.includes('Basic Land')) return sum;
-                    return sum + card.price;
-                }, 0);
-                setDeckPrice(total);
-
-                resultsArray.forEach((card) => { 
-                    if(card.name === card.deckCommander) setCommander(card)
-                })
-
-                const rarityMap = getRarities(resultsArray);
-                setRarities(rarityMap);
             } catch (e) {
-                console.log("Deck not found", e)
+                console.log("Deck not found", e);
                 setDeckNotFound(true);
             }
-        }
+        };
 
         fetchDeck();
+    }, [deckId]);
 
-    }, [deckId])
-    
-    const groupCardsByType = (cards) => {
-        const groups = {};
-
-        cards.forEach(card => {
-            let typeCategory = '';
-
-            if (card.name === card.deckCommander) {
-                typeCategory = 'Commander';
-            } else if (card.type.includes('Creature')) {
-                typeCategory = 'Creatures';
-            } else if (card.type.includes('Instant')) {
-                typeCategory = 'Instants';
-            } else if (card.type.includes('Sorcery')) {
-                typeCategory = 'Sorceries';
-            } else if (card.type.includes('Artifact')) {
-                typeCategory = 'Artifacts';
-            } else if (card.type.includes('Enchantment')) {
-                typeCategory = 'Enchantments';
-            } else if (card.type.includes('Planeswalker')) {
-                typeCategory = 'Planeswalkers';
-            } else if (card.type.includes('Land')) {
-                typeCategory = 'Lands';
-            } else {
-                typeCategory = 'Other';
-            }
-
-            if (!groups[typeCategory]) {
-                groups[typeCategory] = {};
-            }
-
-            const key = card.scryfallId;
-
-            if (!groups[typeCategory][key]) {
-                groups[typeCategory][key] = {
-                    ...card,
-                };
-            } else {
-                groups[typeCategory][key].quantity += card.quantity;
-            }
-        });
-
-        for (const type in groups) {
-            groups[type] = Object.values(groups[type]);
-        }
-
-        return groups;
-    };
 
     const deleteFromDeck = async (card) => {
         const res = await api.delete('/decks/remove', { data: {
@@ -146,7 +96,12 @@ export function SingleDeck() {
                 }
             }
         })
-        if(res) window.location.reload()
+        if (res.status === 200) {
+            setCardList(prev =>
+                prev.filter(c => c.scryfallId !== card.scryfallId)
+            );
+            setConfirmingCard(null);
+        }
     }
 
     const cancelDelete = () => {
@@ -204,8 +159,9 @@ export function SingleDeck() {
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
 
-        if (response.status === 200){
-            window.location.reload();
+        if (response.status === 200) {
+            const res = await api.get(`/decks?deckId=${deckId}`);
+            setCardList(res.data);
         }
     }
 
@@ -268,7 +224,7 @@ export function SingleDeck() {
                         {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
                     </div>
                     <div className="deck-legality">
-                        {hasDuplicates && (
+                        {duplicatedCardsArray.length > 0 && (
                             <div className="deck-error">
                                 <strong>Deck is not legal.</strong>
                                 {duplicatedCardsArray.map((item, i) => (

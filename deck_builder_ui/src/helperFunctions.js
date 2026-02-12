@@ -314,3 +314,51 @@ export const getRarities = (cardList) => {
 
     return cardMap;
 }
+
+export const groupCardsByType = (cards) => {
+        const groups = {};
+
+        cards.forEach(card => {
+            let typeCategory = '';
+
+            if (card.name === card.deckCommander) {
+                typeCategory = 'Commander';
+            } else if (card.type.includes('Creature')) {
+                typeCategory = 'Creatures';
+            } else if (card.type.includes('Instant')) {
+                typeCategory = 'Instants';
+            } else if (card.type.includes('Sorcery')) {
+                typeCategory = 'Sorceries';
+            } else if (card.type.includes('Artifact')) {
+                typeCategory = 'Artifacts';
+            } else if (card.type.includes('Enchantment')) {
+                typeCategory = 'Enchantments';
+            } else if (card.type.includes('Planeswalker')) {
+                typeCategory = 'Planeswalkers';
+            } else if (card.type.includes('Land')) {
+                typeCategory = 'Lands';
+            } else {
+                typeCategory = 'Other';
+            }
+
+            if (!groups[typeCategory]) {
+                groups[typeCategory] = {};
+            }
+
+            const key = card.scryfallId;
+
+            if (!groups[typeCategory][key]) {
+                groups[typeCategory][key] = {
+                    ...card,
+                };
+            } else {
+                groups[typeCategory][key].quantity += card.quantity;
+            }
+        });
+
+        for (const type in groups) {
+            groups[type] = Object.values(groups[type]);
+        }
+
+        return groups;
+    };
