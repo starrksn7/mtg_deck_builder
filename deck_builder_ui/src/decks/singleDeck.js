@@ -58,6 +58,8 @@ export function SingleDeck() {
         return cardList.length > 0 ? cardList[0].deckName : '';
     }, [cardList]);
 
+    console.log("commander")
+    console.log(commander)
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -163,6 +165,8 @@ export function SingleDeck() {
             const res = await api.get(`/decks?deckId=${deckId}`);
             setCardList(res.data);
         }
+
+        setCollectionList('');
     }
 
     const handleChange = (e) => {
@@ -214,8 +218,8 @@ export function SingleDeck() {
                         </div>
                         <div className="commander-art">
                             <img
-                            src={commander.fullArtLink}
-                            alt={commander.name}
+                            src={commander?.fullArtLink}
+                            alt={commander?.name}
                             />
                         </div>
                     </div>

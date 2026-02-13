@@ -27,6 +27,6 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       a. add a username
- * 5. Figure out what I should change to make the single deck info reflect additions/deletions without re-rendering the entire page.
+ * 5. The image for double faced cards is a problem and isn't showing it's mana value
  * 7. Maybe move the deck preview to the side instead of hover and push the add to deck either to another window or down.
  */
