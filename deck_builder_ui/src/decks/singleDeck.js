@@ -21,7 +21,6 @@ export function SingleDeck() {
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
-    const [hoverPlacement, setHoverPlacement] = useState('right');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -246,16 +245,30 @@ export function SingleDeck() {
                         )}
                     </div>
                     <div className="content-row">
-                        <form className="collection-form">
-                            <textarea 
-                            value={collectionList}
-                            onChange={handleChange}
-                            placeholder="Add cards to deck"
-                            />
-                            <button type="button" onClick={handleAddCollection}>
-                            Submit
-                            </button>
-                        </form>
+                        <div className="left-panel">
+                            <div className="preview-panel">
+                                <div className="preview-inner">
+                                    <img
+                                        src={
+                                            hoveredCardId
+                                                ? cardList.find(c => c.scryfallId === hoveredCardId)?.imageLink
+                                                : commander?.imageLink
+                                        }
+                                        alt="Card preview"
+                                    />
+                                </div>
+                            </div>
+                            <form className="collection-form">
+                                <textarea 
+                                value={collectionList}
+                                onChange={handleChange}
+                                placeholder="Add cards to deck"
+                                />
+                                <button type="button" onClick={handleAddCollection}>
+                                Submit
+                                </button>
+                            </form>
+                        </div>
                         <div className="cards-container">
                             {renderOrder.map((type) => {
                                 const cards = groupedCards[type];
@@ -268,24 +281,8 @@ export function SingleDeck() {
                                             {cards.map((card, index) => (
                                                 <div
                                                     className="card-hover-wrapper"
-                                                    onMouseEnter={(e) => {
-                                                        const rect = e.currentTarget
-                                                        .querySelector('.card-row')
-                                                        .getBoundingClientRect();
-
-                                                        const previewHeight = 300;
-                                                        const spaceBelow = window.innerHeight - rect.bottom;
-                                                        const spaceAbove = rect.top;
-
-                                                        if (spaceBelow < previewHeight && spaceAbove > previewHeight) {
-                                                        setHoverPlacement('above');
-                                                        } else {
-                                                        setHoverPlacement('center');
-                                                        }
-
-                                                        setHoveredCardId(card.scryfallId);
-                                                    }}
-                                                    onMouseLeave={() => setHoveredCardId(null)}
+                                                        onMouseEnter={() => setHoveredCardId(card.scryfallId)}
+                                                        onMouseLeave={() => setHoveredCardId(null)}
                                                     >
                                                     <div key={card.scryfallId} className="card">
                                                         <div className="card-row">
@@ -306,23 +303,6 @@ export function SingleDeck() {
                                                             </span>
                                                             )}
                                                         </div>
-                                                            {hoveredCardId === card.scryfallId && (
-                                                                <div className={`hover-image-preview ${hoverPlacement}`}>
-                                                                    {card.gameChanger && (
-                                                                        <div className="game-changer-label">
-                                                                        Game Changer
-                                                                        </div>
-                                                                    )}
-                                                                    <div className="hover-image-wrapper">
-                                                                        <img src={card.imageLink} alt={card.name} />
-                                                                    </div>
-                                                                    <button type="button" onClick={() => handleDelete(card)}>
-                                                                        Remove From Deck
-                                                                    </button>
-                                                                </div>
-
-                                                            )}
-
                                                         {confirmingCard === card && (
                                                             <DeleteConfirmationModal
                                                             card={confirmingCard}
