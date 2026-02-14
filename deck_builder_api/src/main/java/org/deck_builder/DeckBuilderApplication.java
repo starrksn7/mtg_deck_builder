@@ -28,5 +28,7 @@ public class DeckBuilderApplication {
  *    a. users
  *       a. add a username
  * 5. The image for double faced cards is a problem and isn't showing it's mana value
+ *    a. it looks like double faced cards have a different json structure, so I need to adapt to that
+ *    b. Need to find out how dual faced cards work, like rooms, and possibly adjust for that too.
  * 7. Maybe move the deck preview to the side instead of hover and push the add to deck either to another window or down.
  */
