@@ -217,43 +217,8 @@
 
 /* ---------- Card Hover Preview ---------- */
 
-.card-hover-wrapper {
+.card-preview-wrapper {
   display: block;
-}
-
-.hover-image-preview img {
-  max-width: 100%;
-  display: block;
-  height: auto;
-}
-
-.hover-image-preview button {
-  margin-top: 4px;
-  padding: 6px 10px;
-  width: 100%;
-  max-width: 180px;
-}
-
-.card:hover .hover-image-preview {
-  pointer-events: auto;
-}
-
-.game-changer-label {
-  width: 100%;
-  text-align: center;
-
-  background: linear-gradient(135deg, #dc2626, #991b1b);
-  color: white;
-
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-
-  padding: 4px 0;
-  border-radius: 4px;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 }
 
 /* ---------- New Hover Preview Layout ---------- */
@@ -289,6 +254,24 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.game-changer-label {
+  width: 100%;
+  text-align: center;
+
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: white;
+
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  padding: 4px 0;
+  border-radius: 4px;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 }
 
 /* ---------- Intro / Deck Header ---------- */

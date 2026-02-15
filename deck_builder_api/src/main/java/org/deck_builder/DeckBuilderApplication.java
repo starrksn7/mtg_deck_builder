@@ -30,5 +30,4 @@ public class DeckBuilderApplication {
  * 5. The image for double faced cards is a problem and isn't showing it's mana value
  *    a. it looks like double faced cards have a different json structure, so I need to adapt to that
  *    b. Need to find out how dual faced cards work, like rooms, and possibly adjust for that too.
- * 6. Change the preview image to use the normal size instead of the small one to prevent blurriness
  */

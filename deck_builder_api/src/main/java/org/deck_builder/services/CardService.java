@@ -231,7 +231,7 @@ public class CardService {
         name = name.replaceAll("\"(.*?)\"", "'$1'");
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
         JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
-        String imageLink = uris != null ? uris.get("small").getAsString() : "";
+        String imageLink = uris != null ? uris.get("normal").getAsString() : "";
         String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
         String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
         String type = result.get("type_line").getAsString();

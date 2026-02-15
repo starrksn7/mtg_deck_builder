@@ -16,11 +16,14 @@ import { PieChart } from '../charts/pieChart';
 export function SingleDeck() {
     const { deckId } = useParams();
     const [cardList, setCardList] = useState([]);
-    const [hoveredCardId, setHoveredCardId] = useState(null);
+    const [previewCardId, setPreviewCardId] = useState(null);
     const [confirmingCard, setConfirmingCard] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    console.log(cardList)
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -73,20 +76,23 @@ export function SingleDeck() {
     useEffect(() => {
         const fetchDeck = async () => {
             try {
-                const res = await api.get(`/decks?deckId=${deckId}`);
-                const data = res.data;
+                setLoading(true);
 
-                setCardList(data);
+                const res = await api.get(`/decks?deckId=${deckId}`);
+                setCardList(res.data);
                 setDeckNotFound(false);
 
             } catch (e) {
                 console.log("Deck not found", e);
                 setDeckNotFound(true);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchDeck();
     }, [deckId]);
+
 
 
     const deleteFromDeck = async (card) => {
@@ -195,132 +201,133 @@ export function SingleDeck() {
         )
     }
 
-    if (cardList) {
-        return (
-            <div>
-                {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
-                <div className="deck-page">
-                    <div className="intro">
-                        <div className="deck-info">
-                            <div className="deck-meta">
-                                <h1 className="deckName-row">{deckName}</h1>
-                                <h4 className="deckPrice">
-                                Total cost: ${Number(deckPrice).toFixed(2)}
-                                </h4>
-                            </div>
-                            <div className="rarity-block">
-                                <div>commons: {rarities.get('common')}</div>
-                                <div>uncommons: {rarities.get('uncommon')}</div>
-                                <div>rares: {rarities.get('rare')}</div>
-                                <div>mythics: {rarities.get('mythic')}</div>
-                            </div>
+    if (loading) {
+        return <div>Loading deck...</div>;
+    }
+
+    
+    return (
+        <div>
+            {collectionTooBigError && <div className="error">Users may only submit 75 cards at a time.</div>}
+            <div className="deck-page">
+                <div className="intro">
+                    <div className="deck-info">
+                        <div className="deck-meta">
+                            <h1 className="deckName-row">{deckName}</h1>
+                            <h4 className="deckPrice">
+                            Total cost: ${Number(deckPrice).toFixed(2)}
+                            </h4>
                         </div>
-                        <div className="commander-art">
-                            <img
-                            src={commander?.fullArtLink}
-                            alt={commander?.name}
-                            />
+                        <div className="rarity-block">
+                            <div>commons: {rarities.get('common')}</div>
+                            <div>uncommons: {rarities.get('uncommon')}</div>
+                            <div>rares: {rarities.get('rare')}</div>
+                            <div>mythics: {rarities.get('mythic')}</div>
                         </div>
                     </div>
-                    <div className="charts-row">
-                        {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
-                        {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
+                    <div className="commander-art">
+                        <img
+                        src={commander?.fullArtLink}
+                        alt={commander?.name}
+                        />
                     </div>
-                    <div className="deck-legality">
-                        {duplicatedCardsArray.length > 0 && (
-                            <div className="deck-error">
-                                <strong>Deck is not legal.</strong>
-                                {duplicatedCardsArray.map((item, i) => (
-                                <div key={i}>{item}</div>
-                                ))}
-                            </div>
-                        )}
-                        {mismatchedArray.length > 0 && (
-                            <div className="deck-error">
-                                <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
-                                {mismatchedArray.map((item, i) => (
-                                <div key={i}>{item}</div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                    <div className="content-row">
-                        <div className="left-panel">
-                            <div className="preview-panel">
-                                <div className="preview-inner">
-                                    <img
-                                        src={
-                                            hoveredCardId
-                                                ? cardList.find(c => c.scryfallId === hoveredCardId)?.imageLink
-                                                : commander?.imageLink
-                                        }
-                                        alt="Card preview"
-                                    />
-                                </div>
-                            </div>
-                            <form className="collection-form">
-                                <textarea 
-                                value={collectionList}
-                                onChange={handleChange}
-                                placeholder="Add cards to deck"
+                </div>
+                <div className="charts-row">
+                    {manaCurve.length > 0 && <BarChart manaValues={manaCurve} />}
+                    {cardList.length > 0 && <PieChart groupedCards={groupedCards}/>}
+                </div>
+                <div className="deck-legality">
+                    {duplicatedCardsArray.length > 0 && (
+                        <div className="deck-error">
+                            <strong>Deck is not legal.</strong>
+                            {duplicatedCardsArray.map((item, i) => (
+                            <div key={i}>{item}</div>
+                            ))}
+                        </div>
+                    )}
+                    {mismatchedArray.length > 0 && (
+                        <div className="deck-error">
+                            <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
+                            {mismatchedArray.map((item, i) => (
+                            <div key={i}>{item}</div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <div className="content-row">
+                    <div className="left-panel">
+                        <div className="preview-panel">
+                            <div className="preview-inner">
+                                <img
+                                    src={
+                                        previewCardId
+                                            ? cardList.find(c => c.scryfallId === previewCardId)?.imageLink
+                                            : commander?.imageLink
+                                    }
+                                    alt="Card preview"
                                 />
-                                <button type="button" onClick={handleAddCollection}>
-                                Submit
-                                </button>
-                            </form>
+                            </div>
                         </div>
-                        <div className="cards-container">
-                            {renderOrder.map((type) => {
-                                const cards = groupedCards[type];
+                        <form className="collection-form">
+                            <textarea 
+                            value={collectionList}
+                            onChange={handleChange}
+                            placeholder="Add cards to deck"
+                            />
+                            <button type="button" onClick={handleAddCollection}>
+                            Submit
+                            </button>
+                        </form>
+                    </div>
+                    <div className="cards-container">
+                        {renderOrder.map((type) => {
+                            const cards = groupedCards[type];
 
-                                if (!cards || cards.length === 0) return null;
+                            if (!cards || cards.length === 0) return null;
 
-                                return (
-                                    <div key={type} className="card-group">
-                                        <h4 className="card-group-title">{type}</h4>
-                                            {cards.map((card, index) => (
-                                                <div
-                                                    className="card-hover-wrapper"
-                                                        onMouseEnter={() => setHoveredCardId(card.scryfallId)}
-                                                        onMouseLeave={() => setHoveredCardId(null)}
-                                                    >
-                                                    <div key={card.scryfallId} className="card">
-                                                        <div className="card-row">
-                                                            <span className="card-qty">{card.quantity}</span>
+                            return (
+                                <div key={type} className="card-group">
+                                    <h4 className="card-group-title">{type}</h4>
+                                        {cards.map((card, index) => (
+                                            <div
+                                                className="card-preview-wrapper"
+                                                    onMouseEnter={() => setPreviewCardId(card.scryfallId)}
+                                                >
+                                                <div key={card.scryfallId} className="card">
+                                                    <div className="card-row">
+                                                        <span className="card-qty">{card.quantity}</span>
 
-                                                            <span className="card-name">
-                                                                {card.name}
-                                                            </span>
-                                                            <span
-                                                            className="card-cost"
-                                                            dangerouslySetInnerHTML={{
-                                                                __html: replaceTextWithManaSymbols(card.manaCost),
-                                                            }}
-                                                            />
-                                                            {!card.type.includes('Basic Land') && (
-                                                            <span className="card-price">
-                                                                ${card.price.toFixed(2)}
-                                                            </span>
-                                                            )}
-                                                        </div>
-                                                        {confirmingCard === card && (
-                                                            <DeleteConfirmationModal
-                                                            card={confirmingCard}
-                                                            onCancel={cancelDelete}
-                                                            onConfirm={deleteFromDeck}
-                                                            />
+                                                        <span className="card-name">
+                                                            {card.name}
+                                                        </span>
+                                                        <span
+                                                        className="card-cost"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: replaceTextWithManaSymbols(card.manaCost),
+                                                        }}
+                                                        />
+                                                        {!card.type.includes('Basic Land') && (
+                                                        <span className="card-price">
+                                                            ${card.price.toFixed(2)}
+                                                        </span>
                                                         )}
                                                     </div>
+                                                    {confirmingCard === card && (
+                                                        <DeleteConfirmationModal
+                                                        card={confirmingCard}
+                                                        onCancel={cancelDelete}
+                                                        onConfirm={deleteFromDeck}
+                                                        />
+                                                    )}
                                                 </div>
-                                            ))}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                            </div>
+                                        ))}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
-        );
-    }
- 
+        </div>
+    );
 }
