@@ -193,6 +193,11 @@ export function SingleDeck() {
         );
     }
 
+    const previewCard = previewCardId
+        ? cardList.find(c => c.scryfallId === previewCardId)
+        : commander;
+
+
     if (deckNotFound) {
         return (
             <div>
@@ -258,14 +263,18 @@ export function SingleDeck() {
                     <div className="left-panel">
                         <div className="preview-panel">
                             <div className="preview-inner">
-                                <img
-                                    src={
-                                        previewCardId
-                                            ? cardList.find(c => c.scryfallId === previewCardId)?.imageLink
-                                            : commander?.imageLink
-                                    }
+                                <div className="preview-image-wrapper">
+                                    {previewCard?.gameChanger && (
+                                    <div className="game-changer-label">
+                                        GC
+                                    </div>
+                                    )}
+
+                                    <img
+                                    src={previewCard?.imageLink}
                                     alt="Card preview"
-                                />
+                                    />
+                                </div>
                             </div>
                         </div>
                         <form className="collection-form">
