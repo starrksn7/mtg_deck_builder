@@ -32,4 +32,6 @@ public class DeckBuilderApplication {
  * 5. The image for double faced cards is a problem and isn't showing it's mana value
  *    a. it looks like double faced cards have a different json structure, so I need to adapt to that
  *    b. Need to find out how dual faced cards work, like rooms, and possibly adjust for that too.
+ *       i. From what I can tell, it looks like these cards have a "faces" property that contains information for each
+ *          face like mana_cost, type_line, image_uri, name and oracle_text. This information can be saved from there.
  */

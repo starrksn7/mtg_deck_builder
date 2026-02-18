@@ -47,6 +47,11 @@ CREATE TABLE cards (
     full_art_link varchar(100) NOT NULL,
     rarity varchar(50) NOT NULL,
     game_changer boolean,
+    back_side_card_name varchar(200),
+    back_side_image varchar(100),
+    back_side_mana_cost varchar(20),
+    back_side_card_type varchar (100),
+    back_side_oracle_text varchar (500),
 	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 
