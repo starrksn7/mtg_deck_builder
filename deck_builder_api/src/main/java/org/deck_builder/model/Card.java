@@ -47,6 +47,11 @@ public class Card {
 
     private String fullArtLink;
 
+    private String backSideCardName;
+    private String backSideImage;
+    private String backSideManaCost;
+    private String backSideCardType;
+    private String backSideOracleText;
 
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
                  String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
@@ -67,6 +72,30 @@ public class Card {
         this.fullArtLink = fullArtLink;
     }
 
+    public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
+                 String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
+                 boolean gameChanger, String rarity, String fullArtLink, String backSideCardName, String backSideCardType,
+                 String backSideImage, String backSideManaCost, String backSideOracleText){
+        this.scryfallId = scryfallId;
+        this.name = name;
+        this.scryfallURL = scryfallURL;
+        this.imageLink = imageLink;
+        this.manaCost = manaCost;
+        this.type = type;
+        this.oracleText = oracleText;
+        this.colors = colors;
+        this.colorIdentity = colorIdentity;
+        this.keywords = keywords;
+        this.cmc = cmc;
+        this.gameChanger = gameChanger;
+        this.rarity = rarity;
+        this.fullArtLink = fullArtLink;
+        this.backSideCardName = backSideCardName;
+        this.backSideCardType = backSideCardType;
+        this.backSideImage = backSideImage;
+        this.backSideManaCost = backSideManaCost;
+        this.backSideOracleText = backSideOracleText;
+    }
     public Card(){
     };
 
@@ -194,7 +223,49 @@ public class Card {
 
     public void setFullArtLink(String fullArtLink){ this.fullArtLink = fullArtLink; }
 
+    public String getBackSideCardName() {
+        return backSideCardName;
+    }
+
+    public void setBackSideCardName(String backSideCardName) {
+        this.backSideCardName = backSideCardName;
+    }
+
+    public String getBackSideImage() {
+        return backSideImage;
+    }
+
+    public void setBackSideImage(String backSideImage) {
+        this.backSideImage = backSideImage;
+    }
+
+    public String getBackSideManaCost() {
+        return backSideManaCost;
+    }
+
+    public void setBackSideManaCost(String backSideManaCost) {
+        this.backSideManaCost = backSideManaCost;
+    }
+
+    public String getBackSideCardType() {
+        return backSideCardType;
+    }
+
+    public void setBackSideCardType(String backSideCardType) {
+        this.backSideCardType = backSideCardType;
+    }
+
+    public String getBackSideOracleText() {
+        return backSideOracleText;
+    }
+
+    public void setBackSideOracleText(String backSideOracleText) {
+        this.backSideOracleText = backSideOracleText;
+    }
+
     public String toJsonString(){
-        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger, this.rarity, this.fullArtLink);
+        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\" " +
+                "\"backSideCardName\" : \"%s\", \"backSideImage\" : \"%s\", \"backSideManaCost\": \"%s\", \"backSideCardType\": \"%s\", \"backSideOracleText\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger,
+                this.rarity, this.fullArtLink, this.backSideCardName, this.backSideImage, this.backSideManaCost, this.backSideCardType, this.backSideOracleText);
     }
 }
