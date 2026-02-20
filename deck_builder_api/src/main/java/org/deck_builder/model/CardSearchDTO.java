@@ -43,6 +43,12 @@ public class CardSearchDTO {
 
     private String fullArtLink;
 
+    private String backSideCardName;
+    private String backSideImage;
+    private String backSideManaCost;
+    private String backSideCardType;
+    private String backSideOracleText;
+
     public int getId() {
         return id;
     }
@@ -167,6 +173,46 @@ public class CardSearchDTO {
 
     public void setFullArtLink(String fullArtLink){ this.fullArtLink = fullArtLink; }
 
+    public String getBackSideCardName() {
+        return backSideCardName;
+    }
+
+    public void setBackSideCardName(String backSideCardName) {
+        this.backSideCardName = backSideCardName;
+    }
+
+    public String getBackSideImage() {
+        return backSideImage;
+    }
+
+    public void setBackSideImage(String backSideImage) {
+        this.backSideImage = backSideImage;
+    }
+
+    public String getBackSideManaCost() {
+        return backSideManaCost;
+    }
+
+    public void setBackSideManaCost(String backSideManaCost) {
+        this.backSideManaCost = backSideManaCost;
+    }
+
+    public String getBackSideCardType() {
+        return backSideCardType;
+    }
+
+    public void setBackSideCardType(String backSideCardType) {
+        this.backSideCardType = backSideCardType;
+    }
+
+    public String getBackSideOracleText() {
+        return backSideOracleText;
+    }
+
+    public void setBackSideOracleText(String backSideOracleText) {
+        this.backSideOracleText = backSideOracleText;
+    }
+
     @Override
     public String toString(){
         return "{\"scryfallId\": \"" + this.scryfallId +
@@ -184,6 +230,11 @@ public class CardSearchDTO {
                 "\", \"rarity\": \"" + this.rarity +
                 "\", \"gameChanger\": \"" + this.gameChanger +
                 "\", \"fullArtLink\": \"" + this.fullArtLink +
+                "\", \"backSideCardName\": \"" + this.backSideCardName +
+                "\", \"backSideImage\": \"" + this.backSideImage +
+                "\", \"backSideManaCost\": \"" + this.backSideManaCost +
+                "\", \"backSideCardType\": \"" + this.backSideCardType +
+                "\", \"backSideOracleText\": \"" + this.backSideOracleText +
                 "\"}";
     }
 }
