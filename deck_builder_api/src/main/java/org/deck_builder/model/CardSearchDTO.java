@@ -48,6 +48,7 @@ public class CardSearchDTO {
     private String backSideManaCost;
     private String backSideCardType;
     private String backSideOracleText;
+    private boolean twoCardFaces;
 
     public int getId() {
         return id;
@@ -213,6 +214,10 @@ public class CardSearchDTO {
         this.backSideOracleText = backSideOracleText;
     }
 
+    public boolean getTwoCardFaces(){ return twoCardFaces; }
+
+    public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
+
     @Override
     public String toString(){
         return "{\"scryfallId\": \"" + this.scryfallId +
@@ -235,6 +240,7 @@ public class CardSearchDTO {
                 "\", \"backSideManaCost\": \"" + this.backSideManaCost +
                 "\", \"backSideCardType\": \"" + this.backSideCardType +
                 "\", \"backSideOracleText\": \"" + this.backSideOracleText +
+                "\", \"twoCardFaces\": \"" + this.twoCardFaces +
                 "\"}";
     }
 }

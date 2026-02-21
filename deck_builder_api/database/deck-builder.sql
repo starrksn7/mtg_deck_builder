@@ -52,6 +52,7 @@ CREATE TABLE cards (
     back_side_mana_cost varchar(20),
     back_side_card_type varchar (100),
     back_side_oracle_text varchar (500),
+    two_card_faces boolean,
 	CONSTRAINT PK_cards PRIMARY KEY (scryfall_id)
 );
 
