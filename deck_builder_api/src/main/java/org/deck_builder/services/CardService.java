@@ -226,33 +226,8 @@ public class CardService {
 
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
-        String name = result.get("name") != null ? result.get("name").getAsString() : null;
-        //regex to replace double quotes with single quotes
-        name = name.replaceAll("\"(.*?)\"", "'$1'");
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
-        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
-        String imageLink = uris != null ? uris.get("normal").getAsString() : "";
-        String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
-        String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
-        String type = result.get("type_line").getAsString();
-        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
-        //regex to remove the line breaks
-        oracleText = oracleText.replaceAll("\\n", " ");
-        //regex to remove the escaping slashes
-        oracleText = oracleText.replaceAll("\\\\", "");
-        //regex to change double quotes to single quotes
-        oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
 
-        JsonArray colorsArray = result.getAsJsonArray("colors");
-        String colors = "";
-
-        if (colorsArray != null) {
-            List<String> list = new ArrayList<>();
-            for (JsonElement c : colorsArray) {
-                list.add(c.getAsString());
-            }
-            colors = String.join(",", list);
-        }
         JsonArray colorIdentity = (JsonArray) result.get("color_identity");
         String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
         if (colorIdentity != null) {
@@ -271,9 +246,109 @@ public class CardService {
         BigDecimal cmc = result.get("cmc").getAsBigDecimal();
         String rarity = result.get("rarity").getAsString();
         boolean gameChanger = result.get("game_changer").getAsBoolean();
-        Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
-        cardDao.addCardToDb(newCard);
-        return newCard;
+
+        if (result.has("card_faces")){
+            JsonArray faces = result.getAsJsonArray("card_faces");
+            JsonObject front = faces.get(0).getAsJsonObject();
+            JsonObject back = faces.get(0).getAsJsonObject();
+
+            //Get the info for the front side of the card
+            String name = front.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            name = name.replaceAll("\"(.*?)\"", "'$1'");
+            String manaCost = front.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+            String type = front.get("type_line").getAsString();
+            String oracleText = front.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            oracleText = oracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            oracleText = oracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
+            JsonArray colorsArray = front.getAsJsonArray("colors");
+            String colors = "";
+
+            if (colorsArray != null) {
+                List<String> list = new ArrayList<>();
+                for (JsonElement c : colorsArray) {
+                    list.add(c.getAsString());
+                }
+                colors = String.join(",", list);
+            }
+
+            JsonObject uris = (JsonObject) front.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            String imageLink = uris != null ? uris.get("normal").getAsString() : "";
+            String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
+
+
+            //Get the info for the back side of the card
+            boolean twoFaces = true;
+            String backSideCardName = back.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            backSideCardName = backSideCardName.replaceAll("\"(.*?)\"", "'$1'");
+            String backSideManaCost = back.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+            String backSideCardType = back.get("type_line").getAsString();
+            String backSideOracleText = back.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            backSideOracleText = backSideOracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            backSideOracleText = backSideOracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            backSideOracleText = backSideOracleText.replaceAll("\"(.*?)\"", "'$1'");
+
+            //Need to add backSideColors to the db before proceeding with this
+//            JsonArray colorsArray = front.getAsJsonArray("colors");
+//            String colors = "";
+//
+//            if (colorsArray != null) {
+//                List<String> list = new ArrayList<>();
+//                for (JsonElement c : colorsArray) {
+//                    list.add(c.getAsString());
+//                }
+//                colors = String.join(",", list);
+//            }
+
+            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            String backSideImage = backSideUris != null ? uris.get("normal").getAsString() : "";
+
+            Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,
+                    keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,
+                    backSideManaCost, backSideOracleText, twoFaces);
+            cardDao.addCardToDb(newCard);
+            return newCard;
+
+        } else {
+            String name = result.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            name = name.replaceAll("\"(.*?)\"", "'$1'");
+            JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            String imageLink = uris != null ? uris.get("normal").getAsString() : "";
+            String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
+            String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+            String type = result.get("type_line").getAsString();
+            String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            oracleText = oracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            oracleText = oracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            oracleText = oracleText.replaceAll("\"(.*?)\"", "'$1'");
+
+            JsonArray colorsArray = result.getAsJsonArray("colors");
+            String colors = "";
+
+            if (colorsArray != null) {
+                List<String> list = new ArrayList<>();
+                for (JsonElement c : colorsArray) {
+                    list.add(c.getAsString());
+                }
+                colors = String.join(",", list);
+            }
+
+            Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
+            cardDao.addCardToDb(newCard);
+            return newCard;
+        }
     }
 
     public List<String> failedSearch(){
