@@ -250,7 +250,7 @@ public class CardService {
         if (result.has("card_faces")){
             JsonArray faces = result.getAsJsonArray("card_faces");
             JsonObject front = faces.get(0).getAsJsonObject();
-            JsonObject back = faces.get(0).getAsJsonObject();
+            JsonObject back = faces.get(1).getAsJsonObject();
 
             //Get the info for the front side of the card
             String name = front.get("name") != null ? result.get("name").getAsString() : null;
@@ -297,23 +297,23 @@ public class CardService {
             backSideOracleText = backSideOracleText.replaceAll("\"(.*?)\"", "'$1'");
 
             //Need to add backSideColors to the db before proceeding with this
-//            JsonArray colorsArray = front.getAsJsonArray("colors");
-//            String colors = "";
-//
-//            if (colorsArray != null) {
-//                List<String> list = new ArrayList<>();
-//                for (JsonElement c : colorsArray) {
-//                    list.add(c.getAsString());
-//                }
-//                colors = String.join(",", list);
-//            }
+            JsonArray backSideColorsArray = back.getAsJsonArray("colors");
+            String backSideColors = "";
+
+            if (colorsArray != null) {
+                List<String> list = new ArrayList<>();
+                for (JsonElement c : colorsArray) {
+                    list.add(c.getAsString());
+                }
+                backSideColors = String.join(",", list);
+            }
 
             JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
             String backSideImage = backSideUris != null ? uris.get("normal").getAsString() : "";
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,
                     keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,
-                    backSideManaCost, backSideOracleText, twoFaces);
+                    backSideManaCost, backSideOracleText, backSideColors, twoFaces);
             cardDao.addCardToDb(newCard);
             return newCard;
 

@@ -48,6 +48,7 @@ public class CardSearchDTO {
     private String backSideManaCost;
     private String backSideCardType;
     private String backSideOracleText;
+    private String backSideColors;
     private boolean twoCardFaces;
 
     public int getId() {
@@ -214,6 +215,9 @@ public class CardSearchDTO {
         this.backSideOracleText = backSideOracleText;
     }
 
+    public String getBackSideColors(){ return backSideColors; }
+
+    public void setBackSideColors(String backSideColors){ this.backSideColors = backSideColors; }
     public boolean getTwoCardFaces(){ return twoCardFaces; }
 
     public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
@@ -240,6 +244,7 @@ public class CardSearchDTO {
                 "\", \"backSideManaCost\": \"" + this.backSideManaCost +
                 "\", \"backSideCardType\": \"" + this.backSideCardType +
                 "\", \"backSideOracleText\": \"" + this.backSideOracleText +
+                "\", \"backSideColors\": \"" + this.backSideColors +
                 "\", \"twoCardFaces\": \"" + this.twoCardFaces +
                 "\"}";
     }

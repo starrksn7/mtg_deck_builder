@@ -52,6 +52,7 @@ public class Card {
     private String backSideManaCost;
     private String backSideCardType;
     private String backSideOracleText;
+    private String backSideColors
     private boolean twoCardFaces;
 
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
@@ -76,7 +77,7 @@ public class Card {
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
                  String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
                  boolean gameChanger, String rarity, String fullArtLink, String backSideCardName, String backSideCardType,
-                 String backSideImage, String backSideManaCost, String backSideOracleText, boolean twoCardFaces){
+                 String backSideImage, String backSideManaCost, String backSideOracleText, String backSideColors, boolean twoCardFaces){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;
@@ -96,6 +97,7 @@ public class Card {
         this.backSideImage = backSideImage;
         this.backSideManaCost = backSideManaCost;
         this.backSideOracleText = backSideOracleText;
+        this.backSideColors = backSideColors;
         this.twoCardFaces = twoCardFaces;
     }
     public Card(){
@@ -265,13 +267,17 @@ public class Card {
         this.backSideOracleText = backSideOracleText;
     }
 
+    public String getBackSideColors(){ return backSideColors; }
+
+    public void setBackSideColors(String backSideColors){ this.backSideColors = backSideColors; }
+
     public boolean getTwoCardFaces(){ return twoCardFaces; }
 
     public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\" " +
-                "\"backSideCardName\" : \"%s\", \"backSideImage\" : \"%s\", \"backSideManaCost\": \"%s\", \"backSideCardType\": \"%s\", \"backSideOracleText\": \"%s\", \"twoCardFaces\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger,
-                this.rarity, this.fullArtLink, this.backSideCardName, this.backSideImage, this.backSideManaCost, this.backSideCardType, this.backSideOracleText, this.twoCardFaces);
+                "\"backSideCardName\" : \"%s\", \"backSideImage\" : \"%s\", \"backSideManaCost\": \"%s\", \"backSideCardType\": \"%s\", \"backSideOracleText\": \"%s\", \"backSideColors\": \"%s\", \"twoCardFaces\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger,
+                this.rarity, this.fullArtLink, this.backSideCardName, this.backSideImage, this.backSideManaCost, this.backSideCardType, this.backSideOracleText, this.backSideColors, this.twoCardFaces);
     }
 }
