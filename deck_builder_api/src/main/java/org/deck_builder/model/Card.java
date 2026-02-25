@@ -52,7 +52,7 @@ public class Card {
     private String backSideManaCost;
     private String backSideCardType;
     private String backSideOracleText;
-    private String backSideColors
+    private String backSideColors;
     private boolean twoCardFaces;
 
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,

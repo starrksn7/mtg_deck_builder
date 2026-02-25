@@ -80,30 +80,8 @@ public class DeckService {
     public CardSearchDTO mapResultToCardSearchDTO(JsonObject result){
         CardSearchDTO cardSearchDTO = new CardSearchDTO();
         cardSearchDTO.setScryfallId(result.get("id") != null ? result.get("id").getAsString() : null);
-        String name = result.get("name") != null ? result.get("name").getAsString() : null;
-        //regex to replace double quotes with single quotes
-        cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
         cardSearchDTO.setScryfallURL(result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null);
-        JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
-        cardSearchDTO.setImageLink(uris != null ? uris.get("normal").getAsString() : "");
-        cardSearchDTO.setFullArtLink(uris != null ? uris.get("art_crop").getAsString() : "");
-        cardSearchDTO.setManaCost(result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
-        cardSearchDTO.setType(result.get("type_line").getAsString());
-        String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
-        //regex to remove the line breaks
-        oracleText = oracleText.replaceAll("\\n", " ");
-        //regex to remove the escaping slashes
-        oracleText = oracleText.replaceAll("\\\\", "");
-        //regex to change double quotes to single quotes
-        cardSearchDTO.setOracleText(oracleText.replaceAll("\"(.*?)\"", "'$1'"));
-        JsonArray colors = (JsonArray) result.get("colors");
-        String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
-        if(colors != null) {
-            for (int i = 0; i < colors.size(); i++) {
-                colorsArray[i] = colors.get(i).getAsString();
-            }
-        }
-        cardSearchDTO.setColors(String.join("", colorsArray));
+
         JsonArray colorIdentity = (JsonArray) result.get("color_identity");
         String[] identityArray = colorIdentity != null ? new String[colorIdentity.size()] : new String[0];
         if(colorIdentity != null){
@@ -112,6 +90,7 @@ public class DeckService {
             }
         }
         cardSearchDTO.setColorIdentity(identityArray);
+
         JsonArray keywords = (JsonArray) result.get("keywords");
         String[] keywordsArray = keywords != null ? new String[keywords.size()] : new String[0];
         if(keywords != null){
@@ -125,6 +104,86 @@ public class DeckService {
         cardSearchDTO.setPrices(result.get("prices").getAsJsonObject());
         cardSearchDTO.setRarity(result.get("rarity").getAsString());
         cardSearchDTO.setGameChanger(result.get("game_changer").getAsBoolean());
+
+        if (result.has("card_faces")){
+            JsonArray faces = result.getAsJsonArray("card_faces");
+            JsonObject front = faces.get(0).getAsJsonObject();
+            JsonObject back = faces.get(1).getAsJsonObject();
+
+            //get front side card info
+            String name = front.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonObject uris = (JsonObject) front.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            cardSearchDTO.setImageLink(uris != null ? uris.get("normal").getAsString() : "");
+            cardSearchDTO.setFullArtLink(uris != null ? uris.get("art_crop").getAsString() : "");
+            cardSearchDTO.setManaCost(front.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setType(front.get("type_line").getAsString());
+            String oracleText = front.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            oracleText = oracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            oracleText = oracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            cardSearchDTO.setOracleText(oracleText.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonArray colors = (JsonArray) front.get("colors");
+            String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
+            if(colors != null) {
+                for (int i = 0; i < colors.size(); i++) {
+                    colorsArray[i] = colors.get(i).getAsString();
+                }
+            }
+            cardSearchDTO.setColors(String.join("", colorsArray));
+
+            //get backside card info
+            String backSideCardName = back.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            cardSearchDTO.setBackSideCardName(name.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            cardSearchDTO.setBackSideImage(uris != null ? backSideUris.get("normal").getAsString() : "");
+            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setBackSideCardType(back.get("type_line").getAsString());
+            String backSideOracleText = back.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            backSideOracleText = backSideOracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            backSideOracleText = backSideOracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            cardSearchDTO.setBackSideOracleText(backSideOracleText.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonArray backSideColors = (JsonArray) back.get("colors");
+            String[] backSideColorsArray = backSideColors != null ? new String[colors.size()] : new String[0];
+            if(backSideColors != null) {
+                for (int i = 0; i < backSideColors.size(); i++) {
+                    backSideColorsArray[i] = backSideColors.get(i).getAsString();
+                }
+            }
+            cardSearchDTO.setBackSideColors(String.join("", backSideColorsArray));
+        } else {
+            String name = result.get("name") != null ? result.get("name").getAsString() : null;
+            //regex to replace double quotes with single quotes
+            cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonObject uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            cardSearchDTO.setImageLink(uris != null ? uris.get("normal").getAsString() : "");
+            cardSearchDTO.setFullArtLink(uris != null ? uris.get("art_crop").getAsString() : "");
+            cardSearchDTO.setManaCost(result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setType(result.get("type_line").getAsString());
+            String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            //regex to remove the line breaks
+            oracleText = oracleText.replaceAll("\\n", " ");
+            //regex to remove the escaping slashes
+            oracleText = oracleText.replaceAll("\\\\", "");
+            //regex to change double quotes to single quotes
+            cardSearchDTO.setOracleText(oracleText.replaceAll("\"(.*?)\"", "'$1'"));
+            JsonArray colors = (JsonArray) result.get("colors");
+            String[] colorsArray = colors != null ? new String[colors.size()] : new String[0];
+            if(colors != null) {
+                for (int i = 0; i < colors.size(); i++) {
+                    colorsArray[i] = colors.get(i).getAsString();
+                }
+            }
+            cardSearchDTO.setColors(String.join("", colorsArray));
+        }
+
         return cardSearchDTO;
     }
 

@@ -300,9 +300,9 @@ public class CardService {
             JsonArray backSideColorsArray = back.getAsJsonArray("colors");
             String backSideColors = "";
 
-            if (colorsArray != null) {
+            if (backSideColorsArray != null) {
                 List<String> list = new ArrayList<>();
-                for (JsonElement c : colorsArray) {
+                for (JsonElement c : backSideColorsArray) {
                     list.add(c.getAsString());
                 }
                 backSideColors = String.join(",", list);
