@@ -253,12 +253,12 @@ public class CardService {
             JsonObject back = faces.get(1).getAsJsonObject();
 
             //Get the info for the front side of the card
-            String name = front.get("name") != null ? result.get("name").getAsString() : null;
+            String name = front.get("name") != null ? front.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             name = name.replaceAll("\"(.*?)\"", "'$1'");
-            String manaCost = front.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+            String manaCost = front.get("mana_cost") != null ? front.get("mana_cost").getAsString() : "";
             String type = front.get("type_line").getAsString();
-            String oracleText = front.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            String oracleText = front.get("oracle_text") != null ? front.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
             oracleText = oracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
@@ -276,19 +276,19 @@ public class CardService {
                 colors = String.join(",", list);
             }
 
-            JsonObject uris = (JsonObject) front.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            JsonObject uris = (JsonObject) front.get("image_uris") != null ? front.get("image_uris").getAsJsonObject() : null;
             String imageLink = uris != null ? uris.get("normal").getAsString() : "";
             String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
 
 
             //Get the info for the back side of the card
             boolean twoFaces = true;
-            String backSideCardName = back.get("name") != null ? result.get("name").getAsString() : null;
+            String backSideCardName = back.get("name") != null ? back.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             backSideCardName = backSideCardName.replaceAll("\"(.*?)\"", "'$1'");
-            String backSideManaCost = back.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
+            String backSideManaCost = back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "";
             String backSideCardType = back.get("type_line").getAsString();
-            String backSideOracleText = back.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            String backSideOracleText = back.get("oracle_text") != null ? back.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
             backSideOracleText = backSideOracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
@@ -308,7 +308,7 @@ public class CardService {
                 backSideColors = String.join(",", list);
             }
 
-            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? back.get("image_uris").getAsJsonObject() : null;
             String backSideImage = backSideUris != null ? uris.get("normal").getAsString() : "";
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,

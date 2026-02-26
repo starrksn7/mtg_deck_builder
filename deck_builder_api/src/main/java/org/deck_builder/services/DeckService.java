@@ -114,12 +114,12 @@ public class DeckService {
             String name = front.get("name") != null ? result.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
-            JsonObject uris = (JsonObject) front.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            JsonObject uris = (JsonObject) front.get("image_uris") != null ? front.get("image_uris").getAsJsonObject() : null;
             cardSearchDTO.setImageLink(uris != null ? uris.get("normal").getAsString() : "");
             cardSearchDTO.setFullArtLink(uris != null ? uris.get("art_crop").getAsString() : "");
-            cardSearchDTO.setManaCost(front.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setManaCost(front.get("mana_cost") != null ? front.get("mana_cost").getAsString() : "");
             cardSearchDTO.setType(front.get("type_line").getAsString());
-            String oracleText = front.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            String oracleText = front.get("oracle_text") != null ? front.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
             oracleText = oracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
@@ -136,14 +136,14 @@ public class DeckService {
             cardSearchDTO.setColors(String.join("", colorsArray));
 
             //get backside card info
-            String backSideCardName = back.get("name") != null ? result.get("name").getAsString() : null;
+            String backSideCardName = back.get("name") != null ? back.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             cardSearchDTO.setBackSideCardName(name.replaceAll("\"(.*?)\"", "'$1'"));
-            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+            JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? back.get("image_uris").getAsJsonObject() : null;
             cardSearchDTO.setBackSideImage(uris != null ? backSideUris.get("normal").getAsString() : "");
-            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "");
             cardSearchDTO.setBackSideCardType(back.get("type_line").getAsString());
-            String backSideOracleText = back.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
+            String backSideOracleText = back.get("oracle_text") != null ? back.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
             backSideOracleText = backSideOracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
