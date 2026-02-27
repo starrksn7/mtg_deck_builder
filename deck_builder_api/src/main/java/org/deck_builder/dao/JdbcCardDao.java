@@ -31,13 +31,16 @@ public class JdbcCardDao implements CardDao{
     public boolean addCardToDb(Card card){
         SqlRowSet getResults = getFromDb(card.getScryfallId());
         boolean cardExistsInDb = getResults.next();
-        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, color_identity, keywords, scryfall_id, cmc, game_changer, rarity, full_art_link)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, " +
+                "color_identity, keywords, scryfall_id, cmc, game_changer, rarity, full_art_link, back_side_card_name, " +
+                "back_side_image, back_side_mana_cost, back_side_card_type, back_side_colors, back_side_oracle_text, two_card_faces)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         if (!cardExistsInDb) {
             jdbcTemplate.update(insertSql, card.getName(), card.getScryfallURL(), card.getImageLink(), card.getManaCost(), card.getType(),
                     card.getOracleText(), card.getColors(), card.getColorIdentity(), card.getKeywords(), card.getScryfallId(), card.getCmc(),
-                    card.getGameChanger(), card.getRarity(), card.getFullArtLink());
+                    card.getGameChanger(), card.getRarity(), card.getFullArtLink(), card.getBackSideCardName(), card.getBackSideImage(),
+                    card.getBackSideManaCost(), card.getBackSideCardType(), card.getBackSideColors(), card.getBackSideOracleText(), card.getTwoCardFaces());
             return true;
         }
         return false;
