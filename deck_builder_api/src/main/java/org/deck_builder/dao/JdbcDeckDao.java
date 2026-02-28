@@ -93,6 +93,13 @@ public class JdbcDeckDao implements DeckDao{
                 "    c.game_changer, \n" +
                 "    c.rarity, \n" +
                 "    c.full_art_link, \n" +
+                "    c.backSideCardName, \n" +
+                "    c.backSideImage, \n" +
+                "    c.backSideManaCost, \n" +
+                "    c.backSideCardType, \n" +
+                "    c.backSideOracleText, \n" +
+                "    c.backSideColors, \n" +
+                "    c.twoCardFaces, \n" +
                 "    COUNT(*) AS quantity, \n" +
                 "    d.deck_name \n" +
                 "FROM cards c\n" +
@@ -116,6 +123,13 @@ public class JdbcDeckDao implements DeckDao{
                 "    c.game_changer, \n" +
                 "    c.rarity, \n" +
                 "    c.full_art_link, \n" +
+                "    c.backSideCardName, \n" +
+                "    c.backSideImage, \n" +
+                "    c.backSideManaCost, \n" +
+                "    c.backSideCardType, \n" +
+                "    c.backSideOracleText, \n" +
+                "    c.backSideColors, \n" +
+                "    c.twoCardFaces, \n" +
                 "    d.deck_name;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
@@ -154,7 +168,8 @@ public class JdbcDeckDao implements DeckDao{
         Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                 cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
                 cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink());
+                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideImage(),
+                cardDto.getBackSideManaCost(), cardDto.getBackSideCardType(), cardDto.getBackSideColors(), cardDto.getBackSideOracleText(), cardDto.getTwoCardFaces());
         jdbcCardDao.addCardToDb(card);
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
