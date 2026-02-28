@@ -309,7 +309,7 @@ public class CardService {
             }
 
             JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? back.get("image_uris").getAsJsonObject() : null;
-            String backSideImage = backSideUris != null ? uris.get("normal").getAsString() : "";
+            String backSideImage = backSideUris != null ? backSideUris.get("normal").getAsString() : "";
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,
                     keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,

@@ -93,13 +93,13 @@ public class JdbcDeckDao implements DeckDao{
                 "    c.game_changer, \n" +
                 "    c.rarity, \n" +
                 "    c.full_art_link, \n" +
-                "    c.backSideCardName, \n" +
-                "    c.backSideImage, \n" +
-                "    c.backSideManaCost, \n" +
-                "    c.backSideCardType, \n" +
-                "    c.backSideOracleText, \n" +
-                "    c.backSideColors, \n" +
-                "    c.twoCardFaces, \n" +
+                "    c.back_side_card_name, \n" +
+                "    c.back_side_image, \n" +
+                "    c.back_side_mana_cost, \n" +
+                "    c.back_side_card_type, \n" +
+                "    c.back_side_oracle_text, \n" +
+                "    c.back_side_colors, \n" +
+                "    c.two_card_faces, \n" +
                 "    COUNT(*) AS quantity, \n" +
                 "    d.deck_name \n" +
                 "FROM cards c\n" +
@@ -123,13 +123,13 @@ public class JdbcDeckDao implements DeckDao{
                 "    c.game_changer, \n" +
                 "    c.rarity, \n" +
                 "    c.full_art_link, \n" +
-                "    c.backSideCardName, \n" +
-                "    c.backSideImage, \n" +
-                "    c.backSideManaCost, \n" +
-                "    c.backSideCardType, \n" +
-                "    c.backSideOracleText, \n" +
-                "    c.backSideColors, \n" +
-                "    c.twoCardFaces, \n" +
+                "    c.back_side_card_name, \n" +
+                "    c.back_side_image, \n" +
+                "    c.back_side_mana_cost, \n" +
+                "    c.back_side_card_type, \n" +
+                "    c.back_side_oracle_text, \n" +
+                "    c.back_side_colors, \n" +
+                "    c.two_card_faces, \n" +
                 "    d.deck_name;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, deckId);
         List<Card> deckList = new ArrayList<>();
@@ -228,6 +228,14 @@ public class JdbcDeckDao implements DeckDao{
         card.setGameChanger(row.getBoolean("game_changer"));
         card.setFullArtLink(row.getString("full_art_link"));
         card.setRarity(row.getString("rarity"));
+        card.setBackSideCardName(row.getString("back_side_card_name"));
+        card.setBackSideImage(row.getString("back_side_image"));
+        card.setBackSideManaCost(row.getString("back_side_mana_cost"));
+        card.setBackSideCardType(row.getString("back_side_card_type"));
+        card.setBackSideOracleText(row.getString("back_side_oracle_text"));
+        card.setBackSideColors(row.getString("back_side_colors"));
+        card.setTwoCardFaces(row.getBoolean("two_card_faces"));
+
         return card;
     }
 
@@ -240,7 +248,8 @@ public class JdbcDeckDao implements DeckDao{
             Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                     cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
                     cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink());
+                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideImage(),
+                    cardDto.getBackSideManaCost(), cardDto.getBackSideCardType(), cardDto.getBackSideColors(), cardDto.getBackSideOracleText(), cardDto.getTwoCardFaces());
 
             jdbcCardDao.addCardToDb(card);
 

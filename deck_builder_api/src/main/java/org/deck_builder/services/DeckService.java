@@ -138,10 +138,9 @@ public class DeckService {
             //get backside card info
             String backSideCardName = back.get("name") != null ? back.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
-            cardSearchDTO.setBackSideCardName(name.replaceAll("\"(.*?)\"", "'$1'"));
+            cardSearchDTO.setBackSideCardName(backSideCardName.replaceAll("\"(.*?)\"", "'$1'"));
             JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? back.get("image_uris").getAsJsonObject() : null;
-            cardSearchDTO.setBackSideImage(uris != null ? backSideUris.get("normal").getAsString() : "");
-            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setBackSideImage(backSideUris != null ? backSideUris.get("normal").getAsString() : "");            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "");
             cardSearchDTO.setBackSideCardType(back.get("type_line").getAsString());
             String backSideOracleText = back.get("oracle_text") != null ? back.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
@@ -151,13 +150,14 @@ public class DeckService {
             //regex to change double quotes to single quotes
             cardSearchDTO.setBackSideOracleText(backSideOracleText.replaceAll("\"(.*?)\"", "'$1'"));
             JsonArray backSideColors = (JsonArray) back.get("colors");
-            String[] backSideColorsArray = backSideColors != null ? new String[colors.size()] : new String[0];
+            String[] backSideColorsArray = backSideColors != null ? new String[backSideColors.size()] : new String[0];
             if(backSideColors != null) {
                 for (int i = 0; i < backSideColors.size(); i++) {
                     backSideColorsArray[i] = backSideColors.get(i).getAsString();
                 }
             }
             cardSearchDTO.setBackSideColors(String.join("", backSideColorsArray));
+            cardSearchDTO.setTwoCardFaces(true);
         } else {
             String name = result.get("name") != null ? result.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
