@@ -280,7 +280,6 @@ public class CardService {
             String imageLink = uris != null ? uris.get("normal").getAsString() : "";
             String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
 
-
             //Get the info for the back side of the card
             boolean twoFaces = true;
             String backSideCardName = back.get("name") != null ? back.get("name").getAsString() : null;

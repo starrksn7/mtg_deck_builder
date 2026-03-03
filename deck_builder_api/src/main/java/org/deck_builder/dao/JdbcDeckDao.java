@@ -168,8 +168,8 @@ public class JdbcDeckDao implements DeckDao{
         Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                 cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
                 cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideImage(),
-                cardDto.getBackSideManaCost(), cardDto.getBackSideCardType(), cardDto.getBackSideColors(), cardDto.getBackSideOracleText(), cardDto.getTwoCardFaces());
+                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideCardType(),
+                cardDto.getBackSideImage(), cardDto.getBackSideManaCost(), cardDto.getBackSideOracleText(), cardDto.getBackSideColors(), cardDto.getTwoCardFaces());
         jdbcCardDao.addCardToDb(card);
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
@@ -248,8 +248,8 @@ public class JdbcDeckDao implements DeckDao{
             Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
                     cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
                     cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideImage(),
-                    cardDto.getBackSideManaCost(), cardDto.getBackSideCardType(), cardDto.getBackSideColors(), cardDto.getBackSideOracleText(), cardDto.getTwoCardFaces());
+                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideCardType(),
+                    cardDto.getBackSideImage(), cardDto.getBackSideManaCost(), cardDto.getBackSideOracleText(), cardDto.getBackSideColors(), cardDto.getTwoCardFaces());
 
             jdbcCardDao.addCardToDb(card);
 

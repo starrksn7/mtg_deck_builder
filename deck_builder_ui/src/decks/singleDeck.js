@@ -265,16 +265,25 @@ export function SingleDeck() {
                             <div className="preview-inner">
                                 <div className="preview-image-wrapper">
                                     {previewCard?.gameChanger && (
-                                    <div className="game-changer-label">
+                                        <div className="game-changer-label">
                                         GC
-                                    </div>
+                                        </div>
                                     )}
 
                                     <img
-                                    src={previewCard?.imageLink}
-                                    alt="Card preview"
+                                        src={previewCard?.imageLink}
+                                        alt="Card preview"
                                     />
-                                </div>
+                                    </div>
+
+                                    {previewCard && (
+                                    <button
+                                        className="preview-delete-button"
+                                        onClick={() => handleDelete(previewCard)}
+                                    >
+                                        Delete From Deck
+                                    </button>
+                                    )}
                             </div>
                         </div>
                         <form className="collection-form">

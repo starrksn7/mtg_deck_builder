@@ -57,6 +57,7 @@ public class DeckService {
 
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
         System.out.println("DTO received size = " + cardIdentifierDTO.size());
+        System.out.println(cardIdentifierDTO.get(0).toString());
         List<String> scryfallCollectionResults = cardService.getCardsFromCollection(cardIdentifierDTO);
 
         if(scryfallCollectionResults.isEmpty()){
@@ -111,7 +112,7 @@ public class DeckService {
             JsonObject back = faces.get(1).getAsJsonObject();
 
             //get front side card info
-            String name = front.get("name") != null ? result.get("name").getAsString() : null;
+            String name = front.get("name") != null ? front.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             cardSearchDTO.setName(name.replaceAll("\"(.*?)\"", "'$1'"));
             JsonObject uris = (JsonObject) front.get("image_uris") != null ? front.get("image_uris").getAsJsonObject() : null;
@@ -133,15 +134,16 @@ public class DeckService {
                     colorsArray[i] = colors.get(i).getAsString();
                 }
             }
-            cardSearchDTO.setColors(String.join("", colorsArray));
+            cardSearchDTO.setColors(String.join(",", colorsArray));
 
             //get backside card info
             String backSideCardName = back.get("name") != null ? back.get("name").getAsString() : null;
             //regex to replace double quotes with single quotes
             cardSearchDTO.setBackSideCardName(backSideCardName.replaceAll("\"(.*?)\"", "'$1'"));
             JsonObject backSideUris = (JsonObject) back.get("image_uris") != null ? back.get("image_uris").getAsJsonObject() : null;
-            cardSearchDTO.setBackSideImage(backSideUris != null ? backSideUris.get("normal").getAsString() : "");            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "");
-            cardSearchDTO.setBackSideCardType(back.get("type_line").getAsString());
+            cardSearchDTO.setBackSideImage(backSideUris != null ? backSideUris.get("normal").getAsString() : "");
+            cardSearchDTO.setBackSideManaCost(back.get("mana_cost") != null ? back.get("mana_cost").getAsString() : "");
+            cardSearchDTO.setBackSideCardType(back.get("type_line") != null ? back.get("type_line").getAsString() : "");
             String backSideOracleText = back.get("oracle_text") != null ? back.get("oracle_text").getAsString() : "";
             //regex to remove the line breaks
             backSideOracleText = backSideOracleText.replaceAll("\\n", " ");
@@ -156,7 +158,7 @@ public class DeckService {
                     backSideColorsArray[i] = backSideColors.get(i).getAsString();
                 }
             }
-            cardSearchDTO.setBackSideColors(String.join("", backSideColorsArray));
+            cardSearchDTO.setBackSideColors(String.join(",", backSideColorsArray));
             cardSearchDTO.setTwoCardFaces(true);
         } else {
             String name = result.get("name") != null ? result.get("name").getAsString() : null;
@@ -181,7 +183,7 @@ public class DeckService {
                     colorsArray[i] = colors.get(i).getAsString();
                 }
             }
-            cardSearchDTO.setColors(String.join("", colorsArray));
+            cardSearchDTO.setColors(String.join(",", colorsArray));
         }
 
         return cardSearchDTO;
