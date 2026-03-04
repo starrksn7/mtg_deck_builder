@@ -17,7 +17,7 @@ export function SingleDeck() {
     const { deckId } = useParams();
     const [cardList, setCardList] = useState([]);
     const [previewCardId, setPreviewCardId] = useState(null);
-    const [confirmingCard, setConfirmingCard] = useState(null);
+    const [confirmingCardId, setConfirmingCardId] = useState(null);
     const [deckNotFound, setDeckNotFound] = useState(false);
     const [collectionList, setCollectionList] = useState('');
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
@@ -95,7 +95,7 @@ export function SingleDeck() {
 
 
 
-    const deleteFromDeck = async (card) => {
+    const deleteFromDeck = async () => {
         const res = await api.delete('/decks/remove', { data: {
             deckId: deckId, 
             cardDto: {
@@ -107,16 +107,16 @@ export function SingleDeck() {
             setCardList(prev =>
                 prev.filter(c => c.scryfallId !== card.scryfallId)
             );
-            setConfirmingCard(null);
+            setConfirmingCardId(null);
         }
     }
 
     const cancelDelete = () => {
-        setConfirmingCard(null)
+        setConfirmingCardId(null)
     }
 
     const handleDelete = (card) => {
-        setConfirmingCard(card)
+        setConfirmingCardId(card.scryfallId)
     }
 
     const handleAddCollection = async () => {
@@ -308,10 +308,11 @@ export function SingleDeck() {
                                     <h4 className="card-group-title">{type}</h4>
                                         {cards.map((card, index) => (
                                             <div
+                                                key={card.scryfallId} 
                                                 className="card-preview-wrapper"
-                                                    onMouseEnter={() => setPreviewCardId(card.scryfallId)}
+                                                onMouseEnter={() => setPreviewCardId(card.scryfallId)}
                                                 >
-                                                <div key={card.scryfallId} className="card">
+                                                <div className="card">
                                                     <div className="card-row">
                                                         <span className="card-qty">{card.quantity}</span>
 
@@ -330,9 +331,9 @@ export function SingleDeck() {
                                                         </span>
                                                         )}
                                                     </div>
-                                                    {confirmingCard === card && (
+                                                    {confirmingCardId === card.scryfallId && (
                                                         <DeleteConfirmationModal
-                                                        card={confirmingCard}
+                                                        card={confirmingCardId}
                                                         onCancel={cancelDelete}
                                                         onConfirm={deleteFromDeck}
                                                         />

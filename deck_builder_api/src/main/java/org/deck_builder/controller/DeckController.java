@@ -45,6 +45,7 @@ public class DeckController {
 
     @DeleteMapping(path="/remove")
     public boolean removeCardFromDeck(@RequestBody DeckDTO jsonBody){
+        System.out.println("delete card step 1");
         return deckService.removeCardFromDeck(jsonBody);
     }
 

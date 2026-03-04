@@ -38,5 +38,5 @@ public class DeckBuilderApplication {
  *          that it has the card_faces value, but does not have the uri inside the array of objects. Need to figure out
  *          how to get the uri for this. Fused cards, adventures, rooms and some others might have the same issue that
  *          needs to be addressed.
- * 6. Lost my delete button along the way, need to return that and restore it's functionality
+ * 6. Lost my delete button along the way, need to return that and restore its functionality
  */
