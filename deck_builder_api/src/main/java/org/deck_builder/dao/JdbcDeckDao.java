@@ -176,9 +176,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean removeCardFromDeck(int deckId, CardSearchDTO cardDto){
-        System.out.println("delete card step 3");
-        System.out.println(deckId);
-        System.out.println(cardDto.getScryfallId());
 
         String sql = "WITH to_delete AS (\n" +
                 "  SELECT ctid\n" +
@@ -188,9 +185,6 @@ public class JdbcDeckDao implements DeckDao{
                 ")\n" +
                 "DELETE FROM deck_cards\n" +
                 "WHERE ctid IN (SELECT ctid FROM to_delete);";
-
-        System.out.println("delete card step 4");
-
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }

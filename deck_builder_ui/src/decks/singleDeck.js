@@ -60,8 +60,6 @@ export function SingleDeck() {
         return cardList.length > 0 ? cardList[0].deckName : '';
     }, [cardList]);
 
-    console.log("commander")
-    console.log(commander)
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -95,7 +93,7 @@ export function SingleDeck() {
 
 
 
-    const deleteFromDeck = async () => {
+    const deleteFromDeck = async (card) => {
         const res = await api.delete('/decks/remove', { data: {
             deckId: deckId, 
             cardDto: {
@@ -109,6 +107,8 @@ export function SingleDeck() {
             );
             setConfirmingCardId(null);
         }
+
+        setPreviewCardId(commander.scryfallId);
     }
 
     const cancelDelete = () => {
@@ -333,9 +333,9 @@ export function SingleDeck() {
                                                     </div>
                                                     {confirmingCardId === card.scryfallId && (
                                                         <DeleteConfirmationModal
-                                                        card={confirmingCardId}
-                                                        onCancel={cancelDelete}
-                                                        onConfirm={deleteFromDeck}
+                                                            card={card}
+                                                            onCancel={cancelDelete}
+                                                            onConfirm={deleteFromDeck}
                                                         />
                                                     )}
                                                 </div>

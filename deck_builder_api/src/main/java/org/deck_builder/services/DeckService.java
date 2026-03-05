@@ -220,7 +220,6 @@ public class DeckService {
     }
 
     public boolean removeCardFromDeck(DeckDTO deckDTO){
-        System.out.println("delete card step 2");
         return deckDao.removeCardFromDeck(deckDTO.getDeckId(), deckDTO.getCardDto());
     }
 
