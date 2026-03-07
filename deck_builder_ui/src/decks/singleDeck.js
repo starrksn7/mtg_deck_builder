@@ -320,10 +320,14 @@ export function SingleDeck() {
                                                             {card.name}
                                                         </span>
                                                         <span
-                                                        className="card-cost"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: replaceTextWithManaSymbols(card.manaCost),
-                                                        }}
+                                                            className="card-cost"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: replaceTextWithManaSymbols(
+                                                                card.backSideManaCost
+                                                                    ? `${card.manaCost} // ${card.backSideManaCost}`
+                                                                    : card.manaCost
+                                                                ),
+                                                            }}
                                                         />
                                                         {!card.type.includes('Basic Land') && (
                                                         <span className="card-price">

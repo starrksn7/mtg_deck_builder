@@ -27,8 +27,6 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- *    b, cards
- *       i, columns for data from double faced cardsd
  * 5. The image for double faced cards is a problem and isn't showing it's mana value
  *    a. it looks like double faced cards have a different json structure, so I need to adapt to that
  *    b. Need to find out how dual faced cards work, like rooms, and possibly adjust for that too.
