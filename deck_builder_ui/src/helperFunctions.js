@@ -362,3 +362,14 @@ export const groupCardsByType = (cards) => {
 
         return groups;
     };
+
+export function formatManaCost(card) {
+    const front = card.manaCost;
+    const back = card.backSideManaCost;
+
+    if (front && back) {
+        return `${front} // ${back}`;
+    }
+
+    return front || back || "";
+}

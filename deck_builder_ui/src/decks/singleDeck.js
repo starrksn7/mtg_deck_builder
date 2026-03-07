@@ -6,7 +6,8 @@ import {
     colorIdentityCheck, 
     calculateManaCurve, 
     getRarities, 
-    groupCardsByType 
+    groupCardsByType,
+    formatManaCost
 } from '../helperFunctions'
 import { useParams } from 'react-router-dom';
 import '../App.css';
@@ -197,7 +198,6 @@ export function SingleDeck() {
         ? cardList.find(c => c.scryfallId === previewCardId)
         : commander;
 
-
     if (deckNotFound) {
         return (
             <div>
@@ -322,11 +322,7 @@ export function SingleDeck() {
                                                         <span
                                                             className="card-cost"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: replaceTextWithManaSymbols(
-                                                                card.backSideManaCost
-                                                                    ? `${card.manaCost} // ${card.backSideManaCost}`
-                                                                    : card.manaCost
-                                                                ),
+                                                                __html: replaceTextWithManaSymbols(formatManaCost(card)),
                                                             }}
                                                         />
                                                         {!card.type.includes('Basic Land') && (
