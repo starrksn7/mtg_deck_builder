@@ -313,7 +313,7 @@ public class CardService {
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,
                     keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,
                     backSideManaCost, backSideOracleText, backSideColors, twoFaces);
-            cardDao.addCardToDb(newCard);
+
             return newCard;
 
         } else {
@@ -345,7 +345,7 @@ public class CardService {
             }
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
-            cardDao.addCardToDb(newCard);
+
             return newCard;
         }
     }

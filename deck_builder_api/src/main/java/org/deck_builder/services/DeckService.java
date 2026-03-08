@@ -6,6 +6,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.dao.DeckDao;
+import org.deck_builder.dao.JdbcCardDao;
+import org.deck_builder.dao.JdbcDeckDao;
 import org.deck_builder.model.*;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,13 @@ public class DeckService {
     CardDao cardDao;
     DeckDao deckDao;
     CardService cardService;
+    private final JdbcCardDao jdbcCardDao;
 
-    public DeckService(CardDao cardDao, DeckDao deckDao, CardService cardService){
+    public DeckService(CardDao cardDao, DeckDao deckDao, CardService cardService, JdbcCardDao jdbcCardDao){
         this.cardDao = cardDao;
         this.deckDao = deckDao;
         this.cardService = cardService;
+        this.jdbcCardDao = jdbcCardDao;
     }
 
     public List<Card> addPricesToDeckList(List<Card> deckList){
@@ -73,6 +77,13 @@ public class DeckService {
             if (!isLegal){
                 continue;
             }
+            Card card = new Card(cardSearchDTO.getScryfallId(), cardSearchDTO.getName(), cardSearchDTO.getScryfallURL(),
+                    cardSearchDTO.getImageLink(), cardSearchDTO.getManaCost(), cardSearchDTO.getType(), cardSearchDTO.getOracleText(),
+                    cardSearchDTO.getColors(), cardSearchDTO.getColorIdentity(), cardSearchDTO.getKeyword(), cardSearchDTO.getCmc(),
+                    cardSearchDTO.getGameChanger(), cardSearchDTO.getRarity(), cardSearchDTO.getFullArtLink(), cardSearchDTO.getBackSideCardName(), cardSearchDTO.getBackSideCardType(),
+                    cardSearchDTO.getBackSideImage(), cardSearchDTO.getBackSideManaCost(), cardSearchDTO.getBackSideOracleText(), cardSearchDTO.getBackSideColors(), cardSearchDTO.getTwoCardFaces());
+
+            jdbcCardDao.addCardToDb(card);
             deckDao.addCardToDeck(deckId, cardSearchDTO);
         }
         return scryfallCollectionResults;
@@ -204,7 +215,22 @@ public class DeckService {
     }
 
     public int createDeck(CreateDeckDTO createDeckDTO){
-        return deckDao.createDeck(createDeckDTO.getUserId(), createDeckDTO.getDeckName(), createDeckDTO.getCardDTO());
+
+        CardSearchDTO dto = createDeckDTO.getCardDTO();
+
+        Card card = new Card(dto.getScryfallId(), dto.getName(), dto.getScryfallURL(), dto.getImageLink(),
+                dto.getManaCost(), dto.getType(), dto.getOracleText(), dto.getColors(), dto.getColorIdentity(),
+                dto.getKeyword(), dto.getCmc(), dto.getGameChanger(), dto.getRarity(), dto.getFullArtLink(), dto.getBackSideCardName(),
+                dto.getBackSideCardType(), dto.getBackSideImage(), dto.getBackSideManaCost(), dto.getBackSideOracleText(),
+                dto.getBackSideColors(), dto.getTwoCardFaces());
+
+        cardDao.addCardToDb(card);
+
+        return deckDao.createDeck(
+                createDeckDTO.getUserId(),
+                createDeckDTO.getDeckName(),
+                dto
+        );
     }
 
     public boolean addCardToDeck(DeckDTO deckDTO){

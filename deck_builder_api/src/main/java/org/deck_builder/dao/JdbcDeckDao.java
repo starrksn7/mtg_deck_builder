@@ -25,7 +25,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public int createDeck(int userId, String deckName, CardSearchDTO cardDto){
-        checkForCard(cardDto);
         String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity) VALUES (?, ?, ?, ?) RETURNING deck_id;";
         int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner(), cardDto.getColorIdentity()},
         Integer.class);
@@ -162,16 +161,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean addCardToDeck(int deckId, CardSearchDTO cardDto){
-        checkForCard(cardDto);
-
         String sql = "INSERT INTO deck_cards (deck_id, scryfall_id) VALUES (?, ?);";
-        Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
-                cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
-                cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideCardType(),
-                cardDto.getBackSideImage(), cardDto.getBackSideManaCost(), cardDto.getBackSideOracleText(), cardDto.getBackSideColors(), cardDto.getTwoCardFaces());
-        jdbcCardDao.addCardToDb(card);
-
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
@@ -239,20 +229,4 @@ public class JdbcDeckDao implements DeckDao{
         return card;
     }
 
-    public void checkForCard(CardSearchDTO cardDto){
-        String checkSql = "SELECT scryfall_id from cards WHERE scryfall_id = ?;";
-
-        SqlRowSet result = jdbcTemplate.queryForRowSet(checkSql, cardDto.getScryfallId());
-
-        if(!result.next()){
-            Card card = new Card(cardDto.getScryfallId(), cardDto.getName(), cardDto.getScryfallURL(),
-                    cardDto.getImageLink(), cardDto.getManaCost(), cardDto.getType(), cardDto.getOracleText(),
-                    cardDto.getColors(), cardDto.getColorIdentity(), cardDto.getKeyword(), cardDto.getCmc(),
-                    cardDto.getGameChanger(), cardDto.getRarity(), cardDto.getFullArtLink(), cardDto.getBackSideCardName(), cardDto.getBackSideCardType(),
-                    cardDto.getBackSideImage(), cardDto.getBackSideManaCost(), cardDto.getBackSideOracleText(), cardDto.getBackSideColors(), cardDto.getTwoCardFaces());
-
-            jdbcCardDao.addCardToDb(card);
-
-        }
-    }
 }

@@ -26,8 +26,6 @@ public interface DeckDao {
     boolean deleteDeck(int deckId);
 
     List<Deck> searchForDeckByName(String deckName);
-
-    void checkForCard(CardSearchDTO cardDto);
-
+    
 
 }
