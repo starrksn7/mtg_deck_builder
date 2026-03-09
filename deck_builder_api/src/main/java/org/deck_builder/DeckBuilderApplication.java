@@ -27,13 +27,5 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- * 5. The image for double faced cards is a problem and isn't showing it's mana value
- *    a. it looks like double faced cards have a different json structure, so I need to adapt to that
- *    b. Need to find out how dual faced cards work, like rooms, and possibly adjust for that too.
- *       i. From what I can tell, it looks like these cards have a "faces" property that contains information for each
- *          face like mana_cost, type_line, image_uri, name and oracle_text. This information can be saved from there.
- *      ii. I've added to the methods setting these values, but now that I've tried to save an adventure card, I've found
- *          that it has the card_faces value, but does not have the uri inside the array of objects. Need to figure out
- *          how to get the uri for this. Fused cards, adventures, rooms and some others might have the same issue that
- *          needs to be addressed.
+ * 5. Now that double faced cards seem mostly sorted, need to get the button working to flip the cards
  */

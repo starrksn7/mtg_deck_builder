@@ -23,8 +23,7 @@ export function SingleDeck() {
     const [collectionList, setCollectionList] = useState('');
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    console.log(cardList)
+    const [showBackSide, setShowBackSide] = useState(false);
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -92,7 +91,9 @@ export function SingleDeck() {
         fetchDeck();
     }, [deckId]);
 
-
+    useEffect(() => {
+        setShowBackSide(false);
+    }, [previewCardId]);
 
     const deleteFromDeck = async (card) => {
         const res = await api.delete('/decks/remove', { data: {
@@ -198,6 +199,10 @@ export function SingleDeck() {
         ? cardList.find(c => c.scryfallId === previewCardId)
         : commander;
 
+    const previewImage = showBackSide && previewCard?.backSideCardImage
+    ? previewCard.backSideCardImage
+    : previewCard?.imageLink;
+
     if (deckNotFound) {
         return (
             <div>
@@ -232,8 +237,8 @@ export function SingleDeck() {
                     </div>
                     <div className="commander-art">
                         <img
-                        src={commander?.fullArtLink}
-                        alt={commander?.name}
+                            src={previewImage}
+                            alt="Card preview"
                         />
                     </div>
                 </div>
@@ -275,6 +280,14 @@ export function SingleDeck() {
                                         alt="Card preview"
                                     />
                                     </div>
+                                    {previewCard?.backSideCardImage && (
+                                        <button
+                                            className="flip-card-button"
+                                            onClick={() => setShowBackSide(prev => !prev)}
+                                        >
+                                            {showBackSide ? "Show Front" : "Show Back"}
+                                        </button>
+                                    )}
 
                                     {previewCard && (
                                     <button
