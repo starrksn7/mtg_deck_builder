@@ -237,8 +237,8 @@ export function SingleDeck() {
                     </div>
                     <div className="commander-art">
                         <img
-                            src={previewImage}
-                            alt="Card preview"
+                            src={commander?.fullArtLink}
+                            alt="Commander art"
                         />
                     </div>
                 </div>
@@ -276,7 +276,7 @@ export function SingleDeck() {
                                     )}
 
                                     <img
-                                        src={previewCard?.imageLink}
+                                        src={previewImage}
                                         alt="Card preview"
                                     />
                                     </div>
