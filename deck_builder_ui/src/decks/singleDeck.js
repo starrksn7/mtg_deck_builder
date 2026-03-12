@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import '../App.css';
 import { BarChart } from '../charts/barChart';
 import { PieChart } from '../charts/pieChart';
+import { FiRefreshCw } from "react-icons/fi";
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -271,7 +272,7 @@ export function SingleDeck() {
                                 <div className="preview-image-wrapper">
                                     {previewCard?.gameChanger && (
                                         <div className="game-changer-label">
-                                        GC
+                                            GC
                                         </div>
                                     )}
 
@@ -279,15 +280,16 @@ export function SingleDeck() {
                                         src={previewImage}
                                         alt="Card preview"
                                     />
-                                    </div>
+
                                     {previewCard?.backSideCardImage && (
                                         <button
-                                            className="flip-card-button"
-                                            onClick={() => setShowBackSide(prev => !prev)}
+                                        className="flip-card-button"
+                                        onClick={() => setShowBackSide(prev => !prev)}
                                         >
-                                            {showBackSide ? "Show Front" : "Show Back"}
+                                        <FiRefreshCw size={16}/>
                                         </button>
                                     )}
+                                </div>
 
                                     {previewCard && (
                                     <button
@@ -301,9 +303,9 @@ export function SingleDeck() {
                         </div>
                         <form className="collection-form">
                             <textarea 
-                            value={collectionList}
-                            onChange={handleChange}
-                            placeholder="Add cards to deck"
+                                value={collectionList}
+                                onChange={handleChange}
+                                placeholder="Add cards to deck"
                             />
                             <button type="button" onClick={handleAddCollection}>
                             Submit
