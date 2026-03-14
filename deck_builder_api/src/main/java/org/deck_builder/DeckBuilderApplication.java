@@ -27,5 +27,4 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- * 5. Now that double faced cards seem mostly sorted, need to get the button working to flip the cards
  */

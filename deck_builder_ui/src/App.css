@@ -268,6 +268,7 @@
   overflow: hidden;
 }
 
+
 .game-changer-label { 
   position: absolute; 
   top: 16px; 
@@ -464,6 +465,10 @@ h2 {
 .flip-card-button:hover {
   background: rgba(0, 0, 0, 0.9);
   transform: scale(1.08);
+}
+
+.preview-image-wrapper img {
+  pointer-events: none;
 }
 
 /* ---------- Responsive ---------- */

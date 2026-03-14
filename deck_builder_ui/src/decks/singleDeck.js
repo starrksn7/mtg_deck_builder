@@ -200,8 +200,8 @@ export function SingleDeck() {
         ? cardList.find(c => c.scryfallId === previewCardId)
         : commander;
 
-    const previewImage = showBackSide && previewCard?.backSideCardImage
-    ? previewCard.backSideCardImage
+    const previewImage = showBackSide && previewCard?.backSideImage
+    ? previewCard.backSideImage
     : previewCard?.imageLink;
 
     if (deckNotFound) {
@@ -281,12 +281,12 @@ export function SingleDeck() {
                                         alt="Card preview"
                                     />
 
-                                    {previewCard?.backSideCardImage && (
+                                    {previewCard?.backSideImage && (
                                         <button
                                         className="flip-card-button"
                                         onClick={() => setShowBackSide(prev => !prev)}
                                         >
-                                        <FiRefreshCw size={16}/>
+                                        <FiRefreshCw size={20}/>
                                         </button>
                                     )}
                                 </div>
