@@ -157,8 +157,7 @@
 /* ---------- Cards Area ---------- */
 
 .cards-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  column-count: 2;
   gap: 24px;
 }
 
