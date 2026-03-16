@@ -323,7 +323,7 @@ export function SingleDeck() {
                                     <h4 className="card-group-title">{type}</h4>
                                         {cards.map((card, index) => (
                                             <div
-                                                key={card.scryfallId} 
+                                                key={`${card.name}-${type}`} 
                                                 className="card-preview-wrapper"
                                                 onMouseEnter={() => setPreviewCardId(card.scryfallId)}
                                                 >

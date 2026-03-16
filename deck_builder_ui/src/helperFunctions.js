@@ -316,52 +316,62 @@ export const getRarities = (cardList) => {
 }
 
 export const groupCardsByType = (cards) => {
-        const groups = {};
+    const groups = {};
 
-        cards.forEach(card => {
-            let typeCategory = '';
+    cards.forEach(card => {
+        let typeCategory = '';
 
-            if (card.name === card.deckCommander) {
-                typeCategory = 'Commander';
-            } else if (card.type.includes('Creature')) {
-                typeCategory = 'Creatures';
-            } else if (card.type.includes('Instant')) {
-                typeCategory = 'Instants';
-            } else if (card.type.includes('Sorcery')) {
-                typeCategory = 'Sorceries';
-            } else if (card.type.includes('Artifact')) {
-                typeCategory = 'Artifacts';
-            } else if (card.type.includes('Enchantment')) {
-                typeCategory = 'Enchantments';
-            } else if (card.type.includes('Planeswalker')) {
-                typeCategory = 'Planeswalkers';
-            } else if (card.type.includes('Land')) {
-                typeCategory = 'Lands';
-            } else {
-                typeCategory = 'Other';
-            }
-
-            if (!groups[typeCategory]) {
-                groups[typeCategory] = {};
-            }
-
-            const key = card.scryfallId;
-
-            if (!groups[typeCategory][key]) {
-                groups[typeCategory][key] = {
-                    ...card,
-                };
-            } else {
-                groups[typeCategory][key].quantity += card.quantity;
-            }
-        });
-
-        for (const type in groups) {
-            groups[type] = Object.values(groups[type]);
+        if (card.name === card.deckCommander) {
+            typeCategory = 'Commander';
+        } else if (card.type.includes('Creature')) {
+            typeCategory = 'Creatures';
+        } else if (card.type.includes('Instant')) {
+            typeCategory = 'Instants';
+        } else if (card.type.includes('Sorcery')) {
+            typeCategory = 'Sorceries';
+        } else if (card.type.includes('Artifact')) {
+            typeCategory = 'Artifacts';
+        } else if (card.type.includes('Enchantment')) {
+            typeCategory = 'Enchantments';
+        } else if (card.type.includes('Planeswalker')) {
+            typeCategory = 'Planeswalkers';
+        } else if (card.type.includes('Land')) {
+            typeCategory = 'Lands';
+        } else {
+            typeCategory = 'Other';
         }
 
-        return groups;
-    };
+        if (!groups[typeCategory]) {
+            groups[typeCategory] = {};
+        }
+
+        const key = card.name;
+
+        if (!groups[typeCategory][key]) {
+            groups[typeCategory][key] = {
+                ...card,
+                quantity: card.quantity ?? 1
+            };
+        } else {
+            groups[typeCategory][key].quantity += card.quantity ?? 1;
+        }
+    });
+
+    for (const type in groups) {
+        groups[type] = Object.values(groups[type]).sort((a, b) => {
+            const cmcA = a.cmc ?? 0;
+            const cmcB = b.cmc ?? 0;
+
+            if (cmcA !== cmcB) {
+                return cmcA - cmcB;
+            }
+
+            return a.name.localeCompare(b.name);
+        });
+    }
+
+    return groups;
+};
 
 export function formatManaCost(card) {
     const front = card.manaCost;

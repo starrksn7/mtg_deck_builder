@@ -27,7 +27,4 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- * 5. The ui might not be adding together all the cards of the same name correctly. For instance, added 3 swamps after
- *    9 were already on the list and the ui showed them in separate entries.
- * 6. The cards being displayed should be organized better, like by alphabetical or cmc order in each category or something.
  */
