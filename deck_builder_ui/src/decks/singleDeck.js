@@ -61,6 +61,12 @@ export function SingleDeck() {
         return cardList.length > 0 ? cardList[0].deckName : '';
     }, [cardList]);
 
+    const deckQuantity = useMemo(() => {
+        return cardList.reduce((sum, card) => {
+            return sum + card.quantity;
+        }, 0)
+    })
+    console.log("deck quantity = ", deckQuantity)
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -250,7 +256,7 @@ export function SingleDeck() {
                 <div className="deck-legality">
                     {duplicatedCardsArray.length > 0 && (
                         <div className="deck-error">
-                            <strong>Deck is not legal.</strong>
+                            <strong>Deck is not legal. There are duplicates of the following card(s)</strong>
                             {duplicatedCardsArray.map((item, i) => (
                             <div key={i}>{item}</div>
                             ))}
@@ -260,6 +266,22 @@ export function SingleDeck() {
                         <div className="deck-error">
                             <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
                             {mismatchedArray.map((item, i) => (
+                            <div key={i}>{item}</div>
+                            ))}
+                        </div>
+                    )}
+                    {deckQuantity > 100 && (
+                        <div className="deck-error">
+                            <strong>Deck is not legal. There is a total of {deckQuantity} cards. A deck should have 100.</strong>
+                            {duplicatedCardsArray.map((item, i) => (
+                            <div key={i}>{item}</div>
+                            ))}
+                        </div>
+                    )}
+                    {deckQuantity < 100 && (
+                        <div className="deck-error">
+                            <strong>Deck is not legal. There are {deckQuantity} cards. A deck should have 100. </strong>
+                            {duplicatedCardsArray.map((item, i) => (
                             <div key={i}>{item}</div>
                             ))}
                         </div>
