@@ -15,7 +15,6 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Style the pages
- *    a. style the single deck page
  *    b. style the login screen
  *    c. style the create a deck page
  *    d. style the deck list page
@@ -27,4 +26,6 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
+ * 5. When adding a collection to deck, some message that lets me know when some cards couldn't be found would be helpful
+ * 6. Additionally, some kind of spinner to show that the page is thinking when submitting a collection would also be good
  */

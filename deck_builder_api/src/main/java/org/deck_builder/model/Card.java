@@ -276,7 +276,7 @@ public class Card {
     public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
 
     public String toJsonString(){
-        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\" " +
+        return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\", " +
                 "\"backSideCardName\" : \"%s\", \"backSideImage\" : \"%s\", \"backSideManaCost\": \"%s\", \"backSideCardType\": \"%s\", \"backSideOracleText\": \"%s\", \"backSideColors\": \"%s\", \"twoCardFaces\": \"%s\" }", this.scryfallId, this.name, this.scryfallURL, this.imageLink, this.manaCost, this.type, this.oracleText, this.colors, Arrays.toString(this.colorIdentity), Arrays.toString(this.keywords), this.cmc, this.gameChanger,
                 this.rarity, this.fullArtLink, this.backSideCardName, this.backSideImage, this.backSideManaCost, this.backSideCardType, this.backSideOracleText, this.backSideColors, this.twoCardFaces);
     }
