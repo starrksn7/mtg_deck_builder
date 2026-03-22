@@ -383,3 +383,14 @@ export function formatManaCost(card) {
 
     return front || back || "";
 }
+
+export const buildCardMap = (cards) => {
+    const map = new Map();
+
+    cards.forEach(name => {
+        const key = name.toLowerCase().trim();
+        map.set(key, (map.get(key) || 0) + 1);
+    });
+
+    return map;
+};
