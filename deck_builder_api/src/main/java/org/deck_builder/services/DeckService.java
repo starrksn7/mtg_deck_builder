@@ -59,14 +59,23 @@ public class DeckService {
         return deckList;
     }
 
-    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
+    public String[] addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
         System.out.println("DTO received size = " + cardIdentifierDTO.size());
         System.out.println(cardIdentifierDTO.get(0).toString());
         List<String> scryfallCollectionResults = cardService.getCardsFromCollection(cardIdentifierDTO);
 
-        if(scryfallCollectionResults.isEmpty()){
-            return cardService.failedSearch();
-        }
+        /*
+        I've changed this to a string array, since the ui doesn't really do anything with the results. The intent
+        is to change this so that this function returns an array of the cards that are not found. Cards that are
+        found are added to the deck, and the ui pings the endpoint for deck info after a collection is successfully added
+        so, the results could be set in the ui for cards not found.
+
+        However, the actual collection results comes from the card service, so the card service get cards from
+        collection function is what actually needs to change. It's going to ahve to return the collection results
+        in two objects, the results and the not found. Then I'll need use the values from the object in the not
+        found array to build an array of strings to return to the ui. The successful results will still need to be built
+        so I'll have to take the object returned from the card service and turn it into a list of strings for this function.
+         */
 
         for(String scryfallResult : scryfallCollectionResults){
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();

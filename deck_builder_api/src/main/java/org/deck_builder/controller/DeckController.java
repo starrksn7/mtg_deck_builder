@@ -54,7 +54,7 @@ public class DeckController {
     }
 
     @PostMapping(path="/addCollection")
-    public List<String> addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
+    public String[] addCollectionToDeck(@RequestBody AddToCollectionDTO addToCollectionDTO) throws MalformedJsonException {
         return deckService.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
     }
 
