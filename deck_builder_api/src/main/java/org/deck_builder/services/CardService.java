@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.model.Card;
+import org.deck_builder.model.CardCollectionResult;
 import org.deck_builder.model.CardIdentifierDTO;
 import org.deck_builder.model.CardSearchDTO;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -92,9 +94,11 @@ public class CardService {
 
     }
 
-    public List<String> getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
+    public CardCollectionResult getCardsFromCollection(List<CardIdentifierDTO> cardIdentifierDTO) {
         try {
-            List<String> cardJsonStrings = new ArrayList<>();
+            List<String> foundCards = new ArrayList<>();
+            List<String> notFoundCards = new ArrayList<>();
+
             String collectionUrl = "https://api.scryfall.com/cards/collection";
             URL scryfallUrl = new URL(collectionUrl);
             HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
@@ -111,7 +115,7 @@ public class CardService {
             String jsonBody = gson.toJson(requestMap);
 
             try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonBody.getBytes("utf-8");
+                byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -120,19 +124,31 @@ public class CardService {
             scanner.close();
 
             JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-            JsonArray dataArray = jsonObject.getAsJsonArray("data");
 
-            for (JsonElement element : dataArray) {
-                cardJsonStrings.add(element.toString());
+            //Found cards
+            JsonArray dataArray = jsonObject.getAsJsonArray("data");
+            if (dataArray != null) {
+                for (JsonElement element : dataArray) {
+                    foundCards.add(element.toString());
+                }
             }
 
-            return cardJsonStrings;
+            //Not found cards
+            JsonArray notFoundArray = jsonObject.getAsJsonArray("not_found");
+            if (notFoundArray != null) {
+                for (JsonElement element : notFoundArray) {
+                    notFoundCards.add(element.toString());
+                }
+            }
+
+            return new CardCollectionResult(foundCards, notFoundCards);
 
         } catch (IOException | RuntimeException e) {
             e.printStackTrace();
-            List<String> errorMessage = new ArrayList<>();
-            errorMessage.add("{\"error\": \"No cards found or request failed.\"}");
-            return errorMessage;
+            return new CardCollectionResult(
+                    List.of(),
+                    List.of("{\"error\": \"No cards found or request failed.\"}")
+            );
         }
     }
 
