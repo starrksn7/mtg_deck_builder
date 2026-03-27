@@ -137,7 +137,13 @@ public class CardService {
             JsonArray notFoundArray = jsonObject.getAsJsonArray("not_found");
             if (notFoundArray != null) {
                 for (JsonElement element : notFoundArray) {
-                    notFoundCards.add(element.toString());
+                    JsonObject notFoundObj = element.getAsJsonObject();
+
+                    if (notFoundObj.has("name")) {
+                        notFoundCards.add(notFoundObj.get("name").getAsString());
+                    } else {
+                        notFoundCards.add(notFoundObj.toString());
+                    }
                 }
             }
 
