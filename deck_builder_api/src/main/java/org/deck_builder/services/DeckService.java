@@ -12,7 +12,9 @@ import org.deck_builder.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DeckService {
@@ -28,42 +30,50 @@ public class DeckService {
         this.jdbcCardDao = jdbcCardDao;
     }
 
-    public List<Card> addPricesToDeckList(List<Card> deckList){
+    public List<Card> addPricesToDeckList(List<Card> deckList) {
         List<CardIdentifierDTO> cardIdsForPrice = new ArrayList<>();
-        for(Card card : deckList){
-            CardIdentifierDTO cardIdentifierDTO = new CardIdentifierDTO();
-            cardIdentifierDTO.setId(card.getScryfallId());
-            cardIdsForPrice.add(cardIdentifierDTO);
+
+        for (Card card : deckList) {
+            CardIdentifierDTO dto = new CardIdentifierDTO();
+            dto.setId(card.getScryfallId());
+            cardIdsForPrice.add(dto);
         }
 
         List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, 75);
-        List<String> scryfallCollectionResults = new ArrayList<>();
+        Map<String, Double> priceMap = new HashMap<>();
 
         for (List<CardIdentifierDTO> batch : batches) {
-            scryfallCollectionResults.addAll(
-                    cardService.getCardsFromCollection(batch)
-            );
+            CardCollectionResult result = cardService.getCardsFromCollection(batch);
+
+            for (String scryfallResult : result.getFoundCards()) {
+                JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
+
+                String id = jsonObject.get("id").getAsString();
+
+                JsonObject prices = jsonObject.getAsJsonObject("prices");
+                String priceStr = prices.get("usd").isJsonNull() ? "0" : prices.get("usd").getAsString();
+
+                double price = (priceStr == null || priceStr.equals("null")) ? 0.0 : Double.parseDouble(priceStr);
+
+                priceMap.put(id, price);
+            }
         }
 
-        for (int i = 0; i < scryfallCollectionResults.size(); i++){
-            String scryfallResult = scryfallCollectionResults.get(i);
-            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
-            CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
-            JsonObject prices = cardSearchDTO.getPrices();
-            String priceInUSD = prices.get("usd").getAsString();
-
-            Card card = deckList.get(i);
-            card.setPrice(Double.parseDouble(priceInUSD));
-            deckList.set(i, card);
+        // Apply prices back to deck
+        for (Card card : deckList) {
+            Double price = priceMap.get(card.getScryfallId());
+            if (price != null) {
+                card.setPrice(price);
+            } else {
+                card.setPrice(0.0); // or leave unchanged
+            }
         }
+
         return deckList;
     }
 
     public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO)
             throws MalformedJsonException {
-
-        System.out.println("DTO received size = " + cardIdentifierDTO.size());
-        System.out.println(cardIdentifierDTO.get(0).toString());
 
         CardCollectionResult collectionResult = cardService.getCardsFromCollection(cardIdentifierDTO);
 

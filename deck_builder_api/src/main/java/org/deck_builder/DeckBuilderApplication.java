@@ -27,5 +27,9 @@ public class DeckBuilderApplication {
  *    a. users
  *       i. add a username
  * 5. When adding a collection to deck, some message that lets me know when some cards couldn't be found would be helpful
+ *    a. update api to return collection result dto, this will contain both not_found and data arrays
+ *    b. update the ui to accept the new collection results
+ *       i. This will impact the add collection to deck on the single deck page, and when the deck tries to get
+ *          prices. Can't remember right now, but the prices might only be added in the api to the results going to the ui.
  * 6. Additionally, some kind of spinner to show that the page is thinking when submitting a collection would also be good
  */
