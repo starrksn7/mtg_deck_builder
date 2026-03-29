@@ -25,6 +25,7 @@ export function SingleDeck() {
     const [collectionTooBigError, setCollectionTooBigError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [showBackSide, setShowBackSide] = useState(false);
+    const [cardsNotFound, setCardsNotFound] = useState([]);
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -66,7 +67,7 @@ export function SingleDeck() {
             return sum + card.quantity;
         }, 0)
     })
-    console.log("deck quantity = ", deckQuantity)
+    
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -174,8 +175,10 @@ export function SingleDeck() {
         }
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
+        console.log(response)
 
         if (response.status === 200) {
+            setCardsNotFound(response.data);
             const res = await api.get(`/decks?deckId=${deckId}`);
             setCardList(res.data);
         }
@@ -273,15 +276,17 @@ export function SingleDeck() {
                     {deckQuantity > 100 && (
                         <div className="deck-error">
                             <strong>Deck is not legal. There is a total of {deckQuantity} cards. A deck should have 100.</strong>
-                            {duplicatedCardsArray.map((item, i) => (
-                            <div key={i}>{item}</div>
-                            ))}
                         </div>
                     )}
                     {deckQuantity < 100 && (
                         <div className="deck-error">
                             <strong>Deck is not legal. There are {deckQuantity} cards. A deck should have 100. </strong>
-                            {duplicatedCardsArray.map((item, i) => (
+                        </div>
+                    )}
+                    {cardsNotFound.length >= 1 && (
+                        <div className="deck-error">
+                            <strong>Not all cards in your list could be added to the deck. Cards not added are:</strong>
+                            {cardsNotFound.map((item, i) => (
                             <div key={i}>{item}</div>
                             ))}
                         </div>
