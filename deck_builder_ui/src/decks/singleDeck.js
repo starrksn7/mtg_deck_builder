@@ -14,6 +14,7 @@ import '../App.css';
 import { BarChart } from '../charts/barChart';
 import { PieChart } from '../charts/pieChart';
 import { FiRefreshCw } from "react-icons/fi";
+import { Loader } from '../search/loader';
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -222,7 +223,7 @@ export function SingleDeck() {
     }
 
     if (loading) {
-        return <div>Loading deck...</div>;
+        return <Loader />;
     }
 
     
