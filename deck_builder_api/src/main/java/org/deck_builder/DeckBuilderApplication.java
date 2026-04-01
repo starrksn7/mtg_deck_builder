@@ -29,5 +29,5 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- * 6. Additionally, some kind of spinner to show that the page is thinking when submitting a collection would also be good
+ * 5. Additionally, some kind of spinner to show that the page is thinking when submitting a collection would also be good
  */

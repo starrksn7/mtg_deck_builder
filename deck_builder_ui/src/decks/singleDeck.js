@@ -131,6 +131,7 @@ export function SingleDeck() {
     }
 
     const handleAddCollection = async () => {
+        setLoading(true);
         const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
 
         if (identifiersArray.length > 75){
@@ -184,6 +185,7 @@ export function SingleDeck() {
             setCardList(res.data);
         }
 
+        setLoading(false);
         setCollectionList('');
     }
 
