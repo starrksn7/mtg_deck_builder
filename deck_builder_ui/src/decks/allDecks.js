@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export function AllDecks() {
-    const [deckList, setDeckList] = useState('')
-    const [showConfirm, setShowConfirm] = useState(false)
+    const [deckList, setDeckList] = useState('');
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
@@ -36,29 +37,33 @@ export function AllDecks() {
         setShowConfirm(false)
     }
 
-    const handleDelete = () => {
-        setShowConfirm(true)
-    }
+    const handleDelete = (deck) => {
+        setSelectedDeck(deck);
+    };
 
-    if(deckList) {
-        return deckList.map((deck, index) => {
-            return (
-                <div key={index}>
-                    <Link to={`/decks/${deck.deckId}`}>
-                        <img src={deck.imageLink} alt='alternate text'/>
-                        <div>Deck Name: {deck.deckName}</div>
-                        <div>Commander: {deck.commander}</div>
-                    </Link>
-                    <button type="submit" onClick={handleDelete}>Delete Deck</button>
-                    {showConfirm && (
-                        <div className="confirmation-dialog">
-                        <p>Are you sure you want to delete {deck.deckName} from this deck?</p>
-                        <button onClick={() => deleteDeck(deck)}>Delete</button>
-                        <button onClick={cancelDelete}>Cancel</button>
-                        </div>
-                    )}
-                </div>
-            )
-        })
+    if (deckList) {
+        return (
+            <div className="deck-grid">
+                {deckList.map((deck, index) => (
+                    <div key={index} className="deck-card">
+                        <Link to={`/decks/${deck.deckId}`} className="deck-link">
+                            <img src={deck.imageLink} alt="deck" className="deck-image"/>
+                            <div className="deck-info">
+                                <h3>{deck.deckName}</h3>
+                                <p>Commander: {deck.commander}</p>
+                            </div>
+                        </Link>
+                        <button onClick={() => handleDelete(deck)}>Delete Deck</button>
+                        {selectedDeck?.deckId === deck.deckId && (
+                            <div className="confirmation-dialog">
+                                <p>Are you sure you want to delete {deck.deckName}?</p>
+                                <button onClick={() => deleteDeck(deck)}>Delete</button>
+                                <button onClick={() => setSelectedDeck(null)}>Cancel</button>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        )
     }
 }
