@@ -43,26 +43,29 @@ export function AllDecks() {
 
     if (deckList) {
         return (
-            <div className="deck-grid">
-                {deckList.map((deck, index) => (
-                    <div key={index} className="deck-card">
-                        <Link to={`/decks/${deck.deckId}`} className="deck-link">
-                            <img src={deck.imageLink} alt="deck" className="deck-image"/>
-                            <div className="deck-info">
-                                <h3>{deck.deckName}</h3>
-                                <p>Commander: {deck.commander}</p>
-                            </div>
-                        </Link>
-                        <button onClick={() => handleDelete(deck)}>Delete Deck</button>
-                        {selectedDeck?.deckId === deck.deckId && (
-                            <div className="confirmation-dialog">
-                                <p>Are you sure you want to delete {deck.deckName}?</p>
-                                <button onClick={() => deleteDeck(deck)}>Delete</button>
-                                <button onClick={() => setSelectedDeck(null)}>Cancel</button>
-                            </div>
-                        )}
-                    </div>
-                ))}
+            <div>
+                <div className="deck-row header">
+                    <span>Name</span>
+                    <span>Commander</span>
+                    <span></span>
+                </div>
+                <div className="deck-list">
+                    {deckList.map((deck, index) => (
+                        <div key={index} className="deck-row">
+                            <Link to={`/decks/${deck.deckId}`} className="deck-link">
+                                <span className="deck-name">{deck.deckName}</span>
+                                <span className="deck-commander">{deck.commander}</span>
+                            </Link>
+
+                            <button 
+                                className="delete-btn"
+                                onClick={() => handleDelete(deck)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }

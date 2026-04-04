@@ -29,4 +29,6 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
+ * 5. Maybe have a size max for the card display grid? Right now it finished an entire category of cards before going
+ *    to the second column, but that leaves things unbalanced.
  */
