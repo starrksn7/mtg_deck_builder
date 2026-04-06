@@ -473,33 +473,33 @@ h2 {
 
 /* ----------- start of the all decks page ---------- */
 
+.deck-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .deck-row {
     display: grid;
-    grid-template-columns: 2fr 2fr auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     align-items: center;
+    justify-items: start;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
     gap: 1rem;
 }
 
-.deck-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #ddd;
-}
-
 .deck-name {
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .deck-commander {
     color: #555;
-}
-
-.deck-link {
-    display: contents; /* 🔥 key fix */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .delete-btn {
@@ -508,16 +508,7 @@ h2 {
     background: #ff4d4f;
     color: white;
     cursor: pointer;
-    white-space: nowrap; /* prevents stretching */
-}
-
-.delete-btn:hover {
-    background: #d9363e;
-}
-
-.header {
-    font-weight: bold;
-    border-bottom: 2px solid #aaa;
+    white-space: nowrap;
 }
 /* ---------- Responsive ---------- */
 

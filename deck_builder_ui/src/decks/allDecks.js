@@ -52,9 +52,12 @@ export function AllDecks() {
                 <div className="deck-list">
                     {deckList.map((deck, index) => (
                         <div key={index} className="deck-row">
-                            <Link to={`/decks/${deck.deckId}`} className="deck-link">
-                                <span className="deck-name">{deck.deckName}</span>
-                                <span className="deck-commander">{deck.commander}</span>
+                            <Link to={`/decks/${deck.deckId}`} className="deck-name">
+                                {deck.deckName}
+                            </Link>
+
+                            <Link to={`/decks/${deck.deckId}`} className="deck-commander">
+                                {deck.commander}
                             </Link>
 
                             <button 
