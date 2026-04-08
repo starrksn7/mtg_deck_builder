@@ -44,13 +44,13 @@ export function AllDecks() {
     if (deckList) {
         return (
             <div>
-                <div className="deck-row header">
-                    <span></span> 
-                    <span>Name</span>
-                    <span>Commander</span>
-                    <span></span>
-                </div>
                 <div className="deck-list">
+                    <div className="deck-row header">
+                        <span></span> 
+                        <span>Name</span>
+                        <span>Commander</span>
+                        <span></span>
+                    </div>
                     {deckList.map((deck, index) => (
                         <div key={index} className="deck-row">
                             <img src={deck.imageLink}/>

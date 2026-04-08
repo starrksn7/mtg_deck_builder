@@ -20,7 +20,6 @@ public class DeckBuilderApplication {
  *       changing sides of the grid.
  *    b. style the login screen
  *    c. style the create a deck page
- *    d. style the deck list page
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 3. Account creation enhancement
@@ -31,4 +30,6 @@ public class DeckBuilderApplication {
  *       i. add a username
  * 5. Maybe have a size max for the card display grid? Right now it finished an entire category of cards before going
  *    to the second column, but that leaves things unbalanced.
+ * 6. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
+ *    instead of the normal card image.
  */

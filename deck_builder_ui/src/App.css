@@ -516,6 +516,22 @@ h2 {
     cursor: pointer;
     white-space: nowrap;
 }
+
+.deck-row.header {
+  background-color: white;
+  color: #111827;
+  font-weight: 600;
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+
+.deck-row.header span {
+  opacity: 0.9;
+}
+
+.deck-row.header span {
+  text-align: left;
+}
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
