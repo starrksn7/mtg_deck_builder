@@ -480,12 +480,18 @@ h2 {
 
 .deck-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    grid-template-columns: 100px minmax(0, 1fr) minmax(0, 1fr) auto;
     align-items: center;
     justify-items: start;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
     gap: 1rem;
+}
+
+.deck-row img {
+    width: 100px;
+    height: auto;
+    display: block;
 }
 
 .deck-name {

@@ -45,6 +45,7 @@ export function AllDecks() {
         return (
             <div>
                 <div className="deck-row header">
+                    <span></span> 
                     <span>Name</span>
                     <span>Commander</span>
                     <span></span>
@@ -52,6 +53,8 @@ export function AllDecks() {
                 <div className="deck-list">
                     {deckList.map((deck, index) => (
                         <div key={index} className="deck-row">
+                            <img src={deck.imageLink}/>
+
                             <Link to={`/decks/${deck.deckId}`} className="deck-name">
                                 {deck.deckName}
                             </Link>
