@@ -34,22 +34,27 @@ export function Login() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="login-page">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Login</h2>
+
                 <input 
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email" 
                 />
+
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
                 />
+
                 <button type="submit">Submit</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+
+                {error && <p className="error">{error}</p>}
             </form>
         </div>
     )
