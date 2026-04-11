@@ -47,36 +47,47 @@ export function Register() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="login-page">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <p style={{ textAlign: "center", fontSize: "0.9rem" }}>
+                    Already have an account? <a href="/login">Login</a>
+                </p>
+                <h2>Register</h2>
                 <input 
                     type="text"
                     value={username}
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="Username" 
                 />
+
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email" 
                 />
+
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
                 />
+
                 <input
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm Password" 
+                    className={passwordMismatch ? "input-error" : ""}
                 />
+
                 {passwordMismatch && (
-                    <p style={{ color: 'red' }}>Passwords do not match.</p>
+                    <p className="error">Passwords do not match.</p>
                 )}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+
+                {error && <p className="error">{error}</p>}
+
                 <button type="submit" disabled={passwordMismatch}>
                     Submit
                 </button>

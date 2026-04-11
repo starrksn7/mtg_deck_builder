@@ -610,6 +610,49 @@ h2 {
     font-size: 0.9rem;
     text-align: center;
 }
+
+/* ---------- Registraiton -------- */
+
+/* Reuse login-page and login-form styles */
+
+/* Optional: slightly taller form for register */
+.login-form {
+    max-width: 420px;
+}
+
+/* Error input highlight */
+.input-error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+/* Disabled button state */
+.login-form button:disabled {
+    background: #a5b4fc;
+    cursor: not-allowed;
+}
+
+/* Subtle helper text spacing */
+.login-form .error {
+    margin-top: -0.5rem;
+}
+
+/* Smooth fade-in (optional polish) */
+.login-form {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
