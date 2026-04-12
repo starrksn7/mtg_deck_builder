@@ -18,7 +18,6 @@ public class DeckBuilderApplication {
  *    a. the single deck page could still be fixed. the alignment of cards would be better if it just filled in and
  *       eventually spill over to another column, but right now it seems to wait for an entire category to fill out before
  *       changing sides of the grid.
- *    b. style the login screen
  *    c. style the create a deck page
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?

@@ -653,6 +653,23 @@ h2 {
     }
 }
 
+.password-strength {
+    margin-top: 0.5rem;
+}
+
+.strength-bar {
+    height: 6px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.strength-0 { background: #ef4444; width: 20%; }
+.strength-1 { background: #f97316; width: 40%; }
+.strength-2 { background: #eab308; width: 60%; }
+.strength-3 { background: #22c55e; width: 80%; }
+.strength-4 { background: #16a34a; width: 100%; }
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {

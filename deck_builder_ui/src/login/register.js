@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import api from "../api/axios";
+import zxcvbn from "zxcvbn";
 
 export function Register() {
     const [username, setUserName] = useState('');
@@ -9,6 +10,7 @@ export function Register() {
     const [error, setError] = useState(null);
     const [passwordMismatch, setPasswordMismatch] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [passwordStrength, setPasswordStrength] = useState(null);
 
     useEffect(() => {
         if (password !== confirmPassword) {
@@ -19,6 +21,23 @@ export function Register() {
             setPasswordError(false);
         }
     }, [password, confirmPassword])
+
+    useEffect(() => {
+        if (password) {
+            const result = zxcvbn(password);
+            setPasswordStrength(result.score); // 0–4
+        } else {
+            setPasswordStrength(null);
+        }
+
+        if (password !== confirmPassword) {
+            setPasswordMismatch(true);
+            setPasswordError(true);
+        } else {
+            setPasswordMismatch(false);
+            setPasswordError(false);
+        }
+    }, [password, confirmPassword]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,6 +92,15 @@ export function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
                 />
+
+                {passwordStrength !== null && (
+                    <div className="password-strength">
+                        <div className={`strength-bar strength-${passwordStrength}`}></div>
+                        <p>
+                            {["Very Weak", "Weak", "Fair", "Good", "Strong"][passwordStrength]}
+                        </p>
+                    </div>
+                )}
 
                 <input
                     type="password"
