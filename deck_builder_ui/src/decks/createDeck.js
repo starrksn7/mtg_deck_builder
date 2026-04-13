@@ -54,21 +54,38 @@ export function CreateDeck(){
     }
 
     return (
-        <div>
-            <form onSubmit={findCommanderWithSearch}>
-                <input
-                    type="text"
-                    placeholder="Commander Search"
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    value={searchInput}
-                />
-                <button type="submit">Find A Commander</button>
-            </form>
-            <CascadingDropdown onColorSelect={handleDropdownSelection} />
-            {isLoading ? <Loader /> : <div></div>}
-            {searchResults && (
-                <div> 
-                    <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
+        <div className="create-deck-page">
+            <h1 className="page-title">Create Commander Deck</h1>
+
+            <div className="search-section">
+                <form onSubmit={findCommanderWithSearch} className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search for a commander..."
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        value={searchInput}
+                    />
+                    <button type="submit">Search</button>
+                </form>
+
+                <div className="divider">OR</div>
+
+                <div className="color-search">
+                    <span>Search by Color Identity</span>
+                    <CascadingDropdown onColorSelect={handleDropdownSelection} />
+                </div>
+            </div>
+
+            {isLoading && <Loader />}
+
+            {searchResults.length > 0 && (
+                <div className="results-section">
+                    <DisplayResults 
+                        searchResults={cardsDisplayed} 
+                        deckId={deckId} 
+                        setIsError={setIsError}
+                    />
+
                     <Pagination 
                         cardsPerPage={cardsPerPage}
                         totalResults={searchResults.length}

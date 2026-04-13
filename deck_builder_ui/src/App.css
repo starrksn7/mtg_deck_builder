@@ -670,6 +670,85 @@ h2 {
 .strength-3 { background: #22c55e; width: 80%; }
 .strength-4 { background: #16a34a; width: 100%; }
 
+/* ---------- Create deck --------- */
+
+.create-deck-page {
+    padding: 2rem;
+    background-color: #0d0f14;
+    min-height: 100vh;
+    color: #e6e6e6;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.search-section {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    background: #161a22;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #0f131a;
+    color: white;
+}
+
+.search-bar input:focus {
+    outline: 1px solid #4da3ff;
+}
+
+.search-bar button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #4da3ff;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-bar button:hover {
+    background: #3585db;
+}
+
+.divider {
+    text-align: center;
+    margin: 1rem 0;
+    opacity: 0.6;
+}
+
+.color-search {
+    text-align: center;
+}
+
+.color-search span {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.results-section {
+    margin-top: 2rem;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
