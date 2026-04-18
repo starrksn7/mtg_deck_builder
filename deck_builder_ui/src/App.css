@@ -750,106 +750,80 @@ h2 {
 }
 
 /* ---------- Display results ----- */
-
-.results-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 .result-row {
     display: grid;
-    grid-template-columns: 80px 180px 120px 180px 1fr 140px;
-    align-items: center;
-    gap: 12px;
+    grid-template-columns: 120px 1fr 140px;
+    gap: 16px;
 
     background: #161a22;
-    padding: 10px;
+    padding: 14px;
     border-radius: 8px;
+
+    align-items: start;
 }
 
 .result-row img {
-    width: 60px;
-    height: 85px;
+    width: 120px;
+    height: 168px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
-.col {
-    font-size: 0.85rem;
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .name {
     font-weight: 600;
     color: white;
+    text-align: left; /* force consistency */
 }
 
 .mana {
     display: flex;
+    flex-wrap: wrap;
     gap: 4px;
+    justify-content: flex-end;
 }
 
 .type {
     opacity: 0.7;
+    text-align: left;
 }
 
 .oracle {
-    font-size: 0.8rem;
-    opacity: 0.8;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.85rem;
+    opacity: 0.85;
+    line-height: 1.4;
+
+    white-space: normal;
+    overflow: visible;
+    text-align: left;
 }
 
 .action {
-    padding: 6px 10px;
+    padding: 8px 12px;
     border: none;
     border-radius: 6px;
     background: #4da3ff;
     color: white;
     cursor: pointer;
+    align-self: start;
 }
 
 .action:hover {
     background: #3585db;
 }
 
-/* .result-card {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    align-items: center;
-    gap: 12px;
-
-    background: #161a22;
-    padding: 12px;
-    border-radius: 8px;
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-.result-card:hover {
-    background: #1d2330;
-    transform: translateY(-2px);
-}
-
-.result-card img {
-    width: 80px;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.card-info h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: #ffffff;
-}
-
-.card-info p {
-    margin: 4px 0 0;
-    font-size: 0.85rem;
-    opacity: 0.7;
-} */
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
