@@ -71,28 +71,36 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                         </div>
                     </div>
                 )}
-                
-                {searchResults.map((card, index) => (
-                    <div key={index}>
-                        <div>
-                            <img src={card.image_link} alt='alternate text'/>
-                            <div>{card.name}</div>
-                            <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} ></div>
-                            <div>Type: {card.type}</div>
-                            <div dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} ></div>
-                            <button type="submit" onClick={() => {
-                                if(isOnCreatePage){
-                                    setSelectedCard(card)
-                                    setShowModal(true)
-                                } else {
-                                    addToDeck(card)
-                                }
-                            }}>
+                <div className="results-grid">
+                    {searchResults.map((card) => (
+                        <div key={card.id} className="result-row">
+                            <img src={card.image_link} alt={card.name} />
+                            <div className="col name">{card.name}</div>
+                            <div 
+                                className="col mana"
+                                dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} 
+                            />
+                            <div className="col type">{card.type}</div>
+                            <div 
+                                className="col oracle"
+                                dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} 
+                            />
+                            <button
+                                className="col action"
+                                onClick={() => {
+                                    if (isOnCreatePage) {
+                                        setSelectedCard(card)
+                                        setShowModal(true)
+                                    } else {
+                                        addToDeck(card)
+                                    }
+                                }}
+                            >
                                 {isOnCreatePage ? 'Set as Commander' : 'Add to Deck'}
                             </button>
-                        </div>  
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div>
             </>
         );
     }

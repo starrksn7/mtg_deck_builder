@@ -31,4 +31,5 @@ public class DeckBuilderApplication {
  *    to the second column, but that leaves things unbalanced.
  * 6. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
  *    instead of the normal card image.
+ * 7. Add a link to register to the header if the person isn't logged in
  */
