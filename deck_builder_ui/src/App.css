@@ -750,6 +750,12 @@ h2 {
 }
 
 /* ---------- Display results ----- */
+.results-grid {
+    max-width: 900px;   /* or 800px / 1000px depending on taste */
+    margin: 0 auto;     /* center it */
+    width: 100%;
+}
+
 .result-row {
     display: grid;
     grid-template-columns: 120px 1fr 140px;
@@ -777,27 +783,22 @@ h2 {
 
 .top {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
 }
 
 .name {
     font-weight: 600;
     color: white;
-    text-align: left; /* force consistency */
 }
 
 .mana {
     display: flex;
-    flex-wrap: wrap;
     gap: 4px;
-    justify-content: flex-end;
 }
 
 .type {
     opacity: 0.7;
-    text-align: left;
 }
 
 .oracle {

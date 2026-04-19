@@ -19,6 +19,8 @@ public class DeckBuilderApplication {
  *       eventually spill over to another column, but right now it seems to wait for an entire category to fill out before
  *       changing sides of the grid.
  *    c. style the create a deck page
+ *       i. the set as commander button is no longer working
+ *      ii. need to style the pagination
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 3. Account creation enhancement

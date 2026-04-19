@@ -82,14 +82,14 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                                         className="mana"
                                         dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} 
                                     />
+                                    <div className="type">{card.type}</div>
                                 </div>
-                                <div className="type">{card.type}</div>
                                 <div 
                                     className="oracle"
                                     dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} 
                                 />
                             </div>
-                            <button className="action">...</button>
+                            <button className="action">Set As Commander</button>
                         </div>
                     ))}
                 </div>
