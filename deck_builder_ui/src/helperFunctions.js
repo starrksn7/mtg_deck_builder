@@ -264,6 +264,9 @@ export const getBaseColors = (colorIdentity) => {
         case ('wubrg'):
             colors = "wubrg"
             break;
+        case ('dune'):
+            colors = "brgw"
+            break;
         case ('colorless'):
             colors = "c"
             break;

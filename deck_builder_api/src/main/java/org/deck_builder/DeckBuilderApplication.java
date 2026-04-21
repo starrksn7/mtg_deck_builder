@@ -21,6 +21,7 @@ public class DeckBuilderApplication {
  *    c. style the create a deck page
  *       i. the set as commander button is no longer working
  *      ii. need to style the pagination
+ *     iii. the text in the selection drop downs is hard to see. also, the mana symbols disappears when the selection is made
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 3. Account creation enhancement
