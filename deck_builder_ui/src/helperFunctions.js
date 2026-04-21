@@ -175,7 +175,7 @@ export const createCardObject = (card) => {
 
 export const getBaseColors = (colorIdentity) => {
     let colors;
-
+    console.log("colorIdentity = ", colorIdentity)
     switch(colorIdentity) {
         case ('blue'):
             colors = "u"
@@ -249,22 +249,22 @@ export const getBaseColors = (colorIdentity) => {
         case ('temur'):
             colors = "urg"
             break;
-        case ('glint'):
+        case ('glint-eye'):
             colors = "ubrg"
             break;
-        case ('ink'):
+        case ('ink-treader'):
             colors = "wurg"
             break;
-        case ('witch'):
+        case ('witch-maw'):
             colors = "wbug"
             break;
-        case ('yore'):
+        case ('yore-tiller'):
             colors = "wbur"
             break;
         case ('wubrg'):
             colors = "wubrg"
             break;
-        case ('dune'):
+        case ('dune-brood'):
             colors = "brgw"
             break;
         case ('colorless'):
