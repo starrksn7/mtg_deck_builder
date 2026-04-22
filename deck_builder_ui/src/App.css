@@ -850,6 +850,9 @@ h2 {
   align-items: center;
 }
 
+.dropdown-toggle span {
+  padding-top: 5px;
+}
 
 /* ---------- Responsive ---------- */
 

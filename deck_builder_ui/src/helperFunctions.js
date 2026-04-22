@@ -243,6 +243,9 @@ export const getBaseColors = (colorIdentity) => {
         case ('mardu'):
             colors = "wbr"
             break;
+        case ('naya'):
+            colors = "wgr"
+            break;
         case ('sultai'):
             colors = "ubg"
             break;
