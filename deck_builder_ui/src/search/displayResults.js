@@ -57,8 +57,17 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         return (
             <>
                 {showModal && (
-                    <div className="popup-overlay">
-                        <div className="popup-content">
+                    <div className="create-modal" onClick={() => setShowModal(false)}>
+                        <div 
+                        className="create-modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                className="modal-close"
+                                onClick={() => setShowModal(false)}
+                            >
+                                ×
+                            </button>
                             <h3>Name your new deck</h3>
                             <input 
                                 type="text" 
@@ -66,8 +75,20 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                                 onChange={(e) => setDeckName(e.target.value)} 
                                 placeholder="Enter deck name"
                             />
-                            <button onClick={handleCreateDeck}>Create Deck</button>
-                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                            <div className="create-modal-buttons">
+                                <button 
+                                className="create-cancel-button" 
+                                onClick={() => setShowModal(false)}
+                                >
+                                Cancel
+                                </button>
+                                <button 
+                                className="create-button" 
+                                onClick={handleCreateDeck}
+                                >
+                                Create Deck
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -89,7 +110,11 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                                     dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} 
                                 />
                             </div>
-                            <button className="action">Set As Commander</button>
+                            <button className="action" onClick={() => {
+                                    setSelectedCard(card);
+                                    setShowModal(true);}}>
+                                        Set As Commander
+                            </button>
                         </div>
                     ))}
                 </div>
