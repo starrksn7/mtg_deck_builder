@@ -15,13 +15,9 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. Style the pages
- *    a. the single deck page could still be fixed. the alignment of cards would be better if it just filled in and
+ *    a. the single deck page could still be better. the alignment of cards would be better if it just filled in and
  *       eventually spill over to another column, but right now it seems to wait for an entire category to fill out before
  *       changing sides of the grid.
- *    c. style the create a deck page
- *       i. the set as commander button is no longer working
- *      ii. need to style the pagination
- *     iii. the text in the selection drop downs is hard to see. also, the mana symbols disappears when the selection is made
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 3. Account creation enhancement
