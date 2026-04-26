@@ -219,7 +219,7 @@ public class CardService {
 
     public List<String> findCommanderByColors(String colors) throws UnsupportedEncodingException {
         String commanderForUri = "is%3Acommander";
-        String colorSearch = "+color%3D" + colors;
+        String colorSearch = "+id%3D" + colors;
         String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
         System.out.println(searchUri);
         try {

@@ -26,10 +26,7 @@ public class DeckBuilderApplication {
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username
- * 5. Maybe have a size max for the card display grid? Right now it finished an entire category of cards before going
- *    to the second column, but that leaves things unbalanced.
- * 6. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
+ * 5. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
  *    instead of the normal card image.
- * 7. Add a link to register to the header if the person isn't logged in
- * 8. the colorless commander search is bringing in more results than it should
+ * 6. Add a link to register to the header if the person isn't logged in
  */
