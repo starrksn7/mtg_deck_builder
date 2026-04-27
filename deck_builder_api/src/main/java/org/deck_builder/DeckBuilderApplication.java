@@ -22,7 +22,7 @@ public class DeckBuilderApplication {
  *    dummy articles/images?
  * 3. Account creation enhancement
  *    a. Add something to verify password upon creating an account
- *    b. add username option
+ *    b. Add username to the header
  * 4. Determine what columns to add to the db
  *    a. users
  *       i. add a username

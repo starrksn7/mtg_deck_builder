@@ -36,24 +36,23 @@ export function Login() {
     return (
         <div className="login-page">
             <form className="login-form" onSubmit={handleSubmit}>
+                <p style={{ textAlign: "center", fontSize: "0.9rem" }}>
+                    Don't have an account? <a href="/register">Sign up</a>
+                </p>
                 <h2>Login</h2>
-
                 <input 
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email" 
                 />
-
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" 
                 />
-
                 <button type="submit">Submit</button>
-
                 {error && <p className="error">{error}</p>}
             </form>
         </div>

@@ -29,7 +29,7 @@ export const Header = () => {
           </>
         ) : (
           <Link to="/login" className="header__link">
-            Login
+            Login/Register
           </Link>
         )}
       </nav>
