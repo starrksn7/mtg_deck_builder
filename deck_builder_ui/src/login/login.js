@@ -19,10 +19,12 @@ export function Login() {
                 email,
                 password
             })
+
             const token = response.data.token
             const userId = response.data.user.id
+            const username = response.data.user.userName
 
-            login(token, userId);
+            login(token, userId, username);
             
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             console.log('Login successful.')

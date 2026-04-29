@@ -4,8 +4,9 @@ import '../css/header.css'
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { token, userId, logout } = useAuth();
+  const { token, userId, username, logout } = useAuth();
 
+  console.log("username = ", username)
   return (
     <header className="header">
       <nav className="header__nav">
@@ -16,6 +17,9 @@ export const Header = () => {
             </Link>
             <Link to="/create" className="header__link">
               Create
+            </Link>
+            <Link to="" className="account_link">
+              {username}
             </Link>
             <button
               className="header__link header__logout"
