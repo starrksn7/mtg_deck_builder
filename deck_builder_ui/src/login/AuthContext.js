@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     console.log("username in the login function = ", username)
     setToken(jwt);
     setUserId(userId);
+    setUsername(username);
   };
 
   const logout = () => {
@@ -23,10 +24,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("username");
     setToken(null);
     setUserId(null);
+    setUsername(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, userId, login, logout }}>
+    <AuthContext.Provider value={{ token, userId, username, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
