@@ -12,29 +12,36 @@ export const Header = () => {
       <nav className="header__nav">
         {token ? (
           <>
-            <Link to={`/user/${userId}`} className="header__link">
-              My Decks
-            </Link>
-            <Link to="/create" className="header__link">
-              Create
-            </Link>
-            <Link to="" className="account_link">
-              {username}
-            </Link>
-            <button
-              className="header__link header__logout"
-              onClick={() => {
-                logout();
-                navigate("/login");
-              }}
-            >
-              Logout
-            </button>
+            <div className="header__left">
+              <Link to={`/user/${userId}`} className="header__link">
+                My Decks
+              </Link>
+              <Link to="/create" className="header__link">
+                Create A Deck
+              </Link>
+            </div>
+
+            <div className="header__right">
+              <Link to="" className="account_link">
+                {username}
+              </Link>
+              <button
+                className="header__link header__logout"
+                onClick={() => {
+                  logout();
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
+            </div>
           </>
         ) : (
-          <Link to="/login" className="header__link">
-            Login/Register
-          </Link>
+          <div className="header__right">
+            <Link to="/login" className="header__link">
+              Login/Register
+            </Link>
+          </div>
         )}
       </nav>
     </header>
