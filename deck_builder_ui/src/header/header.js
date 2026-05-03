@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../login/AuthContext";
-import '../css/header.css'
+import { useState } from "react";
+import '../css/header.css';
 
 export const Header = () => {
   const navigate = useNavigate();
   const { token, userId, username, logout } = useAuth();
+  const [open, setOpen] = useState(false);
 
-  console.log("username = ", username)
   return (
     <header className="header">
       <nav className="header__nav">
@@ -22,18 +23,31 @@ export const Header = () => {
             </div>
 
             <div className="header__right">
-              <Link to="" className="account_link">
-                {username}
-              </Link>
-              <button
-                className="header__link header__logout"
-                onClick={() => {
-                  logout();
-                  navigate("/login");
-                }}
+              <div 
+                className="account_menu"
+                onClick={() => setOpen(!open)}
               >
-                Logout
-              </button>
+                <div className="account_trigger">
+                  <div className="avatar">
+                    {username?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="username">{username}</span>
+                </div>
+
+                {open && (
+                  <div className="dropdown">
+                    <button
+                      className="dropdown_item"
+                      onClick={() => {
+                        logout();
+                        navigate("/login");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </>
         ) : (
