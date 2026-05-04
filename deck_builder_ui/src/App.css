@@ -21,6 +21,17 @@
   color: white;
 }
 
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__left {
+  display: flex;
+  gap: 1rem;
+}
+
 /* Links */
 .header__link {
   color: white;

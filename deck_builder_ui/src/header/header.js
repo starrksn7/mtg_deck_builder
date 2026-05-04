@@ -51,11 +51,14 @@ export const Header = () => {
             </div>
           </>
         ) : (
+        <>
+          <div className="header__left"></div>
           <div className="header__right">
             <Link to="/login" className="header__link">
               Login/Register
             </Link>
           </div>
+        </>
         )}
       </nav>
     </header>
