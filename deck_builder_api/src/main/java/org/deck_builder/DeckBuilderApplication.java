@@ -22,11 +22,6 @@ public class DeckBuilderApplication {
  *    dummy articles/images?
  * 3. Account creation enhancement
  *    a. Add something to verify password upon creating an account
- *    b. Add username to the header
- * 4. Determine what columns to add to the db
- *    a. users
- *       i. add a username
- * 5. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
+ * 4. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
  *    instead of the normal card image.
- * 6. Add a link to register to the header if the person isn't logged in
  */
