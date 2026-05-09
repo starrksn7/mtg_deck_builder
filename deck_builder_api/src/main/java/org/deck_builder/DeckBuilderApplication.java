@@ -20,6 +20,7 @@ public class DeckBuilderApplication {
  *       changing sides of the grid.
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
+ *    a. Right now just using the user's deck page as the initial page after logging in
  * 3. Account creation enhancement
  *    a. Add something to verify password upon creating an account
  * 4. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that

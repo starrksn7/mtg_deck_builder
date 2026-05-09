@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
 import api from "../api/axios";
 import zxcvbn from "zxcvbn";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 export function Register() {
     const [username, setUserName] = useState('');
@@ -11,32 +14,21 @@ export function Register() {
     const [passwordMismatch, setPasswordMismatch] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [passwordStrength, setPasswordStrength] = useState(null);
-
-    useEffect(() => {
-        if (password !== confirmPassword) {
-            setPasswordMismatch(true);
-            setPasswordError(true);
-        } else {
-            setPasswordMismatch(false);
-            setPasswordError(false);
-        }
-    }, [password, confirmPassword])
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
     useEffect(() => {
         if (password) {
             const result = zxcvbn(password);
-            setPasswordStrength(result.score); // 0–4
+            setPasswordStrength(result.score);
         } else {
             setPasswordStrength(null);
         }
 
-        if (password !== confirmPassword) {
-            setPasswordMismatch(true);
-            setPasswordError(true);
-        } else {
-            setPasswordMismatch(false);
-            setPasswordError(false);
-        }
+        const mismatch = password !== confirmPassword;
+        setPasswordMismatch(mismatch);
+        setPasswordError(mismatch);
+
     }, [password, confirmPassword]);
 
     const handleSubmit = async (e) => {
@@ -47,21 +39,29 @@ export function Register() {
             return;
         }
 
-        try{ 
+        try { 
             const response = await api.post('/register', {
                 email,
                 username,
                 password,
                 role: "user"
-            })
+            });
 
-            const token = response.data
+            const token = response.data.token;
+            const userId = response.data.user.id;
+            const username = response.data.user.userName;
 
-            localStorage.setItem('jwt', token)
-            console.log('Login successful.')
-        } catch (err){
-            setError('Login failed.')
-            console.error(err)
+            login(token, userId, username);
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            console.log('Registration successful.');
+
+            navigate(`/user/${userId}`);
+
+        } catch (err) {
+            setError('Registration failed.');
+            console.error(err);
         }
     }
 
