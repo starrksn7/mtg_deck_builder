@@ -47,9 +47,14 @@ export function Register() {
                 role: "user"
             });
 
-            const token = response.data.token;
-            const userId = response.data.user.id;
-            const username = response.data.user.userName;
+            const loginResponse = await api.post('/login', {
+                email,
+                password
+            })
+
+
+            const token = loginResponse.data.token
+            const userId = loginResponse.data.user.id
 
             login(token, userId, username);
 
