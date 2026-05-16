@@ -21,8 +21,6 @@ public class DeckBuilderApplication {
  * 2. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  *    a. Right now just using the user's deck page as the initial page after logging in
- * 3. Some kind of message on the user decks screen when they don't have any, like a let's get started and a link to the
- *    create screen?
- * 4. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
+ * 3. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
  *    instead of the normal card image.
  */

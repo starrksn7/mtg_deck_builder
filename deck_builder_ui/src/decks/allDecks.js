@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export function AllDecks() {
-    const [deckList, setDeckList] = useState('');
+    const [deckList, setDeckList] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
@@ -12,12 +12,13 @@ export function AllDecks() {
         const fetchDecks = async () => {
             api.get(`/user?userId=${userId}`)
                 .then((res) => {
-                    let data = res.data
-                    let resultsArray = [];
-                    data.forEach(entry => {
-                        resultsArray.push(entry);
-                    })
-                    setDeckList(resultsArray);
+                    // let data = res.data
+                    // let resultsArray = [];
+                    // data.forEach(entry => {
+                    //     resultsArray.push(entry);
+                    // })
+                    // setDeckList(resultsArray);
+                    setDeckList(res.data);
                 }
             )
         }
@@ -41,7 +42,7 @@ export function AllDecks() {
         setSelectedDeck(deck);
     };
 
-    if (deckList) {
+    if (deckList.length > 0) {
         return (
             <div>
                 <div className="deck-list">
@@ -71,6 +72,25 @@ export function AllDecks() {
                             </button>
                         </div>
                     ))}
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className="empty-decks-container">
+                <div className="empty-decks-card">
+                    <div className="empty-icon">🃏</div>
+
+                    <h2>No Decks Yet</h2>
+
+                    <p>
+                        You haven't built any decks yet. Start your first commander deck and
+                        begin brewing something awesome.
+                    </p>
+
+                    <Link to="/create" className="build-deck-btn">
+                        Build Your First Deck
+                    </Link>
                 </div>
             </div>
         )

@@ -821,6 +821,57 @@ h2 {
     margin-top: 2rem;
 }
 
+.empty-decks-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 2rem;
+}
+
+.empty-decks-card {
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 3rem;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-decks-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.empty-decks-card p {
+    color: #b3b3b3;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.build-deck-btn {
+    display: inline-block;
+    background-color: #7c3aed;
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.build-deck-btn:hover {
+    background-color: #6d28d9;
+    transform: translateY(-2px);
+}
+
 /* ---------- Display results ----- */
 .results-grid {
     max-width: 900px;
