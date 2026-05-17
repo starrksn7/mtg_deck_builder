@@ -233,18 +233,13 @@
   gap: 24px;
 }
 
-
-/* Each group stays together vertically */
 .card-group {
-  break-inside: avoid;
   margin-bottom: 20px;
 }
 
-/* Titles don't split across columns */
 .card-group-title {
   margin: 12px 0 8px;
-  break-inside: avoid;
-  text-align: left;
+  font-weight: bold;
 }
 
 /* Individual cards */
@@ -252,7 +247,6 @@
   break-inside: avoid;
   margin-bottom: 6px;
   padding: 4px 8px;
-  position: relative;
 }
 
 .card-row {
