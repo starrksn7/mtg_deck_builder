@@ -83,6 +83,7 @@ public class DeckService {
         for (String scryfallResult : foundCards) {
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
 
+            //restart here to check for null value in the fullArtLink
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
 
             JsonObject legalities = cardSearchDTO.getLegalities();
