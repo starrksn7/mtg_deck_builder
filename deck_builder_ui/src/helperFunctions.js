@@ -157,7 +157,7 @@ export const createCardObject = (card) => {
             .split(',')
             .map(c => c.trim());
     }
-    
+
     return {
         scryfallId: card.scryfallId,
         name: card.name,
@@ -169,13 +169,22 @@ export const createCardObject = (card) => {
         colors: card.colors,
         colorIdentity: colorIdentity,
         keyword: keyword,
-        cmc: card.cmc
+        cmc: card.cmc,
+        gameChanger: card.gameChanger,
+        fullArtLink: card.fullArtLink,
+        rarity: card.rarity,
+        twoCardFaces: card.twoCardFaces,
+        backSideCardName: card.backSideCardName,
+        backSideCardType: card.backSideCardType,
+        backSideColors: card.backSideColors,
+        backSideImage: card.backSideImage,
+        backSideManaCost: card.backSideManaCost,
+        backSideOracleText: card.backSideOracleText
     }
 }
 
 export const getBaseColors = (colorIdentity) => {
     let colors;
-    console.log("colorIdentity = ", colorIdentity)
     switch(colorIdentity) {
         case ('blue'):
             colors = "u"

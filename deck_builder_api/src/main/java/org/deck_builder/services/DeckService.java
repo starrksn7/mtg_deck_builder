@@ -83,7 +83,6 @@ public class DeckService {
         for (String scryfallResult : foundCards) {
             JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
 
-            //restart here to check for null value in the fullArtLink
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
 
             JsonObject legalities = cardSearchDTO.getLegalities();
@@ -250,15 +249,12 @@ public class DeckService {
     }
 
     public int createDeck(CreateDeckDTO createDeckDTO){
-
         CardSearchDTO dto = createDeckDTO.getCardDTO();
-
         Card card = new Card(dto.getScryfallId(), dto.getName(), dto.getScryfallURL(), dto.getImageLink(),
                 dto.getManaCost(), dto.getType(), dto.getOracleText(), dto.getColors(), dto.getColorIdentity(),
                 dto.getKeyword(), dto.getCmc(), dto.getGameChanger(), dto.getRarity(), dto.getFullArtLink(), dto.getBackSideCardName(),
                 dto.getBackSideCardType(), dto.getBackSideImage(), dto.getBackSideManaCost(), dto.getBackSideOracleText(),
                 dto.getBackSideColors(), dto.getTwoCardFaces());
-
         cardDao.addCardToDb(card);
 
         return deckDao.createDeck(

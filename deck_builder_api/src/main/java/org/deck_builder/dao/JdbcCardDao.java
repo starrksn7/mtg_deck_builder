@@ -29,9 +29,6 @@ public class JdbcCardDao implements CardDao{
     private final String commanderLegal = "+format%3Acommander";
 
     public boolean addCardToDb(Card card){
-        System.out.println("add card to db function");
-        System.out.println("link for full art");
-        System.out.println(card.getFullArtLink());
         SqlRowSet getResults = getFromDb(card.getScryfallId());
         boolean cardExistsInDb = getResults.next();
         String insertSql = "INSERT INTO cards (card_name, scryfall_link, image_link, mana_cost, card_type, oracle_text, colors, " +
