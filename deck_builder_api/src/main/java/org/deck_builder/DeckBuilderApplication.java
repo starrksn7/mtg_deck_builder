@@ -22,5 +22,4 @@ public class DeckBuilderApplication {
  *    a. Right now just using the user's deck page as the initial page after logging in
  * 3. Maybe change the image of the commander card for a deck in the deck page? Or add the full art image and use that
  *    instead of the normal card image.
- * 4. full art link not saving correctly when setting a card as commander
  */
