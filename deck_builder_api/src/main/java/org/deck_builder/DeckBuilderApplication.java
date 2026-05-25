@@ -20,4 +20,5 @@ public class DeckBuilderApplication {
  *    instead of the normal card image.
  * 3. Can I make a custom loading spinner that uses the five color symbols?
  * 4. Should probably change the style of the page to accommodate different screen sizes
+ * 5. the spinner is not centered. Can I apply colors to it?
  */
