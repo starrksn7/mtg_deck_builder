@@ -7,17 +7,11 @@ export function AllDecks() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
-
+    console.log(deckList)
     useEffect(() => {
         const fetchDecks = async () => {
             api.get(`/user?userId=${userId}`)
                 .then((res) => {
-                    // let data = res.data
-                    // let resultsArray = [];
-                    // data.forEach(entry => {
-                    //     resultsArray.push(entry);
-                    // })
-                    // setDeckList(resultsArray);
                     setDeckList(res.data);
                 }
             )
