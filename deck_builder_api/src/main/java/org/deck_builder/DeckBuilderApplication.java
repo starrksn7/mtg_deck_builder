@@ -18,4 +18,6 @@ public class DeckBuilderApplication {
  *    dummy articles/images?
  * 2. Should probably change the style of the page to accommodate different screen sizes
  * 3. delete deck button isn't working
+ * 4. Need to figure out a way to incorporate partner/background/friends forever and all that similar stuff into
+ *    the results search for a commander
  */

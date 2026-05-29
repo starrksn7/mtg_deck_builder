@@ -7,7 +7,7 @@ export function AllDecks() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
-    console.log(deckList)
+    console.log(selectedDeck)
     useEffect(() => {
         const fetchDecks = async () => {
             api.get(`/user?userId=${userId}`)
@@ -20,20 +20,33 @@ export function AllDecks() {
         fetchDecks();
     }, [])
 
-    const deleteDeck = async (deck) => {
-        const res = await api.delete('/decks/deleteDeck', { data: {
-            deckId: 1, 
+    const deleteDeck = async () => {
+        if (!selectedDeck) return;
+
+        const res = await api.delete('/decks/deleteDeck', {
+            data: {
+                deckId: selectedDeck.deckId,
             }
-        })
-        if(res) window.location.reload()
+        });
+
+        if (res) {
+            setDeckList(prev =>
+                prev.filter(d => d.deckId !== selectedDeck.deckId)
+            );
+
+            setShowConfirm(false);
+            setSelectedDeck(null);
+        }
     }
 
     const cancelDelete = () => {
-        setShowConfirm(false)
-    }
+        setShowConfirm(false);
+        setSelectedDeck(null);
+    };
 
     const handleDelete = (deck) => {
         setSelectedDeck(deck);
+        setShowConfirm(true);
     };
 
     if (deckList.length > 0) {
@@ -67,6 +80,27 @@ export function AllDecks() {
                         </div>
                     ))}
                 </div>
+                {showConfirm && (
+                    <div className="delete-deck-modal-overlay">
+                        <div className="delete-deck-modal">
+                            <h3>Delete Deck?</h3>
+
+                            <p>
+                                Are you sure you want to delete "{selectedDeck?.deckName}"?
+                            </p>
+
+                            <div className="delete-deck-modal-buttons">
+                                <button onClick={cancelDelete}>
+                                    Cancel
+                                </button>
+
+                                <button onClick={deleteDeck}>
+                                    Confirm Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         )
     } else {

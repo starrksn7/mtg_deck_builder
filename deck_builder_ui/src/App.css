@@ -1148,6 +1148,87 @@ h2 {
     transform: rotate(360deg);
   }
 }
+
+/* ---------- delte deck modal ---- */
+.delete-deck-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.delete-deck-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+
+    width: 90%;
+    max-width: 450px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+    text-align: center;
+}
+
+.delete-deck-modal h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #222;
+}
+
+.delete-deck-modal p {
+    margin-bottom: 1.5rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+.delete-deck-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.delete-deck-modal-buttons button {
+    border: none;
+    border-radius: 8px;
+
+    padding: 0.75rem 1.25rem;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-deck-modal-buttons button:first-child {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.delete-deck-modal-buttons button:first-child:hover {
+    background: #d1d5db;
+}
+
+.delete-deck-modal-buttons button:last-child {
+    background: #dc2626;
+    color: white;
+}
+
+.delete-deck-modal-buttons button:last-child:hover {
+    background: #b91c1c;
+}
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
