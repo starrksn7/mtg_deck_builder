@@ -24,9 +24,7 @@ export function AllDecks() {
         if (!selectedDeck) return;
 
         const res = await api.delete('/decks/deleteDeck', {
-            data: {
-                deckId: selectedDeck.deckId,
-            }
+            data: selectedDeck.deckId
         });
 
         if (res) {
