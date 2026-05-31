@@ -36,9 +36,11 @@ public class JdbcDeckDao implements DeckDao{
 
     public boolean deleteDeck(int deckId){
         String deckDelete = "DELETE FROM decks WHERE deck_id = ?;";
-        String deleteFromMap = "DELETE FROM deck_cards WHERE deck_id = ?;";
+        String deleteFromCardMap = "DELETE FROM deck_cards WHERE deck_id = ?;";
+        String deleteFromUserMap = "DELETE FROM users_decks WHERE deck_id = ?;";
+        jdbcTemplate.update(deleteFromCardMap, deckId);
+        jdbcTemplate.update(deleteFromUserMap, deckId);
         jdbcTemplate.update(deckDelete, deckId);
-        jdbcTemplate.update(deleteFromMap, deckId);
         return true;
     }
     public List<Deck> searchForDeckByName(String deckName){
