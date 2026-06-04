@@ -59,7 +59,10 @@ public class CardService {
 
             int responseCode = conn.getResponseCode();
             if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode);
+                List<String> noCardsFound = new ArrayList<>();
+                String noCards = "No cards found";
+                noCardsFound.add(noCards);
+                return noCardsFound;
             }
 
             Scanner scanner = new Scanner(scryfallUrl.openStream());
@@ -238,6 +241,9 @@ public class CardService {
         System.out.println(searchUri);
         try {
             List<String> results = getCardsFromUri(searchUri);
+            if(results.get(0).equals("No cards found")){
+                return failedSearch();
+            }
             return parseSearchResults(results);
         } catch(IOException e){
             throw new RuntimeException(e);

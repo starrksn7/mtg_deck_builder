@@ -21,5 +21,4 @@ public class DeckBuilderApplication {
  *    the results search for a commander
  *    a. background cards already show up in the search
  *    b. partner does the same thing
- * 4. Need to check out the error handling for when no search results were found. Currently getting an error
  */
