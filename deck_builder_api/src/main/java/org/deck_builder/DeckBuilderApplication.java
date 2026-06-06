@@ -21,4 +21,22 @@ public class DeckBuilderApplication {
  *    the results search for a commander
  *    a. background cards already show up in the search
  *    b. partner does the same thing
+ *    c. Possible plan:
+ *       i. change the backend and table to save a list of commanders instead of a single commander
+ *          A. this would involve changing the commander, imageLink and scryfallId to lists instead of single strings
+ *          B. maybe make another class for this or save the card data instead?
+ *      ii. when a person selects a commander that has a partnering keyword, display a list of options for them
+ *          to select another commander
+ *          A. need to create a scryfall result search that will specifically use the keyword that the original commander
+ *             has to get possible options
+ *          B. keep the commander deck from being created right away when one of the partnering keywords is present to allow
+ *             the user to select a partner
+ *          C. the ui will need a function to get the appropriate keyword
+ *          D. api may need a new class with booleans for each partnering mechanic
+ *          E. update commander detecting useMemo in the ui to detect more than one
+ *          F. determine which image should be displayed in the deck page for the commander, maybe the creature?
+ *             1. is this where I make the image default to a commander, but allow users to pick any full art image
+ *                from their deck?
+ *     iii. update the color identity check to look at both commanders
+ *
  */
