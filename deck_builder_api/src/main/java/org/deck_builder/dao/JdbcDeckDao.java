@@ -25,8 +25,8 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public int createDeck(int userId, String deckName, CardSearchDTO cardDto){
-        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity) VALUES (?, ?, ?, ?) RETURNING deck_id;";
-        int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner(), cardDto.getColorIdentity()},
+        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity, banner_image) VALUES (?, ?, ?, ?) RETURNING deck_id;";
+        int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner(), cardDto.getColorIdentity(), cardDto.getFullArtLink()},
         Integer.class);
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";
         jdbcTemplate.update(userDeckMap, userId, deckId);
@@ -146,12 +146,12 @@ public class JdbcDeckDao implements DeckDao{
         return deckList;
     }
 
-    public boolean updateDeck(int id, String deckName, String commander){
-        String sql = "UPDATE decks SET deck_name = ?, commander = ? " +
+    public boolean updateDeck(int id, String deckName, String commander, String bannerImage){
+        String sql = "UPDATE decks SET deck_name = ?, commander = ?, banner_image = ? " +
                 "WHERE deck_id = ?;";
 
         try {
-            if(jdbcTemplate.update(sql, deckName, commander, id) == 1){
+            if(jdbcTemplate.update(sql, deckName, commander, bannerImage, id) == 1){
                 return true;
             } else {
                 System.err.println("This deck could not be updated");

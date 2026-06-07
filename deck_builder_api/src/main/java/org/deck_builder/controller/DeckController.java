@@ -34,8 +34,8 @@ public class DeckController {
     }
 
     @PutMapping(path="/update")
-    public boolean updateDeck(int id, String deckName, String commander){
-        return deckService.updateDeck(id, deckName, commander);
+    public boolean updateDeck(int id, String deckName, String commander, String bannerImage){
+        return deckService.updateDeck(id, deckName, commander, bannerImage);
     }
 
     @GetMapping(path="/search")

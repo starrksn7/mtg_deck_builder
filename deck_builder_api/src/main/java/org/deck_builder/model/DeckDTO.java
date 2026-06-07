@@ -17,6 +17,8 @@ public class DeckDTO {
     CardSearchDTO cardDto;
     @NotEmpty
     List<CardIdentifierDTO> identifiers;
+    @NotEmpty
+    String bannerImage;
 
     public int getDeckId() {
         return deckId;
@@ -57,5 +59,9 @@ public class DeckDTO {
     public List<CardIdentifierDTO> getIdentifiers() { return identifiers; }
 
     public void setIdentifiers(List<CardIdentifierDTO> identifiers) { this.identifiers = identifiers;}
+
+    public String getBannerImage(){ return this.bannerImage; }
+
+    public void setBannerImage(String bannerImage) { this.bannerImage = bannerImage; }
 
 }

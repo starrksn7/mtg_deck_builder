@@ -268,8 +268,8 @@ public class DeckService {
         return deckDao.addCardToDeck(deckDTO.getDeckId(), deckDTO.getCardDto());
     }
 
-    public boolean updateDeck(int id, String deckName, String commander){
-        return deckDao.updateDeck(id, deckName, commander);
+    public boolean updateDeck(int id, String deckName, String commander, String bannerImage){
+        return deckDao.updateDeck(id, deckName, commander, bannerImage);
     }
 
     public List<Deck> searchForDeckByName(String deckName){

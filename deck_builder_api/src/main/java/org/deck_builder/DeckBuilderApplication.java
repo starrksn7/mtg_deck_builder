@@ -37,6 +37,10 @@ public class DeckBuilderApplication {
  *          F. determine which image should be displayed in the deck page for the commander, maybe the creature?
  *             1. is this where I make the image default to a commander, but allow users to pick any full art image
  *                from their deck?
+ *                a. can this be done by adding a new column to the deck information for the chosen bannder image, and update
+ *                   it if the user changes it?  Probably hsould make hte default a commander.
+ *                b. I've started this and added an update to the api, need to get that info to the ui to use and create
+ *                   a way to change to a different card picture
  *     iii. update the color identity check to look at both commanders
  *
  */

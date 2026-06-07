@@ -79,7 +79,7 @@ export function SingleDeck() {
     'Planeswalkers',
     'Lands'
     ];
-
+    
     useEffect(() => {
         const fetchDeck = async () => {
             try {
@@ -177,7 +177,6 @@ export function SingleDeck() {
         }
 
         const response = await api.post('/decks/addCollection', cardSearchDTO)
-        console.log(response)
 
         if (response.status === 200) {
             setCardsNotFound(response.data);

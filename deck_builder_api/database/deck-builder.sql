@@ -29,7 +29,8 @@ CREATE TABLE decks (
 	commander varchar(50) NOT NULL,
 	is_partner boolean NOT NULL,
     color_identity varchar(50) NOT NULL,
-	CONSTRAINT PK_decks PRIMARY KEY (deck_id)
+    banner_image varchar(100) NOT NULL,
+    CONSTRAINT PK_decks PRIMARY KEY (deck_id)
 );
 
 CREATE TABLE cards (

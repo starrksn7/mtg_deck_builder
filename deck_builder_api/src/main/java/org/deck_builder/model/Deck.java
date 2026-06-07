@@ -7,6 +7,7 @@ public class Deck {
     private String commander;
     private String commanderScryfallId;
     private String imageLink;
+    private String bannerImage;
 
     public Deck(int deckId, String deckName, String commander, String commanderScryfallId, String imageLink){
         this.id = deckId;
@@ -49,4 +50,8 @@ public class Deck {
     public String getImageLink() { return imageLink; }
 
     public void setImageLink(String imageLink){ this.imageLink = imageLink; }
+
+    public String getBannerImage(){ return bannerImage; }
+
+    public void setBannerImage(String bannerImage){ this.bannerImage = bannerImage; }
 }
