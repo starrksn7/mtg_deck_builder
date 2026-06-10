@@ -27,6 +27,7 @@ export function SingleDeck() {
     const [loading, setLoading] = useState(true);
     const [showBackSide, setShowBackSide] = useState(false);
     const [cardsNotFound, setCardsNotFound] = useState([]);
+    const [bannerImage, setBannerImage] = useState('');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -79,7 +80,7 @@ export function SingleDeck() {
     'Planeswalkers',
     'Lands'
     ];
-    
+
     useEffect(() => {
         const fetchDeck = async () => {
             try {
