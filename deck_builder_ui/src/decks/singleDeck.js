@@ -208,6 +208,15 @@ export function SingleDeck() {
         );
     }
 
+    const updateDeck = () => {
+        const requestbody = {
+            id: deckId,
+            deckName: ,
+            commander: ,
+            bannerImage: 
+        }
+    }
+
     const previewCard = previewCardId
         ? cardList.find(c => c.scryfallId === previewCardId)
         : commander;

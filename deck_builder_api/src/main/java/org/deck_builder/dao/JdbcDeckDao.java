@@ -181,6 +181,13 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
+    String getBannerImage(int deckId) {
+        String getMetadataSql = "SELECT banner_image FROM decks WHERE deck_id = ?;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(getMetadataSql, deckId);
+
+        return row.getString("banner_image");
+    }
 
     private Deck mapRowToDeck(SqlRowSet row){
         Deck deck = new Deck();
@@ -230,5 +237,4 @@ public class JdbcDeckDao implements DeckDao{
 
         return card;
     }
-
 }

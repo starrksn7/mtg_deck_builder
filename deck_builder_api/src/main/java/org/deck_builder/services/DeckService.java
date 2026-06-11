@@ -245,6 +245,8 @@ public class DeckService {
     public List<Card> getDeckById(int deckId){
         List<Card> deckList = deckDao.getDeckById(deckId);
 
+        Deck deck = deckDao.getDeckMetadata(deckId);
+
         return addPricesToDeckList(deckList);
     }
 

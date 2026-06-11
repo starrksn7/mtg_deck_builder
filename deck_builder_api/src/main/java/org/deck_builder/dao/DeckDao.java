@@ -26,6 +26,8 @@ public interface DeckDao {
     boolean deleteDeck(int deckId);
 
     List<Deck> searchForDeckByName(String deckName);
+
+    String getbannerImage(int deckId);
     
 
 }

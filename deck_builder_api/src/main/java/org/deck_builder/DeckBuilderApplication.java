@@ -44,6 +44,7 @@ public class DeckBuilderApplication {
  *                   i. I added a small piece of state for the banner image in the ui. I need to alter the deck get route
  *                      so that it returns an object instead of just all of the cards so that the banner image link can be
  *                      returned as part of the object.
+ *                  ii. I added the query to the dao and jdbc template, need to add a call from the controller
  *     iii. update the color identity check to look at both commanders
  *
  */
