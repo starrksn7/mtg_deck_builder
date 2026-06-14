@@ -1,5 +1,6 @@
 package org.deck_builder.controller;
 
+import com.google.gson.JsonObject;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.*;
 import org.deck_builder.dao.DeckDao;
@@ -19,7 +20,7 @@ public class DeckController {
     }
 
     @GetMapping(path="")
-    public List<Card> getDeckById(@RequestParam int deckId){
+    public JsonObject getDeckById(@RequestParam int deckId){
         return deckService.getDeckById(deckId);
     }
 

@@ -1,8 +1,6 @@
 package org.deck_builder.services;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
 import org.deck_builder.dao.DeckDao;
@@ -242,12 +240,18 @@ public class DeckService {
         return chunks;
     }
 
-    public List<Card> getDeckById(int deckId){
+    public JsonObject getDeckById(int deckId){
         List<Card> deckList = deckDao.getDeckById(deckId);
+        String bannerImage = deckDao.getBannerImage(deckId);
 
-        Deck deck = deckDao.getDeckMetadata(deckId);
+        Gson gson = new Gson();
+        JsonObject object = new JsonObject();
+        JsonElement deckData = gson.toJsonTree(addPricesToDeckList(deckList));
 
-        return addPricesToDeckList(deckList);
+        object.add("deckData", deckData);
+        object.addProperty("bannerImage", bannerImage);
+
+        return object;
     }
 
     public int createDeck(CreateDeckDTO createDeckDTO){
