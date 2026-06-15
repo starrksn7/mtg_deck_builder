@@ -240,18 +240,15 @@ public class DeckService {
         return chunks;
     }
 
-    public JsonObject getDeckById(int deckId){
+    public Map<String, Object> getDeckById(int deckId) {
         List<Card> deckList = deckDao.getDeckById(deckId);
         String bannerImage = deckDao.getBannerImage(deckId);
 
-        Gson gson = new Gson();
-        JsonObject object = new JsonObject();
-        JsonElement deckData = gson.toJsonTree(addPricesToDeckList(deckList));
+        Map<String, Object> response = new HashMap<>();
+        response.put("deckData", addPricesToDeckList(deckList));
+        response.put("bannerImage", bannerImage);
 
-        object.add("deckData", deckData);
-        object.addProperty("bannerImage", bannerImage);
-
-        return object;
+        return response;
     }
 
     public int createDeck(CreateDeckDTO createDeckDTO){

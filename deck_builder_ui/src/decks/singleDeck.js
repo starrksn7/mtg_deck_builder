@@ -87,7 +87,9 @@ export function SingleDeck() {
                 setLoading(true);
 
                 const res = await api.get(`/decks?deckId=${deckId}`);
-                setCardList(res.data);
+                console.log(res)
+                setCardList(res.data.deckData);
+                setBannerImage(res.data.bannerImage);
                 setDeckNotFound(false);
 
             } catch (e) {
@@ -208,14 +210,14 @@ export function SingleDeck() {
         );
     }
 
-    const updateDeck = () => {
-        const requestbody = {
-            id: deckId,
-            deckName: ,
-            commander: ,
-            bannerImage: 
-        }
-    }
+    // const updateDeck = () => {
+    //     const requestbody = {
+    //         id: deckId,
+    //         deckName: ,
+    //         commander: ,
+    //         bannerImage: 
+    //     }
+    // }
 
     const previewCard = previewCardId
         ? cardList.find(c => c.scryfallId === previewCardId)
@@ -259,7 +261,7 @@ export function SingleDeck() {
                     </div>
                     <div className="commander-art">
                         <img
-                            src={commander?.fullArtLink}
+                            src={bannerImage}
                             alt="Commander art"
                         />
                     </div>

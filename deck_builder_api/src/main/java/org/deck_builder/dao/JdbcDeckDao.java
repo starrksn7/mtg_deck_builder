@@ -182,11 +182,12 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public String getBannerImage(int deckId) {
-        String getMetadataSql = "SELECT banner_image FROM decks WHERE deck_id = ?;";
-
-        SqlRowSet row = jdbcTemplate.queryForRowSet(getMetadataSql, deckId);
-
-        return row.getString("banner_image");
+        String getBannerImageSql = "SELECT banner_image FROM decks WHERE deck_id = ?;";
+        SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
+        if (row.next()){
+            return row.getString("banner_image");
+        }
+        return null;
     }
 
     private Deck mapRowToDeck(SqlRowSet row){

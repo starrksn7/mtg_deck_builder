@@ -8,6 +8,7 @@ import org.deck_builder.services.DeckService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/decks")
@@ -20,7 +21,7 @@ public class DeckController {
     }
 
     @GetMapping(path="")
-    public JsonObject getDeckById(@RequestParam int deckId){
+    public Map<String, Object> getDeckById(@RequestParam int deckId){
         return deckService.getDeckById(deckId);
     }
 

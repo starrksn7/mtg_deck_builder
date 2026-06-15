@@ -17,6 +17,7 @@ public class DeckBuilderApplication {
  * 1. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
  *    dummy articles/images?
  * 2. Should probably change the style of the page to accommodate different screen sizes
+ *    a. while I'm at it, increase the height of the banner commander image to better fit the size
  * 3. Need to figure out a way to incorporate partner/background/friends forever and all that similar stuff into
  *    the results search for a commander
  *    a. background cards already show up in the search
