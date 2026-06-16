@@ -210,14 +210,14 @@ export function SingleDeck() {
         );
     }
 
-    // const updateDeck = () => {
-    //     const requestbody = {
-    //         id: deckId,
-    //         deckName: ,
-    //         commander: ,
-    //         bannerImage: 
-    //     }
-    // }
+    const updateDeck = () => {
+        const requestbody = {
+            id: deckId,
+            bannerImage: bannerImage 
+        }
+
+        const response = await api.post('/decks/addCollection', requestbody)
+    }
 
     const previewCard = previewCardId
         ? cardList.find(c => c.scryfallId === previewCardId)

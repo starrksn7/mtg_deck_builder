@@ -146,12 +146,12 @@ public class JdbcDeckDao implements DeckDao{
         return deckList;
     }
 
-    public boolean updateDeck(int id, String deckName, String commander, String bannerImage){
-        String sql = "UPDATE decks SET deck_name = ?, commander = ?, banner_image = ? " +
+    public boolean updateDeck(int id, String bannerImage){
+        String sql = "UPDATE decks SET banner_image = ? " +
                 "WHERE deck_id = ?;";
 
         try {
-            if(jdbcTemplate.update(sql, deckName, commander, bannerImage, id) == 1){
+            if(jdbcTemplate.update(sql, bannerImage, id) == 1){
                 return true;
             } else {
                 System.err.println("This deck could not be updated");
