@@ -28,6 +28,7 @@ export function SingleDeck() {
     const [showBackSide, setShowBackSide] = useState(false);
     const [cardsNotFound, setCardsNotFound] = useState([]);
     const [bannerImage, setBannerImage] = useState('');
+    const [updateError, setUpdateError] = useState('');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -210,14 +211,27 @@ export function SingleDeck() {
         );
     }
 
-    const updateDeck = () => {
-        const requestbody = {
-            id: deckId,
-            bannerImage: bannerImage 
-        }
+    const updateDeck = async () => {
+        setUpdateError('');
 
-        const response = await api.post('/decks/addCollection', requestbody)
-    }
+        const requestBody = {
+            id: deckId,
+            bannerImage
+        };
+
+        try {
+            const response = await api.post('/decks/update', requestBody);
+
+            if (response.status !== 200) {
+                setUpdateError('Failed to update deck.');
+            }
+        } catch (error) {
+            setUpdateError(
+                error.response?.data?.message ||
+                'An error occurred while updating the deck.'
+            );
+        }
+    };
 
     const previewCard = previewCardId
         ? cardList.find(c => c.scryfallId === previewCardId)
@@ -303,6 +317,11 @@ export function SingleDeck() {
                             {cardsNotFound.map((item, i) => (
                             <div key={i}>{item}</div>
                             ))}
+                        </div>
+                    )}
+                    {updateError && (
+                        <div className="deck-error">
+                            {updateError}
                         </div>
                     )}
                 </div>
