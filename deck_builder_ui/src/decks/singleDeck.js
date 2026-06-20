@@ -273,10 +273,10 @@ export function SingleDeck() {
                             <div>mythics: {rarities.get('mythic')}</div>
                         </div>
                     </div>
-                    <div className="commander-art">
+                    <div className="banner-image">
                         <img
                             src={bannerImage}
-                            alt="Commander art"
+                            alt="Banner Image"
                         />
                     </div>
                 </div>

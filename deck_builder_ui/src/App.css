@@ -360,6 +360,8 @@
 /* ---------- Intro / Deck Header ---------- */
 
 .intro {
+  height: 280px;
+  overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
@@ -367,7 +369,6 @@
   gap: 32px;
   padding: 24px 32px;
   min-height: 220px;
-  overflow: hidden;
   background-color: #111827;
   /* width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -408,19 +409,19 @@
 }
 
 
-/* ---------- Commander Art ---------- */
+/* ---------- Banner Image ---------- */
 
-.commander-art {
+.banner-image {
   position: absolute;
   right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  pointer-events: none;
+  top: 0;
+  height: 100%;
+  transform: none;
 }
 
-.commander-art img {
-  height: 480px;
+.banner-image img {
+  height: 140%;
+  width: auto;
   max-width: none;
   opacity: 0;
   animation: commanderFadeIn 0.8s ease-out forwards;
