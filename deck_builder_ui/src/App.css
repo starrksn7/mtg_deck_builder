@@ -451,6 +451,64 @@
   }
 }
 
+
+/* ---------- banner image change modal ------------*/
+
+.change-banner-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,.75);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.change-banner-overlay:hover {
+    background: rgba(0,0,0,.9);
+}
+
+.banner-modal {
+    max-width: 1000px;
+    width: 90%;
+}
+
+.banner-preview img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.banner-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.banner-option {
+    width: 100%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    transition: .15s;
+}
+
+.banner-option:hover {
+    transform: scale(1.03);
+}
+
+.banner-option.selected {
+    border-color: #4caf50;
+}
+
 /* ---------- error messages ------- */
 
 .deck-legality {

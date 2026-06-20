@@ -29,6 +29,8 @@ export function SingleDeck() {
     const [cardsNotFound, setCardsNotFound] = useState([]);
     const [bannerImage, setBannerImage] = useState('');
     const [updateError, setUpdateError] = useState('');
+    const [showBannerModal, setShowBannerModal] = useState(false);
+    const [selectedBannerImage, setSelectedBannerImage] = useState('');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -233,6 +235,38 @@ export function SingleDeck() {
         }
     };
 
+    const openBannerModal = () => {
+        setSelectedBannerImage(bannerImage);
+        setShowBannerModal(true);
+    };
+
+    const cancelBannerChange = () => {
+        setSelectedBannerImage('');
+        setShowBannerModal(false);
+    };
+
+    const saveBannerChange = async () => {
+        setBannerImage(selectedBannerImage);
+
+        try {
+            const requestBody = {
+                id: deckId,
+                bannerImage: selectedBannerImage
+            };
+
+            const response = await api.post('/decks/update', requestBody);
+
+            if (response.status === 200) {
+                setShowBannerModal(false);
+            }
+        } catch (error) {
+            setUpdateError(
+                error.response?.data?.message ||
+                'Failed to update banner image.'
+            );
+        }
+    };
+
     const previewCard = previewCardId
         ? cardList.find(c => c.scryfallId === previewCardId)
         : commander;
@@ -278,6 +312,13 @@ export function SingleDeck() {
                             src={bannerImage}
                             alt="Banner Image"
                         />
+
+                        <div
+                            className="change-banner-overlay"
+                            onClick={openBannerModal}
+                        >
+                            Change Banner Image
+                        </div>
                     </div>
                 </div>
                 <div className="charts-row">
@@ -323,6 +364,16 @@ export function SingleDeck() {
                         <div className="deck-error">
                             {updateError}
                         </div>
+                    )}
+                    {showBannerModal && (
+                        <BannerImageModal
+                            currentImage={bannerImage}
+                            selectedImage={selectedBannerImage}
+                            cardList={cardList}
+                            onSelect={setSelectedBannerImage}
+                            onSave={saveBannerChange}
+                            onCancel={cancelBannerChange}
+                        />
                     )}
                 </div>
                 <div className="content-row">
@@ -424,4 +475,69 @@ export function SingleDeck() {
             </div>
         </div>
     );
+
+
+    function BannerImageModal({
+        currentImage,
+        selectedImage,
+        cardList,
+        onSelect,
+        onSave,
+        onCancel
+    }) {
+        const availableImages = [
+            ...new Map(
+                cardList
+                    .filter(card => card.imageLink)
+                    .map(card => [card.imageLink, card])
+            ).values()
+        ];
+
+        return (
+            <div className="modal-overlay">
+                <div className="modal-content banner-modal">
+                    <h2>Change Banner Image</h2>
+
+                    <div className="banner-preview">
+                        <img
+                            src={selectedImage || currentImage}
+                            alt="Selected banner"
+                        />
+                    </div>
+
+                    <div className="banner-selection-grid">
+                        {availableImages.map(card => (
+                            <img
+                                key={card.scryfallId}
+                                src={card.imageLink}
+                                alt={card.name}
+                                className={`banner-option ${
+                                    selectedImage === card.imageLink
+                                        ? 'selected'
+                                        : ''
+                                }`}
+                                onClick={() => onSelect(card.imageLink)}
+                            />
+                        ))}
+                    </div>
+
+                    <div className="modal-buttons">
+                        <button
+                            className="delete-button"
+                            onClick={onSave}
+                        >
+                            Save
+                        </button>
+
+                        <button
+                            className="cancel-button"
+                            onClick={onCancel}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
