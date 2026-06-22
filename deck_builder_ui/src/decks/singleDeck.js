@@ -485,6 +485,7 @@ export function SingleDeck() {
         onSave,
         onCancel
     }) {
+        console.log(cardList)
         const availableImages = [
             ...new Map(
                 cardList
@@ -509,14 +510,14 @@ export function SingleDeck() {
                         {availableImages.map(card => (
                             <img
                                 key={card.scryfallId}
-                                src={card.imageLink}
+                                src={card.fullArtLink}
                                 alt={card.name}
                                 className={`banner-option ${
-                                    selectedImage === card.imageLink
+                                    selectedImage === card.fullArtLink
                                         ? 'selected'
                                         : ''
                                 }`}
-                                onClick={() => onSelect(card.imageLink)}
+                                onClick={() => onSelect(card.fullArtLink)}
                             />
                         ))}
                     </div>
