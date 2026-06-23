@@ -147,6 +147,8 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean updateDeck(int id, String bannerImage){
+        System.out.println("id = " + id);
+        System.out.println("image = " + bannerImage);
         String sql = "UPDATE decks SET banner_image = ? " +
                 "WHERE deck_id = ?;";
 

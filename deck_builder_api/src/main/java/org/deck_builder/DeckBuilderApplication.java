@@ -35,17 +35,8 @@ public class DeckBuilderApplication {
  *          C. the ui will need a function to get the appropriate keyword
  *          D. api may need a new class with booleans for each partnering mechanic
  *          E. update commander detecting useMemo in the ui to detect more than one
- *          F. determine which image should be displayed in the deck page for the commander, maybe the creature?
- *             1. is this where I make the image default to a commander, but allow users to pick any full art image
- *                from their deck?
- *                a. can this be done by adding a new column to the deck information for the chosen bannder image, and update
- *                   it if the user changes it?  Probably should make the default a commander.
- *                b. I've started this and added an update to the api, need to get that info to the ui to use and create
- *                   a way to change to a different card picture
- *                   i. I added a small piece of state for the banner image in the ui. I need to alter the deck get route
- *                      so that it returns an object instead of just all of the cards so that the banner image link can be
- *                      returned as part of the object.
- *                  ii. I added the query to the dao and jdbc template, need to add a call from the controller
  *     iii. update the color identity check to look at both commanders
+ * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
+ *    edge case?
  *
  */

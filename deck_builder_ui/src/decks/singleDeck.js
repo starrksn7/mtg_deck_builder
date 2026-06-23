@@ -250,11 +250,11 @@ export function SingleDeck() {
 
         try {
             const requestBody = {
-                id: deckId,
+                deckId,
                 bannerImage: selectedBannerImage
             };
 
-            const response = await api.post('/decks/update', requestBody);
+            const response = await api.put('/decks/update', requestBody);
 
             if (response.status === 200) {
                 setShowBannerModal(false);
