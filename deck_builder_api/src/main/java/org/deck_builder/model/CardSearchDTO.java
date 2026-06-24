@@ -50,6 +50,8 @@ public class CardSearchDTO {
     private String backSideOracleText;
     private String backSideColors;
     private boolean twoCardFaces;
+    private String partnerId;
+    private String[] partnerColorIdentity;
 
     public int getId() {
         return id;
@@ -221,6 +223,17 @@ public class CardSearchDTO {
     public boolean getTwoCardFaces(){ return twoCardFaces; }
 
     public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
+
+    public String getPartnerId(){ return partnerId; }
+
+    public void setPartnerId(String partnerId){ this.partnerId = partnerId; }
+    public String[] getPartnerColorIdentity() {
+        return partnerColorIdentity;
+    }
+
+    public void setPartnerColorIdentity(String[] partnerColorIdentity) {
+        this.partnerColorIdentity = partnerColorIdentity;
+    }
 
     @Override
     public String toString(){

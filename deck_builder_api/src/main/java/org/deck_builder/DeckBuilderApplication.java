@@ -23,19 +23,9 @@ public class DeckBuilderApplication {
  *    a. background cards already show up in the search
  *    b. partner does the same thing
  *    c. Possible plan:
- *       i. change the backend and table to save a list of commanders instead of a single commander
- *          A. this would involve changing the commander, imageLink and scryfallId to lists instead of single strings
- *          B. maybe make another class for this or save the card data instead?
- *      ii. when a person selects a commander that has a partnering keyword, display a list of options for them
- *          to select another commander
- *          A. need to create a scryfall result search that will specifically use the keyword that the original commander
- *             has to get possible options
- *          B. keep the commander deck from being created right away when one of the partnering keywords is present to allow
- *             the user to select a partner
- *          C. the ui will need a function to get the appropriate keyword
- *          D. api may need a new class with booleans for each partnering mechanic
- *          E. update commander detecting useMemo in the ui to detect more than one
- *     iii. update the color identity check to look at both commanders
+ *       i. When commander with partner is selected, offer a list of possible partners for it
+ *      ii. Save to the database an id for the partner and a color identity for the partner
+ *     iii. combine the two when checking in the ui, when a partner is chosen
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
  *    edge case?
  *

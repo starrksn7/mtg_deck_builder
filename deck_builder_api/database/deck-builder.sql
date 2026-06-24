@@ -30,6 +30,8 @@ CREATE TABLE decks (
 	is_partner boolean NOT NULL,
     color_identity varchar(50) NOT NULL,
     banner_image varchar(100) NOT NULL,
+    partner_id varchar(100) NOT NULL,
+    partner_color_identity varchar(100) NOT NULL,
     CONSTRAINT PK_decks PRIMARY KEY (deck_id)
 );
 
