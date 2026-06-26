@@ -24,6 +24,8 @@ public class DeckBuilderApplication {
  *    b. partner does the same thing
  *    c. Possible plan:
  *       i. When commander with partner is selected, offer a list of possible partners for it
+ *          a. need to add a route to specifically get partner and partner like options options
+ *          b. need to add a modal or new page to select the partner, background, friends forever, etc. option
  *      ii. Save to the database an id for the partner and a color identity for the partner
  *     iii. combine the two when checking in the ui, when a partner is chosen
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
