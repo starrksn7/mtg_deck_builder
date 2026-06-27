@@ -2,10 +2,7 @@ package org.deck_builder.dao;
 
 
 import com.google.gson.stream.MalformedJsonException;
-import org.deck_builder.model.Card;
-import org.deck_builder.model.CardIdentifierDTO;
-import org.deck_builder.model.CardSearchDTO;
-import org.deck_builder.model.Deck;
+import org.deck_builder.model.*;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public interface DeckDao {
 
     boolean removeCardFromDeck(int deckId, CardSearchDTO cardDto);
 
-    boolean updateDeck(int id, String bannerImage);
+    boolean updateDeck(DeckUpdateDTO deckUpdate);
 
     int createDeck(int userId, String deckName, CardSearchDTO cardDto);
 

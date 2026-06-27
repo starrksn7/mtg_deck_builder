@@ -37,7 +37,7 @@ public class DeckController {
 
     @PutMapping(path="/update")
     public boolean updateDeck(@RequestBody DeckUpdateDTO dto){
-        return deckService.updateDeck(dto.getDeckId(), dto.getBannerImage());
+        return deckService.updateDeck(dto);
     }
 
     @GetMapping(path="/search")
