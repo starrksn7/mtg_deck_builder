@@ -34,11 +34,11 @@ public class DeckUpdateDTO {
         this.commander = commander;
     }
 
-    public boolean isPartner() {
+    public boolean getIsPartner() {
         return isPartner;
     }
 
-    public void setPartner(boolean partner) {
+    public void setIsPartner(boolean partner) {
         isPartner = partner;
     }
 

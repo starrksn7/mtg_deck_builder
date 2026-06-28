@@ -148,11 +148,20 @@ public class JdbcDeckDao implements DeckDao{
 
     public boolean updateDeck(DeckUpdateDTO deckUpdate){
         //Need to change this so that the update can include all of the deck information
-        String sql = "UPDATE decks SET banner_image = ? " +
+        String sql = "UPDATE decks SET " +
+                "deck_name = ?, " +
+                "commander = ?, " +
+                "is_partner = ?, " +
+                "color_identity = ?, " +
+                "banner_image = ?, " +
+                "partner_id = ?, " +
+                "partner_color_identity = ? " +
                 "WHERE deck_id = ?;";
 
         try {
-            if(jdbcTemplate.update(sql, deckUpdate.getBannerImage(), deckUpdate.getBannerImage()) == 1){
+            if(jdbcTemplate.update(sql, deckUpdate.getDeckName(), deckUpdate.getCommander(), deckUpdate.getIsPartner(),
+                    deckUpdate.getColorIdentity(), deckUpdate.getBannerImage(), deckUpdate.getPartnerId(),
+                    deckUpdate.getPartnerColorIdentity(), deckUpdate.getDeckId()) == 1){
                 return true;
             } else {
                 System.err.println("This deck could not be updated");
