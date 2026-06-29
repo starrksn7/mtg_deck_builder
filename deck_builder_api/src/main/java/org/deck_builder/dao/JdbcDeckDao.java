@@ -147,7 +147,6 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean updateDeck(DeckUpdateDTO deckUpdate){
-        //Need to change this so that the update can include all of the deck information
         String sql = "UPDATE decks SET " +
                 "deck_name = ?, " +
                 "commander = ?, " +
@@ -191,8 +190,9 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public String getBannerImage(int deckId) {
-        String getBannerImageSql = "SELECT banner_image FROM decks WHERE deck_id = ?;";
+    public String getDeckMetadata(int deckId) {
+        String getBannerImageSql = "SELECT banner_image, is_partner, partner_id, partner_color_identity" +
+                " FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
         if (row.next()){
             return row.getString("banner_image");

@@ -24,7 +24,7 @@ public interface DeckDao {
 
     List<Deck> searchForDeckByName(String deckName);
 
-    String getBannerImage(int deckId);
+    String getDeckMetadata(int deckId);
 
 
 }
