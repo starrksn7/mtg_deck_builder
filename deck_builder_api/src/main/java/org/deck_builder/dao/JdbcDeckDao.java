@@ -190,13 +190,17 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public String getDeckMetadata(int deckId) {
+    public DeckUpdateDTO getDeckMetadata(int deckId) {
         String getBannerImageSql = "SELECT banner_image, is_partner, partner_id, partner_color_identity" +
                 " FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
-        //I need to map this to an object and return that, since it's returning more than just the banner image now
         if (row.next()){
-            return row.getString("banner_image");
+            DeckUpdateDTO dto = new DeckUpdateDTO();
+            dto.setBannerImage(row.getString("banner_image"));
+            dto.setIsPartner(row.getBoolean("is_partner"));
+            dto.setPartnerColorIdentity(row.getString("partner_color_identity"));
+            dto.setPartnerId(row.getString("partner_id"));
+            return dto;
         }
         return null;
     }

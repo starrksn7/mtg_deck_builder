@@ -242,11 +242,11 @@ public class DeckService {
 
     public Map<String, Object> getDeckById(int deckId) {
         List<Card> deckList = deckDao.getDeckById(deckId);
-        String bannerImage = deckDao.getDeckMetadata(deckId);
+        DeckUpdateDTO deckData = deckDao.getDeckMetadata(deckId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("deckData", addPricesToDeckList(deckList));
-        response.put("metadata", bannerImage);
+        response.put("metadata", deckData);
 
         return response;
     }
