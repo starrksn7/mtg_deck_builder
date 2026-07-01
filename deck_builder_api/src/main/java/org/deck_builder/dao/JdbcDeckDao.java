@@ -194,6 +194,7 @@ public class JdbcDeckDao implements DeckDao{
         String getBannerImageSql = "SELECT banner_image, is_partner, partner_id, partner_color_identity" +
                 " FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
+        //I need to map this to an object and return that, since it's returning more than just the banner image now
         if (row.next()){
             return row.getString("banner_image");
         }

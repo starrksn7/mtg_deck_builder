@@ -31,6 +31,9 @@ export function SingleDeck() {
     const [updateError, setUpdateError] = useState('');
     const [showBannerModal, setShowBannerModal] = useState(false);
     const [selectedBannerImage, setSelectedBannerImage] = useState('');
+    const [isPartner, setIsPartner] = useState('');
+    const [partnerColorIdentity, setPartnerColorIdentity] = useState('');
+    const [partnerId, setPartnerId] = useState('');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -91,8 +94,12 @@ export function SingleDeck() {
 
                 const res = await api.get(`/decks?deckId=${deckId}`);
                 console.log(res)
+                const metadata = res?.metadata;
                 setCardList(res.data.deckData);
-                setBannerImage(res.data.bannerImage);
+                setBannerImage(metadata.metabannerImage);
+                setisPartner(metadata.isPartner);
+                setPartnerColorIdentity(metadata.partnerColorIdentity);
+                setPartnerId(metadata.partnerId);
                 setDeckNotFound(false);
 
             } catch (e) {
