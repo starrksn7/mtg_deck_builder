@@ -31,7 +31,7 @@ export function SingleDeck() {
     const [updateError, setUpdateError] = useState('');
     const [showBannerModal, setShowBannerModal] = useState(false);
     const [selectedBannerImage, setSelectedBannerImage] = useState('');
-    const [isPartner, setIsPartner] = useState('');
+    const [isPartner, setIsPartner] = useState(false);
     const [partnerColorIdentity, setPartnerColorIdentity] = useState('');
     const [partnerId, setPartnerId] = useState('');
 
@@ -93,11 +93,12 @@ export function SingleDeck() {
                 setLoading(true);
 
                 const res = await api.get(`/decks?deckId=${deckId}`);
-                console.log(res)
-                const metadata = res?.metadata;
-                setCardList(res.data.deckData);
+                
+                const deckData = res.data.deckData
+                const metadata = res.data.metadata;
+                setCardList(deckData);
                 setBannerImage(metadata.metabannerImage);
-                setisPartner(metadata.isPartner);
+                setIsPartner(metadata.isPartner);
                 setPartnerColorIdentity(metadata.partnerColorIdentity);
                 setPartnerId(metadata.partnerId);
                 setDeckNotFound(false);
@@ -223,22 +224,42 @@ export function SingleDeck() {
     const updateDeck = async () => {
         setUpdateError('');
 
+        console.log("XXXXXXXXXXXXXXXX")
+        console.log("commander ", commander)
+        console.log("deck name ", deckName)
+        console.log("selecedBannerImage = ", selectedBannerImage)
+        console.log("isPartner = ", isPartner)
+        console.log("partnerColorIdentity = ", partnerColorIdentity)
+        console.log("partnerId = ", partnerId)
+        console.log("deckId = ", deckId)
+        console.log("XXXXXXXXXXXXXXXX")
         const requestBody = {
             id: deckId,
-            bannerImage
+            deckName,
+            bannerImage: selectedBannerImage,
+            isPartner,
+            partnerColorIdentity,
+            partnerId,
+            commander
         };
 
         try {
-            const response = await api.post('/decks/update', requestBody);
+            const response = await api.put('/decks/update', requestBody);
 
-            if (response.status !== 200) {
+            if (response.status === 200) {
+                setBannerImage(selectedBannerImage);
+                setShowBannerModal(false);
+            } else {
                 setUpdateError('Failed to update deck.');
+                setShowBannerModal(false);
             }
+            
         } catch (error) {
             setUpdateError(
                 error.response?.data?.message ||
                 'An error occurred while updating the deck.'
             );
+            setShowBannerModal(false);
         }
     };
 
@@ -250,28 +271,6 @@ export function SingleDeck() {
     const cancelBannerChange = () => {
         setSelectedBannerImage('');
         setShowBannerModal(false);
-    };
-
-    const saveBannerChange = async () => {
-        setBannerImage(selectedBannerImage);
-
-        try {
-            const requestBody = {
-                deckId,
-                bannerImage: selectedBannerImage
-            };
-
-            const response = await api.put('/decks/update', requestBody);
-
-            if (response.status === 200) {
-                setShowBannerModal(false);
-            }
-        } catch (error) {
-            setUpdateError(
-                error.response?.data?.message ||
-                'Failed to update banner image.'
-            );
-        }
     };
 
     const previewCard = previewCardId
@@ -378,7 +377,7 @@ export function SingleDeck() {
                             selectedImage={selectedBannerImage}
                             cardList={cardList}
                             onSelect={setSelectedBannerImage}
-                            onSave={saveBannerChange}
+                            onSave={updateDeck}
                             onCancel={cancelBannerChange}
                         />
                     )}
@@ -492,7 +491,6 @@ export function SingleDeck() {
         onSave,
         onCancel
     }) {
-        console.log(cardList)
         const availableImages = [
             ...new Map(
                 cardList

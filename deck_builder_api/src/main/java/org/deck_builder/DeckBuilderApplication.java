@@ -28,6 +28,8 @@ public class DeckBuilderApplication {
  *          b. need to add a modal or new page to select the partner, background, friends forever, etc. option
  *      ii. Save to the database an id for the partner and a color identity for the partner
  *     iii. combine the two when checking in the ui, when a partner is chosen
+ *      iv. I have added the is_partner, partner_id, and partner color identity values to the database
+ *          and am sending them to the ui for this
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
  *    edge case?
  *
