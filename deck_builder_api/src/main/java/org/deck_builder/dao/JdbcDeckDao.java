@@ -147,18 +147,10 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public boolean updateDeck(DeckUpdateDTO deckUpdate){
-        System.out.println(deckUpdate.getDeckName());
-        System.out.println(deckUpdate.getCommander());
-        System.out.println(deckUpdate.getIsPartner());
-        System.out.println(deckUpdate.getColorIdentity());
-        System.out.println(deckUpdate.getPartnerId());
-        System.out.println(deckUpdate.getPartnerColorIdentity());
-        System.out.println(deckUpdate.getDeckId());
         String sql = "UPDATE decks SET " +
                 "deck_name = ?, " +
                 "commander = ?, " +
                 "is_partner = ?, " +
-                "color_identity = ?, " +
                 "banner_image = ?, " +
                 "partner_id = ?, " +
                 "partner_color_identity = ? " +
@@ -166,7 +158,7 @@ public class JdbcDeckDao implements DeckDao{
 
         try {
             if(jdbcTemplate.update(sql, deckUpdate.getDeckName(), deckUpdate.getCommander(), deckUpdate.getIsPartner(),
-                    deckUpdate.getColorIdentity(), deckUpdate.getBannerImage(), deckUpdate.getPartnerId(),
+                    deckUpdate.getBannerImage(), deckUpdate.getPartnerId(),
                     deckUpdate.getPartnerColorIdentity(), deckUpdate.getDeckId()) == 1){
                 return true;
             } else {

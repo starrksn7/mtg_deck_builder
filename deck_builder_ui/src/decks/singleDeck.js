@@ -97,7 +97,7 @@ export function SingleDeck() {
                 const deckData = res.data.deckData
                 const metadata = res.data.metadata;
                 setCardList(deckData);
-                setBannerImage(metadata.metabannerImage);
+                setBannerImage(metadata.bannerImage);
                 setIsPartner(metadata.isPartner);
                 setPartnerColorIdentity(metadata.partnerColorIdentity);
                 setPartnerId(metadata.partnerId);
@@ -224,23 +224,14 @@ export function SingleDeck() {
     const updateDeck = async () => {
         setUpdateError('');
 
-        console.log("XXXXXXXXXXXXXXXX")
-        console.log("commander ", commander)
-        console.log("deck name ", deckName)
-        console.log("selecedBannerImage = ", selectedBannerImage)
-        console.log("isPartner = ", isPartner)
-        console.log("partnerColorIdentity = ", partnerColorIdentity)
-        console.log("partnerId = ", partnerId)
-        console.log("deckId = ", deckId)
-        console.log("XXXXXXXXXXXXXXXX")
         const requestBody = {
-            id: deckId,
+            deckId,
             deckName,
             bannerImage: selectedBannerImage,
             isPartner,
             partnerColorIdentity,
             partnerId,
-            commander
+            commander: commander.name,
         };
 
         try {
