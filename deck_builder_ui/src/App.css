@@ -475,17 +475,18 @@
     background: rgba(0,0,0,.9);
 }
 
-.banner-modal {
-    max-width: 1000px;
-    width: 90%;
+.banner-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .banner-preview img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
+    width: auto;
+    max-width: 60%;
+    max-height: 220px;
+    object-fit: contain;
     border-radius: 8px;
-    margin-bottom: 20px;
 }
 
 .banner-selection-grid {

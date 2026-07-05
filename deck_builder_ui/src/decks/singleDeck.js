@@ -98,6 +98,7 @@ export function SingleDeck() {
                 const metadata = res.data.metadata;
                 setCardList(deckData);
                 setBannerImage(metadata.bannerImage);
+                setSelectedBannerImage(metadata.bannerImage);
                 setIsPartner(metadata.isPartner);
                 setPartnerColorIdentity(metadata.partnerColorIdentity);
                 setPartnerId(metadata.partnerId);
