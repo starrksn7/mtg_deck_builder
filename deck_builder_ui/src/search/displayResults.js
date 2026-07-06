@@ -14,7 +14,14 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
 
-    console.log(searchResults)
+    // console.log(searchResults)
+    searchResults.forEach(result => {
+        console.log("XXXXXXXXXX")
+        console.log(result.keywords)
+        console.log(typeof result.keywords)
+                console.log("XXXXXXXXXX")
+
+    })
 
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)

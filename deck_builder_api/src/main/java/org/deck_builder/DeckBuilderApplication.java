@@ -26,6 +26,8 @@ public class DeckBuilderApplication {
  *       i. When commander with partner is selected, offer a list of possible partners for it
  *          a. need to add a route to specifically get partner and partner like options options
  *          b. need to add a modal or new page to select the partner, background, friends forever, etc. option
+ *          c. This needs to start with fixing the keywords being returned to the ui. they are coming in as a string
+ *             and not an array.
  *      ii. Save to the database an id for the partner and a color identity for the partner
  *     iii. combine the two when checking in the ui, when a partner is chosen
  *      iv. I have added the is_partner, partner_id, and partner color identity values to the database

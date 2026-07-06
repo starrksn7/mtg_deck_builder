@@ -28,7 +28,7 @@ export function CreateDeck(){
         const response = await api.post('/card/searchForCommanderByName', 
             {searchTerm: searchInput})
  
-        const resultsArray = response.data.map(entry => JSON.parse(entry));
+        let resultsArray = response.data.map(entry => JSON.parse(entry));
 
         setSearchResults(resultsArray);
         setIsLoading(false)
