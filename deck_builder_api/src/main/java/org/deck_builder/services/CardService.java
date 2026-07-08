@@ -213,7 +213,9 @@ public class CardService {
 
             for(int i = 0; i < jsonCards.size(); i+=1){
                 JsonObject tempObj = (JsonObject) jsonCards.get(i);
-                result.add(mapResultToCard(tempObj).toJsonString());
+                Gson gson = new Gson();
+                Card card = mapResultToCard(tempObj);
+                result.add(gson.toJson(card));
             }
         }
 
