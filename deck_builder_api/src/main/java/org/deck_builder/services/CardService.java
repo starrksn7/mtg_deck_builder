@@ -254,6 +254,10 @@ public class CardService {
 
     public boolean addCardToDb(Card card){ return cardDao.addCardToDb(card); }
 
+    public List<String> getPartnerOptions(String partnerKeyword){
+        //need to fill in logic here, find the scryfall search for this
+    }
+
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
