@@ -254,8 +254,18 @@ public class CardService {
 
     public boolean addCardToDb(Card card){ return cardDao.addCardToDb(card); }
 
-    public List<String> getPartnerOptions(String partnerKeyword){
+    public List<String> getPartnerOptions(String partnerKeyword) throws IOException {
         //need to fill in logic here, find the scryfall search for this
+        //need to differentiate between backgrounds and partner
+        if (partnerKeyword.equals("background")){
+            //need to get the actual background cards, not the commanders
+            //with background as a keyword. Maybe use a type to get enchangement backgrounds?
+        } else if (partnerKeyword.equals("partner")){
+            String partnerSearch = "/cards/search?q=keyword%3Apartner&unique=cards&as=grid&order=name";
+            String fullUri = scryfallUrl + partnerSearch;
+            List<String> possiblePartners = getCardsFromUri(fullUri);
+            return parseSearchResults(possiblePartners);
+        }
     }
 
     public Card mapResultToCard(JsonObject result){

@@ -58,7 +58,7 @@ public class CardController {
         return cardService.findCommanderByColors(jsonBody.getColors());
     }
     @GetMapping(path="/getPartner")
-    public List<String> findPartnerOptions(@RequestParam String partnerKeyword){
+    public List<String> findPartnerOptions(@RequestParam String partnerKeyword) throws IOException {
         return cardService.getPartnerOptions(partnerKeyword);
     }
 
