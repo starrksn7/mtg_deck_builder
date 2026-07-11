@@ -256,16 +256,17 @@ public class CardService {
 
     public List<String> getPartnerOptions(String partnerKeyword) throws IOException {
         //need to fill in logic here, find the scryfall search for this
-        //need to differentiate between backgrounds and partner
+        List<String> searchResults = new ArrayList<>();
         if (partnerKeyword.equals("background")){
-            //need to get the actual background cards, not the commanders
-            //with background as a keyword. Maybe use a type to get enchangement backgrounds?
+            String backgroundSearch = "/cards/search?q=type%3Abackground&unique=cards&as=grid&order=name";
+            String fullUri = scryfallUrl + backgroundSearch;
+            searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("partner")){
             String partnerSearch = "/cards/search?q=keyword%3Apartner&unique=cards&as=grid&order=name";
             String fullUri = scryfallUrl + partnerSearch;
-            List<String> possiblePartners = getCardsFromUri(fullUri);
-            return parseSearchResults(possiblePartners);
+            searchResults = getCardsFromUri(fullUri);
         }
+        return parseSearchResults(searchResults);
     }
 
     public Card mapResultToCard(JsonObject result){
