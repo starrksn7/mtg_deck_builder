@@ -34,5 +34,7 @@ public class DeckBuilderApplication {
  *          and am sending them to the ui for this
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
  *    edge case?
+ * 5. The results when creating a deck kind of run together instead of appearing on a new line. This makes it harder
+ *    to see what keywords/abilities each commander has
  *
  */

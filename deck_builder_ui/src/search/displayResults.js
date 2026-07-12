@@ -14,6 +14,8 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
 
+    console.log(searchResults)
+
     const addToDeck = async (card) => {
         let cardObject = createCardObject(card)
         

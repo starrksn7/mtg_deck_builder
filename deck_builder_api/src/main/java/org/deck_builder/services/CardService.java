@@ -265,6 +265,14 @@ public class CardService {
             String partnerSearch = "/cards/search?q=keyword%3Apartner&unique=cards&as=grid&order=name";
             String fullUri = scryfallUrl + partnerSearch;
             searchResults = getCardsFromUri(fullUri);
+        } else if (partnerKeyword.equals("companion")) {
+            String companionSearch = "/cards/search?q=keyword%3A\"Doctor%27s+Companion\"";
+            String fullUri = scryfallUrl + companionSearch;
+            searchResults = getCardsFromUri(fullUri);
+        } else if (partnerKeyword.equals("friends")) {
+            String friendsSearch = "/cards/search?q=o%3A\"friends+forever\"";
+            String fullUri = scryfallUrl + friendsSearch;
+            searchResults = getCardsFromUri(fullUri);
         }
         return parseSearchResults(searchResults);
     }
