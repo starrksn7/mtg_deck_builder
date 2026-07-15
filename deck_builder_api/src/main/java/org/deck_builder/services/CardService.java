@@ -53,6 +53,7 @@ public class CardService {
         try {
             List<String> dataSets = new ArrayList<>();
             URL scryfallUrl = new URL(uri);
+            System.out.println(uri);
             HttpURLConnection conn = (HttpURLConnection) scryfallUrl.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -266,11 +267,11 @@ public class CardService {
             String fullUri = scryfallUrl + partnerSearch;
             searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("companion")) {
-            String companionSearch = "/cards/search?q=keyword%3A\"Doctor%27s+Companion\"";
+            String companionSearch = "/cards/search?q=keyword%3A%22Doctor%27s+Companion%22";
             String fullUri = scryfallUrl + companionSearch;
             searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("friends")) {
-            String friendsSearch = "/cards/search?q=o%3A\"friends+forever\"";
+            String friendsSearch = "/cards/search?q=o%3A%22friends+forever%22";
             String fullUri = scryfallUrl + friendsSearch;
             searchResults = getCardsFromUri(fullUri);
         }
