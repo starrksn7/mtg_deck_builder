@@ -41,6 +41,10 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             setShowModal(false);
             setDeckName('');
             setSelectedCard(null);
+
+            //need to do a check here on the keywords for the card to determine the 
+            //mechanic, if needed and send them to a select partner page instead of routing them
+            //straight to the deck
             navigate(`/decks/${responseId}`);
         } else {
             console.log("new deck could not be created");
