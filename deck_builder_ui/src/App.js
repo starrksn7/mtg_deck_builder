@@ -8,6 +8,7 @@ import { Login } from './login/login';
 import { Register } from './login/register';
 import { Header } from './header/header';
 import { AuthProvider } from './login/AuthContext';
+import { PartnerSelect } from './decks/partnerSelect';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/create" element={<CreateDeck />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/partner" element={<PartnerSelect />} />
         </Routes>
       </div>
     </AuthProvider>

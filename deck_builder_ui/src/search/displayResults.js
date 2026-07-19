@@ -42,6 +42,13 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             //need to do a check here on the keywords for the card to determine the 
             //mechanic, if needed and send them to a select partner page instead of routing them
             //straight to the deck
+            const partner = cardObject.keywords.includes("Partner")
+            //Need to change this to check for Choose a Background in the oracle text
+            const background = cardObject.keywords.includes("Background")
+            //Need to verify if this is a keyword or part of the oractle text
+            const friends = cardObject.keywords.includes("Friends Forever")
+            //Need to change this to check for the creature type of Time lord doctor
+            const companion = cardObject.keywords.includes("Doctor's Companion")
             navigate(`/decks/${responseId}`);
         } else {
             console.log("new deck could not be created");
