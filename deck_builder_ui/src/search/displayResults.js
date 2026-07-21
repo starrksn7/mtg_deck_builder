@@ -21,7 +21,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
-
+console.log(selectedCard)
    const handleCreateDeck = async () => {
         if (!deckName || !selectedCard) return;
         
@@ -44,11 +44,12 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             //straight to the deck
             const partner = cardObject.keywords.includes("Partner")
             //Need to change this to check for Choose a Background in the oracle text
-            const background = cardObject.keywords.includes("Background")
+            const background = cardObject.keywords.includes("Choose a background")
             //Need to verify if this is a keyword or part of the oractle text
-            const friends = cardObject.keywords.includes("Friends Forever")
+            //Need to check for this one first in an if/else
+            const friends = cardObject.oraclText.includes("Friends forever")
             //Need to change this to check for the creature type of Time lord doctor
-            const companion = cardObject.keywords.includes("Doctor's Companion")
+            const companion = cardObject.type_line.includes("Time Lord Doctor")
             navigate(`/decks/${responseId}`);
         } else {
             console.log("new deck could not be created");
