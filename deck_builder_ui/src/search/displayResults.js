@@ -39,18 +39,24 @@ console.log(selectedCard)
             setDeckName('');
             setSelectedCard(null);
 
-            //need to do a check here on the keywords for the card to determine the 
-            //mechanic, if needed and send them to a select partner page instead of routing them
-            //straight to the deck
             const partner = cardObject.keywords.includes("Partner")
-            //Need to change this to check for Choose a Background in the oracle text
             const background = cardObject.keywords.includes("Choose a background")
-            //Need to verify if this is a keyword or part of the oractle text
-            //Need to check for this one first in an if/else
+            //Need to check for this one first in an if/else due to it being worded as Partner-Friends forever
             const friends = cardObject.oraclText.includes("Friends forever")
-            //Need to change this to check for the creature type of Time lord doctor
             const companion = cardObject.type_line.includes("Time Lord Doctor")
-            navigate(`/decks/${responseId}`);
+            let keyword;
+
+            if (friends){
+                keyword = 'friends';
+            } else if (partner){
+                keyword = 'partner';
+            } else if (background){
+                keyword = 'background';
+            } else if (companion){
+                keyword = 'companion';
+            }
+
+            navigate(`/decks/${responseId}/${keyword}`);
         } else {
             console.log("new deck could not be created");
         }
