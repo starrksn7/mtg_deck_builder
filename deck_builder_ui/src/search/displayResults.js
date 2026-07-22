@@ -56,7 +56,12 @@ console.log(selectedCard)
                 keyword = 'companion';
             }
 
-            navigate(`/decks/${responseId}/${keyword}`);
+            if (friends || partner || background || companion){
+                navigate(`/decks/${responseId}/${keyword}`);
+            } else {
+                navigate(`/decks/${responseId}`);
+            }
+            
         } else {
             console.log("new deck could not be created");
         }
