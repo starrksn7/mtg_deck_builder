@@ -1,9 +1,11 @@
 import api from "../api/axios"
 import { useParams, useState } from "react-router-dom"
+import { Loader } from "../search/loader";
 
 export const PartnerSelect = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [optionsNotFound, setOptionsNotFound] = useState(false);
+    const [cardList, setCardList] = useState([]);
 
     const { deckId, keyword } = useParams();
 
@@ -17,6 +19,9 @@ export const PartnerSelect = () => {
                     setLoading(true);
 
                     const res = await api.post(`/cards?keyword=${keyword}`)
+
+                    const resultsArray = response.data.map(entry => JSON.parse(entry));
+                    setCardList(resultsArray);
                     
 
                 } catch (e) {
@@ -29,4 +34,10 @@ export const PartnerSelect = () => {
 
             fetchDeck();
         }, [deckId]);
+
+    return (
+        <div>
+            {isLoading && <Loader />}
+        </div>
+    )
 }

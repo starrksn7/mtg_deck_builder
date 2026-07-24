@@ -21,7 +21,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         if(res) console.log("added card to deck. Need to find a better notification than this")
         else console.log("Couldn't add the card to deck, for some reason")
    }
-console.log(selectedCard)
+   
    const handleCreateDeck = async () => {
         if (!deckName || !selectedCard) return;
         
