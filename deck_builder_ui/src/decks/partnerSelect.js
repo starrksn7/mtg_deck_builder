@@ -1,11 +1,15 @@
 import api from "../api/axios"
-import { useParams, useState } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Loader } from "../search/loader";
+import { useState, useEffect } from "react";
 
 export const PartnerSelect = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [optionsNotFound, setOptionsNotFound] = useState(false);
     const [cardList, setCardList] = useState([]);
+    console.log("XXXXXXXXXXXXX")
+    console.log(cardList)
+    console.log("XXXXXXXXXXXXX")
 
     const { deckId, keyword } = useParams();
 
@@ -16,11 +20,11 @@ export const PartnerSelect = () => {
         useEffect(() => {
             const getOptions = async () => {
                 try {
-                    setLoading(true);
+                    setIsLoading(true);
 
                     const res = await api.post(`/cards?keyword=${keyword}`)
 
-                    const resultsArray = response.data.map(entry => JSON.parse(entry));
+                    const resultsArray = res.data.map(entry => JSON.parse(entry));
                     setCardList(resultsArray);
                     
 
@@ -28,11 +32,11 @@ export const PartnerSelect = () => {
                     console.log("could not retrieve partner options", e);
                     optionsNotFound(true);
                 } finally {
-                    setLoading(false);
+                    setIsLoading(false);
                 }
             };
 
-            fetchDeck();
+            getOptions();
         }, [deckId]);
 
     return (
