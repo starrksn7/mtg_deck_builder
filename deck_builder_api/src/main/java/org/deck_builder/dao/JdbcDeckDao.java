@@ -25,7 +25,7 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public int createDeck(int userId, String deckName, CardSearchDTO cardDto){
-        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity, banner_image) VALUES (?, ?, ?, ?) RETURNING deck_id;";
+        String deckInsert = "INSERT INTO decks (deck_name, commander, is_partner, color_identity, banner_image) VALUES (?, ?, ?, ?, ?) RETURNING deck_id;";
         int deckId = jdbcTemplate.queryForObject(deckInsert, new Object[]{deckName, cardDto.getName(), cardDto.getIsPartner(), cardDto.getColorIdentity(), cardDto.getFullArtLink()},
         Integer.class);
         String userDeckMap = "INSERT INTO users_decks (user_id, deck_id) VALUES (?, ?);";

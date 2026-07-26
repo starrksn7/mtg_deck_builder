@@ -143,7 +143,7 @@ export const colorIdentityCheck = (cardList) => {
 export const createCardObject = (card) => {
     let colorIdentity = card.color_identity;
     let keyword = card.keywords
-
+    console.log(card)
     if (typeof colorIdentity === 'string') {
         colorIdentity = colorIdentity
             .replace(/\[|\]/g, '')
@@ -159,11 +159,11 @@ export const createCardObject = (card) => {
     }
 
     return {
-        scryfallId: card.scryfallId,
+        scryfallId: card.scryfall_id,
         name: card.name,
-        scryfallURL: card.scryfall_url,
-        imageLink: card.image_link,
-        type: card.type,
+        scryfallURL: card.scryfall_uri,
+        imageLink: card.image_uris,
+        type: card.type_line,
         oracleText: card.oracle_text,
         manaCost: card.mana_cost,
         colors: card.colors,

@@ -26,7 +26,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         if (!deckName || !selectedCard) return;
         
         const cardObject = createCardObject(selectedCard);
-
+        console.log(cardObject)
         const res = await api.post('/decks/create', { 
             userId: userId, 
             deckName, 
@@ -39,11 +39,11 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             setDeckName('');
             setSelectedCard(null);
 
-            const partner = cardObject.keywords.includes("Partner")
-            const background = cardObject.keywords.includes("Choose a background")
+            const partner = cardObject.keyword.includes("Partner")
+            const background = cardObject.keyword.includes("Choose a background")
             //Need to check for this one first in an if/else due to it being worded as Partner-Friends forever
-            const friends = cardObject.oraclText.includes("Friends forever")
-            const companion = cardObject.type_line.includes("Time Lord Doctor")
+            const friends = cardObject.oracleText.includes("Friends forever")
+            const companion = cardObject.type.includes("Time Lord Doctor")
             let keyword;
 
             if (friends){
