@@ -4,6 +4,7 @@ import { Loader } from "../search/loader";
 import { useState, useEffect } from "react";
 
 export const PartnerSelect = () => {
+    //once a partner is selected I need to make sure I update the deck information with the partnerId and the colorIdentity
     const [isLoading, setIsLoading] = useState(false);
     const [optionsNotFound, setOptionsNotFound] = useState(false);
     const [cardList, setCardList] = useState([]);
@@ -13,31 +14,27 @@ export const PartnerSelect = () => {
 
     const { deckId, keyword } = useParams();
 
-    const getOptions =  async () => {
-        
-    }
+    useEffect(() => {
+        const getOptions = async () => {
+            try {
+                setIsLoading(true);
 
-        useEffect(() => {
-            const getOptions = async () => {
-                try {
-                    setIsLoading(true);
+                const res = await api.post(`/cards?keyword=${keyword}`)
 
-                    const res = await api.post(`/cards?keyword=${keyword}`)
+                const resultsArray = res.data.map(entry => JSON.parse(entry));
+                setCardList(resultsArray);
+                
 
-                    const resultsArray = res.data.map(entry => JSON.parse(entry));
-                    setCardList(resultsArray);
-                    
+            } catch (e) {
+                console.log("could not retrieve partner options", e);
+                optionsNotFound(true);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-                } catch (e) {
-                    console.log("could not retrieve partner options", e);
-                    optionsNotFound(true);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-
-            getOptions();
-        }, [deckId]);
+        getOptions();
+    }, [deckId]);
 
     return (
         <div>

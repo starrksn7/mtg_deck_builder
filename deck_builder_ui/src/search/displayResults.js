@@ -13,19 +13,16 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const navigate = useNavigate();
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
-
-    const addToDeck = async (card) => {
-        let cardObject = createCardObject(card)
-        
-        const res = await api.post('/decks/add', { deckId: deckId, cardDto: cardObject})
-        if(res) console.log("added card to deck. Need to find a better notification than this")
-        else console.log("Couldn't add the card to deck, for some reason")
-   }
    
-   const handleCreateDeck = async () => {
+    const handleCreateDeck = async () => {
         if (!deckName || !selectedCard) return;
         
         const cardObject = createCardObject(selectedCard);
+        const partner = cardObject.keyword.includes("Partner")
+        const background = cardObject.keyword.includes("Choose a background")
+        const friends = cardObject.oracleText.includes("Friends forever")
+        const companion = cardObject.type.includes("Time Lord Doctor")
+        if (friends || partner || background || companion) cardObject.isPartner = true;
         console.log(cardObject)
         const res = await api.post('/decks/create', { 
             userId: userId, 
@@ -39,13 +36,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             setDeckName('');
             setSelectedCard(null);
 
-            const partner = cardObject.keyword.includes("Partner")
-            const background = cardObject.keyword.includes("Choose a background")
-            //Need to check for this one first in an if/else due to it being worded as Partner-Friends forever
-            const friends = cardObject.oracleText.includes("Friends forever")
-            const companion = cardObject.type.includes("Time Lord Doctor")
             let keyword;
-
             if (friends){
                 keyword = 'friends';
             } else if (partner){
