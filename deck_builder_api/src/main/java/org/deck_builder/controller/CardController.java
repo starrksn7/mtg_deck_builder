@@ -57,7 +57,7 @@ public class CardController {
     public List<String> findCommanderByColors(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException {
         return cardService.findCommanderByColors(jsonBody.getColors());
     }
-    @GetMapping(path="/getPartner")
+    @GetMapping(path="")
     public List<String> findPartnerOptions(@RequestParam String keyword) throws IOException {
         return cardService.getPartnerOptions(keyword);
     }

@@ -18,16 +18,14 @@ export const PartnerSelect = () => {
         const getOptions = async () => {
             try {
                 setIsLoading(true);
-
-                const res = await api.post(`/cards?keyword=${keyword}`)
+                const res = await api.get(`/card?keyword=${keyword}`)
 
                 const resultsArray = res.data.map(entry => JSON.parse(entry));
                 setCardList(resultsArray);
-                
 
             } catch (e) {
                 console.log("could not retrieve partner options", e);
-                optionsNotFound(true);
+                setOptionsNotFound(true);
             } finally {
                 setIsLoading(false);
             }

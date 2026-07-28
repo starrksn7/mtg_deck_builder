@@ -21,7 +21,7 @@ function App() {
           <Route path="/create" element={<CreateDeck />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="decks/:deckId/partner" element={<PartnerSelect />} />
+          <Route path="decks/:deckId/:keyword" element={<PartnerSelect />} />
         </Routes>
       </div>
     </AuthProvider>
