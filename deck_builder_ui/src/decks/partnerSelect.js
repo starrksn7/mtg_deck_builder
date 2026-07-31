@@ -38,33 +38,14 @@ export const PartnerSelect = () => {
     return (
         <div>
             {isLoading && <Loader />}
-
-            <div className="results-grid">
-                {cardList.map((card) => (
-                    <div className="result-row">
-                        <img src={card.fullArtLink} alt={card.name} />
-                        <div className="content">
-                            <div className="top">
-                                <div className="name">{card.name}</div>
-                                <div 
-                                    className="mana"
-                                    dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} 
-                                />
-                                <div className="type">{card.type}</div>
-                            </div>
-                            <div 
-                                className="oracle"
-                                dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} 
-                            />
-                        </div>
-                        <button className="action" onClick={() => {
-                                setSelectedCard(card);
-                                }}>
-                                Set As {keyword}
-                        </button>
-                    </div>
-                ))}
-            </div>
+            <SearchResultsList
+                searchResults={searchResults}
+                actionLabel="Set As Partner"
+                onAction={(card) => {
+                    setSelectedCard(card);
+                    setShowModal(true);
+                }}
+            />
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { replaceTextWithManaSymbols, createCardObject } from "../helperFunctions
 import { useLocation, useNavigate } from "react-router-dom"
 import '../css/createModal.css'
 import api from "../api/axios"
+import { SearchResultsList } from "./searchResultsList"
 
 export const DisplayResults = ({searchResults, setIsError}) => {
     const location = useLocation();
@@ -106,32 +107,14 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                         </div>
                     </div>
                 )}
-                <div className="results-grid">
-                    {searchResults.map((card) => (
-                        <div className="result-row">
-                            <img src={card.fullArtLink} alt={card.name} />
-                            <div className="content">
-                                <div className="top">
-                                    <div className="name">{card.name}</div>
-                                    <div 
-                                        className="mana"
-                                        dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.mana_cost) }} 
-                                    />
-                                    <div className="type">{card.type}</div>
-                                </div>
-                                <div 
-                                    className="oracle"
-                                    dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(card.oracle_text) }} 
-                                />
-                            </div>
-                            <button className="action" onClick={() => {
-                                    setSelectedCard(card);
-                                    setShowModal(true);}}>
-                                        Set As Commander
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                <SearchResultsList
+                    searchResults={searchResults}
+                    actionLabel="Set As Commander"
+                    onAction={(card) => {
+                        setSelectedCard(card);
+                        setShowModal(true);
+                    }}
+                />
             </>
         );
     }
