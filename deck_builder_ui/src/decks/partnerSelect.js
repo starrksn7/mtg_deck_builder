@@ -2,6 +2,7 @@ import api from "../api/axios"
 import { useParams } from "react-router-dom"
 import { Loader } from "../search/loader";
 import { useState, useEffect } from "react";
+import { SearchResultsList } from "../search/searchResultsList";
 
 export const PartnerSelect = () => {
     //once a partner is selected I need to make sure I update the deck information with the partnerId and the colorIdentity
@@ -9,6 +10,7 @@ export const PartnerSelect = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [optionsNotFound, setOptionsNotFound] = useState(false);
     const [cardList, setCardList] = useState([]);
+    const [selectedCard, setSelectedCard] = useState('');
     console.log("XXXXXXXXXXXXX")
     console.log(cardList)
     console.log("XXXXXXXXXXXXX")
@@ -39,11 +41,10 @@ export const PartnerSelect = () => {
         <div>
             {isLoading && <Loader />}
             <SearchResultsList
-                searchResults={searchResults}
+                searchResults={cardList}
                 actionLabel="Set As Partner"
                 onAction={(card) => {
                     setSelectedCard(card);
-                    setShowModal(true);
                 }}
             />
         </div>

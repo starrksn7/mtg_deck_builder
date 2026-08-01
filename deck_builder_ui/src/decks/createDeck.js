@@ -74,7 +74,9 @@ export function CreateDeck(){
                     <span>Search by Color Identity</span>
                     <CascadingDropdown onColorSelect={handleDropdownSelection} />
                 </div>
-            </div>
+            </div> 
+
+            {isError && <div> No results found for that search term</div>}
 
             {isLoading && <Loader />}
 

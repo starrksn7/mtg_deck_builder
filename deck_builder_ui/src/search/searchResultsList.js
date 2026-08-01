@@ -1,4 +1,4 @@
-import { SearchResultCard } from "./SearchResultCard";
+import { SearchResultCard } from "./searchResultsCard";
 
 export const SearchResultsList = ({
   searchResults,
