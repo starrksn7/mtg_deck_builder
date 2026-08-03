@@ -1,5 +1,5 @@
 import api from "../api/axios"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { Loader } from "../search/loader";
 import { useState, useEffect } from "react";
 import { SearchResultsList } from "../search/searchResultsList";
@@ -11,11 +11,15 @@ export const PartnerSelect = () => {
     const [optionsNotFound, setOptionsNotFound] = useState(false);
     const [cardList, setCardList] = useState([]);
     const [selectedCard, setSelectedCard] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
     console.log("XXXXXXXXXXXXX")
     console.log(cardList)
     console.log("XXXXXXXXXXXXX")
 
     const { deckId, keyword } = useParams();
+    //need to consider how to handle 'partner with' since it's a specific option
+    //maybe just add it to the deck info automatically?
 
     useEffect(() => {
         const getOptions = async () => {
@@ -37,6 +41,15 @@ export const PartnerSelect = () => {
         getOptions();
     }, [deckId]);
 
+    const handleSetPartner = (card) => {
+        setShowModal(false)
+        //need to update the deck with partner information
+
+        //need to add the card to the deck as well
+
+        navigate(`/decks/${deckId}`)
+    }
+
     return (
         <div>
             {isLoading && <Loader />}
@@ -45,6 +58,7 @@ export const PartnerSelect = () => {
                 actionLabel="Set As Partner"
                 onAction={(card) => {
                     setSelectedCard(card);
+                    setShowModal(card);
                 }}
             />
         </div>
