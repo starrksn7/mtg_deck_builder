@@ -41,11 +41,28 @@ export const PartnerSelect = () => {
         getOptions();
     }, [deckId]);
 
-    const handleSetPartner = (card) => {
+    const handleSetPartner = async (card) => {
         setShowModal(false)
         //need to update the deck with partner information
+        const requestBody = {
+            deckId,
+            deckName, // need to figure out how to get the deckname, since other things are coming in params
+            bannerImage: selectedBannerImage, //same for this
+            isPartner: true,
+            partnerColorIdentity: card.colorIdentity,
+            partnerId: card.scryfallId,
+            commander: commander.name, //this as well
+        };
+
+        const deckUpdateResponse = await api.put('/decks/update', requestBody);
 
         //need to add the card to the deck as well
+        const cardSearchDTO = { 
+            deckId,
+            identifiers: [{name: card.name}]
+        }
+
+        const addCardResponse = await api.post('/decks/addCollection', cardSearchDTO)
 
         navigate(`/decks/${deckId}`)
     }
