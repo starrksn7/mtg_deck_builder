@@ -13,6 +13,7 @@ export const PartnerSelect = () => {
     const [selectedCard, setSelectedCard] = useState('');
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const [deckMetaData, setDeckMetaData] = useState('');
     console.log("XXXXXXXXXXXXX")
     console.log(cardList)
     console.log("XXXXXXXXXXXXX")
@@ -22,7 +23,7 @@ export const PartnerSelect = () => {
     //maybe just add it to the deck info automatically?
 
     useEffect(() => {
-        const getOptions = async () => {
+        const getPartnerOptions = async () => {
             try {
                 setIsLoading(true);
                 const res = await api.get(`/card?keyword=${keyword}`)
@@ -38,7 +39,13 @@ export const PartnerSelect = () => {
             }
         };
 
-        getOptions();
+        const loadDeckData = async () => {
+            const res = await api.get(`/decks?deckId=${deckId}`);
+            setDeck(res.data.metaData);
+        };
+
+        getPartnerOptions();
+        loadDeckData();
     }, [deckId]);
 
     const handleSetPartner = async (card) => {
@@ -46,12 +53,12 @@ export const PartnerSelect = () => {
         //need to update the deck with partner information
         const requestBody = {
             deckId,
-            deckName, // need to figure out how to get the deckname, since other things are coming in params
-            bannerImage: selectedBannerImage, //same for this
+            deckName: deckMetaData.deckName,
+            bannerImage: deckMetaData.bannerImage,
             isPartner: true,
             partnerColorIdentity: card.colorIdentity,
             partnerId: card.scryfallId,
-            commander: commander.name, //this as well
+            commander: deckMetaData.commander
         };
 
         const deckUpdateResponse = await api.put('/decks/update', requestBody);

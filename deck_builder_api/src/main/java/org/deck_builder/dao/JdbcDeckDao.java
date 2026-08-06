@@ -188,7 +188,7 @@ public class JdbcDeckDao implements DeckDao{
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
-
+    //Need to add deck name to this, as well as the commander
     public DeckUpdateDTO getDeckMetadata(int deckId) {
         String getBannerImageSql = "SELECT banner_image, is_partner, partner_id, partner_color_identity" +
                 " FROM decks WHERE deck_id = ?;";
