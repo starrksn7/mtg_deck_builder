@@ -54,11 +54,12 @@ export const PartnerSelect = () => {
         const requestBody = {
             deckId,
             deckName: deckMetaData.deckName,
-            bannerImage: deckMetaData.bannerImage,
+            commander: deckMetaData.commander,
             isPartner: true,
-            partnerColorIdentity: card.colorIdentity,
+            colorIdentity: "",//need to create a method to combine the array/object with the string from the get
+            bannerImage: deckMetaData.bannerImage,
             partnerId: card.scryfallId,
-            commander: deckMetaData.commander
+            partnerColorIdentity: card.colorIdentity
         };
 
         const deckUpdateResponse = await api.put('/decks/update', requestBody);

@@ -152,13 +152,14 @@ public class JdbcDeckDao implements DeckDao{
                 "commander = ?, " +
                 "is_partner = ?, " +
                 "banner_image = ?, " +
+                "color_identity = ?, " +
                 "partner_id = ?, " +
                 "partner_color_identity = ? " +
                 "WHERE deck_id = ?;";
 
         try {
             if(jdbcTemplate.update(sql, deckUpdate.getDeckName(), deckUpdate.getCommander(), deckUpdate.getIsPartner(),
-                    deckUpdate.getBannerImage(), deckUpdate.getPartnerId(),
+                    deckUpdate.getBannerImage(), deckUpdate.getColorIdentity(), deckUpdate.getPartnerId(),
                     deckUpdate.getPartnerColorIdentity(), deckUpdate.getDeckId()) == 1){
                 return true;
             } else {
@@ -188,17 +189,18 @@ public class JdbcDeckDao implements DeckDao{
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
-    //Need to add deck name to this, as well as the commander
     public DeckUpdateDTO getDeckMetadata(int deckId) {
-        String getBannerImageSql = "SELECT banner_image, is_partner, partner_id, partner_color_identity" +
-                " FROM decks WHERE deck_id = ?;";
+        String getBannerImageSql = "SELECT * FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
         if (row.next()){
             DeckUpdateDTO dto = new DeckUpdateDTO();
-            dto.setBannerImage(row.getString("banner_image"));
+            dto.setDeckName(row.getString("deck_name"));
+            dto.setCommander(row.getString("commander"));
             dto.setIsPartner(row.getBoolean("is_partner"));
-            dto.setPartnerColorIdentity(row.getString("partner_color_identity"));
+            dto.setColorIdentity(row.getString("color_identity"));
+            dto.setBannerImage(row.getString("banner_image"));
             dto.setPartnerId(row.getString("partner_id"));
+            dto.setPartnerColorIdentity(row.getString("partner_color_identity"));
             return dto;
         }
         return null;
