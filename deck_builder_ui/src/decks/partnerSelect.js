@@ -14,9 +14,6 @@ export const PartnerSelect = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [deckMetaData, setDeckMetaData] = useState('');
-    console.log("XXXXXXXXXXXXX")
-    console.log(cardList)
-    console.log("XXXXXXXXXXXXX")
 
     const { deckId, keyword } = useParams();
     //need to consider how to handle 'partner with' since it's a specific option
@@ -41,7 +38,7 @@ export const PartnerSelect = () => {
 
         const loadDeckData = async () => {
             const res = await api.get(`/decks?deckId=${deckId}`);
-            setDeck(res.data.metaData);
+            setDeckMetaData(res.data.metadata);
         };
 
         getPartnerOptions();
@@ -51,12 +48,14 @@ export const PartnerSelect = () => {
     const handleSetPartner = async (card) => {
         setShowModal(false)
         //need to update the deck with partner information
+        const partnerColorIdentity = card.colorIdentity.match(/[A-Za-z0-9]+/g) || [];
+        const combinedColorIdentity = [...new Set([...deckMetaData.colorIdentity, ...partnerColorIdentity])];
         const requestBody = {
             deckId,
             deckName: deckMetaData.deckName,
             commander: deckMetaData.commander,
             isPartner: true,
-            colorIdentity: "",//need to create a method to combine the array/object with the string from the get
+            colorIdentity: combinedColorIdentity,
             bannerImage: deckMetaData.bannerImage,
             partnerId: card.scryfallId,
             partnerColorIdentity: card.colorIdentity
