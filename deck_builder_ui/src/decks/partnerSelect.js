@@ -75,16 +75,19 @@ export const PartnerSelect = () => {
     }
 
     return (
-        <div>
+        <div className="create-deck-page">
+            <h1 className="page-title">Select A Partner</h1>
             {isLoading && <Loader />}
-            <SearchResultsList
-                searchResults={cardList}
-                actionLabel="Set As Partner"
-                onAction={(card) => {
-                    setSelectedCard(card);
-                    setShowModal(card);
-                }}
-            />
+            <div className="results-section">
+                <SearchResultsList
+                    searchResults={cardList}
+                    actionLabel="Set As Partner"
+                    onAction={(card) => {
+                        setSelectedCard(card);
+                        setShowModal(card);
+                    }}
+                />
+            </div>
         </div>
     )
 }
