@@ -46,9 +46,12 @@ export const PartnerSelect = () => {
     }, [deckId]);
 
     const handleSetPartner = async (card) => {
+        console.log("XXXXXXX")
+        console.log(card)
+        console.log("XXXXXXX")
         setShowModal(false)
-        //need to update the deck with partner information
-        const partnerColorIdentity = card.colorIdentity.match(/[A-Za-z0-9]+/g) || [];
+        //this is to update the deck metadata with info about the selected partner
+        const partnerColorIdentity = card.color_identity.match(/[A-Za-z0-9]+/g) || [];
         const combinedColorIdentity = [...new Set([...deckMetaData.colorIdentity, ...partnerColorIdentity])];
         const requestBody = {
             deckId,
@@ -63,7 +66,7 @@ export const PartnerSelect = () => {
 
         const deckUpdateResponse = await api.put('/decks/update', requestBody);
 
-        //need to add the card to the deck as well
+        //this is to add the card to the deck
         const cardSearchDTO = { 
             deckId,
             identifiers: [{name: card.name}]
@@ -75,19 +78,51 @@ export const PartnerSelect = () => {
     }
 
     return (
-        <div className="create-deck-page">
-            <h1 className="page-title">Select A Partner</h1>
-            {isLoading && <Loader />}
-            <div className="results-section">
-                <SearchResultsList
-                    searchResults={cardList}
-                    actionLabel="Set As Partner"
-                    onAction={(card) => {
-                        setSelectedCard(card);
-                        setShowModal(card);
-                    }}
-                />
+        <>
+            {showModal && (
+                <div className="create-modal" onClick={() => setShowModal(false)}>
+                    <div 
+                    className="create-modal-content"
+                    onClick={(e) => e.stopPropagation()}
+                    >
+                        <button 
+                            className="modal-close"
+                            onClick={() => setShowModal(false)}
+                        >
+                            ×
+                        </button>
+                        <h3>Set {selectedCard.name} as a {keyword}?</h3>
+                        <div className="create-modal-buttons">
+                            <button 
+                                className="create-button" 
+                                onClick={handleSetPartner}
+                                >
+                                Create Deck
+                            </button>
+                            <button 
+                                className="create-cancel-button" 
+                                onClick={() => setShowModal(false)}
+                                >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <div className="create-deck-page">
+                <h1 className="page-title">Select A Partner</h1>
+                {isLoading && <Loader />}
+                <div className="results-section">
+                    <SearchResultsList
+                        searchResults={cardList}
+                        actionLabel="Set As Partner"
+                        onAction={(card) => {
+                            setSelectedCard(card);
+                            setShowModal(card);
+                        }}
+                    />
+                </div>
             </div>
-        </div>
+        </>
     )
 }
