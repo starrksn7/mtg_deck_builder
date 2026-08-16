@@ -20,18 +20,8 @@ public class DeckBuilderApplication {
  *    a. while I'm at it, increase the height of the banner commander image to better fit the size
  * 3. Need to figure out a way to incorporate partner/background/friends forever and all that similar stuff into
  *    the results search for a commander
- *    a. background cards already show up in the search
- *    b. partner does the same thing
- *    c. Possible plan:
- *       i. When commander with partner is selected, offer a list of possible partners for it
- *          a. need to add a route to specifically get partner and partner like options options
- *          b. need to add a modal or new page to select the partner, background, friends forever, etc. option
- *          c. Also, need to create a route to call scryfall and get the options that coincide with this keyword in the
- *             chosen commander
- *      ii. Save to the database an id for the partner and a color identity for the partner
- *     iii. combine the two when checking in the ui, when a partner is chosen
- *      iv. I have added the is_partner, partner_id, and partner color identity values to the database
- *          and am sending them to the ui for this
+ *    a. This is working, but needs further testing.
+ *       i. Need to workout more specific partner options like partner with, partner - survivor
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
  *    edge case?
  * 5. The results when creating a deck kind of run together instead of appearing on a new line. This makes it harder

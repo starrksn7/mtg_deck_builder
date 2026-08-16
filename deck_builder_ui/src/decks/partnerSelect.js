@@ -45,23 +45,21 @@ export const PartnerSelect = () => {
         loadDeckData();
     }, [deckId]);
 
-    const handleSetPartner = async (card) => {
-        console.log("XXXXXXX")
-        console.log(card)
-        console.log("XXXXXXX")
+    const handleSetPartner = async () => {
         setShowModal(false)
         //this is to update the deck metadata with info about the selected partner
-        const partnerColorIdentity = card.color_identity.match(/[A-Za-z0-9]+/g) || [];
+        // const partnerColorIdentity = card.color_identity.match(/[A-Za-z0-9]+/g) || [];
+        const partnerColorIdentity = selectedCard.color_identity;
         const combinedColorIdentity = [...new Set([...deckMetaData.colorIdentity, ...partnerColorIdentity])];
         const requestBody = {
             deckId,
             deckName: deckMetaData.deckName,
             commander: deckMetaData.commander,
             isPartner: true,
-            colorIdentity: combinedColorIdentity,
+            colorIdentity: combinedColorIdentity.toString(),
             bannerImage: deckMetaData.bannerImage,
-            partnerId: card.scryfallId,
-            partnerColorIdentity: card.colorIdentity
+            partnerId: selectedCard.scryfallId,
+            partnerColorIdentity: selectedCard.colorIdentity
         };
 
         const deckUpdateResponse = await api.put('/decks/update', requestBody);
@@ -69,7 +67,7 @@ export const PartnerSelect = () => {
         //this is to add the card to the deck
         const cardSearchDTO = { 
             deckId,
-            identifiers: [{name: card.name}]
+            identifiers: [{name: selectedCard.name}]
         }
 
         const addCardResponse = await api.post('/decks/addCollection', cardSearchDTO)
