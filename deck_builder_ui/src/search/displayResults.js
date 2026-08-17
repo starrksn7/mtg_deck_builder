@@ -14,6 +14,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
    
+    console.log(searchResults)
     const handleCreateDeck = async () => {
         if (!deckName || !selectedCard) return;
         
@@ -22,6 +23,13 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         const background = cardObject.keyword.includes("Choose a background")
         const friends = cardObject.oracleText.includes("Friends forever")
         const companion = cardObject.type.includes("Time Lord Doctor")
+        const partnerWith = cardObject.keyword.includes("Partner With")
+        const partnerName = cardObject.oracleText.match(/^Partner with (.*?) /);
+
+        //Need to call a get on scryfall to get the information fort he partnerName value
+        //then add that to the cardObject, then send that to the create endpoint, then 
+        //route them to the deck page instead of the page to pick a partner
+         
         if (friends || partner || background || companion) cardObject.isPartner = true;
         console.log(cardObject)
         const res = await api.post('/decks/create', { 
@@ -47,7 +55,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 keyword = 'companion';
             }
 
-            if (friends || partner || background || companion){
+            if (friends || partner || background || companion || partnerWith){
                 navigate(`/decks/${responseId}/${keyword}`);
             } else {
                 navigate(`/decks/${responseId}`);
