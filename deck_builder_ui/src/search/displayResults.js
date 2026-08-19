@@ -29,7 +29,17 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         //Need to call a get on scryfall to get the information fort he partnerName value
         //then add that to the cardObject, then send that to the create endpoint, then 
         //route them to the deck page instead of the page to pick a partner
-         
+        let partnerInfo;
+        if (partnerName) {
+            const cardSearchDTO = { name: partnerName };
+            partnerInfo = await api.post('cards/searchByName', {
+                cardSearchDTO
+            })
+
+            cardObject.isPartner = true;
+            cardObject.partnerId = partnerInfo.scryfallId;
+            cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
+        } 
         if (friends || partner || background || companion) cardObject.isPartner = true;
         console.log(cardObject)
         const res = await api.post('/decks/create', { 
