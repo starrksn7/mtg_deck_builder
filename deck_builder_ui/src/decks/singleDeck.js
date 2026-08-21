@@ -34,6 +34,7 @@ export function SingleDeck() {
     const [isPartner, setIsPartner] = useState(false);
     const [partnerColorIdentity, setPartnerColorIdentity] = useState('');
     const [partnerId, setPartnerId] = useState('');
+    const [hasRulebreaker, setHasRulebreaker] = useState(false)
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -75,7 +76,12 @@ export function SingleDeck() {
             return sum + card.quantity;
         }, 0)
     })
+
+    useEffect(() => {
+        if (commander) setHasRulebreaker(commander.keywords.includes('Rulebreaker'));
+    }, [commander])
     
+
     const renderOrder = [
     'Commander',
     'Creatures',
@@ -332,7 +338,7 @@ export function SingleDeck() {
                             ))}
                         </div>
                     )}
-                    {mismatchedArray.length > 0 && (
+                    {hasRulebreaker && mismatchedArray.length > 0 && (
                         <div className="deck-error">
                             <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
                             {mismatchedArray.map((item, i) => (
