@@ -29,24 +29,48 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         //Need to call a get on scryfall to get the information fort he partnerName value
         //then add that to the cardObject, then send that to the create endpoint, then 
         //route them to the deck page instead of the page to pick a partner
-        let partnerInfo;
-        if (partnerName) {
-            const cardSearchDTO = { name: partnerName };
-            partnerInfo = await api.post('cards/searchByName', {
-                cardSearchDTO
-            })
-
-            cardObject.isPartner = true;
-            cardObject.partnerId = partnerInfo.scryfallId;
-            cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
-        } 
-        if (friends || partner || background || companion) cardObject.isPartner = true;
+        if (friends || partner || background || companion || partnerWith) cardObject.isPartner = true;
         console.log(cardObject)
         const res = await api.post('/decks/create', { 
             userId: userId, 
             deckName, 
             cardDTO: cardObject
         });
+
+        let partnerInfo;
+        if (partnerName) {
+            //can probably break this out into a separate function later, since this is duplicated from the partner select
+            const cardSearchDTO = { name: partnerName };
+            const partnerInfo = await api.post('cards/searchByName', {
+                cardSearchDTO
+            })
+
+            cardObject.partnerId = partnerInfo.scryfallId;
+            cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
+
+            const partnerColorIdentity = selectedCard.color_identity;
+            const combinedColorIdentity = [...new Set([...cardObject.colorIdentity, ...partnerColorIdentity])];
+            const requestBody = {
+                deckId,
+                deckName: deckName,
+                commander: cardObject.name,
+                isPartner: true,
+                colorIdentity: combinedColorIdentity.toString(),
+                bannerImage: cardObject.fullArtLink,
+                partnerId: partnerInfo.scryfallId,
+                partnerColorIdentity: partnerInfo.colorIdentity
+            };
+
+            const deckUpdateResponse = await api.put('/decks/update', requestBody);
+
+            //this is to add the card to the deck
+            const cardSearchDTO = { 
+                deckId,
+                identifiers: [{name: selectedCard.name}]
+            }
+
+            const addCardResponse = await api.post('/decks/addCollection', cardSearchDTO)
+        } 
 
         if (res) {
             const responseId = res?.data;
@@ -65,7 +89,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 keyword = 'companion';
             }
 
-            if (friends || partner || background || companion || partnerWith){
+            if (friends || partner || background || companion){
                 navigate(`/decks/${responseId}/${keyword}`);
             } else {
                 navigate(`/decks/${responseId}`);
