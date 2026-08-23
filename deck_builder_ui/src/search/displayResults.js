@@ -30,7 +30,6 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         //then add that to the cardObject, then send that to the create endpoint, then 
         //route them to the deck page instead of the page to pick a partner
         if (friends || partner || background || companion || partnerWith) cardObject.isPartner = true;
-        console.log(cardObject)
         const res = await api.post('/decks/create', { 
             userId: userId, 
             deckName, 
@@ -64,12 +63,12 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             const deckUpdateResponse = await api.put('/decks/update', requestBody);
 
             //this is to add the card to the deck
-            const cardSearchDTO = { 
+            const collectionDTO = { 
                 deckId,
                 identifiers: [{name: selectedCard.name}]
             }
 
-            const addCardResponse = await api.post('/decks/addCollection', cardSearchDTO)
+            const addCardResponse = await api.post('/decks/addCollection', collectionDTO)
         } 
 
         if (res) {

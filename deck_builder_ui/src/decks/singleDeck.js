@@ -15,6 +15,7 @@ import { BarChart } from '../charts/barChart';
 import { PieChart } from '../charts/pieChart';
 import { FiRefreshCw } from "react-icons/fi";
 import { Loader } from '../search/loader';
+import { SampleHand } from './sampleHand';
 
 export function SingleDeck() {
     const { deckId } = useParams();
@@ -34,7 +35,8 @@ export function SingleDeck() {
     const [isPartner, setIsPartner] = useState(false);
     const [partnerColorIdentity, setPartnerColorIdentity] = useState('');
     const [partnerId, setPartnerId] = useState('');
-    const [hasRulebreaker, setHasRulebreaker] = useState(false)
+    const [hasRulebreaker, setHasRulebreaker] = useState(false);
+    const [sampleHand, setSampleHand] = useState([]);
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -291,6 +293,21 @@ export function SingleDeck() {
         return <Loader />;
     }
 
+    const generateSampleHand = () => {
+        const listWithoutCommander = cardList.filter(card => card.name != commander.name)
+        //put all of the image links into an array so it totals 99
+        const the99 = listWithoutCommander.flatMap(card =>
+            Array(card.quantity).fill(card.imageLink)
+        );
+        //shuffle the order
+        for (let i = the99.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [the99[i], the99[j]] = [the99[j], the99[i]];
+        }
+        //get the first 7 cards
+        setSampleHand(the99.slice(0, 7));
+
+    }
     
     return (
         <div>
@@ -475,6 +492,13 @@ export function SingleDeck() {
                             );
                         })}
                     </div>
+                </div>
+                <div className="sample-hand-section">
+                    <h2>Test your opening hand</h2>
+                    <button onClick={generateSampleHand}>
+                        Draw Sample Hand
+                    </button>
+                    <SampleHand sampleHand={sampleHand}/>
                 </div>
             </div>
         </div>
