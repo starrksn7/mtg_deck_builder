@@ -37,6 +37,7 @@ export function SingleDeck() {
     const [partnerId, setPartnerId] = useState('');
     const [hasRulebreaker, setHasRulebreaker] = useState(false);
     const [sampleHand, setSampleHand] = useState([]);
+    const [colorIdentity, setColorIdentity] = useState('');
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -110,6 +111,7 @@ export function SingleDeck() {
                 setIsPartner(metadata.isPartner);
                 setPartnerColorIdentity(metadata.partnerColorIdentity);
                 setPartnerId(metadata.partnerId);
+                setColorIdentity(metadata.colorIdentity)
                 setDeckNotFound(false);
 
             } catch (e) {
@@ -236,11 +238,12 @@ export function SingleDeck() {
         const requestBody = {
             deckId,
             deckName,
-            bannerImage: selectedBannerImage,
-            isPartner,
-            partnerColorIdentity,
-            partnerId,
             commander: commander.name,
+            isPartner,
+            colorIdentity,
+            bannerImage: selectedBannerImage,
+            partnerId,
+            partnerColorIdentity,
         };
 
         try {
