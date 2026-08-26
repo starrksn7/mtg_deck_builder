@@ -16,6 +16,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
    
     console.log(searchResults)
     const handleCreateDeck = async () => {
+        console.log("creating deck")
         if (!deckName || !selectedCard) return;
         
         const cardObject = createCardObject(selectedCard);
@@ -35,12 +36,15 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             deckName, 
             cardDTO: cardObject
         });
+        const responseId = res?.data
 
         let partnerInfo;
         if (partnerName) {
+            console.log("partner name detected")
             //can probably break this out into a separate function later, since this is duplicated from the partner select
+            console.log(1)
             const cardSearchDTO = { name: partnerName };
-            const partnerInfo = await api.post('cards/searchByName', {
+            const partnerInfo = await api.post('/card/searchByName', {
                 cardSearchDTO
             })
 
@@ -59,20 +63,24 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 partnerId: partnerInfo.scryfallId,
                 partnerColorIdentity: partnerInfo.colorIdentity
             };
-
+            console.log(2)
             const deckUpdateResponse = await api.put('/decks/update', requestBody);
-
+            console.log('deckupdate response ')
+            console.log(deckUpdateResponse)
             //this is to add the card to the deck
             const collectionDTO = { 
                 deckId,
                 identifiers: [{name: selectedCard.name}]
             }
-
+            console.log(3)
             const addCardResponse = await api.post('/decks/addCollection', collectionDTO)
+            console.log("add card response")
+            console.log(addCardResponse)
+            
+            navigate(`/decks/${responseId}`);
         } 
 
         if (res) {
-            const responseId = res?.data;
             setShowModal(false);
             setDeckName('');
             setSelectedCard(null);

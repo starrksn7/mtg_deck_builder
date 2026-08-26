@@ -22,9 +22,12 @@ public class DeckBuilderApplication {
  *    the results search for a commander
  *    a. This is working, but needs further testing.
  *       i. Need to workout more specific partner options like partner with, partner - survivor
+ *    b. need to limit the partner selections to those with only 'partner' and not the other partner caveats like
+ *       sole survivor or
  * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
  *    edge case?
  * 5. The results when creating a deck kind of run together instead of appearing on a new line. This makes it harder
  *    to see what keywords/abilities each commander has
- *
+ * 6. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
+ *    I can use for this?
  */
