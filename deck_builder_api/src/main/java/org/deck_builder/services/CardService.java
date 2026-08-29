@@ -33,6 +33,7 @@ public class CardService {
 
     public List<String> searchForCardByName(CardSearchDTO cardSearchDTO) throws UnsupportedEncodingException {
         String name = cardSearchDTO.getName();
+        System.out.println("name = " + name);
         String encodedName = URLEncoder.encode(name, "UTF-8");
         String uri = scryfallUrl + "/cards/search?q=" + encodedName + commanderLegal + uniqueOnly ;
         try {

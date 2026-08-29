@@ -25,7 +25,8 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         const friends = cardObject.oracleText.includes("Friends forever")
         const companion = cardObject.type.includes("Time Lord Doctor")
         const partnerWith = cardObject.keyword.includes("Partner With")
-        const partnerName = cardObject.oracleText.match(/^Partner with (.*?) /);
+        const partnerName = cardObject.oracleText.match(/^Partner with (.*?) \(/);
+
 
         //Need to call a get on scryfall to get the information fort he partnerName value
         //then add that to the cardObject, then send that to the create endpoint, then 
@@ -41,12 +42,12 @@ export const DisplayResults = ({searchResults, setIsError}) => {
         let partnerInfo;
         if (partnerName) {
             console.log("partner name detected")
+            console.log("partnerName = ", partnerName[1]);
+
             //can probably break this out into a separate function later, since this is duplicated from the partner select
             console.log(1)
-            const cardSearchDTO = { name: partnerName };
-            const partnerInfo = await api.post('/card/searchByName', {
-                cardSearchDTO
-            })
+            // const cardSearchDTO = { name: partnerName };
+            const partnerInfo = await api.post('/card/searchByName', { name: partnerName[1] })
 
             cardObject.partnerId = partnerInfo.scryfallId;
             cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
