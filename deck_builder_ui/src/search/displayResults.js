@@ -41,13 +41,9 @@ export const DisplayResults = ({searchResults, setIsError}) => {
 
         let partnerInfo;
         if (partnerName) {
-            console.log("partner name detected")
-            console.log("partnerName = ", partnerName[1]);
-
-            //can probably break this out into a separate function later, since this is duplicated from the partner select
-            console.log(1)
-            // const cardSearchDTO = { name: partnerName };
             const partnerInfo = await api.post('/card/searchByName', { name: partnerName[1] })
+            console.log("parnter info")
+            console.log(partnerInfo)
 
             cardObject.partnerId = partnerInfo.scryfallId;
             cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
@@ -55,7 +51,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             const partnerColorIdentity = selectedCard.color_identity;
             const combinedColorIdentity = [...new Set([...cardObject.colorIdentity, ...partnerColorIdentity])];
             const requestBody = {
-                deckId,
+                deckId: responseId,
                 deckName: deckName,
                 commander: cardObject.name,
                 isPartner: true,
@@ -64,21 +60,16 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 partnerId: partnerInfo.scryfallId,
                 partnerColorIdentity: partnerInfo.colorIdentity
             };
-            console.log(2)
-            const deckUpdateResponse = await api.put('/decks/update', requestBody);
-            console.log('deckupdate response ')
-            console.log(deckUpdateResponse)
-            //this is to add the card to the deck
-            const collectionDTO = { 
-                deckId,
-                identifiers: [{name: selectedCard.name}]
-            }
-            console.log(3)
-            const addCardResponse = await api.post('/decks/addCollection', collectionDTO)
-            console.log("add card response")
-            console.log(addCardResponse)
             
+            const deckUpdateResponse = await api.put('/decks/update', requestBody);
+            const collectionDTO = { 
+                deckId: responseId,
+                identifiers: [{name: partnerName[1]}]
+            }
+
+            const addCardResponse = await api.post('/decks/addCollection', collectionDTO)
             navigate(`/decks/${responseId}`);
+            return;
         } 
 
         if (res) {
