@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { Loader } from "../search/loader";
 import { useState, useEffect } from "react";
 import { SearchResultsList } from "../search/searchResultsList";
+import { Pagination } from "../search/pagination";
 
 export const PartnerSelect = () => {
     //once a partner is selected I need to make sure I update the deck information with the partnerId and the colorIdentity
@@ -14,11 +15,17 @@ export const PartnerSelect = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [deckMetaData, setDeckMetaData] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage, setCardsPerPage] = useState(25);
+    const [isError, setIsError] = useState(false);
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const cardsDisplayed = cardList.slice(indexOfFirstCard, indexOfLastCard)
+
 
     const { deckId, keyword } = useParams();
-    //need to consider how to handle 'partner with' since it's a specific option
-    //maybe just add it to the deck info automatically?
 
+    console.log(cardList)
     useEffect(() => {
         const getPartnerOptions = async () => {
             try {
@@ -112,12 +119,20 @@ export const PartnerSelect = () => {
                 {isLoading && <Loader />}
                 <div className="results-section">
                     <SearchResultsList
-                        searchResults={cardList}
+                        searchResults={cardsDisplayed}
                         actionLabel="Set As Partner"
                         onAction={(card) => {
                             setSelectedCard(card);
                             setShowModal(card);
                         }}
+                    />
+
+                    <Pagination 
+                        cardsPerPage={cardsPerPage}
+                        totalResults={cardList.length}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        isError={isError}
                     />
                 </div>
             </div>

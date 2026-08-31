@@ -206,7 +206,7 @@ export function SingleDeck() {
         if (response.status === 200) {
             setCardsNotFound(response.data);
             const res = await api.get(`/decks?deckId=${deckId}`);
-            setCardList(res.data);
+            setCardList(res.data.deckData);
         }
 
         setLoading(false);

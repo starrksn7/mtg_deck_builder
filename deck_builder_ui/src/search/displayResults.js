@@ -14,7 +14,6 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
    
-    console.log(searchResults)
     const handleCreateDeck = async () => {
         console.log("creating deck")
         if (!deckName || !selectedCard) return;
@@ -61,13 +60,13 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 partnerColorIdentity: partnerInfo.colorIdentity
             };
             
-            const deckUpdateResponse = await api.put('/decks/update', requestBody);
+            await api.put('/decks/update', requestBody);
             const collectionDTO = { 
                 deckId: responseId,
                 identifiers: [{name: partnerName[1]}]
             }
 
-            const addCardResponse = await api.post('/decks/addCollection', collectionDTO)
+            await api.post('/decks/addCollection', collectionDTO)
             navigate(`/decks/${responseId}`);
             return;
         } 
