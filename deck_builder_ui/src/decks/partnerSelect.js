@@ -25,7 +25,6 @@ export const PartnerSelect = () => {
 
     const { deckId, keyword } = useParams();
 
-    console.log(cardList)
     useEffect(() => {
         const getPartnerOptions = async () => {
             try {

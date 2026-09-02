@@ -261,7 +261,6 @@ public class CardService {
     public boolean addCardToDb(Card card){ return cardDao.addCardToDb(card); }
 
     public List<String> getPartnerOptions(String partnerKeyword) throws IOException {
-        //need to fill in logic here, find the scryfall search for this
         List<String> searchResults = new ArrayList<>();
         if (partnerKeyword.equals("background")){
             String backgroundSearch = "/cards/search?q=type%3Abackground&unique=cards&as=grid&order=name";
@@ -281,20 +280,9 @@ public class CardService {
             searchResults = getCardsFromUri(fullUri);
         }
         List<String> parsedResults =  parseSearchResults(searchResults);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        parsedResults.removeIf(json -> {
-            JsonNode obj = null;
-            try {
-                obj = objectMapper.readTree(json);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-            String oracleText = obj.path("oracle_text").asText("");
-
-            return oracleText.contains("Partner- ")
-                    || oracleText.contains("Partner With");
-        });
+        if(partnerKeyword.equals("partner")){
+            parsedResults.removeIf(string -> string.contains("Partner—") || string.contains("Partner with"));
+        }
         return parsedResults;
     }
 

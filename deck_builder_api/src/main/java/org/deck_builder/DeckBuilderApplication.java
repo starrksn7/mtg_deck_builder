@@ -26,9 +26,7 @@ public class DeckBuilderApplication {
  * 3. Need to figure out a way to incorporate partner/background/friends forever and all that similar stuff into
  *    the results search for a commander
  *    a. This is working, but needs further testing.
- *       i. Need to workout more specific partner options like partner with, partner - survivor
- *    b. need to limit the partner selections to those with only 'partner' and not the other partner caveats like
- *       sole survivor or
+ *       i. Need to workout more specific partner options like partner-character select partner - survivor
  * 4. The oracle text of cards when creating a deck kind of run together instead of appearing on a new line. This makes it harder
  *    to see what keywords/abilities each commander has
  * 5. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
