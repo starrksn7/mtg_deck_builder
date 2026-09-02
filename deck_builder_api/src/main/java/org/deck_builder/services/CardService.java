@@ -1,5 +1,9 @@
 package org.deck_builder.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.google.gson.*;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.dao.CardDao;
@@ -276,7 +280,22 @@ public class CardService {
             String fullUri = scryfallUrl + friendsSearch;
             searchResults = getCardsFromUri(fullUri);
         }
-        return parseSearchResults(searchResults);
+        List<String> parsedResults =  parseSearchResults(searchResults);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        parsedResults.removeIf(json -> {
+            JsonNode obj = null;
+            try {
+                obj = objectMapper.readTree(json);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            String oracleText = obj.path("oracle_text").asText("");
+
+            return oracleText.contains("Partner- ")
+                    || oracleText.contains("Partner With");
+        });
+        return parsedResults;
     }
 
     public Card mapResultToCard(JsonObject result){

@@ -20,6 +20,7 @@ public class DeckBuilderApplication {
  *       i. brainstorm
  *      ii. Untap, Upkeep, Draw
  *     iii. Move to combat
+ *      iv. arcane encyclopedia
  * 2. Should probably change the style of the page to accommodate different screen sizes
  *    a. while I'm at it, increase the height of the banner commander image to better fit the size
  * 3. Need to figure out a way to incorporate partner/background/friends forever and all that similar stuff into
@@ -28,11 +29,9 @@ public class DeckBuilderApplication {
  *       i. Need to workout more specific partner options like partner with, partner - survivor
  *    b. need to limit the partner selections to those with only 'partner' and not the other partner caveats like
  *       sole survivor or
- * 4. The banner image can now be changed, but sagas have a weird value for the art crop. Is there a way to fix this
- *    edge case?
- * 5. The results when creating a deck kind of run together instead of appearing on a new line. This makes it harder
+ * 4. The oracle text of cards when creating a deck kind of run together instead of appearing on a new line. This makes it harder
  *    to see what keywords/abilities each commander has
- * 6. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
+ * 5. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
  *    I can use for this?
- * 7. maybe add some kind of message if a user tries to add a banned card?
+ * 6. maybe add some kind of message if a user tries to add a banned card?
  */
