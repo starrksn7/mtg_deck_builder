@@ -278,6 +278,18 @@ public class CardService {
             String friendsSearch = "/cards/search?q=o%3A%22friends+forever%22";
             String fullUri = scryfallUrl + friendsSearch;
             searchResults = getCardsFromUri(fullUri);
+        }else if (partnerKeyword.equals("father")) {
+            String gowSearch = "/cards/search?q=o%3A%22father+&+son%22";
+            String fullUri = scryfallUrl + gowSearch;
+            searchResults = getCardsFromUri(fullUri);
+        }else if (partnerKeyword.equals("character")) {
+            String turtlesSearch = "/cards/search?q=o%3A%22character+select%22";
+            String fullUri = scryfallUrl + turtlesSearch;
+            searchResults = getCardsFromUri(fullUri);
+        }else if (partnerKeyword.equals("survivors")) {
+            String tlouSearch = "/cards/search?q=o%3A%22survivors%22";
+            String fullUri = scryfallUrl + tlouSearch;
+            searchResults = getCardsFromUri(fullUri);
         }
         List<String> parsedResults =  parseSearchResults(searchResults);
         if(partnerKeyword.equals("partner")){
