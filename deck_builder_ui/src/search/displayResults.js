@@ -81,8 +81,6 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             let keyword;
             if (friends){
                 keyword = 'friends';
-            } else if (partner){
-                keyword = 'partner';
             } else if (background){
                 keyword = 'background';
             } else if (companion){
@@ -93,7 +91,9 @@ export const DisplayResults = ({searchResults, setIsError}) => {
                 keyword = 'character';
             } else if (survivors){
                 keyword = 'survivors';
-            } 
+            } else if (partner){
+                keyword = 'partner';
+            }
 
             if (friends || partner || background || companion){
                 navigate(`/decks/${responseId}/${keyword}`);

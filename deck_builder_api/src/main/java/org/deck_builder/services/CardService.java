@@ -266,10 +266,6 @@ public class CardService {
             String backgroundSearch = "/cards/search?q=type%3Abackground&unique=cards&as=grid&order=name";
             String fullUri = scryfallUrl + backgroundSearch;
             searchResults = getCardsFromUri(fullUri);
-        } else if (partnerKeyword.equals("partner")){
-            String partnerSearch = "/cards/search?q=keyword%3Apartner&unique=cards&as=grid&order=name";
-            String fullUri = scryfallUrl + partnerSearch;
-            searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("companion")) {
             String companionSearch = "/cards/search?q=keyword%3A%22Doctor%27s+Companion%22";
             String fullUri = scryfallUrl + companionSearch;
@@ -278,19 +274,24 @@ public class CardService {
             String friendsSearch = "/cards/search?q=o%3A%22friends+forever%22";
             String fullUri = scryfallUrl + friendsSearch;
             searchResults = getCardsFromUri(fullUri);
-        }else if (partnerKeyword.equals("father")) {
-            String gowSearch = "/cards/search?q=o%3A%22father+&+son%22";
+        } else if (partnerKeyword.equals("father")) {
+            String gowSearch = "/cards/search?q=o%3A%22father%20%26%20son%22";
             String fullUri = scryfallUrl + gowSearch;
             searchResults = getCardsFromUri(fullUri);
-        }else if (partnerKeyword.equals("character")) {
+        } else if (partnerKeyword.equals("character")) {
             String turtlesSearch = "/cards/search?q=o%3A%22character+select%22";
             String fullUri = scryfallUrl + turtlesSearch;
             searchResults = getCardsFromUri(fullUri);
-        }else if (partnerKeyword.equals("survivors")) {
+        } else if (partnerKeyword.equals("survivors")) {
             String tlouSearch = "/cards/search?q=o%3A%22survivors%22";
             String fullUri = scryfallUrl + tlouSearch;
             searchResults = getCardsFromUri(fullUri);
+        } else if (partnerKeyword.equals("partner")){
+            String partnerSearch = "/cards/search?q=keyword%3Apartner&unique=cards&as=grid&order=name";
+            String fullUri = scryfallUrl + partnerSearch;
+            searchResults = getCardsFromUri(fullUri);
         }
+
         List<String> parsedResults =  parseSearchResults(searchResults);
         if(partnerKeyword.equals("partner")){
             parsedResults.removeIf(string -> string.contains("Partner—") || string.contains("Partner with"));
