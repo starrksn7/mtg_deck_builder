@@ -283,7 +283,7 @@ public class CardService {
             String fullUri = scryfallUrl + turtlesSearch;
             searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("survivors")) {
-            String tlouSearch = "/cards/search?q=o%3A%22survivors%22";
+            String tlouSearch = "/cards/search?q=o%3A%22partner%22+o%3A%22survivors%22";
             String fullUri = scryfallUrl + tlouSearch;
             searchResults = getCardsFromUri(fullUri);
         } else if (partnerKeyword.equals("partner")){

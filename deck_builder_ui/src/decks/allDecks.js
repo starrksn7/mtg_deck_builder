@@ -1,12 +1,19 @@
 import api from '../api/axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Pagination } from '../search/pagination';
 
 export function AllDecks() {
     const [deckList, setDeckList] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage, setCardsPerPage] = useState(10);
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const cardsDisplayed = deckList.slice(indexOfFirstCard, indexOfLastCard)
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         const fetchDecks = async () => {
@@ -57,7 +64,7 @@ export function AllDecks() {
                         <span>Commander</span>
                         <span></span>
                     </div>
-                    {deckList.map((deck, index) => (
+                    {cardsDisplayed.map((deck, index) => (
                         <div key={index} className="deck-row">
                             <img src={deck.imageLink}/>
 
@@ -77,6 +84,13 @@ export function AllDecks() {
                             </button>
                         </div>
                     ))}
+                    <Pagination 
+                        cardsPerPage={cardsPerPage}
+                        totalResults={deckList.length}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        isError={isError}
+                    />
                 </div>
                 {showConfirm && (
                     <div className="delete-deck-modal-overlay">
