@@ -22,18 +22,21 @@ export const PartnerSelect = () => {
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = cardList.slice(indexOfFirstCard, indexOfLastCard)
 
-
     const { deckId, keyword } = useParams();
 
     useEffect(() => {
         const getPartnerOptions = async () => {
             try {
                 setIsLoading(true);
-                const res = await api.get(`/card?keyword=${keyword}`)
+                const keywordRes = await api.get(`/card?keyword=${keyword}`)
 
-                const resultsArray = res.data.map(entry => JSON.parse(entry));
-                setCardList(resultsArray);
+                const resultsArray = keywordRes.data.map(entry => JSON.parse(entry));
+                        
+                const deckRes = await api.get(`/decks?deckId=${deckId}`)
+                setDeckMetaData(deckRes.data.metadata);
 
+                const filteredArray = resultsArray.filter((card) => card.name !== deckMetaData.commander);
+                setCardList(filteredArray);
             } catch (e) {
                 console.log("could not retrieve partner options", e);
                 setOptionsNotFound(true);
@@ -42,13 +45,7 @@ export const PartnerSelect = () => {
             }
         };
 
-        const loadDeckData = async () => {
-            const res = await api.get(`/decks?deckId=${deckId}`);
-            setDeckMetaData(res.data.metadata);
-        };
-
         getPartnerOptions();
-        loadDeckData();
     }, [deckId]);
 
     const handleSetPartner = async () => {
