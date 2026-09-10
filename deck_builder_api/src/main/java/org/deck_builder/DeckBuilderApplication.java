@@ -22,13 +22,9 @@ public class DeckBuilderApplication {
  *     iii. Move to combat
  *      iv. arcane encyclopedia
  * 2. Should probably change the style of the page to accommodate different screen sizes
- *    a. while I'm at it, increase the height of the banner commander image to better fit the size
  * 3. Partner selection
  *    i. need to verify the database is saving the color identity correctly
- *    ii. need to filter out the already selected partner from the results
- * 4. The oracle text of cards when creating a deck kind of run together instead of appearing on a new line. This makes it harder
- *    to see what keywords/abilities each commander has
- * 5. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
+ * 4. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
  *    I can use for this?
- * 6. maybe add some kind of message if a user tries to add a banned card?
+ * 5. maybe add some kind of message if a user tries to add a banned card?
  */

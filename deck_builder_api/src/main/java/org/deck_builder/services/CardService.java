@@ -334,8 +334,6 @@ public class CardService {
             String manaCost = front.get("mana_cost") != null ? front.get("mana_cost").getAsString() : "";
             String type = front.get("type_line").getAsString();
             String oracleText = front.get("oracle_text") != null ? front.get("oracle_text").getAsString() : "";
-            //regex to remove the line breaks
-            oracleText = oracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
             oracleText = oracleText.replaceAll("\\\\", "");
             //regex to change double quotes to single quotes
@@ -401,8 +399,6 @@ public class CardService {
             String manaCost = result.get("mana_cost") != null ? result.get("mana_cost").getAsString() : "";
             String type = result.get("type_line").getAsString();
             String oracleText = result.get("oracle_text") != null ? result.get("oracle_text").getAsString() : "";
-            //regex to remove the line breaks
-            oracleText = oracleText.replaceAll("\\n", " ");
             //regex to remove the escaping slashes
             oracleText = oracleText.replaceAll("\\\\", "");
             //regex to change double quotes to single quotes

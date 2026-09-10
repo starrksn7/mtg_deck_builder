@@ -13,7 +13,7 @@ export const DisplayResults = ({searchResults, setIsError}) => {
     const navigate = useNavigate();
     const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
-   
+
     const handleCreateDeck = async () => {
         console.log("creating deck")
         if (!deckName || !selectedCard) return;
@@ -43,8 +43,6 @@ export const DisplayResults = ({searchResults, setIsError}) => {
 
         if (partnerName) {
             const partnerInfo = await api.post('/card/searchByName', { name: partnerName[1] })
-            console.log("parnter info")
-            console.log(partnerInfo)
 
             cardObject.partnerId = partnerInfo.scryfallId;
             cardObject.partnerColorIdentity = partnerInfo.colorIdentity;

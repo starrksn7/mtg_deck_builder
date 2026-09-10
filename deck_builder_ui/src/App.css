@@ -996,6 +996,7 @@ h2 {
     white-space: normal;
     overflow: visible;
     text-align: left;
+    white-space: pre-line;
 }
 
 .action {
