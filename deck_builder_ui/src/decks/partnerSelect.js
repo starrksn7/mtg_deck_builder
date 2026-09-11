@@ -53,7 +53,13 @@ export const PartnerSelect = () => {
         //this is to update the deck metadata with info about the selected partner
         // const partnerColorIdentity = card.color_identity.match(/[A-Za-z0-9]+/g) || [];
         const partnerColorIdentity = selectedCard.color_identity;
-        const combinedColorIdentity = [...new Set([...deckMetaData.colorIdentity, ...partnerColorIdentity])];
+        const combinedColorIdentity = `{${[
+            ...new Set([
+                ...deckMetaData.colorIdentity.replace(/[{}]/g, "").split(",").filter(Boolean),
+                ...partnerColorIdentity
+            ])
+        ].join(",")}}`;
+
         const requestBody = {
             deckId,
             deckName: deckMetaData.deckName,

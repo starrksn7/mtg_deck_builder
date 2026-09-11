@@ -81,7 +81,7 @@ export function SingleDeck() {
     })
 
     useEffect(() => {
-        if (commander) setHasRulebreaker(commander.keywords.includes('Rulebreaker'));
+        if (commander) setHasRulebreaker(commander.oracleText.includes('Rulebreaker'));
     }, [commander])
     
 
@@ -358,7 +358,7 @@ export function SingleDeck() {
                             ))}
                         </div>
                     )}
-                    {hasRulebreaker && mismatchedArray.length > 0 && (
+                    {!hasRulebreaker && mismatchedArray.length > 0 && (
                         <div className="deck-error">
                             <strong>Deck is not legal due to the card(s) below not being the correct color identity</strong>
                             {mismatchedArray.map((item, i) => (

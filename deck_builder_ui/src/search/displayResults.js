@@ -48,7 +48,12 @@ export const DisplayResults = ({searchResults, setIsError}) => {
             cardObject.partnerColorIdentity = partnerInfo.colorIdentity;
 
             const partnerColorIdentity = selectedCard.color_identity;
-            const combinedColorIdentity = [...new Set([...cardObject.colorIdentity, ...partnerColorIdentity])];
+            const combinedColorIdentity = `{${[
+                ...new Set([
+                    ...cardObject.colorIdentity.replace(/[{}]/g, "").split(",").filter(Boolean),
+                    ...partnerColorIdentity
+                ])
+            ].join(",")}}`;
             const requestBody = {
                 deckId: responseId,
                 deckName: deckName,

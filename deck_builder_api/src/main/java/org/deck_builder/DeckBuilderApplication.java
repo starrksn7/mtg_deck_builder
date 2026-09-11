@@ -18,9 +18,7 @@ public class DeckBuilderApplication {
  *    dummy articles/images?
  *    a. What do i call this program?
  *       i. brainstorm
- *      ii. Untap, Upkeep, Draw
- *     iii. Move to combat
- *      iv. arcane encyclopedia
+ *      ii. arcane encyclopedia
  * 2. Should probably change the style of the page to accommodate different screen sizes
  * 3. Partner selection
  *    i. need to verify the database is saving the color identity correctly
