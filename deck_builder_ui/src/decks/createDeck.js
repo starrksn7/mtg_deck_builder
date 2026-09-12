@@ -18,8 +18,9 @@ export function CreateDeck(){
     const [cardsPerPage, setCardsPerPage] = useState(25);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
-    const [isLoading, setIsLoading] = useState(false)
+    const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard);
+    const [isLoading, setIsLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
 
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
@@ -27,6 +28,13 @@ export function CreateDeck(){
         setSearchResults([])
         const response = await api.post('/card/searchForCommanderByName', 
             {searchTerm: searchInput})
+        console.log("xxxxxxxxxxx")
+        console.log(response)
+        if (response.status !== 200) {
+            setNoResults(true);
+            setIsLoading(false);
+            return;    
+        }
  
         let resultsArray = response.data.map(entry => JSON.parse(entry));
 
@@ -76,7 +84,13 @@ export function CreateDeck(){
                 </div>
             </div> 
 
-            {isError && <div> No results found for that search term</div>}
+            {noResults && 
+                <div>
+                    <p>We can't seem to find what you're looking for. Please search again</p>
+                    <img src="https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337"
+                     alt="fblthp the lost" />
+                </div>
+            }
 
             {isLoading && <Loader />}
 

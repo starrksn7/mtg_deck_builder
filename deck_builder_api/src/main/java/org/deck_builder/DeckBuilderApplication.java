@@ -20,9 +20,8 @@ public class DeckBuilderApplication {
  *       i. brainstorm
  *      ii. arcane encyclopedia
  * 2. Should probably change the style of the page to accommodate different screen sizes
- * 3. Partner selection
- *    i. need to verify the database is saving the color identity correctly
- * 4. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
+ * 3. something needs to handle the scenario where a commander search produces no results. Is there a fun card image
  *    I can use for this?
- * 5. maybe add some kind of message if a user tries to add a banned card?
+ * 4. maybe add some kind of message if a user tries to add a banned card?
+ * 5. investigate why the add collection would return a 400 error. too many cards at once?
  */
