@@ -1,7 +1,6 @@
 
 
 export const replaceTextWithManaSymbols = (text) => {
-    // Example: Replace mana codes with symbols using a simple string replacement
     return text.replace(/{R}/g, '<i class="ms ms-r ms-cost ms-shadow"></i>')  
                .replace(/{G}/g, '<i class="ms ms-g ms-cost ms-shadow"></i>') 
                .replace(/{U}/g, '<i class="ms ms-u ms-cost ms-shadow"></i>') 

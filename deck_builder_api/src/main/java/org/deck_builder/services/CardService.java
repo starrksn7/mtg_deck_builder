@@ -250,7 +250,8 @@ public class CardService {
         try {
             List<String> results = getCardsFromUri(searchUri);
             if(results.get(0).equals("No cards found")){
-                return failedSearch();
+                List<String> emptyList = new ArrayList();
+                return emptyList;
             }
             return parseSearchResults(results);
         } catch(IOException e){

@@ -24,37 +24,41 @@ export function CreateDeck(){
 
     const findCommanderWithSearch = async (e) => {
         e.preventDefault();
-        setIsLoading(true)
-        setSearchResults([])
+        setIsLoading(true);
+        setNoResults(false);
+        setSearchResults([]);
+
         const response = await api.post('/card/searchForCommanderByName', 
-            {searchTerm: searchInput})
-        console.log("xxxxxxxxxxx")
+            { searchTerm: searchInput }
+        );
+
+        console.log("response = ")
         console.log(response)
-        if (response.status !== 200) {
-            setNoResults(true);
-            setIsLoading(false);
-            return;    
-        }
- 
         let resultsArray = response.data.map(entry => JSON.parse(entry));
 
         setSearchResults(resultsArray);
-        setIsLoading(false)
+        setNoResults(resultsArray.length === 0);
+        setIsLoading(false);
     }
 
     const findCommanderByColor = async (searchColor) => {
-        setIsLoading(true)
-        setSearchResults([])
+        setIsLoading(true);
+        setNoResults(false);
+        setSearchResults([]);
+
         const color = getBaseColors(searchColor.toLowerCase());
 
         const response = await api.post('/card/searchForCommanderByColor',
-            {colors: color}
-        )
-    
+            { colors: color }
+        );
+
         const resultsArray = response.data.map(entry => JSON.parse(entry));
+
         setSearchResults(resultsArray);
-        setIsLoading(false)
+        setNoResults(resultsArray.length === 0);
+        setIsLoading(false);
     }
+
 
     const handleDropdownSelection = (selectedColor) => {
         setSearchColor(selectedColor);
@@ -84,14 +88,6 @@ export function CreateDeck(){
                 </div>
             </div> 
 
-            {noResults && 
-                <div>
-                    <p>We can't seem to find what you're looking for. Please search again</p>
-                    <img src="https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337"
-                     alt="fblthp the lost" />
-                </div>
-            }
-
             {isLoading && <Loader />}
 
             {searchResults.length > 0 && (
@@ -111,6 +107,17 @@ export function CreateDeck(){
                     />
                 </div>
             )}
+
+            {noResults && (
+                <div>
+                    <p>We can't seem to find what you're looking for. Please search again</p>
+                    <img 
+                        src="https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337"
+                        alt="fblthp the lost" 
+                    />
+                </div>
+            )}
+
         </div>
     )
 }
