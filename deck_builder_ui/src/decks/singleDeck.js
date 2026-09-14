@@ -155,6 +155,10 @@ export function SingleDeck() {
         setConfirmingCardId(card.scryfallId)
     }
 
+    //the problem for the scryfall add collection error is because 
+    //this is sending 99 entries after it adds everything. Is there
+    //a way to paginate the results, or send a partial set, then another
+    //afterward until all results are sent?
     const handleAddCollection = async () => {
         setLoading(true);
         const identifiersArray = collectionList.split(/\r?\n/).filter(line => line.trim() !== "");
@@ -200,7 +204,8 @@ export function SingleDeck() {
             deckId,
             identifiers
         }
-
+        console.log(identifiers)
+        console.log(identifiersArray.length)
         const response = await api.post('/decks/addCollection', cardSearchDTO)
 
         if (response.status === 200) {
