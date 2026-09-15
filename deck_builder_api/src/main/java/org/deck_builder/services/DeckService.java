@@ -20,6 +20,8 @@ public class DeckService {
     DeckDao deckDao;
     CardService cardService;
     private final JdbcCardDao jdbcCardDao;
+    private static final int SCRYFALL_COLLECTION_BATCH_SIZE = 75;
+
 
     public DeckService(CardDao cardDao, DeckDao deckDao, CardService cardService, JdbcCardDao jdbcCardDao){
         this.cardDao = cardDao;
@@ -37,7 +39,7 @@ public class DeckService {
             cardIdsForPrice.add(dto);
         }
 
-        List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, 75);
+        List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, SCRYFALL_COLLECTION_BATCH_SIZE);
         Map<String, Double> priceMap = new HashMap<>();
 
         for (List<CardIdentifierDTO> batch : batches) {
@@ -70,21 +72,29 @@ public class DeckService {
         return deckList;
     }
 
-    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO)
-            throws MalformedJsonException {
+    public List<String> addCollectionToDeck(int deckId, List<CardIdentifierDTO> cardIdentifierDTO) throws MalformedJsonException {
+        List<List<CardIdentifierDTO>> batches = chunk(cardIdentifierDTO, SCRYFALL_COLLECTION_BATCH_SIZE);
 
-        CardCollectionResult collectionResult = cardService.getCardsFromCollection(cardIdentifierDTO);
+        List<String> foundCards = new ArrayList<>();
+        List<String> notFoundCards = new ArrayList<>();
 
-        List<String> foundCards = collectionResult.getFoundCards();
-        List<String> notFoundCards = collectionResult.getNotFoundCards();
+        for (List<CardIdentifierDTO> batch : batches) {
+            CardCollectionResult collectionResult =
+                    cardService.getCardsFromCollection(batch);
+
+            foundCards.addAll(collectionResult.getFoundCards());
+            notFoundCards.addAll(collectionResult.getNotFoundCards());
+        }
 
         for (String scryfallResult : foundCards) {
-            JsonObject jsonObject = JsonParser.parseString(scryfallResult).getAsJsonObject();
+            JsonObject jsonObject =
+                    JsonParser.parseString(scryfallResult).getAsJsonObject();
 
             CardSearchDTO cardSearchDTO = mapResultToCardSearchDTO(jsonObject);
 
             JsonObject legalities = cardSearchDTO.getLegalities();
-            String commanderLegality = legalities.get("commander").getAsString();
+            String commanderLegality =
+                    legalities.get("commander").getAsString();
 
             if (!"legal".equals(commanderLegality)) {
                 continue;
@@ -120,6 +130,7 @@ public class DeckService {
 
         return notFoundCards;
     }
+
 
     public CardSearchDTO mapResultToCardSearchDTO(JsonObject result){
         CardSearchDTO cardSearchDTO = new CardSearchDTO();

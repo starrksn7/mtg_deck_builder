@@ -204,8 +204,7 @@ export function SingleDeck() {
             deckId,
             identifiers
         }
-        console.log(identifiers)
-        console.log(identifiersArray.length)
+
         const response = await api.post('/decks/addCollection', cardSearchDTO)
 
         if (response.status === 200) {
