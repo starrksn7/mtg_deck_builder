@@ -1315,22 +1315,712 @@ h2 {
     width: 150px;
     height: auto;
 }
-/* ---------- Responsive ---------- */
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+/* ---------- TABLETS / SMALL LAPTOPS ---------- */
 
 @media (max-width: 900px) {
+
+  /* ---------- General ---------- */
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* ---------- Deck Header ---------- */
+
+  .intro {
+    height: 240px;
+    min-height: 220px;
+    padding: 20px;
+  }
+
+  .deckName-row {
+    font-size: 2rem;
+  }
+
+  .banner-image {
+    right: -100px;
+  }
+
+  /* ---------- Charts ---------- */
+
+  .charts-row {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .charts-row > * {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* ---------- Main Content ---------- */
+
   .content-row {
     flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ---------- Left Panel ---------- */
+
+  .left-panel {
+    position: static;
+    width: 100%;
+    flex: none;
+  }
+
+  .preview-panel {
+    position: static;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .collection-form {
     width: 100%;
   }
 
-  .card-section {
+  /* ---------- Cards ---------- */
+
+  .cards-container {
+    width: 100%;
     column-count: 1;
+    min-width: 0;
   }
+
+  .card-row {
+    grid-template-columns: 32px minmax(0, 1fr) 100px 80px;
+    column-gap: 8px;
+  }
+
+  .card-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Sample Hand ---------- */
+
+  .sample-hand {
+    flex-wrap: wrap;
+  }
+
+  /* ---------- All Decks ---------- */
+
+  .deck-list {
+    width: 100%;
+  }
+
+  .deck-row,
+  .deck-row.header {
+    grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 0.75rem;
+  }
+
+  .deck-row img {
+    width: 80px;
+  }
+
+  /* ---------- Create Deck ---------- */
+
+  .create-deck-page {
+    padding: 1rem;
+  }
+
+  .search-section {
+    padding: 1rem;
+  }
+
+  /* ---------- Search Results ---------- */
+
+  .result-row {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+
+  .result-row img {
+    width: 100px;
+    height: auto;
+  }
+
+  .result-row .action {
+    grid-column: 2;
+    width: fit-content;
+  }
+
+  /* ---------- Login ---------- */
+
+  .login-form {
+    width: calc(100% - 32px);
+  }
+}
+
+
+/* =========================================================
+   PHONES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- Page ---------- */
+
+  .deck-page {
+    gap: 12px;
+  }
+
+  .deck-page > :not(.intro) {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+
+  /* =======================================================
+     HEADER
+     ======================================================= */
+
+  .header {
+    padding: 0.75rem;
+  }
+
+  .header__nav {
+    gap: 10px;
+  }
+
+  .header__left {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .header__link {
+    font-size: 0.9rem;
+  }
+
+  .username {
+    display: none;
+  }
+
+
+  /* =======================================================
+     DECK HEADER / BANNER
+     ======================================================= */
+
+  .intro {
+    height: 230px;
+    min-height: 0;
+    padding: 18px 16px;
+    align-items: flex-start;
+  }
+
+  .deck-info {
+    width: 100%;
+  }
+
+  .deck-meta {
+    width: 65%;
+  }
+
+  .deckName-row {
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+
+  .deckPrice {
+    font-size: 0.95rem;
+  }
+
+  .rarity-block {
+    gap: 8px 12px;
+    font-size: 0.85rem;
+    max-width: 70%;
+  }
+
+  .banner-image {
+    right: -150px;
+    top: 0;
+  }
+
+  .banner-image img {
+    height: 120%;
+  }
+
+  .change-banner-overlay {
+    width: calc(100% - 20px);
+    max-width: none;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    padding: 7px 8px;
+    box-sizing: border-box;
+  }
+
+
+  /* =======================================================
+     CHARTS
+     ======================================================= */
 
   .charts-row {
     flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .charts-row > * {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    flex: none;
+  }
+
+
+  /* =======================================================
+     LEGALITY / ERROR MESSAGES
+     ======================================================= */
+
+  .deck-legality {
+    padding-left: 8px;
+    padding-right: 8px;
+    gap: 8px;
+  }
+
+  .deck-error {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+
+
+  /* =======================================================
+     MAIN CONTENT
+     ======================================================= */
+
+  .content-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+
+  /* =======================================================
+     PREVIEW PANEL
+     ======================================================= */
+
+  .left-panel {
+    width: 100%;
+    position: static;
+    flex: none;
+  }
+
+  .preview-panel {
+    position: static;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .preview-inner {
+    padding: 6px;
+  }
+
+  .preview-delete-button {
+    font-size: 0.9rem;
+  }
+
+
+  /* =======================================================
+     COLLECTION FORM
+     ======================================================= */
+
+  .collection-form {
+    width: 100%;
+  }
+
+  .collection-form textarea {
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+  }
+
+  .collection-form button {
+    width: 100%;
+    padding: 10px;
+  }
+
+
+  /* =======================================================
+     CARD LIST
+     ======================================================= */
+
+  .cards-container {
+    width: 100%;
+    column-count: 1;
+    min-width: 0;
+  }
+
+  .card-group {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .card-group-title {
+    font-size: 1rem;
+  }
+
+  .card {
+    width: 100%;
+    padding: 4px 0;
+  }
+
+  /*
+     Desktop:
+     quantity | name | mana cost | price
+
+     Mobile:
+     quantity | name | mana cost
+     price is moved below the card name
+  */
+
+  .card-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    column-gap: 6px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .card-qty {
+    width: auto;
+    font-size: 0.9rem;
+  }
+
+  .card-name {
+    min-width: 0;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+
+  .card-cost {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .card-cost img {
+    height: 11px;
+  }
+
+  .card-cost .ms-cost {
+    font-size: 0.7em;
+  }
+
+  /*
+     Hide price on phones.
+
+     This keeps the card list compact and prevents
+     long prices from squeezing the card name.
+  */
+  .card-price {
+    display: none;
+  }
+
+
+  /* =======================================================
+     SAMPLE HAND
+     ======================================================= */
+
+  .sample-hand-section {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .sample-hand-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .sample-hand {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .sample-hand img {
+    width: calc(20% - 6px);
+    min-width: 55px;
+    max-width: 100px;
+    height: auto;
+  }
+
+
+  /* =======================================================
+     DELETE / GENERAL MODALS
+     ======================================================= */
+
+  .modal-overlay {
+    padding: 16px;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 350px;
+    box-sizing: border-box;
+    padding: 1.5rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+  }
+
+
+  /* =======================================================
+     BANNER MODAL
+     ======================================================= */
+
+  .banner-preview img {
+    max-width: 80%;
+    max-height: 180px;
+  }
+
+  .banner-selection-grid {
+    grid-template-columns: repeat(3, 1fr);
+    height: 220px;
+  }
+
+
+  /* =======================================================
+     ALL DECKS PAGE
+     ======================================================= */
+
+  .deck-row.header {
+    display: none;
+  }
+
+  .deck-row {
+    grid-template-columns: 70px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .deck-row img {
+    width: 70px;
+  }
+
+  .deck-name {
+    font-size: 0.95rem;
+  }
+
+  .deck-commander {
+    font-size: 0.8rem;
+  }
+
+  .delete-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+
+  /* =======================================================
+     CREATE DECK PAGE
+     ======================================================= */
+
+  .create-deck-page {
+    padding: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .search-section {
+    padding: 1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  /* =======================================================
+     SEARCH RESULTS
+     ======================================================= */
+
+  .result-row {
+    grid-template-columns: 75px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .result-row img {
+    width: 75px;
+    height: auto;
+  }
+
+  .result-row .action {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .top {
+    flex-wrap: wrap;
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+
+  .type {
+    font-size: 0.8rem;
+  }
+
+  .oracle {
+    font-size: 0.78rem;
+  }
+
+
+  /* =======================================================
+     LOGIN / REGISTER
+     ======================================================= */
+
+  .login-page {
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .login-form {
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+
+
+  /* =======================================================
+     PAGINATION
+     ======================================================= */
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .page-link {
+    padding: 7px 10px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  /* ---------- Header ---------- */
+
+  .header__link {
+    font-size: 0.8rem;
+  }
+
+
+  /* ---------- Deck header ---------- */
+
+  .intro {
+    height: 215px;
+    padding: 16px 12px;
+  }
+
+  .deck-meta {
+    width: 70%;
+  }
+
+  .deckName-row {
+    font-size: 1.45rem;
+  }
+
+  .deckPrice {
+    font-size: 0.85rem;
+  }
+
+  .rarity-block {
+    font-size: 0.75rem;
+    gap: 6px 10px;
+  }
+
+  .banner-image {
+    right: -180px;
+  }
+
+
+  /* ---------- Cards ---------- */
+
+  .card-row {
+    grid-template-columns: 25px minmax(0, 1fr) auto;
+    column-gap: 5px;
+  }
+
+  .card-name,
+  .card-qty {
+    font-size: 0.82rem;
+  }
+
+  .card-cost img {
+    height: 10px;
+  }
+
+
+  /* ---------- Preview ---------- */
+
+  .preview-panel {
+    max-width: 240px;
+  }
+
+
+  /* ---------- Search results ---------- */
+
+  .result-row {
+    grid-template-columns: 65px minmax(0, 1fr);
+  }
+
+  .result-row img {
+    width: 65px;
+  }
+
+
+  /* ---------- Empty decks ---------- */
+
+  .empty-decks-container {
+    padding: 1rem;
+  }
+
+  .empty-decks-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .empty-decks-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
   }
 }

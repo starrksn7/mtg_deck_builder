@@ -19,7 +19,5 @@ public class DeckBuilderApplication {
  *    a. What do i call this program?
  *       i. brainstorm
  *      ii. arcane encyclopedia
- * 2. Should probably change the style of the page to accommodate different screen sizes
- * 3. maybe add some kind of message if a user tries to add a banned card?
- * 4. investigate why the add collection would return a 400 error. too many cards at once?
+ * 2. maybe add some kind of message if a user tries to add a banned card?
  */

@@ -78,7 +78,7 @@ export function SingleDeck() {
         return cardList.reduce((sum, card) => {
             return sum + card.quantity;
         }, 0)
-    })
+    }, [cardList])
 
     useEffect(() => {
         if (commander) setHasRulebreaker(commander.oracleText.includes('Rulebreaker'));
@@ -301,7 +301,9 @@ export function SingleDeck() {
     }
 
     const generateSampleHand = () => {
-        const listWithoutCommander = cardList.filter(card => card.name != commander.name)
+        const listWithoutCommander = cardList.filter(
+            card => card.scryfallId !== commander?.scryfallId
+        );
         //put all of the image links into an array so it totals 99
         const the99 = listWithoutCommander.flatMap(card =>
             Array(card.quantity).fill(card.imageLink)
