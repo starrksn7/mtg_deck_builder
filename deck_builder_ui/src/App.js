@@ -16,6 +16,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
+          <Route path="" element={<Home />} />
           <Route path="/decks/:deckId" element={<SingleDeck />} />
           <Route path="/user/:userId" element={<AllDecks />} />
           <Route path="/create" element={<CreateDeck />} />
