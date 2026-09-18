@@ -60,4 +60,9 @@ public class DeckController {
         return deckService.addCollectionToDeck(addToCollectionDTO.getDeckId(), addToCollectionDTO.getIdentifiers());
     }
 
+    @GetMapping(path="/topten")
+    public List<Deck> getTopTenDecks(){
+        return deckService.getTopTenDecks();
+    }
+
 }
