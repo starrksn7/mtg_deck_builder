@@ -206,6 +206,18 @@ public class JdbcDeckDao implements DeckDao{
         return null;
     }
 
+    public List<Deck> getTopTenDecks(){
+        String sql = "SELECT *, COUNT(*) FROM decks GROUP BY deck_id, commander ORDER BY COUNT LIMIT 10;\n";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        List<Deck> decks = new ArrayList<>();
+
+        while(results.next()){
+            decks.add(mapRowToDeck(results));
+        }
+
+        return decks;
+    }
+
     private Deck mapRowToDeck(SqlRowSet row){
         Deck deck = new Deck();
         deck.setDeckName(row.getString("deck_name"));

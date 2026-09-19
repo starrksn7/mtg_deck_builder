@@ -299,8 +299,7 @@ public class DeckService {
     }
 
     public List<Deck> getTopTenDecks(){
-        //need to inser the function to get decks and return that info to the ui for the home page
-        
+        return deckDao.getTopTenDecks();
     }
 
 

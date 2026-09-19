@@ -26,5 +26,6 @@ public interface DeckDao {
 
     DeckUpdateDTO getDeckMetadata(int deckId);
 
+    List<Deck> getTopTenDecks();
 
 }
