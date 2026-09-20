@@ -28,4 +28,6 @@ public interface DeckDao {
 
     List<Deck> getTopTenDecks();
 
+    List<Card> getTopTenCommanders(String[] commanders);
+
 }

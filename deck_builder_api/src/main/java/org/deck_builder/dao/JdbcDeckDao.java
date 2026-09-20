@@ -189,6 +189,10 @@ public class JdbcDeckDao implements DeckDao{
 
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
+
+    public List<Card> getTopTenCommanders(String[] commanders){
+        //need to fill this in with the query
+    }
     public DeckUpdateDTO getDeckMetadata(int deckId) {
         String getBannerImageSql = "SELECT * FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);

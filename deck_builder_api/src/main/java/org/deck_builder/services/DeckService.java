@@ -298,8 +298,16 @@ public class DeckService {
         return deckDao.deleteDeck(deckId);
     }
 
-    public List<Deck> getTopTenDecks(){
-        return deckDao.getTopTenDecks();
+    public List<Card> getTopTenCommanders(){
+         List<Deck> topTenDecks = deckDao.getTopTenDecks();
+         String[] commanders = new String[topTenDecks.size()];
+         for(int i = 0; i >= topTenDecks.size(); i++){
+             Deck deck = topTenDecks.get(i);
+             commanders[i] = deck.getCommander();
+         }
+         List<Card> topTenCommanders = deckDao.getTopTenCommanders(commanders);
+
+         return topTenCommanders;
     }
 
 
