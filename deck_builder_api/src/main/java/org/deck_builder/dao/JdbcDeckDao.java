@@ -190,9 +190,6 @@ public class JdbcDeckDao implements DeckDao{
         return jdbcTemplate.update(sql, deckId, cardDto.getScryfallId()) == 1;
     }
 
-    public List<Card> getTopTenCommanders(String[] commanders){
-        //need to fill this in with the query
-    }
     public DeckUpdateDTO getDeckMetadata(int deckId) {
         String getBannerImageSql = "SELECT * FROM decks WHERE deck_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(getBannerImageSql, deckId);
@@ -211,16 +208,32 @@ public class JdbcDeckDao implements DeckDao{
     }
 
     public List<Deck> getTopTenDecks(){
-        String sql = "SELECT *, COUNT(*) FROM decks GROUP BY deck_id, commander ORDER BY COUNT LIMIT 10;\n";
+        String sql = "SELECT commander, COUNT(*) AS deck_count FROM decks GROUP BY commander ORDER BY deck_count DESC LIMIT 10;\n";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         List<Deck> decks = new ArrayList<>();
 
         while(results.next()){
-            decks.add(mapRowToDeck(results));
+            Deck deck = mapRowToDeck(results);
+            deck.setCount(results.getInt("deck_count"));
+            decks.add(deck);
         }
 
         return decks;
     }
+
+    public List<TopTenDTO> getTopTenCommanders(String[] commanders){
+        String sql = "SELECT card_name, image_link FROM cards WHERE card_name = ANY(?);";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, commanders);
+        List<TopTenDTO> topTenDTOList = new ArrayList<>();
+        while(results.next()){
+            TopTenDTO entry = new TopTenDTO();
+            entry.setCommander(results.getString("card_name"));
+            entry.setImageLink(results.getString("image_link"));
+        }
+
+        return topTenDTOList;
+    }
+
 
     private Deck mapRowToDeck(SqlRowSet row){
         Deck deck = new Deck();

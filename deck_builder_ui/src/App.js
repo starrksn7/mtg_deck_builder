@@ -9,6 +9,7 @@ import { Register } from './login/register';
 import { Header } from './header/header';
 import { AuthProvider } from './login/AuthContext';
 import { PartnerSelect } from './decks/partnerSelect';
+import { Home } from './home/home';
 
 function App() {
   return (

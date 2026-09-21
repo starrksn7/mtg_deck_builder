@@ -298,15 +298,19 @@ public class DeckService {
         return deckDao.deleteDeck(deckId);
     }
 
-    public List<Card> getTopTenCommanders(){
+    public List<TopTenDTO> getTopTenCommanders(){
          List<Deck> topTenDecks = deckDao.getTopTenDecks();
          String[] commanders = new String[topTenDecks.size()];
          for(int i = 0; i >= topTenDecks.size(); i++){
              Deck deck = topTenDecks.get(i);
              commanders[i] = deck.getCommander();
          }
-         List<Card> topTenCommanders = deckDao.getTopTenCommanders(commanders);
-
+         List<TopTenDTO> topTenCommanders = deckDao.getTopTenCommanders(commanders);
+        for(int i = 0; i >= topTenDecks.size(); i++){
+            Deck deck = topTenDecks.get(i);
+            TopTenDTO topTenEntry = topTenCommanders.get(i);
+            topTenEntry.setCount(deck.getCount());
+        }
          return topTenCommanders;
     }
 

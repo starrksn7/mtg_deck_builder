@@ -61,7 +61,7 @@ public class DeckController {
     }
 
     @GetMapping(path="/topTen")
-    public List<Card> getTopTenCommanders(){
+    public List<TopTenDTO> getTopTenCommanders(){
         return deckService.getTopTenCommanders();
     }
 

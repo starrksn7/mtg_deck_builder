@@ -9,6 +9,8 @@ public class Deck {
     private String imageLink;
     private String bannerImage;
 
+    private int count;
+
     public Deck(int deckId, String deckName, String commander, String commanderScryfallId, String imageLink){
         this.id = deckId;
         this.deckName = deckName;
@@ -54,4 +56,8 @@ public class Deck {
     public String getBannerImage(){ return bannerImage; }
 
     public void setBannerImage(String bannerImage){ this.bannerImage = bannerImage; }
+
+    public int getCount(){ return count;}
+
+    public void setCount(int count){ this.count = count;}
 }
