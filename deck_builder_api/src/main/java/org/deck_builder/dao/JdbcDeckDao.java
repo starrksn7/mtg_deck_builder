@@ -11,6 +11,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.sql.Array;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -207,32 +210,31 @@ public class JdbcDeckDao implements DeckDao{
         return null;
     }
 
-    public List<Deck> getTopTenDecks(){
-        String sql = "SELECT commander, COUNT(*) AS deck_count FROM decks GROUP BY commander ORDER BY deck_count DESC LIMIT 10;\n";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        List<Deck> decks = new ArrayList<>();
 
-        while(results.next()){
-            Deck deck = mapRowToDeck(results);
-            deck.setCount(results.getInt("deck_count"));
-            decks.add(deck);
-        }
+    public List<TopTenDTO> getTopTenCommanders() {
+        String sql = """
+        SELECT
+            d.commander,
+            COUNT(*) AS deck_count,
+            c.image_link
+        FROM decks d
+        LEFT JOIN cards c ON c.card_name = d.commander
+        GROUP BY d.commander, c.image_link
+        ORDER BY deck_count DESC
+        LIMIT 10
+        """;
 
-        return decks;
-    }
-
-    public List<TopTenDTO> getTopTenCommanders(String[] commanders){
-        String sql = "SELECT card_name, image_link FROM cards WHERE card_name = ANY(?);";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, commanders);
-        List<TopTenDTO> topTenDTOList = new ArrayList<>();
-        while(results.next()){
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
             TopTenDTO entry = new TopTenDTO();
-            entry.setCommander(results.getString("card_name"));
-            entry.setImageLink(results.getString("image_link"));
-        }
-
-        return topTenDTOList;
+            entry.setCommander(rs.getString("commander"));
+            entry.setCount(rs.getInt("deck_count"));
+            entry.setImageLink(rs.getString("image_link"));
+            return entry;
+        });
     }
+
+
+
 
 
     private Deck mapRowToDeck(SqlRowSet row){

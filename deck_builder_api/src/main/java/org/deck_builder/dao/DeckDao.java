@@ -4,6 +4,7 @@ package org.deck_builder.dao;
 import com.google.gson.stream.MalformedJsonException;
 import org.deck_builder.model.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface DeckDao {
@@ -26,8 +27,6 @@ public interface DeckDao {
 
     DeckUpdateDTO getDeckMetadata(int deckId);
 
-    List<Deck> getTopTenDecks();
-
-    List<TopTenDTO> getTopTenCommanders(String[] commanders);
+    List<TopTenDTO> getTopTenCommanders() throws SQLException;
 
 }

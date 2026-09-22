@@ -9,6 +9,7 @@ import org.deck_builder.dao.JdbcDeckDao;
 import org.deck_builder.model.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -298,21 +299,8 @@ public class DeckService {
         return deckDao.deleteDeck(deckId);
     }
 
-    public List<TopTenDTO> getTopTenCommanders(){
-         List<Deck> topTenDecks = deckDao.getTopTenDecks();
-         String[] commanders = new String[topTenDecks.size()];
-         for(int i = 0; i >= topTenDecks.size(); i++){
-             Deck deck = topTenDecks.get(i);
-             commanders[i] = deck.getCommander();
-         }
-         List<TopTenDTO> topTenCommanders = deckDao.getTopTenCommanders(commanders);
-        for(int i = 0; i >= topTenDecks.size(); i++){
-            Deck deck = topTenDecks.get(i);
-            TopTenDTO topTenEntry = topTenCommanders.get(i);
-            topTenEntry.setCount(deck.getCount());
-        }
-         return topTenCommanders;
+    public List<TopTenDTO> getTopTenCommanders() throws SQLException {
+        return deckDao.getTopTenCommanders();
     }
-
 
 }

@@ -7,6 +7,7 @@ import org.deck_builder.dao.DeckDao;
 import org.deck_builder.services.DeckService;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public class DeckController {
     }
 
     @GetMapping(path="/topTen")
-    public List<TopTenDTO> getTopTenCommanders(){
+    public List<TopTenDTO> getTopTenCommanders() throws SQLException {
         return deckService.getTopTenCommanders();
     }
 
