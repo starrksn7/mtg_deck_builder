@@ -28,7 +28,7 @@ export function Login() {
             
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             console.log('Login successful.')
-            navigate(`/user/${userId}`)
+            navigate(`/`)
         } catch (err){
             setError('Login failed.')
             console.error(err)

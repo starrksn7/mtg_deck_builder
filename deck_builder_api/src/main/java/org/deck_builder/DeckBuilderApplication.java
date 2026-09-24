@@ -20,4 +20,5 @@ public class DeckBuilderApplication {
  *       i. brainstorm
  *      ii. arcane encyclopedia
  * 2. maybe add some kind of message if a user tries to add a banned card?
+ * 3. figure out a way to update card images. Maybe don't save them and retrieve them when getting the prices?
  */

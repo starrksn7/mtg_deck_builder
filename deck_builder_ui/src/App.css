@@ -13,6 +13,45 @@
   }
 }
 
+/* ------- home page ------- */
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* Optional constraint */
+  margin: 0 auto;
+}
+
+/* Ensure the image fills the container layout */
+.overlay-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Superimpose the text container completely over the image */
+.text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Flexbox makes alignment and centering effortless */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertical alignment (center, flex-end, etc.) */
+  align-items: center;     /* Horizontal alignment */
+  
+  /* Styling for text readability */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4); /* Optional dark dimming tint */
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+
+}
+
 /* ------- header ---------- */
 /* Header base */
 .header {
