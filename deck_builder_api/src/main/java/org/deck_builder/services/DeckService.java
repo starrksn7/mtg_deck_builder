@@ -42,8 +42,6 @@ public class DeckService {
 
         List<List<CardIdentifierDTO>> batches = chunk(cardIdsForPrice, SCRYFALL_COLLECTION_BATCH_SIZE);
         Map<String, Double> priceMap = new HashMap<>();
-        Map<String, String> imageMap = new HashMap<>();
-        Map<String, String> fullArtMap = new HashMap<>();
 
         for (List<CardIdentifierDTO> batch : batches) {
             CardCollectionResult result = cardService.getCardsFromCollection(batch);
@@ -60,36 +58,17 @@ public class DeckService {
 
                 priceMap.put(id, price);
 
-                if(jsonObject.has("card_faces")){
-                    JsonArray faces = jsonObject.getAsJsonArray("card_faces");
-                    JsonObject front = faces.get(0).getAsJsonObject();
-                    JsonObject uris = (JsonObject) front.get("image_uris") != null ? front.get("image_uris").getAsJsonObject() : null;
-                    String imageUrl = uris != null ? uris.get("normal").getAsString() : "";
-                    String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
-                    imageMap.put(id, imageUrl);
-                    fullArtMap.put(id, fullArtLink);
-                } else {
-                    JsonObject uris = (JsonObject) jsonObject.get("image_uris") != null ? jsonObject.get("image_uris").getAsJsonObject() : null;
-                    String imageUrl = uris != null ? uris.get("normal").getAsString() : "";
-                    String fullArtImage = uris != null ? uris.get("art_crotp").getAsString() : "";
-                    imageMap.put(id, imageUrl);
-                    fullArtMap.put(id, fullArtImage);
-                }
             }
         }
 
         // Apply prices back to deck
         for (Card card : deckList) {
             Double price = priceMap.get(card.getScryfallId());
-            String newestImage = imageMap.get(card.getScryfallId());
-            String newestFullArt = imageMap.get(card.getScryfallId());
             if (price != null) {
                 card.setPrice(price);
             } else {
                 card.setPrice(0.0); // or leave unchanged
             }
-            card.setImageLink(newestImage);
-            card.setFullArtLink(newestFullArt);
         }
 
         return deckList;
