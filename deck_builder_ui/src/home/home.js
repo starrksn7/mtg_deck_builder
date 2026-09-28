@@ -19,17 +19,22 @@ export function Home() {
 
     return (
         <div>
-            <div className="image-container">
+            <div
+                className="image-container"
+                style={{ backgroundImage: `url(${brainstormArtLink})` }}
+            >
                 <img 
                     src={brainstormArtLink} 
                     alt="Background scenery" 
                     className="overlay-image"
                 />
+
                 <div className="text-overlay">
                     <h2>Welcome to BrianstorMTG</h2>
                     <p>My commander deck building project</p>
                 </div>
             </div>
+
 
             {topTenCommanders.map((card, i) => (
                 <div key={i}>

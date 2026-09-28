@@ -13,44 +13,62 @@
   }
 }
 
-/* ------- home page ------- */
-
 .image-container {
   position: relative;
   width: 100%;
-  max-width: 800px; /* Optional constraint */
-  margin: 0 auto;
+  height: clamp(300px, 45vw, 500px);
+  overflow: hidden;
+
+  /* The image underneath fills the whole area */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Ensure the image fills the container layout */
+/* Blur/enlarge the background */
+.image-container::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(20px);
+  transform: scale(1.05);
+}
+
+/* Main artwork */
 .overlay-image {
+  position: relative;
+  z-index: 1;
+
   width: 100%;
   height: auto;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
-/* Superimpose the text container completely over the image */
+/* Text */
 .text-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  
-  /* Flexbox makes alignment and centering effortless */
+  inset: 0;
+  z-index: 2;
+
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertical alignment (center, flex-end, etc.) */
-  align-items: center;     /* Horizontal alignment */
-  
-  /* Styling for text readability */
+  justify-content: center;
+  align-items: center;
+
   color: white;
-  background-color: rgba(0, 0, 0, 0.4); /* Optional dark dimming tint */
+  background: rgba(0, 0, 0, 0.35);
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
-
 }
+
 
 /* ------- header ---------- */
 /* Header base */
