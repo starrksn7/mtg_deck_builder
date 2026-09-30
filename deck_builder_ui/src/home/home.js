@@ -18,14 +18,15 @@ export function Home() {
     }, []);
 
     return (
-        <div>
+        <div className="home-page">
+
             <div
                 className="image-container"
                 style={{ backgroundImage: `url(${brainstormArtLink})` }}
             >
-                <img 
-                    src={brainstormArtLink} 
-                    alt="Background scenery" 
+                <img
+                    src={brainstormArtLink}
+                    alt="Background scenery"
                     className="overlay-image"
                 />
 
@@ -35,23 +36,36 @@ export function Home() {
                 </div>
             </div>
 
+            <section className="top-ten-section">
+                <h2 className="top-ten-title">Top Commanders</h2>
 
-            {topTenCommanders.map((card, i) => (
-                <div key={i}>
-                    <div className="topTenCardImage">
-                        <img
-                            src={card.imageLink}
-                            alt={card.commander}
-                        />
-                    </div>
-                    <div className="topTenCardName">
-                        {card.commander}
-                    </div>
-                    <div className="topTenCardCount">
-                        {card.count}
-                    </div>
+                <div className="top-ten-grid">
+                    {topTenCommanders.map((card, i) => (
+                        <div className="top-ten-card" key={i}>
+
+                            <div className="top-ten-card-image">
+                                <img
+                                    src={card.imageLink}
+                                    alt={card.commander}
+                                />
+                            </div>
+
+                            <div className="top-ten-card-info">
+                                <div className="top-ten-card-name">
+                                    {card.commander}
+                                </div>
+
+                                <div className="top-ten-card-count">
+                                    {card.count} {card.count === 1 ? "deck" : "decks"}
+                                </div>
+                            </div>
+
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </section>
+
         </div>
     );
+
 }

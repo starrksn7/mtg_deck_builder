@@ -13,6 +13,8 @@
   }
 }
 
+/*--------- home page -------------*/
+
 .image-container {
   position: relative;
   width: 100%;
@@ -69,6 +71,132 @@
   box-sizing: border-box;
 }
 
+.home-page {
+  min-height: 100vh;
+  background: #f3f4f6;
+}
+
+/* ---------- Top Commander Section ---------- */
+
+.top-ten-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  box-sizing: border-box;
+}
+
+.top-ten-title {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+/* ---------- Commander Grid ---------- */
+
+.top-ten-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+/* ---------- Individual Card ---------- */
+
+.top-ten-card {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  background: #111827;
+  border-radius: 12px;
+}
+
+
+/* ---------- Card Image ---------- */
+
+.top-ten-card-image {
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  overflow: hidden;
+}
+
+.top-ten-card-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.top-ten-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+
+}
+
+.top-ten-card:hover .top-ten-card-image img {
+  transform: scale(1.04);
+}
+
+/* ---------- Card Info ---------- */
+
+.top-ten-card-info {
+  padding: 12px 14px;
+  color: white;
+  text-align: center;
+}
+
+.top-ten-card-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-ten-card-count {
+  margin-top: 5px;
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+/* ---------- Ranking Number ---------- */
+
+.top-ten-card::before {
+  content: counter(top-ten-counter);
+  position: absolute;
+
+  top: 8px;
+  left: 8px;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  z-index: 2;
+}
+
+.top-ten-grid {
+  counter-reset: top-ten-counter;
+}
+
+.top-ten-card {
+  counter-increment: top-ten-counter;
+}
 
 /* ------- header ---------- */
 /* Header base */
@@ -1393,6 +1521,17 @@ h2 {
     box-sizing: border-box;
   }
 
+  /*---------- home page ------------*/
+
+  .top-ten-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .top-ten-section {
+    padding: 28px 16px 40px;
+  }
+
   /* ---------- Deck Header ---------- */
 
   .intro {
@@ -1541,6 +1680,33 @@ h2 {
     padding-right: 8px;
   }
 
+  /* ---------- home page -------- */
+
+   .top-ten-section {
+    padding: 24px 12px 32px;
+  }
+
+  .top-ten-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+
+  .top-ten-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .top-ten-card-info {
+    padding: 10px 8px;
+  }
+
+  .top-ten-card-name {
+    font-size: 0.85rem;
+  }
+
+  .top-ten-card-count {
+    font-size: 0.75rem;
+  }
 
   /* =======================================================
      HEADER
@@ -1998,6 +2164,31 @@ h2 {
     font-size: 0.8rem;
   }
 
+  /* --------- home page ----------- */
+
+  .top-ten-grid {
+    gap: 8px;
+  }
+
+  .top-ten-card-info {
+    padding: 8px 6px;
+  }
+
+  .top-ten-card-name {
+    font-size: 0.78rem;
+  }
+
+  .top-ten-card-count {
+    font-size: 0.7rem;
+  }
+
+  .top-ten-card::before {
+    width: 24px;
+    height: 24px;
+    top: 6px;
+    left: 6px;
+    font-size: 0.7rem;
+  }
 
   /* ---------- Deck header ---------- */
 
