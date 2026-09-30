@@ -21,4 +21,5 @@ public class DeckBuilderApplication {
  *      ii. arcane encyclopedia
  * 2. maybe add some kind of message if a user tries to add a banned card?
  * 3. add search to the homepage for either decks or cards
+ *    i. maybe repurpose the dead searchbar component and search by card name and deck commander?
  */

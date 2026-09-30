@@ -3,15 +3,12 @@ import { useParams } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
 import { Pagination } from './pagination';
 import { Loader } from './loader';
-import { RenderColorOptions } from './renderColorOptions';
-import { RenderTypeOptions } from './renderTypeOptions';
 import api from '../api/axios';
 
 export function SearchBar(){
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
-    const [searchType, setSearchType] = useState('');
     const deckId = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(25);
@@ -31,42 +28,13 @@ export function SearchBar(){
         setIsLoading(true);
         let resultsArray = [];
         try{
-            let searchUrl = '';
-            let res;
-
-            switch(searchType) {
-                case ('1'):
-                    searchUrl = '/card/searchByName';
-                    res = await api.post(searchUrl, {name: searchInput});
-                    break;
-                case ('2'):
-                    searchUrl = '/card/searchByIdentityAndType';
-                    res = await api.post(searchUrl, {colorIdentity: colorIdentity, type: cardType});
-                    break;
-                case ('3'):
-                    searchUrl = '/card/searchByColorAndCost';
-                    res = await api.post(searchUrl, {colors: colorIdentity, manaCost: searchInput});
-                    break;
-                case ('4'):
-                    searchUrl = '/card/searchByKeywordAndColors'
-                    res = await api.post(searchUrl, {keyword: searchInput, colors: colorIdentity})
-                    break;
-                default:
-                    searchUrl = ''
-            }
+            const res = await api.post('/card/searchByName', {name: searchInput});
  
-            let data = res.data;
+            const data = res.data;
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
             })
 
-            if(searchType === '2'){
-                console.log("searchIinput = ", searchInput)
-                resultsArray = resultsArray.filter((entry) => {
-                    return entry.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) || 
-                    entry.oracle_text.toLowerCase().includes(searchInput.toLowerCase());
-                })
-            }
         } catch (error){
             console.log("Error fetching data: ", error)
         }
@@ -95,25 +63,6 @@ export function SearchBar(){
                     <input type='radio' name="searchType" value='1' onChange={handleSearchChange}/>
                     Search By Name
                 </label>
-                <label>
-                    <input type='radio' name="searchType" value='2' onChange={handleSearchChange}/>
-                    Search By Identity and Type
-                </label>
-                <label>
-                    <input type='radio' name="searchType" value='3' onChange={handleSearchChange}/>
-                    Search By Color and Cost
-                </label>
-                <label>
-                    <input type='radio' name="searchType" value='4' onChange={handleSearchChange}/>
-                    Search By Keyword and Colors
-                </label>
-                {searchType === '2' ? <div>
-                    <RenderColorOptions setColorIdentity={setColorIdentity}/>
-                    <RenderTypeOptions setCardType={setCardType}/>
-                </div> : <div></div>}
-                {searchType === '3' || searchType === '4' ? <div>
-                    <RenderColorOptions setColorIdentity={setColorIdentity} />
-                </div> : <div></div>}
             </form>
             {isLoading ? <Loader /> : <div>
                 {searchResults && (

@@ -14,6 +14,9 @@ export const Header = () => {
         {token ? (
           <>
             <div className="header__left">
+              <Link to={`/`} className="header__link">
+                Home
+              </Link>
               <Link to={`/user/${userId}`} className="header__link">
                 My Decks
               </Link>
