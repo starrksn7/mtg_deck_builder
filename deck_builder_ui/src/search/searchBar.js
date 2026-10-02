@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DisplayResults } from './displayResults';
 import { Pagination } from './pagination';
 import { Loader } from './loader';
@@ -19,6 +19,7 @@ export function SearchBar(){
     const [isLoading, setIsLoading] = useState(false);
     const [colorIdentity, setColorIdentity] = useState('');
     const [cardType, setCardType] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setSearchInput(e.target.value)
@@ -34,6 +35,15 @@ export function SearchBar(){
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
             })
+
+            if (data.length === 1){
+                //need to build out a page for this
+                //and figure out what it's contents should be
+                navigate(`cards/${data[0].scryfallId}`);
+            } else {
+                //need to build out a page for this
+                navigate('cards/searchResults');
+            }
 
         } catch (error){
             console.log("Error fetching data: ", error)
