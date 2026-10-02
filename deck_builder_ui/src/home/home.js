@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { SearchBar } from "../search/searchBar";
 
 export function Home() {
     const [topTenCommanders, setTopTenCommanders] = useState([]);
@@ -34,6 +35,7 @@ export function Home() {
                     <h2>Welcome to BrianstorMTG</h2>
                     <p>My commander deck building project</p>
                 </div>
+                <SearchBar />
             </div>
 
             <section className="top-ten-section">
