@@ -340,7 +340,7 @@ export function SingleDeck() {
                     <div className="banner-image">
                         <img
                             src={bannerImage}
-                            alt="Banner Image"
+                            alt="Banner"
                         />
 
                         <div

@@ -11,14 +11,12 @@ export function SearchBar(){
     const [searchInput, setSearchInput] = useState('');
     const deckId = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const [cardsPerPage, setCardsPerPage] = useState(25);
+    const cardsPerPage = 25;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [colorIdentity, setColorIdentity] = useState('');
-    const [cardType, setCardType] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -53,26 +51,17 @@ export function SearchBar(){
         setShowResults(true);
         setIsLoading(false);
     }
-
-   const handleSearchChange = (event) => {
-        let { value } = event.target
-        setSearchType(value)
-   }
    
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Search here"
+                    placeholder="Search for cards..."
                     onChange={handleChange}
                     value={searchInput}
                 />
                 <button type="submit">Search</button>
-                <label>
-                    <input type='radio' name="searchType" value='1' onChange={handleSearchChange}/>
-                    Search By Name
-                </label>
             </form>
             {isLoading ? <Loader /> : <div>
                 {searchResults && (

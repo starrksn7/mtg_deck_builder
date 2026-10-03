@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from "react"
 import { createCardObject } from "../helperFunctions"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import '../css/createModal.css'
 import api from "../api/axios"
 import { SearchResultsList } from "./searchResultsList"
 
 export const DisplayResults = ({searchResults, setIsError}) => {
-    const location = useLocation();
     const [deckName, setDeckName] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [selectedCard, setSelectedCard] = useState(null)
     const navigate = useNavigate();
-    const [deckId, setDeckId] = useState('');
     const userId = localStorage.getItem('userId');
 
     const handleCreateDeck = async () => {

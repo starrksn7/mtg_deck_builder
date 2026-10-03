@@ -34,8 +34,8 @@ export function Home() {
                 <div className="text-overlay">
                     <h2>Welcome to BrianstorMTG</h2>
                     <p>My commander deck building project</p>
+                    <SearchBar />
                 </div>
-                <SearchBar />
             </div>
 
             <section className="top-ten-section">

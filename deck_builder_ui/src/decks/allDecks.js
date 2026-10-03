@@ -9,7 +9,7 @@ export function AllDecks() {
     const [selectedDeck, setSelectedDeck] = useState(null);
     const userId = localStorage.getItem('userId');
     const [currentPage, setCurrentPage] = useState(1);
-    const [cardsPerPage, setCardsPerPage] = useState(10);
+    const cardsPerPage = 10;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = deckList.slice(indexOfFirstCard, indexOfLastCard)
@@ -25,7 +25,7 @@ export function AllDecks() {
         }
 
         fetchDecks();
-    }, [])
+    }, [userId])
 
     const deleteDeck = async () => {
         if (!selectedDeck) return;
@@ -66,7 +66,7 @@ export function AllDecks() {
                     </div>
                     {cardsDisplayed.map((deck, index) => (
                         <div key={index} className="deck-row">
-                            <img src={deck.imageLink}/>
+                            <img src={deck.imageLink} alt="commander" />
 
                             <Link to={`/decks/${deck.deckId}`} className="deck-name">
                                 {deck.deckName}

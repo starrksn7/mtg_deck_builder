@@ -22,4 +22,7 @@ public class DeckBuilderApplication {
  * 2. maybe add some kind of message if a user tries to add a banned card?
  * 3. add search to the homepage for either decks or cards
  *    i. maybe repurpose the dead searchbar component and search by card name and deck commander?
+ *   ii. maybe change how the search works so that it doesn't just search by name, but returns a more
+ *       broad search from scryfall based on the search term.
+ *  iii. definitely need to push the search results to their own page
  */

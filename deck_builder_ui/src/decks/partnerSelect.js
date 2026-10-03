@@ -16,7 +16,7 @@ export const PartnerSelect = () => {
     const navigate = useNavigate();
     const [deckMetaData, setDeckMetaData] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [cardsPerPage, setCardsPerPage] = useState(25);
+    const cardsPerPage = 25;
     const [isError, setIsError] = useState(false);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
