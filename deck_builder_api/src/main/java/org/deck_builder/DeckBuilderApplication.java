@@ -34,5 +34,7 @@ public class DeckBuilderApplication {
  *          b. card price
  *          c. gatherer rulings, but I would need to figure out if there's a free gatherer api that I could pull
  *             this from. scryfall will give me the link to the actual gatherer site, but not the api.
+ *             i. after some investigating it looks like I can get rulings from scryfall afterall. The route is
+ *                <base scryfall api url>/cards/<scryfallId></scryfallId>/rulings
  *
  */
