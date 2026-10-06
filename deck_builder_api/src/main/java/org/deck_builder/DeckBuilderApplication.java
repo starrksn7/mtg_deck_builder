@@ -25,4 +25,14 @@ public class DeckBuilderApplication {
  *   ii. maybe change how the search works so that it doesn't just search by name, but returns a more
  *       broad search from scryfall based on the search term.
  *  iii. definitely need to push the search results to their own page
+ *       1. if the results have an exact match, send them directly to the single card page
+ *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any
+ *          of these should route the user to a single deck page for those results.
+ *       3. if there's an exact match and more than one result, still send them to the single card page
+ *       4. single page contents
+ *          a. all of the card info in separate sections
+ *          b. card price
+ *          c. gatherer rulings, but I would need to figure out if there's a free gatherer api that I could pull
+ *             this from. scryfall will give me the link to the actual gatherer site, but not the api.
+ *
  */
