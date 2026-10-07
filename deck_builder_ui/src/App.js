@@ -10,6 +10,8 @@ import { Header } from './header/header';
 import { AuthProvider } from './login/AuthContext';
 import { PartnerSelect } from './decks/partnerSelect';
 import { Home } from './home/home';
+import { SingleCard } from './cards/singleCard';
+import { CardSearchResults } from './cards/cardSearchResults';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="decks/:deckId/:keyword" element={<PartnerSelect />} />
+          <Route path="cards/search" element={<CardSearchResults />} />
+          <Route path="cards/:id" element={<SingleCard />} />
         </Routes>
       </div>
     </AuthProvider>
