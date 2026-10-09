@@ -63,4 +63,9 @@ public class CardController {
         return cardService.getPartnerOptions(keyword);
     }
 
+    @GetMapping(path="/search")
+    public List<String> generalSearch(@RequestParam String searchTerm) throws UnsupportedEncodingException {
+        return cardService.generalSearch(searchTerm);
+    }
+
 }

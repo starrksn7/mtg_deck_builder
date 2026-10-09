@@ -300,6 +300,10 @@ public class CardService {
         return parsedResults;
     }
 
+    public List<String> generalSearch(String searchTerm) {
+        String searchUri = scryfallUrl + "/cards/search?q=" + searchTerm;
+    }
+
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
@@ -429,4 +433,5 @@ public class CardService {
         failedSearch.add(object.toString());
         return failedSearch;
     }
+
 }
