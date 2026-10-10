@@ -1,21 +1,9 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { DisplayResults } from './displayResults';
-import { Pagination } from './pagination';
-import { Loader } from './loader';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 
 export function SearchBar(){
-    const [searchResults, setSearchResults] = useState([]);
-    const [showResults, setShowResults] = useState(false);
     const [searchInput, setSearchInput] = useState('');
-    const deckId = useParams();
-    const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 25;
-    const indexOfLastCard = currentPage * cardsPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const cardsDisplayed = searchResults.slice(indexOfFirstCard, indexOfLastCard)
-    const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -27,28 +15,28 @@ export function SearchBar(){
         setIsLoading(true);
         let resultsArray = [];
         try{
-            const res = await api.post('/card/searchByName', {name: searchInput});
+            const res = await api.get(`/card/search?searchTerm=${searchInput}`);
  
             const data = res.data;
             data.forEach(entry => {
                 resultsArray.push(JSON.parse(entry));
             })
 
-            if (data.length === 1){
+            if (resultsArray.length === 1){
                 //need to build out a page for this
                 //and figure out what it's contents should be
                 navigate(`cards/${data[0].scryfallId}`);
             } else {
                 //need to build out a page for this
-                navigate('cards/searchResults');
+                navigate('cards/search', {
+                    state: { resultsArray }
+                });
             }
 
         } catch (error){
             console.log("Error fetching data: ", error)
         }
-        setCurrentPage(1);
-        setSearchResults(resultsArray);
-        setShowResults(true);
+
         setIsLoading(false);
     }
    
@@ -63,21 +51,6 @@ export function SearchBar(){
                 />
                 <button type="submit">Search</button>
             </form>
-            {isLoading ? <Loader /> : <div>
-                {searchResults && (
-                    <div> 
-                        <DisplayResults searchResults={cardsDisplayed} deckId={deckId} setIsError={setIsError}/>         
-                        <Pagination 
-                            cardsPerPage={cardsPerPage}
-                            totalResults={searchResults.length}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            isError={isError}
-                        />
-                    </div>
-                )}
-                </div>
-            }
         </div>
     )
 }

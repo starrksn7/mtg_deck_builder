@@ -232,7 +232,6 @@ public class CardService {
         String commanderForUri = "is%3Acommander";
         String colorSearch = "+id%3D" + colors;
         String searchUri = scryfallUrl + "/cards/search?q=" + colorSearch + "+" +commanderForUri;
-        System.out.println(searchUri);
         try {
             List<String> results = getCardsFromUri(searchUri);
             return parseSearchResults(results);
@@ -302,6 +301,12 @@ public class CardService {
 
     public List<String> generalSearch(String searchTerm) {
         String searchUri = scryfallUrl + "/cards/search?q=" + searchTerm;
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public Card mapResultToCard(JsonObject result){
