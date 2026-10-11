@@ -28,6 +28,8 @@ public class DeckBuilderApplication {
  *       1. if the results have an exact match, send them directly to the single card page
  *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any
  *          of these should route the user to a single deck page for those results.
+ *          a. need to handle errors when there are no matching results.
+ *          b. need ot add the search bar to the top of the general search page
  *       3. if there's an exact match and more than one result, still send them to the single card page
  *       4. single page contents
  *          a. all of the card info in separate sections

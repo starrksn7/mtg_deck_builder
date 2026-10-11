@@ -13,19 +13,27 @@ export function GeneralSearchResults() {
     const [isError, setIsError] = useState(false);
     
     return (
-        <div>
-             {cardsDisplayed.length > 0 ? (
-                cardsDisplayed.map((result, index) => (
-                    <div key={result.id ?? index}>
-                        <Link to={`/card/${result.scryfall_id}`}>
-                            <img src={result.image_uris} alt={result.name} />
-                        </Link>
-                    </div>
-                ))
+        <div className="general-search-container">
+            {cardsDisplayed.length > 0 ? (
+                <div className="general-search-grid">
+                    {cardsDisplayed.map((result, index) => (
+                        <div
+                            className="general-search"
+                            key={result.id ?? index}
+                        >
+                            <Link to={`/card/${result.scryfall_id}`}>
+                                <img
+                                    src={result.image_uris}
+                                    alt={result.name}
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                </div>
             ) : (
                 <p>No results found.</p>
             )}
-            <Pagination 
+            <Pagination
                 cardsPerPage={cardsPerPage}
                 totalResults={resultsArray.length}
                 currentPage={currentPage}
@@ -33,5 +41,5 @@ export function GeneralSearchResults() {
                 isError={isError}
             />
         </div>
-    )
+    );
 }

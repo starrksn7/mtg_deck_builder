@@ -1501,6 +1501,47 @@ h2 {
     height: auto;
 }
 
+
+/* --------- general search ----------- */
+
+.general-search-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.general-search-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.general-search {
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #1e1e2a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.general-search img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.25s ease;
+}
+
+.general-search:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.general-search img:hover {
+    cursor: pointer;
+}
+
 /* =========================================================
    RESPONSIVE DESIGN
    ========================================================= */
