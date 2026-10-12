@@ -1,6 +1,7 @@
 import { useLocation, Link } from "react-router-dom"
 import { Pagination } from "../search/pagination";
 import { useState } from "react";
+import { SearchBar } from "../search/searchBar";
 
 export function GeneralSearchResults() {
     const location = useLocation();
@@ -14,6 +15,7 @@ export function GeneralSearchResults() {
     
     return (
         <div className="general-search-container">
+            <SearchBar />
             {cardsDisplayed.length > 0 ? (
                 <div className="general-search-grid">
                     {cardsDisplayed.map((result, index) => (
