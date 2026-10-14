@@ -25,10 +25,10 @@ export function SearchBar(){
             if (resultsArray.length === 1){
                 //need to build out a page for this
                 //and figure out what it's contents should be
-                navigate(`cards/${data[0].scryfallId}`);
+                navigate(`/cards/${resultsArray[0].scryfall_id}`);
             } else {
                 //need to build out a page for this
-                navigate('cards/search', {
+                navigate('/cards/search', {
                     state: { resultsArray }
                 });
             }
