@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { Loader } from './loader';
 
 export function SearchBar(){
     const [searchInput, setSearchInput] = useState('');
@@ -38,6 +39,10 @@ export function SearchBar(){
         }
 
         setIsLoading(false);
+    }
+
+    if (isLoading) {
+        return <Loader />;
     }
    
     return (

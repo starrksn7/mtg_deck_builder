@@ -14,17 +14,13 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. Some kind of initial landing page would be nice, not sure what that would look like, can I make a page of
- *    dummy articles/images?
- *    a. What do i call this program?
- *       i. brainstorm
- *      ii. arcane encyclopedia
- * 2. maybe add some kind of message if a user tries to add a banned card?
- * 3. add search to the homepage for either decks or cards
+ * 1. maybe add some kind of message if a user tries to add a banned card to a deck?
+ * 2. add search to the homepage for either decks or cards
  *    i. maybe repurpose the dead searchbar component and search by card name and deck commander?
- *   ii. maybe change how the search works so that it doesn't just search by name, but returns a more
- *       broad search from scryfall based on the search term.
- *  iii. definitely need to push the search results to their own page
+ *       1. this is working, but I need to figure out how to make the search more general.
+ *          "elf" should bring back results by name and type, if possible
+ *       2. need to reset the search results back to page 1 when a user searches on the results page
+ *   ii. definitely need to push the search results to their own page
  *       1. if the results have an exact match, send them directly to the single card page
  *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any
  *          of these should route the user to a single deck page for those results.
