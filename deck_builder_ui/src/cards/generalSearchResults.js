@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router-dom"
 import { Pagination } from "../search/pagination";
 import { useState } from "react";
 import { SearchBar } from "../search/searchBar";
+import { useEffect } from "react";
 
 export function GeneralSearchResults() {
     const location = useLocation();
@@ -12,6 +13,10 @@ export function GeneralSearchResults() {
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = resultsArray.slice(indexOfFirstCard, indexOfLastCard);
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [location.key]);
     
     return (
         <div className="general-search-container">
