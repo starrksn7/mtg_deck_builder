@@ -46,8 +46,8 @@ export function SearchBar(){
     }
    
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div classname="search-container">
+            <form className="general-search-bar" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Search for cards..."

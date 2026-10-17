@@ -20,7 +20,6 @@ public class DeckBuilderApplication {
  *       1. this is working, but I need to figure out how to make the search more general.
  *          "elf" should bring back results by name and type, if possible
  *           a. this is not how scryfall's basic search works, so maybe I don't need it here
- *           b. style the searchBar
  *   ii. definitely need to push the search results to their own page
  *       1. if the results have an exact match, send them directly to the single card page
  *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any

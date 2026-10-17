@@ -20,7 +20,9 @@ export function GeneralSearchResults() {
     
     return (
         <div className="general-search-container">
-            <SearchBar />
+            <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 16px 24px' }}> 
+                <SearchBar />
+            </div>
             {cardsDisplayed.length > 0 ? (
                 <div className="general-search-grid">
                     {cardsDisplayed.map((result, index) => (
