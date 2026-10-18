@@ -299,8 +299,9 @@ public class CardService {
         return parsedResults;
     }
 
-    public List<String> generalSearch(String searchTerm) {
-        String searchUri = scryfallUrl + "/cards/search?q=" + searchTerm;
+    public List<String> generalSearch(String searchTerm) throws UnsupportedEncodingException {
+        String encodedSearch = URLEncoder.encode(searchTerm, "UTF-8");
+        String searchUri = scryfallUrl + "/cards/search?q=" + encodedSearch;
         try {
             List<String> results = getCardsFromUri(searchUri);
             return parseSearchResults(results);

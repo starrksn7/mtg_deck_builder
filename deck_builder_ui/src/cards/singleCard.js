@@ -1,7 +1,12 @@
-export function SingleCard() {
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
-    //display card image, card name, card cost, oracle text and other info from card
-    //get scryfall ruling text in the api to display that as well
+
+export function SingleCard() {
+    const location = useLocation();
+    const resultsArray = location.state?.resultsArray ?? [];
+
+    console.log(resultsArray);
     return (
         <div>
             single card info here

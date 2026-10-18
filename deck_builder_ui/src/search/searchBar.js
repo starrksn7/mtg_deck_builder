@@ -24,11 +24,10 @@ export function SearchBar(){
             })
 
             if (resultsArray.length === 1){
-                //need to build out a page for this
-                //and figure out what it's contents should be
-                navigate(`/cards/${resultsArray[0].scryfall_id}`);
+                navigate(`/cards/${resultsArray[0].scryfall_id}`, {
+                    state: { resultsArray }
+                });
             } else {
-                //need to build out a page for this
                 navigate('/cards/search', {
                     state: { resultsArray }
                 });
