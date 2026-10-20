@@ -68,4 +68,9 @@ public class CardController {
         return cardService.generalSearch(searchTerm);
     }
 
+    @GetMapping(path="/rulings")
+    public List<String> getRulings(@RequestParam String scryfallId){
+        return cardService.getRulings(scryfallId);
+    }
+
 }

@@ -33,7 +33,7 @@ public class DeckBuilderApplication {
  *          c. gatherer rulings, but I would need to figure out if there's a free gatherer api that I could pull
  *             this from. scryfall will give me the link to the actual gatherer site, but not the api.
  *             i. after some investigating it looks like I can get rulings from scryfall afterall. The route is
- *                <base scryfall api url>/cards/<scryfallId></scryfallId>/rulings
+ *                <base scryfall api url>/cards/<scryfallId>/rulings
  *          d. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
  *          e. need to fix the redirect from the general search results to the single page

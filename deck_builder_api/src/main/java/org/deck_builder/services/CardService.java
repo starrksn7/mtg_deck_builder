@@ -310,6 +310,16 @@ public class CardService {
         }
     }
 
+    public List<String> getRulings(String scryfallId){
+        String searchUri = scryfallUrl +"/cards/" + scryfallId + "/rulings";
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return parseSearchResults(results);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;
