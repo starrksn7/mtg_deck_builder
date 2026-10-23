@@ -9,7 +9,7 @@ export function SingleCard() {
     const [rulingsArray, setRulingsArray] = useState([]);
 
     let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
-        name, oracle_text, price, scryfall_id, type_line
+        name, oracle_text, price, scryfall_id, type_line, prices
     } = cardInfo;
 
     useEffect(() => {
@@ -21,7 +21,9 @@ export function SingleCard() {
 
         getRulings();
     }, [scryfall_id])
-    
+    console.log("xxxxxxxxxx")
+    console.log(rulingsArray)
+    console.log(cardInfo)
     return (
         <div className="single-card-container">
             <div className="signel-card-grid">
@@ -40,13 +42,21 @@ export function SingleCard() {
                 <div className="single-card-oracle">
                     {oracle_text}
                 </div>
-                <div className="single-card_image">
-                    {image_uris}
+                <div className="single-card-price">
+                    {prices?.usd}
                 </div>
             </div>
-            <div className="rulings">
-                Rulings area
-            </div>
+            { rulingsArray.length > 0 ? (
+                <div className="ruling-container">
+                    {rulingsArray.map((ruling, index) => {
+                        return (
+                            <div className="ruling" key={index}>
+                                {ruling.comment}
+                            </div>
+                        )
+                    })}
+                </div>
+            ) : <div></div>}
         </div>
     )
 }

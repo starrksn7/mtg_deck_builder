@@ -37,5 +37,5 @@ public class DeckBuilderApplication {
  *          d. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
  *          e. need to fix the redirect from the general search results to the single page
- *
+ *          
  */
