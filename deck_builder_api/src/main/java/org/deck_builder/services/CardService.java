@@ -314,7 +314,7 @@ public class CardService {
         String searchUri = scryfallUrl +"/cards/" + scryfallId + "/rulings";
         try {
             List<String> results = getCardsFromUri(searchUri);
-            return parseSearchResults(results);
+            return results;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

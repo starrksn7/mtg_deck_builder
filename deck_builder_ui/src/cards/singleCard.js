@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { replaceTextWithManaSymbols } from "../helperFunctions";
+import api from '../api/axios'
 
 export function SingleCard() {
     const location = useLocation();
@@ -11,13 +12,11 @@ export function SingleCard() {
         name, oracle_text, price, scryfall_id, type_line
     } = cardInfo;
 
-    console.log(cardInfo);
-
     useEffect(() => {
         const getRulings = async () => {
-            const res = await api.get(`/card/search?searchTerm=${searchInput}`);
+            const response = await api.get(`/card/rulings?scryfallId=${scryfall_id}`);
             const rulings = response.data.map(entry => JSON.parse(entry));
-            setRulingsArray(rulings);
+            setRulingsArray(rulings[0]?.data);
         }
 
         getRulings();
