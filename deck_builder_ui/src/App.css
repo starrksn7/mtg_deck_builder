@@ -1625,6 +1625,246 @@ h2 {
     outline: 2px solid #2563eb;
     outline-offset: 3px;
 }
+
+/* ---------- single card ---------- */
+
+.single-card-container {
+    --bg: #111318;
+    --panel: #1b1e26;
+    --border: #343946;
+    --text: #f3f4f6;
+    --muted: #a5adbd;
+    --accent: #c6a15b;
+
+    min-height: 100vh;
+    padding: 48px 24px 72px;
+    color: var(--text);
+    background:
+        radial-gradient(
+            ellipse at 15% 10%,
+            rgba(91, 73, 126, 0.18),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 90% 80%,
+            rgba(198, 161, 91, 0.09),
+            transparent 40%
+        ),
+        var(--bg);
+
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+}
+
+.single-card-container *,
+.single-card-container *::before,
+.single-card-container *::after {
+    box-sizing: border-box;
+}
+
+.signel-card-grid {
+    width: min(100%, 1050px);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+    grid-template-areas:
+        "image name"
+        "image cost"
+        "image type"
+        "image oracle"
+        "image price";
+
+    align-items: start;
+    align-content: start;
+    column-gap: 40px;
+    row-gap: 18px;
+
+    padding: 32px;
+    background: linear-gradient(
+        145deg,
+        rgba(35, 39, 49, 0.96),
+        rgba(23, 25, 32, 0.98)
+    );
+
+    border: 1px solid var(--border);
+    border-radius: 24px;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.single-card-image {
+    grid-area: image;
+    position: relative;
+    align-self: start;
+}
+
+.single-card-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 7;
+    object-fit: contain;
+
+    border-radius: 14px;
+    background: #0c0d10;
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.12);
+
+    transition:
+        transform 300ms ease,
+        box-shadow 300ms ease;
+}
+
+.single-card-image:hover img {
+    transform: translateY(-5px) scale(1.015);
+
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 24px rgba(198, 161, 91, 0.16);
+}
+
+.single-card-name {
+    grid-area: name;
+    align-self: end;
+
+    color: #f8e7bd;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+
+    overflow-wrap: anywhere;
+}
+
+.single-card-cost {
+    grid-area: cost;
+    min-height: 30px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    color: var(--accent);
+    font-size: 1.05rem;
+}
+
+/* Supports mana symbols rendered as images or HTML elements */
+.single-card-cost img,
+.single-card-cost svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.single-card-type {
+    grid-area: type;
+
+    padding: 13px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    color: #e5c982;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.5;
+    letter-spacing: 0.015em;
+}
+
+.single-card-oracle {
+    grid-area: oracle;
+
+    color: #e0e3eb;
+    font-size: 1rem;
+    line-height: 1.85;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+
+.single-card-price {
+    grid-area: price;
+    justify-self: start;
+    align-self: end;
+
+    margin-top: 8px;
+    padding: 10px 16px;
+
+    color: #b8f3cb;
+    background: rgba(46, 160, 93, 0.12);
+    border: 1px solid rgba(92, 205, 133, 0.3);
+    border-radius: 10px;
+
+    font-size: 1.25rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+}
+
+.single-card-price::before {
+    content: "Market price";
+    display: block;
+    margin-bottom: 3px;
+
+    color: #9ba9a1;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.ruling-container {
+    width: min(100%, 1050px);
+    margin: 32px auto 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.ruling {
+    position: relative;
+    padding: 20px 22px 20px 25px;
+
+    color: #d7dbe4;
+    background: rgba(27, 30, 38, 0.88);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    font-size: 0.93rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+
+    transition:
+        border-color 200ms ease,
+        background 200ms ease,
+        transform 200ms ease;
+}
+
+.ruling::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: var(--accent);
+    opacity: 0.8;
+}
+
+.ruling:hover {
+    background: rgba(39, 43, 53, 0.98);
+    border-color: rgba(198, 161, 91, 0.45);
+    transform: translateY(-2px);
+}
+
+
 /* =========================================================
    RESPONSIVE DESIGN
    ========================================================= */
@@ -1790,6 +2030,45 @@ h2 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1rem;
   }
+
+  /* -------- single card ----- */
+  .single-card-container {
+        padding: 24px 14px 40px;
+    }
+
+    .signel-card-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "image"
+            "name"
+            "cost"
+            "type"
+            "oracle"
+            "price";
+
+        gap: 18px;
+        padding: 22px;
+        border-radius: 18px;
+    }
+
+    .single-card-image {
+        width: min(100%, 340px);
+        margin: 0 auto 8px;
+    }
+
+    .single-card-name {
+        font-size: 1.9rem;
+    }
+
+    .ruling-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .ruling {
+        padding: 17px 18px 17px 22px;
+    }
 }
 
 
@@ -2425,4 +2704,16 @@ h2 {
   .general-search-bar button {
     padding: 11px 17px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .single-card-image img,
+    .ruling {
+        transition: none;
+    }
+
+    .single-card-image:hover img,
+    .ruling:hover {
+        transform: none;
+    }
 }
