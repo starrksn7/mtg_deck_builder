@@ -343,6 +343,9 @@ public class CardService {
         String rarity = result.get("rarity").getAsString();
         boolean gameChanger = result.get("game_changer").getAsBoolean();
 
+        JsonObject prices = result.getAsJsonObject("prices");
+        double price = prices.get("usd").getAsDouble();
+
         if (result.has("card_faces")){
             JsonArray faces = result.getAsJsonArray("card_faces");
             JsonObject front = faces.get(0).getAsJsonObject();
@@ -407,7 +410,7 @@ public class CardService {
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray,
                     keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,
                     backSideManaCost, backSideOracleText, backSideColors, twoFaces);
-
+            newCard.setPrice(price);
             return newCard;
 
         } else {
@@ -437,7 +440,7 @@ public class CardService {
             }
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
-
+            newCard.setPrice(price);
             return newCard;
         }
     }

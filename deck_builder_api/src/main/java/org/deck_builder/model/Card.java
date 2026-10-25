@@ -77,7 +77,8 @@ public class Card {
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
                  String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
                  boolean gameChanger, String rarity, String fullArtLink, String backSideCardName, String backSideCardType,
-                 String backSideImage, String backSideManaCost, String backSideOracleText, String backSideColors, boolean twoCardFaces){
+                 String backSideImage, String backSideManaCost, String backSideOracleText, String backSideColors, boolean twoCardFaces
+                 ){
         this.scryfallId = scryfallId;
         this.name = name;
         this.scryfallURL = scryfallURL;

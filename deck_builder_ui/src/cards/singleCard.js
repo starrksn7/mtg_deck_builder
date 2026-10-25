@@ -43,7 +43,7 @@ export function SingleCard() {
                     {oracle_text}
                 </div>
                 <div className="single-card-price">
-                    {prices?.usd}
+                    ${price}
                 </div>
             </div>
             { rulingsArray.length > 0 ? (

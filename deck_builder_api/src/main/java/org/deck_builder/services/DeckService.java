@@ -101,7 +101,7 @@ public class DeckService {
             if (!"legal".equals(commanderLegality)) {
                 continue;
             }
-
+            
             Card card = new Card(
                     cardSearchDTO.getScryfallId(),
                     cardSearchDTO.getName(),
