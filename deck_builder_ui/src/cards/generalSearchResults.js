@@ -30,7 +30,7 @@ export function GeneralSearchResults() {
                             className="general-search"
                             key={result.id ?? index}
                         >
-                            <Link to={`/card/${result.scryfall_id}`}>
+                            <Link to={`/cards/${result.scryfall_id}`}>
                                 <img
                                     src={result.image_uris}
                                     alt={result.name}

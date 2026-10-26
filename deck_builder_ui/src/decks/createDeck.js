@@ -1,6 +1,6 @@
 import { useState } from "react"
 import api from "../api/axios"
-import { getBaseColors } from "../helperFunctions"
+import { getBaseColors, lostImage } from "../helperFunctions"
 import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
 import { Pagination } from "../search/pagination"
@@ -112,7 +112,7 @@ export function CreateDeck(){
                 <div>
                     <p>We can't seem to find what you're looking for. Please search again</p>
                     <img 
-                        src="https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337"
+                        src={lostImage}
                         alt="fblthp the lost" 
                     />
                 </div>

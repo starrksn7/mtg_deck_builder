@@ -1,13 +1,57 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { replaceTextWithManaSymbols } from "../helperFunctions";
+import { replaceTextWithManaSymbols, lostImage } from "../helperFunctions";
 import api from '../api/axios'
+import { SearchBar } from "../search/searchBar";
+import { Loader } from "../search/loader";
 
 export function SingleCard() {
+    const scryfallId = useParams();
     const location = useLocation();
+    const [card, setCard] = useState(location.state?.card ?? null);
+    const [isLoading, setIsLoading] = useState(!location.state?.card);
+    const [error, setError] = useState('');
     const cardInfo = location.state?.resultsArray[0] ?? [];
     const [rulingsArray, setRulingsArray] = useState([]);
 
+    useEffect(() => {
+        let cancelled = false;
+
+        async function fetchCard() {
+            if (location.state?.card?.scryfall_id === scryfallId) {
+                setCard(location.state.card);
+                setIsLoading(false);
+                setError('');
+                return;
+            }
+
+            setIsLoading(true);
+            setError('');
+
+            try {
+                //need to verify backend for this
+                const response = await api.get(
+                    `/card/${scryfallId}`
+                );
+
+                if (!cancelled) {
+                    setCard(response.data);
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setError('Unable to load this card.');
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        fetchCard();
+
+    }, [scryfallId, location.state?.card])
+    
     let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
         name, oracle_text, price, scryfall_id, type_line, prices
     } = cardInfo;
@@ -24,8 +68,24 @@ export function SingleCard() {
     console.log("xxxxxxxxxx")
     console.log(rulingsArray)
     console.log(cardInfo)
+
+    if (isLoading) return <Loader />;
+    if (error) return <p>{error}</p>;
+    if (!card) return (
+        <div>
+            <p>We can't seem to find what you're looking for. Please search again</p>
+            <img 
+                src={lostImage}
+                alt="fblthp the lost" 
+            />
+        </div>
+    );
+
     return (
         <div className="single-card-container">
+            <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 16px 24px' }}> 
+                <SearchBar />
+            </div>
             <div className="signel-card-grid">
                 <div className="single-card-image">
                     <img src={image_uris} alt={name} />
@@ -40,7 +100,7 @@ export function SingleCard() {
                     {type_line}
                 </div>
                 <div className="single-card-oracle">
-                    {oracle_text}
+                    <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(oracle_text) }} />
                 </div>
                 <div className="single-card-price">
                     ${price}

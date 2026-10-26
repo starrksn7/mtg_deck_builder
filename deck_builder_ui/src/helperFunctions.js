@@ -408,3 +408,5 @@ export const buildCardMap = (cards) => {
 
     return map;
 };
+
+export const lostImage = "https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337"

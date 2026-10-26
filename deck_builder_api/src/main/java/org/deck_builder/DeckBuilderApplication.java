@@ -16,26 +16,17 @@ public class DeckBuilderApplication {
 /** Tasks to complete
  * 1. maybe add some kind of message if a user tries to add a banned card to a deck?
  * 2. add search to the homepage for either decks or cards
- *    i. maybe repurpose the dead searchbar component and search by card name and deck commander?
- *       1. this is working, but I need to figure out how to make the search more general.
- *          "elf" should bring back results by name and type, if possible
- *           a. this is not how scryfall's basic search works, so maybe I don't need it here
  *   ii. definitely need to push the search results to their own page
  *       1. if the results have an exact match, send them directly to the single card page
  *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any
  *          of these should route the user to a single deck page for those results.
  *          a. need to handle errors when there are no matching results.
- *          b. need to make sure the loading spinner shows when the search bar is used and then transitions to a new page
- *       3. if there's an exact match and more than one result, still send them to the single card page
- *       4. single page contents
- *          a. all of the card info in separate sections
- *          b. card price
- *          c. gatherer rulings, but I would need to figure out if there's a free gatherer api that I could pull
- *             this from. scryfall will give me the link to the actual gatherer site, but not the api.
- *             i. after some investigating it looks like I can get rulings from scryfall afterall. The route is
- *                <base scryfall api url>/cards/<scryfallId>/rulings
- *          d. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
+ *          b. need to fix how the general search page does not push to a new page correctly
+ *       3. single page contents
+ *          a. search on the single card page doesn't redirect to the search results correctly.
+ *          b. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
- *          e. need to fix the redirect from the general search results to the single page
+ *          c. need to fix the redirect from the general search results to the single page
+ *          d. add a game changeer label
  *          
  */

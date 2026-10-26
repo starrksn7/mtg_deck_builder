@@ -45,7 +45,7 @@ export function SearchBar(){
     }
    
     return (
-        <div classname="search-container">
+        <div className="search-container">
             <form className="general-search-bar" onSubmit={handleSubmit}>
                 <input
                     type="text"
