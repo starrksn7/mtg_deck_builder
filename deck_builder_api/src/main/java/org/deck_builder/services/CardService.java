@@ -319,6 +319,15 @@ public class CardService {
             throw new RuntimeException(e);
         }
     }
+    public List<String> getCardById(String scryfallId){
+        String searchUri = scryfallUrl +"/cards/" + scryfallId;
+        try {
+            List<String> results = getCardsFromUri(searchUri);
+            return results;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;

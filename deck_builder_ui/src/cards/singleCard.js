@@ -31,20 +31,17 @@ export function SingleCard() {
             try {
                 //need to verify backend for this
                 const response = await api.get(
-                    `/card/${scryfallId}`
+                    `/getCardbyId?scryfallId=${scryfallId}`
                 );
 
-                if (!cancelled) {
-                    setCard(response.data);
-                }
+                if (response) setCardData(response.data);
+
             } catch (err) {
-                if (!cancelled) {
+                if (!response) {
                     setError('Unable to load this card.');
                 }
             } finally {
-                if (!cancelled) {
-                    setIsLoading(false);
-                }
+                setIsLoading(false);
             }
         }
 
