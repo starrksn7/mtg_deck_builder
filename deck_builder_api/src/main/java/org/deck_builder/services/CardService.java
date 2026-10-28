@@ -353,8 +353,9 @@ public class CardService {
         boolean gameChanger = result.get("game_changer").getAsBoolean();
 
         JsonObject prices = result.getAsJsonObject("prices");
-        double price = prices.get("usd").getAsDouble();
+        JsonElement usd = prices.get("usd");
 
+        double price = (usd != null && !usd.isJsonNull()) ? usd.getAsDouble() : 0.00;
         if (result.has("card_faces")){
             JsonArray faces = result.getAsJsonArray("card_faces");
             JsonObject front = faces.get(0).getAsJsonObject();

@@ -34,12 +34,10 @@ export function SingleCard() {
                     `/getCardbyId?scryfallId=${scryfallId}`
                 );
 
-                if (response) setCardData(response.data);
+                if (response) setCard(response.data);
 
             } catch (err) {
-                if (!response) {
-                    setError('Unable to load this card.');
-                }
+                setError('Unable to load this card.');
             } finally {
                 setIsLoading(false);
             }
@@ -99,9 +97,11 @@ export function SingleCard() {
                 <div className="single-card-oracle">
                     <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(oracle_text) }} />
                 </div>
-                <div className="single-card-price">
-                    ${price}
-                </div>
+                {price !== 0.00 && 
+                    <div className="single-card-price">
+                        ${price}
+                    </div>
+                }
             </div>
             { rulingsArray.length > 0 ? (
                 <div className="ruling-container">
