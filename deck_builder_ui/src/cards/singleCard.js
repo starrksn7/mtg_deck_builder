@@ -6,20 +6,24 @@ import { SearchBar } from "../search/searchBar";
 import { Loader } from "../search/loader";
 
 export function SingleCard() {
-    const scryfallId = useParams();
+    const {scryfallId} = useParams();
     const location = useLocation();
     const [card, setCard] = useState(location.state?.card ?? null);
     const [isLoading, setIsLoading] = useState(!location.state?.card);
     const [error, setError] = useState('');
-    const cardInfo = location.state?.resultsArray[0] ?? [];
     const [rulingsArray, setRulingsArray] = useState([]);
 
     useEffect(() => {
         let cancelled = false;
 
         async function fetchCard() {
-            if (location.state?.card?.scryfall_id === scryfallId) {
-                setCard(location.state.card);
+            const stateCard =
+                location.state?.card ??
+                location.state?.resultsArray?.[0] ??
+                null;
+
+            if (stateCard?.scryfall_id === scryfallId) {
+                setCard(stateCard);
                 setIsLoading(false);
                 setError('');
                 return;
@@ -29,41 +33,63 @@ export function SingleCard() {
             setError('');
 
             try {
-                //need to verify backend for this
                 const response = await api.get(
-                    `/getCardbyId?scryfallId=${scryfallId}`
+                    `/card/getCardById?scryfallId=${scryfallId}`
                 );
 
-                if (response) setCard(response.data);
+                if (cancelled) return;
 
+                const data = response.data;
+
+                const fetchedCard = Array.isArray(data)
+                    ? JSON.parse(data[0])
+                    : typeof data === 'string'
+                        ? JSON.parse(data)
+                        : data;
+
+                setCard(fetchedCard);
+
+                setCard(fetchedCard);
             } catch (err) {
-                setError('Unable to load this card.');
+                if (!cancelled) {
+                    setError('Unable to load this card.');
+                }
             } finally {
-                setIsLoading(false);
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
             }
         }
 
         fetchCard();
 
-    }, [scryfallId, location.state?.card])
-    
-    let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
-        name, oracle_text, price, scryfall_id, type_line, prices
-    } = cardInfo;
+        return () => {
+            cancelled = true;
+        };
+    }, [scryfallId, location.state]);
 
     useEffect(() => {
         const getRulings = async () => {
-            const response = await api.get(`/card/rulings?scryfallId=${scryfall_id}`);
+            const response = await api.get(`/card/rulings?scryfallId=${scryfallId}`);
             const rulings = response.data.map(entry => JSON.parse(entry));
             setRulingsArray(rulings[0]?.data);
         }
 
         getRulings();
-    }, [scryfall_id])
+    }, [scryfallId])
     console.log("xxxxxxxxxx")
     console.log(rulingsArray)
-    console.log(cardInfo)
+    console.log(card)
 
+    let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
+        name, oracle_text, price, scryfall_id, type_line, prices
+    } = card ?? {};
+
+    let usd = price ?? prices?.usd;
+    let image = typeof image_uris === 'string'
+        ? image_uris
+        : image_uris?.large;
+    
     if (isLoading) return <Loader />;
     if (error) return <p>{error}</p>;
     if (!card) return (
@@ -83,7 +109,7 @@ export function SingleCard() {
             </div>
             <div className="signel-card-grid">
                 <div className="single-card-image">
-                    <img src={image_uris} alt={name} />
+                    <img src={image} alt={name} />
                 </div>
                 <div className="single-card-name">
                     {name}
@@ -97,9 +123,9 @@ export function SingleCard() {
                 <div className="single-card-oracle">
                     <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(oracle_text) }} />
                 </div>
-                {price !== 0.00 && 
+                {usd && 
                     <div className="single-card-price">
-                        ${price}
+                        ${usd}
                     </div>
                 }
             </div>

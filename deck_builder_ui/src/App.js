@@ -27,7 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="decks/:deckId/:keyword" element={<PartnerSelect />} />
           <Route path="cards/search" element={<GeneralSearchResults />} />
-          <Route path="cards/:id" element={<SingleCard />} />
+          <Route path="cards/:scryfallId" element={<SingleCard />} />
         </Routes>
       </div>
     </AuthProvider>

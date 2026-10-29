@@ -80,6 +80,9 @@ public class CardService {
                 dataSets.add(String.valueOf(body));
                 JsonObject jsonObject = new JsonParser().parse(String.valueOf(body)).getAsJsonObject();
 
+                if(jsonObject.get("has_more") == null){
+                    return dataSets;
+                }
                 if(!jsonObject.get("has_more").getAsBoolean()){
                     break;
                 }
@@ -313,8 +316,7 @@ public class CardService {
     public List<String> getRulings(String scryfallId){
         String searchUri = scryfallUrl +"/cards/" + scryfallId + "/rulings";
         try {
-            List<String> results = getCardsFromUri(searchUri);
-            return results;
+            return getCardsFromUri(searchUri);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -322,8 +324,7 @@ public class CardService {
     public List<String> getCardById(String scryfallId){
         String searchUri = scryfallUrl +"/cards/" + scryfallId;
         try {
-            List<String> results = getCardsFromUri(searchUri);
-            return results;
+            return getCardsFromUri(searchUri);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
