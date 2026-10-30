@@ -218,6 +218,10 @@ public class CardService {
         ArrayList<String> result = new ArrayList<>();
         for(String dataSet : searchResults){
             JsonObject jsonObject = new JsonParser().parse(dataSet).getAsJsonObject();
+            if (jsonObject.get("data") == null || jsonObject.get("data").isJsonNull()){
+                result.add("No results found");
+                return result;
+            }
             JsonArray jsonCards = (JsonArray) jsonObject.get("data");
 
             for(int i = 0; i < jsonCards.size(); i+=1){

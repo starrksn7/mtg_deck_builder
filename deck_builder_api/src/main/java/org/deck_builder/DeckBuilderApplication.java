@@ -21,12 +21,9 @@ public class DeckBuilderApplication {
  *       2. if there's more than one result, and no exact match, route to the results page. Clicking on any
  *          of these should route the user to a single deck page for those results.
  *          a. need to handle errors when there are no matching results.
- *          b. need to fix how the general search page does not push to a new page correctly
  *       3. single page contents
- *          a. search on the single card page doesn't redirect to the search results correctly.
- *          b. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
+ *          a. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
- *          c. need to fix the redirect from the general search results to the single page
- *          d. add a game changeer label
+ *          b. add a game changeer label
  *          
  */
