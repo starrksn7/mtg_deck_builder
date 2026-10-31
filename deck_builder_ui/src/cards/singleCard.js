@@ -85,7 +85,7 @@ export function SingleCard() {
         name, oracle_text, price, scryfall_id, type_line, prices
     } = card ?? {};
 
-    let usd = price ?? prices?.usd;
+    let usd = price.toFixed(2) ?? prices?.usd.toFixed(2);
     let image = typeof image_uris === 'string'
         ? image_uris
         : image_uris?.large;
@@ -113,6 +113,11 @@ export function SingleCard() {
                 </div>
                 <div className="single-card-name">
                     {name}
+                    {gameChanger && (
+                        <div className="single-card-gc">
+                            Game Changer
+                        </div>
+                    )}
                 </div>
                 <div className="single-card-cost">
                     <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(mana_cost) }} />

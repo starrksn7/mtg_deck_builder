@@ -24,6 +24,5 @@ public class DeckBuilderApplication {
  *       3. single page contents
  *          a. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
- *          b. add a game changeer label
- *          
+ *
  */

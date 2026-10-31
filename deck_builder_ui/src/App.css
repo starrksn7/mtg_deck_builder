@@ -1734,11 +1734,28 @@ h2 {
 
     color: #f8e7bd;
     font-size: clamp(1.7rem, 3vw, 2.6rem);
-    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: bold;
     line-height: 1.15;
     letter-spacing: -0.045em;
 
     overflow-wrap: anywhere;
+}
+
+.single-card-gc {
+    display: inline-block;
+    background: #c62828;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-top: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .single-card-cost {
