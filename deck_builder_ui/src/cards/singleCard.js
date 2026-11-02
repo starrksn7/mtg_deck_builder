@@ -12,6 +12,8 @@ export function SingleCard() {
     const [isLoading, setIsLoading] = useState(!location.state?.card);
     const [error, setError] = useState('');
     const [rulingsArray, setRulingsArray] = useState([]);
+    const [showBackSide, setShowBackSide] = useState(false);
+    const [previewCardId, setPreviewCardId] = useState(null);
 
     useEffect(() => {
         let cancelled = false;
@@ -81,14 +83,24 @@ export function SingleCard() {
     console.log(rulingsArray)
     console.log(card)
 
+    //need to adjust this for cards that have two faces, most of this info will be duplicated
+    //and contained in two separate entries in an array, card_faces
     let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
-        name, oracle_text, price, scryfall_id, type_line, prices
+        name, oracle_text, price, scryfall_id, type_line, prices, backSideImage
     } = card ?? {};
 
     let usd = price.toFixed(2) ?? prices?.usd.toFixed(2);
     let image = typeof image_uris === 'string'
         ? image_uris
         : image_uris?.large;
+        
+    const previewImage = showBackSide && backSideImage
+        ? backSideImage
+        : image;
+    
+    useEffect(() => {
+        setShowBackSide(false);
+    }, [previewCardId]);
     
     if (isLoading) return <Loader />;
     if (error) return <p>{error}</p>;
