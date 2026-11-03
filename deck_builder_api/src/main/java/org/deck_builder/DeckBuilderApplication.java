@@ -24,5 +24,8 @@ public class DeckBuilderApplication {
  *       3. single page contents
  *          a. it would be cool to be able to flip the card image. Either way, both sides of the card's text should
  *             be displayed
- *
+ *             i. this is working in some circumstances but not others.
+ *                A. redirecting to the single card page from the general search results sent the right info
+ *                B. Single result searches don't seem to be working correctly. They're not displaing both sides info
+ *                   and the image flipping option isn't present.
  */

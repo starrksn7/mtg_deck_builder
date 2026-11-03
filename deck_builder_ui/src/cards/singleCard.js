@@ -4,6 +4,7 @@ import { replaceTextWithManaSymbols, lostImage } from "../helperFunctions";
 import api from '../api/axios'
 import { SearchBar } from "../search/searchBar";
 import { Loader } from "../search/loader";
+import { FiRefreshCw } from "react-icons/fi";
 
 export function SingleCard() {
     const {scryfallId} = useParams();
@@ -48,8 +49,6 @@ export function SingleCard() {
                     : typeof data === 'string'
                         ? JSON.parse(data)
                         : data;
-
-                setCard(fetchedCard);
 
                 setCard(fetchedCard);
             } catch (err) {
@@ -102,13 +101,17 @@ export function SingleCard() {
         : prices?.usd
             ? Number(prices.usd).toFixed(2)
             : null;
-    let image = typeof image_uris === 'string'
+    const frontImage = typeof image_uris === 'string'
         ? image_uris
-        : image_uris?.large;
-        
-    // const previewImage = showBackSide && backSideImage
-    //     ? backSideImage
-    //     : image;
+        : frontFace?.image_uris?.large;
+
+    const backImage = typeof image_uris === 'string'
+        ? card.backSideImage
+        : backFace?.image_uris?.large;
+
+    const previewImage = showBackSide && backImage
+        ? backImage
+        : frontImage;
     
     useEffect(() => {
         setShowBackSide(false);
@@ -133,7 +136,15 @@ export function SingleCard() {
             </div>
             <div className="signel-card-grid">
                 <div className="single-card-image">
-                    <img src={image} alt={id} />
+                    <img src={previewImage} alt={id} />
+                    {isDoubleFaced && (
+                    <button
+                        className="flip-card-button"
+                        onClick={() => setShowBackSide(prev => !prev)}
+                    >
+                        <FiRefreshCw size={20} />
+                    </button>
+                )}
                 </div>
                 <div className="single-card-name">
                     {isDoubleFaced ? `${frontFace.name} // ${backFace.name}`: frontFace.name}
