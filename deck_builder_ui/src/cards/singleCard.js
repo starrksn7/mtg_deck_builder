@@ -83,20 +83,32 @@ export function SingleCard() {
     console.log(rulingsArray)
     console.log(card)
 
+    const isDoubleFaced = Boolean(card?.card_faces?.length);
+
+    const frontFace = isDoubleFaced
+        ? card.card_faces[0]
+        : card;
+
+    const backFace = isDoubleFaced
+        ? card.card_faces[1]
+        : null;
+
     //need to adjust this for cards that have two faces, most of this info will be duplicated
     //and contained in two separate entries in an array, card_faces
-    let { color_identity, colors, fullArtLink, gameChanger, image_uris, mana_cost,
-        name, oracle_text, price, scryfall_id, type_line, prices, backSideImage
-    } = card ?? {};
+    let { game_changer, image_uris, price, id, type_line, prices } = card ?? {};
 
-    let usd = price.toFixed(2) ?? prices?.usd.toFixed(2);
+    const usd = price
+        ? price.toFixed(2)
+        : prices?.usd
+            ? Number(prices.usd).toFixed(2)
+            : null;
     let image = typeof image_uris === 'string'
         ? image_uris
         : image_uris?.large;
         
-    const previewImage = showBackSide && backSideImage
-        ? backSideImage
-        : image;
+    // const previewImage = showBackSide && backSideImage
+    //     ? backSideImage
+    //     : image;
     
     useEffect(() => {
         setShowBackSide(false);
@@ -121,24 +133,28 @@ export function SingleCard() {
             </div>
             <div className="signel-card-grid">
                 <div className="single-card-image">
-                    <img src={image} alt={name} />
+                    <img src={image} alt={id} />
                 </div>
                 <div className="single-card-name">
-                    {name}
-                    {gameChanger && (
+                    {isDoubleFaced ? `${frontFace.name} // ${backFace.name}`: frontFace.name}
+                    {game_changer && (
                         <div className="single-card-gc">
                             Game Changer
                         </div>
                     )}
                 </div>
                 <div className="single-card-cost">
-                    <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(mana_cost) }} />
+                    <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(
+                        backFace?.mana_cost ? `${frontFace.mana_cost} // ${backFace.mana_cost}` : frontFace.mana_cost
+                    ) }} />
                 </div>
                 <div className="single-card-type">
                     {type_line}
                 </div>
                 <div className="single-card-oracle">
-                    <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(oracle_text) }} />
+                    <span dangerouslySetInnerHTML={{ __html: replaceTextWithManaSymbols(
+                        isDoubleFaced ? `${frontFace.oracle_text} // ${backFace.oracle_text}` : frontFace.oracle_text
+                    ) }} />
                 </div>
                 {usd && 
                     <div className="single-card-price">
