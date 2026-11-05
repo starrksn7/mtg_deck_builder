@@ -78,22 +78,27 @@ export function SingleCard() {
 
         getRulings();
     }, [scryfallId])
-    console.log("xxxxxxxxxx")
-    console.log(rulingsArray)
-    console.log(card)
 
-    const isDoubleFaced = Boolean(card?.card_faces?.length);
+    const frontFace = card?.card_faces?.[0] ?? {
+        name: card?.name,
+        oracle_text: card?.oracle_text,
+        mana_cost: card?.mana_cost,
+        image_uris: card?.image_uris
+    };
 
-    const frontFace = isDoubleFaced
-        ? card.card_faces[0]
-        : card;
+    const backFace = card?.card_faces?.[1] ?? (
+        card?.twoCardFaces
+            ? {
+                name: card?.backSideCardName,
+                oracle_text: card?.backSideOracleText,
+                mana_cost: card?.backSideManaCost,
+                image_uris: card?.backSideImage
+            }
+            : null
+    );
 
-    const backFace = isDoubleFaced
-        ? card.card_faces[1]
-        : null;
+    const isDoubleFaced = Boolean(backFace);
 
-    //need to adjust this for cards that have two faces, most of this info will be duplicated
-    //and contained in two separate entries in an array, card_faces
     let { game_changer, image_uris, price, id, type_line, prices } = card ?? {};
 
     const usd = price
@@ -101,13 +106,14 @@ export function SingleCard() {
         : prices?.usd
             ? Number(prices.usd).toFixed(2)
             : null;
-    const frontImage = typeof image_uris === 'string'
-        ? image_uris
-        : frontFace?.image_uris?.large;
 
-    const backImage = typeof image_uris === 'string'
-        ? card.backSideImage
-        : backFace?.image_uris?.large;
+    const frontImage = frontFace?.image_uris?.large
+        ?? frontFace?.image_uris
+        ?? card?.image_uris;
+
+    const backImage = backFace?.image_uris?.large
+        ?? backFace?.image_uris
+        ?? card?.backSideImage;
 
     const previewImage = showBackSide && backImage
         ? backImage
