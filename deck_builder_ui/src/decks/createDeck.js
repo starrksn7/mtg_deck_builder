@@ -6,6 +6,7 @@ import { DisplayResults } from "../search/displayResults"
 import { Pagination } from "../search/pagination"
 import { Loader } from "../search/loader"
 import '../App.css';
+import { ErrorComponent } from "../error/errorComponent"
 
 
 export function CreateDeck(){
@@ -109,13 +110,7 @@ export function CreateDeck(){
             )}
 
             {noResults && (
-                <div>
-                    <p>We can't seem to find what you're looking for. Please search again</p>
-                    <img 
-                        src={lostImage}
-                        alt="fblthp the lost" 
-                    />
-                </div>
+                <ErrorComponent />
             )}
 
         </div>

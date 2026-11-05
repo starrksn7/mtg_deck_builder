@@ -12,6 +12,7 @@ import { PartnerSelect } from './decks/partnerSelect';
 import { Home } from './home/home';
 import { SingleCard } from './cards/singleCard';
 import { GeneralSearchResults } from './cards/generalSearchResults';
+import { ErrorComponent } from './error/errorComponent';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="decks/:deckId/:keyword" element={<PartnerSelect />} />
           <Route path="cards/search" element={<GeneralSearchResults />} />
           <Route path="cards/:scryfallId" element={<SingleCard />} />
+          <Route path="error" element={<ErrorComponent />} />
         </Routes>
       </div>
     </AuthProvider>

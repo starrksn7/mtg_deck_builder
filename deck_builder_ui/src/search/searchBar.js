@@ -35,6 +35,7 @@ export function SearchBar(){
 
         } catch (error){
             console.log("Error fetching data: ", error)
+            navigate("/error")
         }
 
         setIsLoading(false);
