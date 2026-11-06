@@ -1,4 +1,4 @@
-import { lostImage } from "../helperFunctions"
+import { getLostImage } from "../helperFunctions"
 import { SearchBar } from "../search/searchBar"
 
 export function ErrorComponent() {
@@ -10,7 +10,7 @@ export function ErrorComponent() {
             <div>
                 <p>We can't seem to find what you're looking for. Please search again</p>
                 <img 
-                    src={lostImage}
+                    src={getLostImage}
                     alt="fblthp the lost" 
                 />
             </div>

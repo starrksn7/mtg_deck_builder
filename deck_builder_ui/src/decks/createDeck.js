@@ -1,6 +1,6 @@
 import { useState } from "react"
 import api from "../api/axios"
-import { getBaseColors, lostImage } from "../helperFunctions"
+import { getBaseColors } from "../helperFunctions"
 import { CascadingDropdown } from "../search/cascadingDropdown"
 import { DisplayResults } from "../search/displayResults"
 import { Pagination } from "../search/pagination"

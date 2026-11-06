@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { replaceTextWithManaSymbols, lostImage } from "../helperFunctions";
+import { replaceTextWithManaSymbols, getLostImage } from "../helperFunctions";
 import api from '../api/axios'
 import { SearchBar } from "../search/searchBar";
 import { Loader } from "../search/loader";
@@ -129,7 +129,7 @@ export function SingleCard() {
         <div>
             <p>We can't seem to find what you're looking for. Please search again</p>
             <img 
-                src={lostImage}
+                src={getLostImage()}
                 alt="fblthp the lost" 
             />
         </div>
