@@ -411,8 +411,8 @@ export const buildCardMap = (cards) => {
 
 export const getLostImage = () => {
     const images = ["https://cards.scryfall.io/art_crop/front/7/9/79b2c547-0d9e-4fd7-a399-347ad908c70b.jpg?1783913337", 
-        "https://cards.scryfall.io/large/front/a/3/a3a2edbb-d144-4670-acad-17316cea98d2.jpg?1789127697",
-        "https://cards.scryfall.io/large/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846"
+        "https://cards.scryfall.io/art_crop/front/a/3/a3a2edbb-d144-4670-acad-17316cea98d2.jpg?1789127697",
+        "https://cards.scryfall.io/art_crop/front/0/1/01d3e6ea-4791-4948-af22-c1bd04c34c1e.jpg?1783911846"
     ];
 
     const index = Math.floor(Math.random() * 3);

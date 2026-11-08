@@ -122,7 +122,7 @@ export function SingleCard() {
     useEffect(() => {
         setShowBackSide(false);
     }, [previewCardId]);
-    
+
     if (isLoading) return <Loader />;
     if (error) return <p>{error}</p>;
     if (!card) return (
