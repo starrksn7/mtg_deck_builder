@@ -18,5 +18,4 @@ public class DeckBuilderApplication {
  * 2. is it possible to add the flip ability for cards in the general search results?
  * 3. can i change this so that it allows users to search and do some things like that without
  *    being logged in. Creating and viewing decks should require login
- * 4. should I change the backgrounds to all match with a darker color?
  */
