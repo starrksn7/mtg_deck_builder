@@ -3,6 +3,7 @@ import { Pagination } from "../search/pagination";
 import { useState } from "react";
 import { SearchBar } from "../search/searchBar";
 import { useEffect } from "react";
+import { FlipCard } from "./flipCard";
 
 export function GeneralSearchResults() {
     const location = useLocation();
@@ -30,12 +31,7 @@ export function GeneralSearchResults() {
                             className="general-search"
                             key={result.id ?? index}
                         >
-                            <Link to={`/cards/${result.scryfall_id}`}>
-                                <img
-                                    src={result.image_uris}
-                                    alt={result.name}
-                                />
-                            </Link>
+                            <FlipCard card={result}/>
                         </div>
                     ))}
                 </div>
