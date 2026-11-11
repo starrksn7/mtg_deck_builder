@@ -17,7 +17,7 @@ export function GeneralSearchResults() {
     useEffect(() => {
         setCurrentPage(1);
     }, [location.key]);
-    
+
     return (
         <div className="general-search-container">
             <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 16px 24px' }}> 
