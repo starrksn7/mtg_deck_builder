@@ -16,7 +16,11 @@ export function SearchBar(){
         setIsLoading(true);
         let resultsArray = [];
         try{
-            const res = await api.get(`/card/search?searchTerm=${searchInput}`);
+            const res = await api.get(`/card/search`, {
+                params: {
+                    searchTerm: searchInput
+                }
+            });
  
             const data = res.data;
             data.forEach(entry => {

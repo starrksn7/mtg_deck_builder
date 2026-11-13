@@ -101,7 +101,11 @@ export function SingleDeck() {
             try {
                 setLoading(true);
 
-                const res = await api.get(`/decks?deckId=${deckId}`);
+                const res = await api.get(`/decks`, {
+                    params: {
+                        deckId
+                    }
+                });
                 
                 const deckData = res.data.deckData
                 const metadata = res.data.metadata;
@@ -209,7 +213,11 @@ export function SingleDeck() {
 
         if (response.status === 200) {
             setCardsNotFound(response.data);
-            const res = await api.get(`/decks?deckId=${deckId}`);
+            const res = await api.get(`/decks`, {
+                params: {
+                    deckId
+                }
+            });
             setCardList(res.data.deckData);
         }
 

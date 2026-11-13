@@ -28,11 +28,21 @@ export const PartnerSelect = () => {
         const getPartnerOptions = async () => {
             try {
                 setIsLoading(true);
-                const keywordRes = await api.get(`/card?keyword=${keyword}`)
+                const keywordRes = await api.get(`/card`, {
+                    params: {
+                        keyword
+                    }
+                })
 
                 const resultsArray = keywordRes.data.map(entry => JSON.parse(entry));
                         
-                const deckRes = await api.get(`/decks?deckId=${deckId}`)
+                const deckRes = await api.get(`/decks`,
+                    {
+                        params: {
+                            deckId
+                        }
+                    }
+                )
                 setDeckMetaData(deckRes.data.metadata);
 
                 const filteredArray = resultsArray.filter((card) => card.name !== deckMetaData.commander);

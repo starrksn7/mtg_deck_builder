@@ -17,7 +17,6 @@ public class DeckBuilderApplication {
  * 1. maybe add some kind of message if a user tries to add a banned card to a deck?
  * 2. can i change this so that it allows users to search and do some things like that without
  *    being logged in. Creating and viewing decks should require login
- * 3. fix my params in get requests in the ui
- * 4. Why are some of the images broken in the general search? It doesn't alwasy happen, but these link to
+ * 3. Why are some of the images broken in the general search? It doesn't alwasy happen, but these link to
  *    scryfall, so this should be working
  */

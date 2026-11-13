@@ -17,7 +17,11 @@ export function AllDecks() {
 
     useEffect(() => {
         const fetchDecks = async () => {
-            api.get(`/user?userId=${userId}`)
+            api.get(`/user`, {
+                params: {
+                    userId
+                }
+            })
                 .then((res) => {
                     setDeckList(res.data);
                 }

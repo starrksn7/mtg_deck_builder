@@ -37,7 +37,11 @@ export function SingleCard() {
 
             try {
                 const response = await api.get(
-                    `/card/getCardById?scryfallId=${scryfallId}`
+                    `/card/getCardById`, {
+                        params: {
+                            scryfallId
+                        }
+                    }
                 );
 
                 if (cancelled) return;
@@ -71,7 +75,11 @@ export function SingleCard() {
 
     useEffect(() => {
         const getRulings = async () => {
-            const response = await api.get(`/card/rulings?scryfallId=${scryfallId}`);
+            const response = await api.get(`/card/rulings`, {
+                params: {
+                    scryfallId
+                }
+            });
             const rulings = response.data.map(entry => JSON.parse(entry));
             setRulingsArray(rulings[0]?.data);
         }
