@@ -1,14 +1,10 @@
 import { useState } from "react";
+import { FiRefreshCw } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export function FlipCard({card}) {
     const [isFlipped, setIsFlipped] = useState(false);
 
-    <Link to={`/cards/${result.scryfall_id}`}>
-        <img
-            src={result.image_uris}
-            alt={result.name}
-        />
-    </Link>
     return (
         <div className="card">
             {isFlipped ? (
@@ -26,10 +22,11 @@ export function FlipCard({card}) {
                     />
                 </Link>
             )}
-
-            <button onClick={() => setIsFlipped(!isFlipped)}>
-                <FiRefreshCw size={20} />
-            </button>
+            {card. backSideImage &&  (
+                <button onClick={() => setIsFlipped(!isFlipped)}>
+                    <FiRefreshCw size={20} />
+                </button>
+            )}
         </div>
     );
 }
