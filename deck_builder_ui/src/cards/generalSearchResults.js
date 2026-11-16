@@ -14,7 +14,9 @@ export function GeneralSearchResults() {
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const cardsDisplayed = resultsArray.slice(indexOfFirstCard, indexOfLastCard);
     const [isError, setIsError] = useState(false);
-
+console.log("xxxxxxxxxxx")
+console.log(cardsDisplayed)
+console.log("xxxxxxxxxxx")
     useEffect(() => {
         setCurrentPage(1);
     }, [location.key]);

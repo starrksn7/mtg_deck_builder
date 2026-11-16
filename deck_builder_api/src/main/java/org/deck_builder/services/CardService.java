@@ -391,6 +391,11 @@ public class CardService {
             JsonObject uris = (JsonObject) front.get("image_uris") != null ? front.get("image_uris").getAsJsonObject() : null;
             String imageLink = uris != null ? uris.get("normal").getAsString() : "";
             String fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
+            if(uris == null){
+                uris = (JsonObject) result.get("image_uris") != null ? result.get("image_uris").getAsJsonObject() : null;
+                imageLink = uris != null ? uris.get("normal").getAsString() : "";
+                fullArtLink = uris != null ? uris.get("art_crop").getAsString() : "";
+            }
 
             //Get the info for the back side of the card
             boolean twoFaces = true;
