@@ -1,5 +1,6 @@
 package org.deck_builder.model;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -54,6 +55,7 @@ public class Card {
     private String backSideOracleText;
     private String backSideColors;
     private boolean twoCardFaces;
+    private JsonObject legalities;
 
     public Card (String scryfallId, String name, String scryfallURL, String imageLink, String manaCost, String type,
                  String oracleText, String colors, String[] colorIdentity, String[] keywords, BigDecimal cmc,
@@ -275,6 +277,10 @@ public class Card {
     public boolean getTwoCardFaces(){ return twoCardFaces; }
 
     public void setTwoCardFaces(boolean twoCardFaces){ this.twoCardFaces = twoCardFaces; }
+
+    public void setLegalities(JsonObject legalities){ this.legalities = legalities; }
+
+    public JsonObject getLegalities(){ return legalities; }
 
     public String toJsonString(){
         return String.format("{\"scryfallId\" : \"%s\", \"name\" : \"%s\", \"scryfall_url\" : \"%s\", \"image_link\" : \"%s\", \"mana_cost\" : \"%s\", \"type\" : \"%s\", \"oracle_text\" : \"%s\", \"colors\" : \"%s\", \"color_identity\" : \"%s\", \"keywords\" : \"%s\", \"cmc\" : \"%s\", \"gameChanger\": \"%s\", \"rarity\": \"%s\", \"fullArtLink\": \"%s\", " +
