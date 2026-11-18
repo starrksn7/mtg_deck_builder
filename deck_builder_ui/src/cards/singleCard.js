@@ -107,7 +107,7 @@ export function SingleCard() {
 
     const isDoubleFaced = Boolean(backFace);
 
-    let { game_changer, image_uris, price, id, type_line, prices } = card ?? {};
+    let { game_changer, image_uris, price, id, type_line, prices, legalities } = card ?? {};
 
     const usd = price
         ? price.toFixed(2)

@@ -431,6 +431,7 @@ public class CardService {
                     keywordsArray, cmc, gameChanger, rarity, fullArtLink, backSideCardName, backSideCardType, backSideImage,
                     backSideManaCost, backSideOracleText, backSideColors, twoFaces);
             newCard.setPrice(price);
+            newCard.setLegalities(result.get("legalities").getAsJsonObject());
             return newCard;
 
         } else {
@@ -461,6 +462,7 @@ public class CardService {
 
             Card newCard = new Card(scryfallId, name, scryfallUri, imageLink, manaCost, type, oracleText, colors, identityArray, keywordsArray, cmc, gameChanger, rarity, fullArtLink);
             newCard.setPrice(price);
+            newCard.setLegalities(result.get("legalities").getAsJsonObject());
             return newCard;
         }
     }
