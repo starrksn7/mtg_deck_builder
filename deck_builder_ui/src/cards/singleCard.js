@@ -126,6 +126,8 @@ export function SingleCard() {
     const previewImage = showBackSide && backImage
         ? backImage
         : frontImage;
+
+    const banned = legalities?.commander === 'banned';
     
     useEffect(() => {
         setShowBackSide(false);
@@ -148,8 +150,13 @@ export function SingleCard() {
             <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 16px 24px' }}> 
                 <SearchBar />
             </div>
-            <div className="signel-card-grid">
+            <div className="single-card-grid">
                 <div className="single-card-image">
+                    {banned && (
+                        <div className="banned-label">
+                            BANNED
+                        </div>
+                    )}
                     <img src={previewImage} alt={id} />
                     {isDoubleFaced && (
                     <button

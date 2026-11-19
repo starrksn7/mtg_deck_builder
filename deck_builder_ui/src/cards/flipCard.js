@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 
 export function FlipCard({card}) {
     const [isFlipped, setIsFlipped] = useState(false);
+    const banned = card.legalities?.commander === 'banned'
 
     return (
         <div className="card">
+            {banned && (
+                <div className="banned-flip-label">
+                    BANNED
+                </div>
+            )}
             {isFlipped ? (
                 <Link to={`/cards/${card.scryfall_id}`}>
                     <img

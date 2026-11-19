@@ -15,5 +15,4 @@ public class DeckBuilderApplication {
 
 /** Tasks to complete
  * 1. maybe add some kind of message if a user tries to add a banned card to a deck?
- * 2. how about a banned label on cards that are illegal
  */
