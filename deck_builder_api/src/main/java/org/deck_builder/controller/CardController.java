@@ -29,21 +29,6 @@ public class CardController {
         return cardService.searchForCardByName(jsonBody);
     }
 
-    @PostMapping(path="/searchByIdentityAndType")
-    public List<String> findCardByType(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardService.findCardByIdentityAndType(jsonBody.getColorIdentity(), jsonBody.getType());
-    }
-
-    @PostMapping(path="/searchByColorAndCost")
-    public List<String> getCardByColorAndCost(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardService.getCardByColorAndCost(jsonBody.getColors(), jsonBody.getManaCost());
-    }
-
-    @PostMapping(path="/searchByKeywordAndColors")
-    public List<String> getCardByKeyword(@RequestBody CardSearchDTO jsonBody) throws UnsupportedEncodingException{
-        return cardService.getCardByKeywordAndColors(jsonBody.getKeyword(), jsonBody.getColors());
-    }
-
     @PostMapping(path="/addToDb")
     public boolean addCardToDb(Card card){
         return cardService.addCardToDb(card);

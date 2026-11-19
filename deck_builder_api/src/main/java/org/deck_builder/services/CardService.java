@@ -170,50 +170,6 @@ public class CardService {
         }
     }
 
-    public List<String> getCardByKeywordAndColors(String[] keyword, String colors) throws UnsupportedEncodingException {
-        String uri= scryfallUrl + "/cards/search?q=kw%3A" + Arrays.toString(keyword) + "+c%3A" + colors + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> getCardByColorAndCost(String colors, String manaCost) throws UnsupportedEncodingException{
-        String uri = scryfallUrl + "/cards/search?q=c%3A" + colors + "+mv%3D" + manaCost + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<String> findCardByIdentityAndType(String[] colorIdentity, String type) throws UnsupportedEncodingException{
-        String encodedIdentity = "id%3A" + Arrays.toString(colorIdentity);
-        String encodedType = "t%3A" + type;
-        String uri = scryfallUrl + "/cards/search?q=" + encodedIdentity + "+" + encodedType + commanderLegal + uniqueOnly;
-        System.out.println(uri);
-        try {
-            List<String> searchResults = getCardsFromUri(uri);
-            if(searchResults.get(0).equals("No cards found")){
-                return failedSearch();
-            }
-            return parseSearchResults(searchResults);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public List<String> parseSearchResults(List<String> searchResults) throws MalformedJsonException {
         ArrayList<String> result = new ArrayList<>();
         for(String dataSet : searchResults){
