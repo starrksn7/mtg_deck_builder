@@ -290,6 +290,15 @@ public class CardService {
         }
     }
 
+    public List<String> getBannedList(){
+        String searchUri = scryfallUrl + "/cards/search?q=banned:commander";
+        try {
+            return getCardsFromUri(searchUri);
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     public Card mapResultToCard(JsonObject result){
         String scryfallId = result.get("id") != null ? result.get("id").getAsString() : null;
         String scryfallUri = result.get("scryfall_uri") != null ? result.get("scryfall_uri").getAsString() : null;

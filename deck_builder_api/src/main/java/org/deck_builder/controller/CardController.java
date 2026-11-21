@@ -57,9 +57,14 @@ public class CardController {
     public List<String> getRulings(@RequestParam String scryfallId){
         return cardService.getRulings(scryfallId);
     }
+
     @GetMapping(path="/getCardById")
     public List<String> getCardById(@RequestParam String scryfallId){
         return cardService.getCardById(scryfallId);
+    }
+    @GetMapping(path="/getBannedList")
+    public List<String> getBannedList(){
+        return cardService.getBannedList();
     }
 
 }
