@@ -38,6 +38,10 @@ export function SingleDeck() {
     const [hasRulebreaker, setHasRulebreaker] = useState(false);
     const [sampleHand, setSampleHand] = useState([]);
     const [colorIdentity, setColorIdentity] = useState('');
+    const [bannedCardNames, setBannedCardNames] = useState([]);
+    console.log("XXXXXXXXXXX")
+    console.log(bannedCardNames)
+    console.log("XXXXXXXXXXX")
 
     const groupedCards = useMemo(() => {
         return groupCardsByType(cardList);
@@ -117,6 +121,11 @@ export function SingleDeck() {
                 setPartnerId(metadata.partnerId);
                 setColorIdentity(metadata.colorIdentity)
                 setDeckNotFound(false);
+
+                const bannedList = await api.get(`/card/getBannedList`);
+                const bannedCards = JSON.parse(bannedList.data);
+                const bannedCardNames = bannedCards.data.map(card => card.name);
+                setBannedCardNames(bannedCardNames);
 
             } catch (e) {
                 console.log("Deck not found", e);
