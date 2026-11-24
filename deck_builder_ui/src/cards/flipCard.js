@@ -7,7 +7,7 @@ export function FlipCard({card}) {
     const banned = card.legalities?.commander === 'banned'
 
     return (
-        <div className="card">
+        <div className="flip-card">
             {banned && (
                 <div className="banned-flip-label">
                     BANNED

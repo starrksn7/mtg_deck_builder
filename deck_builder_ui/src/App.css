@@ -437,8 +437,8 @@
   break-inside: avoid;
   margin-bottom: 6px;
   padding: 4px 8px;
-  position: relative;
-  display: inline-block;
+  /* position: relative;
+  display: inline-block; */
 }
 
 .card-row {
@@ -757,6 +757,14 @@ h2 {
 }
 
 /* card flip css */
+.flip-card {
+  break-inside: avoid;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  position: relative;
+  display: inline-block;
+}
+
 .flip-card-button {
   position: absolute;
   bottom: 10px;
