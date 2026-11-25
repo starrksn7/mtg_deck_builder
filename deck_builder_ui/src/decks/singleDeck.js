@@ -40,7 +40,9 @@ export function SingleDeck() {
     const [colorIdentity, setColorIdentity] = useState('');
     const [bannedCardNames, setBannedCardNames] = useState([]);
     const [bannedList, setBannedList] = useState([]);
+    const foundBannedCards = [];
     console.log("XXXXXXXXXXX")
+    console.log(bannedCardNames)
     console.log(bannedList)
     console.log("XXXXXXXXXXX")
 
@@ -125,7 +127,7 @@ export function SingleDeck() {
 
                 const bannedList = await api.get(`/card/getBannedList`);
                 const bannedCards = JSON.parse(bannedList.data);
-                const bannedCardNames = bannedCards.data.map(card => card.name);
+                const bannedCardNames = bannedCards.data.map(card => card.name.toLowerCase());
                 setBannedCardNames(bannedCardNames);
 
             } catch (e) {
@@ -191,8 +193,7 @@ export function SingleDeck() {
 
             let amount = item.substring(0, item.indexOf(' '));
             let cardName = item.substring(item.indexOf(' ') + 1);
-            const isCardBanned = bannedCardNames.includes(cardName);
-            if (isCardBanned) setBannedList([...bannedList, cardName]);
+
             if (firstSpace === -1){
                 amount = 1;
                 cardName = item;
@@ -209,12 +210,15 @@ export function SingleDeck() {
                     cardName = item.substring(firstSpace + 1).trim();
                 }
             }
+            const isCardBanned = bannedCardNames.includes(cardName.toLowerCase());
+            if (isCardBanned) foundBannedCards.push(cardName);
+            
             for(let i = 1; i <= amount; i++){
                 identifiers.push({name: cardName})
             }
             
         })
-        
+        setBannedList([...new Set(foundBannedCards)]);
         const cardSearchDTO = { 
             deckId,
             identifiers

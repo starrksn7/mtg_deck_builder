@@ -14,5 +14,8 @@ public class DeckBuilderApplication {
 }
 
 /** Tasks to complete
- * 1. maybe add some kind of message if a user tries to add a banned card to a deck?
+ * 1. do more testing to see if anything else needs fixed or changed
+ * 2. create a readme with instructions
+ * 3. would it be worth making this live on aws? Not sure what the cost would be or if there are free options
+ *    for small usage.
  */
