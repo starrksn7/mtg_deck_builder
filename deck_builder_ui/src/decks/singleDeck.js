@@ -39,8 +39,9 @@ export function SingleDeck() {
     const [sampleHand, setSampleHand] = useState([]);
     const [colorIdentity, setColorIdentity] = useState('');
     const [bannedCardNames, setBannedCardNames] = useState([]);
+    const [bannedList, setBannedList] = useState([]);
     console.log("XXXXXXXXXXX")
-    console.log(bannedCardNames)
+    console.log(bannedList)
     console.log("XXXXXXXXXXX")
 
     const groupedCards = useMemo(() => {
@@ -190,7 +191,8 @@ export function SingleDeck() {
 
             let amount = item.substring(0, item.indexOf(' '));
             let cardName = item.substring(item.indexOf(' ') + 1);
-
+            const isCardBanned = bannedCardNames.includes(cardName);
+            if (isCardBanned) setBannedList([...bannedList, cardName]);
             if (firstSpace === -1){
                 amount = 1;
                 cardName = item;
@@ -403,6 +405,14 @@ export function SingleDeck() {
                         <div className="deck-error">
                             <strong>Not all cards in your list could be added to the deck. Cards not added are:</strong>
                             {cardsNotFound.map((item, i) => (
+                            <div key={i}>{item}</div>
+                            ))}
+                        </div>
+                    )}
+                    {bannedList.length >= 1 && (
+                        <div className="deck-error">
+                            <strong>Some of the cards you are attempting to add to your deck are banned in Commander:</strong>
+                            {bannedList.map((item, i) => (
                             <div key={i}>{item}</div>
                             ))}
                         </div>
